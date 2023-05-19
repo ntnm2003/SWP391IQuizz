@@ -1,6 +1,5 @@
 package swp.quizpracticingsystem.model;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,19 +10,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "post_category")
+@Table(name = "usercourse")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostCategory {
+public class Usercourse {
     @Id
-    @Column(name = "post_category_id")
-    private Integer postCategoryId;
+    @Column(name = "idCourse")
+    private Integer idCourse;
 
-    @Column(name = "post_category")
-    private String postCategory;
-
-    @Column(name = "post_category_description")
-    private String postCategoryDescription;
+    @Column(name = "idUser")
+    private Integer idUser;
 }
