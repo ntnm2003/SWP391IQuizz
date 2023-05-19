@@ -9,10 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubjectOverviewDTO {
-    private Integer idOverview;
-    private Integer idSub;
-    private boolean status;
-    private String description;
-    private byte[] image;
+public class UsercourseDTO {
+    private Integer idCourse;
+    private Integer idUser;
 }
