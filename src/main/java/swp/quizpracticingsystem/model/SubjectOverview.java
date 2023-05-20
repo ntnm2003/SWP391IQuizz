@@ -1,7 +1,13 @@
+package swp.quizpracticingsystem.model;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,17 +23,22 @@ import lombok.Setter;
 public class SubjectOverview {
     @Id
     @Column(name = "idOverview")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idOverview;
 
     @Column(name = "idSub")
     private Integer idSub;
 
     @Column(name = "status")
-    private boolean status;
+    private String status;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "image")
-    private byte[] image;
+    private String image;
+    
+    @OneToOne
+    @JoinColumn(name="idSub",referencedColumnName="idSub")
+    private SubjectDetail subjectDetail;
 }

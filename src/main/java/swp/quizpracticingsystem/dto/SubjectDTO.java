@@ -1,7 +1,6 @@
 package swp.quizpracticingsystem.dto;
 
-
-import java.time.LocalDate;
+import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +10,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseDTO {
+public class SubjectDTO {
     private Integer idCourse;
     private Integer idCategory;
     private Integer expertId;
     private String courseName;
-    private LocalDate dateStart;
+    private Date dateStart;
 }

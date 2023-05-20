@@ -12,7 +12,7 @@ import lombok.Setter;
 public class PricePackageDTO {
     private Integer idPrice;
     private Integer idSub;
-    private Integer packageName;
+    private String packageName;
     private Integer duration;
     private Integer price;
     private Integer salePrice;

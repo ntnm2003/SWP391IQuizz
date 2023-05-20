@@ -14,8 +14,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import swp.quizpracticingsystem.dto.CourseDTO;
-import swp.quizpracticingsystem.model.Course;
+import swp.quizpracticingsystem.dto.SubjectDTO;
+import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.repository.ISubjectRepository;
 import swp.quizpracticingsystem.service.ISubjectService;
 
@@ -34,17 +34,17 @@ public class SubjectService implements ISubjectService {
     private ModelMapper modelmapper;
     
     @Override
-    public Page<CourseDTO> findPaginatedAllSubjects(int pageNo, int pageSize) {
+    public Page<SubjectDTO> findPaginatedAllSubjects(int pageNo, int pageSize) {
         Pageable pageable=PageRequest.of(pageNo-1,pageSize);
-        List<CourseDTO> paginatedList=iSubjectRepository.findAll(pageable)
+        List<SubjectDTO> paginatedList=iSubjectRepository.findAll(pageable)
                 .stream()
                 .map(this::convertEntitytoDTO)
                 .collect(Collectors.toList());
         return new PageImpl<>(paginatedList);
     }
     
-    public CourseDTO convertEntitytoDTO(Course entity){
-        return modelmapper.map(entity, CourseDTO.class);
+    public SubjectDTO convertEntitytoDTO(Subject entity){
+        return modelmapper.map(entity, SubjectDTO.class);
     }
     
 }

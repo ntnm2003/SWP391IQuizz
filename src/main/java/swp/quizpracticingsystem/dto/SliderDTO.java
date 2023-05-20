@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,9 +14,8 @@ public class SliderDTO {
     private Integer sliderId;
     private Integer userId;
     private String title;
-    private byte[] image;
+    private String image;
     private String backlink;
     private String status;
-    private boolean visibility;
-    private Integer sliderCategoryId;
+    private Boolean visibility;
 }

@@ -12,4 +12,5 @@ import lombok.Setter;
 public class UsercourseDTO {
     private Integer idCourse;
     private Integer idUser;
+    private String status;
 }

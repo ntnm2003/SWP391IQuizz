@@ -1,7 +1,13 @@
+package swp.quizpracticingsystem.model;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +23,7 @@ import lombok.Setter;
 public class Slider {
     @Id
     @Column(name = "slider_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sliderId;
 
     @Column(name = "user_id")
@@ -26,7 +33,7 @@ public class Slider {
     private String title;
 
     @Column(name = "image")
-    private byte[] image;
+    private String image;
 
     @Column(name = "backlink")
     private String backlink;
@@ -35,8 +42,5 @@ public class Slider {
     private String status;
 
     @Column(name = "visibility")
-    private boolean visibility;
-
-    @Column(name = "slider_category_id")
-    private Integer sliderCategoryId;
+    private Boolean visibility;
 }

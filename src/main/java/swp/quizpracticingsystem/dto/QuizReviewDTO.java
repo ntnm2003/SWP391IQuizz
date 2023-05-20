@@ -14,5 +14,5 @@ public class QuizReviewDTO {
     private String subject;
     private Integer idQuiz;
     private Integer score;
-    private boolean answer;
+    private Boolean answer;
 }

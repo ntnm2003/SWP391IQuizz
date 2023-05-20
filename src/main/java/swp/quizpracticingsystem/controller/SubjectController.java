@@ -4,15 +4,13 @@
  */
 package swp.quizpracticingsystem.controller;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import swp.quizpracticingsystem.dto.CourseDTO;
+import swp.quizpracticingsystem.dto.SubjectDTO;
 import swp.quizpracticingsystem.service.ISubjectService;
 
 /**
@@ -28,7 +26,7 @@ public class SubjectController {
     @GetMapping("/subjects/page/{pageNo}")
     public String getAllSubject(@PathVariable("pageNo") int pageNo,
                                 Model model){
-        Page<CourseDTO> subjects=subjectService
+        Page<SubjectDTO> subjects=subjectService
                 .findPaginatedAllSubjects(1, 1);
         model.addAttribute("subjects", subjects);
         model.addAttribute("pageNo", pageNo);

@@ -12,7 +12,7 @@ import lombok.Setter;
 public class SubjectOverviewDTO {
     private Integer idOverview;
     private Integer idSub;
-    private boolean status;
+    private String status;
     private String description;
-    private byte[] image;
+    private String image;
 }
