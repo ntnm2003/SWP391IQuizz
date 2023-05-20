@@ -172,43 +172,43 @@ CREATE TABLE `Quiz_review` (
 	PRIMARY KEY (`user_id`)
 );
 
-ALTER TABLE `Lesson` ADD CONSTRAINT `Lesson_fk1` FOREIGN KEY (`idCourse`) REFERENCES `subject`(`idCourse`);
+-- ALTER TABLE `Lesson` ADD CONSTRAINT `Lesson_fk1` FOREIGN KEY (`idCourse`) REFERENCES `subject`(`idCourse`);
 
-ALTER TABLE `subject` ADD CONSTRAINT `subject_fk1` FOREIGN KEY (`idCategory`) REFERENCES `Category`(`id`);
+-- ALTER TABLE `subject` ADD CONSTRAINT `subject_fk1` FOREIGN KEY (`idCategory`) REFERENCES `Category`(`id`);
 
-ALTER TABLE `subject` ADD CONSTRAINT `subject_fk2` FOREIGN KEY (`expert_id`) REFERENCES `User`(`user_id`);
+-- ALTER TABLE `subject` ADD CONSTRAINT `subject_fk2` FOREIGN KEY (`expert_id`) REFERENCES `User`(`user_id`);
 
-ALTER TABLE `Subject_detail` ADD CONSTRAINT `Subject_detail_fk0` FOREIGN KEY (`id_course`) REFERENCES `subject`(`idCourse`);
+-- ALTER TABLE `Subject_detail` ADD CONSTRAINT `Subject_detail_fk0` FOREIGN KEY (`id_course`) REFERENCES `subject`(`idCourse`);
 
-ALTER TABLE `Subject_overview` ADD CONSTRAINT `Subject_overview_fk0` FOREIGN KEY (`idSub`) REFERENCES `Subject_detail`(`idSub`);
+-- ALTER TABLE `Subject_overview` ADD CONSTRAINT `Subject_overview_fk0` FOREIGN KEY (`idSub`) REFERENCES `Subject_detail`(`idSub`);
 
-ALTER TABLE `Price_package` ADD CONSTRAINT `Price_package_fk0` FOREIGN KEY (`idSub`) REFERENCES `Subject_detail`(`idSub`);
+-- ALTER TABLE `Price_package` ADD CONSTRAINT `Price_package_fk0` FOREIGN KEY (`idSub`) REFERENCES `Subject_detail`(`idSub`);
 
-ALTER TABLE `dimension` ADD CONSTRAINT `dimension_fk0` FOREIGN KEY (`idSub`) REFERENCES `Subject_detail`(`idSub`);
+-- ALTER TABLE `dimension` ADD CONSTRAINT `dimension_fk0` FOREIGN KEY (`idSub`) REFERENCES `Subject_detail`(`idSub`);
 
-ALTER TABLE `UserCourse` ADD CONSTRAINT `UserCourse_fk0` FOREIGN KEY (`idCourse`) REFERENCES `subject`(`idCourse`);
+-- ALTER TABLE `UserCourse` ADD CONSTRAINT `UserCourse_fk0` FOREIGN KEY (`idCourse`) REFERENCES `subject`(`idCourse`);
 
-ALTER TABLE `UserCourse` ADD CONSTRAINT `UserCourse_fk1` FOREIGN KEY (`idUser`) REFERENCES `User`(`user_id`);
+-- ALTER TABLE `UserCourse` ADD CONSTRAINT `UserCourse_fk1` FOREIGN KEY (`idUser`) REFERENCES `User`(`user_id`);
 
-ALTER TABLE `User` ADD CONSTRAINT `User_fk0` FOREIGN KEY (`role_id`) REFERENCES `Role`(`role_id`);
+-- ALTER TABLE `User` ADD CONSTRAINT `User_fk0` FOREIGN KEY (`role_id`) REFERENCES `Role`(`role_id`);
 
-ALTER TABLE `UserProfile` ADD CONSTRAINT `UserProfile_fk0` FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`);
+-- ALTER TABLE `UserProfile` ADD CONSTRAINT `UserProfile_fk0` FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`);
 
-ALTER TABLE `Posts` ADD CONSTRAINT `Posts_fk0` FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`);
+-- ALTER TABLE `Posts` ADD CONSTRAINT `Posts_fk0` FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`);
 
-ALTER TABLE `Posts` ADD CONSTRAINT `Posts_fk1` FOREIGN KEY (`post_category_id`) REFERENCES `Post_category`(`post_category_id`);
+-- ALTER TABLE `Posts` ADD CONSTRAINT `Posts_fk1` FOREIGN KEY (`post_category_id`) REFERENCES `Post_category`(`post_category_id`);
 
-ALTER TABLE `Slider` ADD CONSTRAINT `Slider_fk0` FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`);
+-- ALTER TABLE `Slider` ADD CONSTRAINT `Slider_fk0` FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`);
 
-ALTER TABLE `Lesson` ADD CONSTRAINT `Lesson_fk0` FOREIGN KEY (`idLesson`) REFERENCES `Lesson_detail`(`id`);
+-- ALTER TABLE `Lesson` ADD CONSTRAINT `Lesson_fk0` FOREIGN KEY (`idLesson`) REFERENCES `Lesson_detail`(`id`);
 
-ALTER TABLE `Quiz_detail` ADD CONSTRAINT `Quiz_detail_fk0` FOREIGN KEY (`id_Lesson`) REFERENCES `Lesson`(`idLesson`);
+-- ALTER TABLE `Quiz_detail` ADD CONSTRAINT `Quiz_detail_fk0` FOREIGN KEY (`id_Lesson`) REFERENCES `Lesson`(`idLesson`);
 
-ALTER TABLE `Quiz_overview` ADD CONSTRAINT `Quiz_overview_fk0` FOREIGN KEY (`idQuiz`) REFERENCES `Quiz_detail`(`idQuiz`);
+-- ALTER TABLE `Quiz_overview` ADD CONSTRAINT `Quiz_overview_fk0` FOREIGN KEY (`idQuiz`) REFERENCES `Quiz_detail`(`idQuiz`);
 
-ALTER TABLE `Setting` ADD CONSTRAINT `Setting_fk0` FOREIGN KEY (`idQuiz`) REFERENCES `Quiz_detail`(`idQuiz`);
+-- ALTER TABLE `Setting` ADD CONSTRAINT `Setting_fk0` FOREIGN KEY (`idQuiz`) REFERENCES `Quiz_detail`(`idQuiz`);
 
-ALTER TABLE `Quiz_review` ADD CONSTRAINT `Quiz_review_fk0` FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`);
+-- ALTER TABLE `Quiz_review` ADD CONSTRAINT `Quiz_review_fk0` FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`);
 
-ALTER TABLE `Quiz_review` ADD CONSTRAINT `Quiz_review_fk1` FOREIGN KEY (`idQuiz`) REFERENCES `Quiz_detail`(`idQuiz`);
+-- ALTER TABLE `Quiz_review` ADD CONSTRAINT `Quiz_review_fk1` FOREIGN KEY (`idQuiz`) REFERENCES `Quiz_detail`(`idQuiz`);
 
