@@ -5,13 +5,13 @@
 package swp.quizpracticingsystem.service;
 
 import org.springframework.data.domain.Page;
-import swp.quizpracticingsystem.dto.CourseDTO;
+import swp.quizpracticingsystem.dto.SubjectDTO;
 
 /**
  *
  * @author Mosena
  */
 public interface ISubjectService {
-    public Page<CourseDTO> findPaginatedAllSubjects(int pageNo, int pageSize);
+    public Page<SubjectDTO> findPaginatedAllSubjects(int pageNo, int pageSize);
     
 }

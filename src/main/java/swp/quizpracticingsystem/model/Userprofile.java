@@ -3,7 +3,10 @@ package swp.quizpracticingsystem.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,14 +22,18 @@ import lombok.Setter;
 public class Userprofile {
     @Id
     @Column(name = "user_profile_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userProfileId;
 
     @Column(name = "user_id")
     private Integer userId;
 
     @Column(name = "avatar")
-    private byte[] avatar;
+    private String avatar;
 
     @Column(name = "Headline")
     private String headline;
+    
+    @OneToOne(mappedBy="user")
+    private User user;
 }

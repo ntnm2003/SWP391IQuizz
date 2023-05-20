@@ -5,17 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
     private Integer userId;
-    private String full;
+    private String fullName;
     private String email;
-    private boolean gender;
-    private Integer mobile;
+    private Boolean gender;
+    private String mobile;
     private String password;
     private Integer roleId;
-    private Integer courseId;
 }

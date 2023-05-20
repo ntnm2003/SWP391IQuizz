@@ -12,6 +12,6 @@ import lombok.Setter;
 public class UserprofileDTO {
     private Integer userProfileId;
     private Integer userId;
-    private byte[] avatar;
+    private String avatar;
     private String headline;
 }
