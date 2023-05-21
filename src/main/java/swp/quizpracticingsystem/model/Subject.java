@@ -25,12 +25,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Subject {
     @Id
-    @Column(name = "idCourse")
+    @Column(name = "idcourse")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCourse;
 
     @ManyToOne
-    @JoinColumn(name="idCategory", referencedColumnName = "id")
+    @JoinColumn(name="idcategory", referencedColumnName = "id")
     private Category category;
 
     @ManyToOne

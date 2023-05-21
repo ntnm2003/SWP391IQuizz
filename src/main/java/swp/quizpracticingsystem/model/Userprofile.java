@@ -33,6 +33,6 @@ public class Userprofile {
     @Column(name = "avatar")
     private String avatar;
 
-    @Column(name = "Headline")
+    @Column(name = "headline")
     private String headline;
 }
