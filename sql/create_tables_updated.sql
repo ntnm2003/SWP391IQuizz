@@ -53,6 +53,7 @@ CREATE TABLE `UserCourse` (
 	`idCourse` INT NOT NULL AUTO_INCREMENT,
 	`idUser` INT NOT NULL,
     `status` varchar(20) NOT NULL,
+	`register_date` date,
     PRIMARY KEY (`idCourse`)
 );
 
