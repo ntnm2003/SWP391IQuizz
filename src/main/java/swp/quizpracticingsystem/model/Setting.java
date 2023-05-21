@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Setting {
     @Id
-    @Column(name = "idQuiz")
+    @Column(name = "idquiz")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idQuiz;
 

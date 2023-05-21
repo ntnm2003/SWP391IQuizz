@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class QuizOverview {
     @Id
-    @Column(name = "idQuiz")
+    @Column(name = "idquiz")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idQuiz;
 

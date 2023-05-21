@@ -1,13 +1,10 @@
 package swp.quizpracticingsystem.model;
 
-import static com.fasterxml.jackson.databind.util.ClassUtil.name;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,11 +19,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PricePackage {
     @Id
-    @Column(name = "idPrice")
+    @Column(name = "idprice")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPrice;
 
-    @Column(name = "idSub")
+    @Column(name = "idsub")
     private Integer idSub;
 
     @Column(name = "packageName")
@@ -38,13 +35,9 @@ public class PricePackage {
     @Column(name = "price")
     private Integer price;
 
-    @Column(name = "salePrice")
+    @Column(name = "saleprice")
     private Integer salePrice;
 
     @Column(name = "status")
     private Integer status;
-    
-    @ManyToOne
-    @JoinColumn(name = "idSub", referencedColumnName="idSub")
-    private SubjectDetail subjectDetail;
 }

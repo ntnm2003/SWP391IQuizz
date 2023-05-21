@@ -27,7 +27,7 @@ public class SubjectController {
     public String getAllSubject(@PathVariable("pageNo") int pageNo,
                                 Model model){
         Page<SubjectDTO> subjects=subjectService
-                .findPaginatedAllSubjects(1, 1);
+                .findPaginatedAllSubjects(1, 6);
         model.addAttribute("subjects", subjects);
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("totalPages"
