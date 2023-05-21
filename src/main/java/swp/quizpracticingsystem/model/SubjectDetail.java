@@ -26,6 +26,7 @@ public class SubjectDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idSub;
 
-    @Column(name = "id_course")
+    @OneToOne
+    @JoinColumn(name = "id_course", referencedColumnName = "idcourse")
     private Subject subject;
 }

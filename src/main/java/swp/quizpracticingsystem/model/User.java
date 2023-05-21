@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +41,7 @@ public class User {
     @Column(name = "Password")
     private String password;
 
-    @Column(name = "role_id")
+    @OneToOne
+    @JoinColumn(name = "role_id",referencedColumnName = "role_id")
     private Role role;
 }

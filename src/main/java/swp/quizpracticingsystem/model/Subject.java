@@ -8,8 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.sql.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,8 +33,11 @@ public class Subject {
     @JoinColumn(name="idcategory", referencedColumnName = "id")
     private Category category;
 
-    @Column(name = "expert_id")
-    private Integer expertId;
+    @Column(name="user_id")
+    private Integer expId;
+    @OneToMany
+    @JoinColumn(name="user_id",referencedColumnName = "user_id")
+    private List<User> expertId;
 
     @Column(name = "course_name")
     private String courseName;
