@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>IQuizz Registration</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            .form-container {
+                max-width: 400px;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            .form-container h2 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .form-group {
+                margin-bottom: 15px;
+            }
+            .form-group label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group input[type="password"] {
+                width: 100%;
+                padding: 8px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+            .form-group input[type="radio"] {
+                margin-top: 8px;
+            }
+            .form-group input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            .form-group input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+            .login-section {
+                text-align: center;
+                margin-top: 20px;
+            }
+            .login-section p {
+                margin-bottom: 10px;
+            }
+            .login-section button {
+                background-color: #f44336;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            .login-section button:hover {
+                background-color: #d32f2f;
+            }
+        </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="form-container">
+            <h2 onclick="goToHome()">IQuizz Registration</h2>
+            <form>
+                <div class="form-group">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" name="full-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <input type="radio" id="gender-male" name="gender" value="male" required>
+                    <label for="gender-male">Male</label>
+                    <input type="radio" id="gender-female" name="gender" value="female" required>
+                    <label for="gender-female">Female</label>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile</label>
+                    <input type="text" id="mobile" name="mobile" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Register">
+                </div>
+            </form>
+            <div class="login-section">
+                <p>Already have an account?</p>
+                <a th:href="@{/login}">Login</a>
+            </div>
+
+        </div>
+    </body>
+</html>

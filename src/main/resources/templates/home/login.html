@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>IQuizz - Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #777;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .signup-link,
+        .forgot-password-link {
+            color: #777;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password-link:hover {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login to IQuizz</h1>
+        <div th:if="${param.error}" class="error-message">
+            Invalid username or password.
+        </div>
+        <form th:action="@{/login}" method="post">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="button-container">
+                <button type="submit">Login</button>
+                Forgot password?<a class="forgot-password-link" th:href="@{/forgot_password"> Click here</a>
+            </div>
+        </form>
+        <div class="signup-link">
+            Don't have an account? <a th:href="@{/register}">Sign up now</a>
+        </div>
+    </div>
+</body>
+</html>
