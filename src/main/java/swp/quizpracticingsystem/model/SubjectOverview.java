@@ -25,7 +25,7 @@ public class SubjectOverview {
     private Integer idOverview;
 
     @Column(name = "idsub")
-    private Integer idSub;
+    private Subject subject;
 
     @Column(name = "status")
     private String status;

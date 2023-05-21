@@ -25,5 +25,5 @@ public class QuizDetail {
     private Integer idQuiz;
 
     @Column(name = "id_Lesson")
-    private Integer idLesson;
+    private Lesson lesson;
 }

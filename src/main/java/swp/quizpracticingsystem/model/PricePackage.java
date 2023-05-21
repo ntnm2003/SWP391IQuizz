@@ -24,7 +24,7 @@ public class PricePackage {
     private Integer idPrice;
 
     @Column(name = "idsub")
-    private Integer idSub;
+    private Subject subject;
 
     @Column(name = "packageName")
     private String packageName;

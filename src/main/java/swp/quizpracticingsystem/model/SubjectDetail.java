@@ -27,5 +27,5 @@ public class SubjectDetail {
     private Integer idSub;
 
     @Column(name = "id_course")
-    private Integer idCourse;
+    private Subject subject;
 }

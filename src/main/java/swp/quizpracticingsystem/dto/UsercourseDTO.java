@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UsercourseDTO {
     private Integer idCourse;
-    private Integer idUser;
+    private UserDTO user;
     private String status;
 }

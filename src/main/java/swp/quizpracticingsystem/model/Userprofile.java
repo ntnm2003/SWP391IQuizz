@@ -25,7 +25,7 @@ public class Userprofile {
     private Integer userProfileId;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private User user;
 
     @Column(name = "avatar")
     private String avatar;

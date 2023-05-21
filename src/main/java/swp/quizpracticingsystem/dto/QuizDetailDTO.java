@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class QuizDetailDTO {
     private Integer idQuiz;
-    private Integer idLesson;
+    private LessonDTO lesson;
 }

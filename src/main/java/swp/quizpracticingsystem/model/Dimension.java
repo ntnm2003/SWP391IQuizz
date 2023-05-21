@@ -25,7 +25,7 @@ public class Dimension {
     private Integer id;
 
     @Column(name = "idsub")
-    private Integer idSub;
+    private Subject subject;
 
     @Column(name = "dimension")
     private String dimension;
