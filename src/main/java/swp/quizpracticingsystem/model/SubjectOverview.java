@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,8 +26,9 @@ public class SubjectOverview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idOverview;
 
-    @Column(name = "idsub")
-    private Subject subject;
+    @OneToOne
+    @JoinColumn(name = "idsub",referencedColumnName = "idsub")
+    private SubjectDetail subject;
 
     @Column(name = "status")
     private String status;
