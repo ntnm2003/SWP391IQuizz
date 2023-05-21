@@ -33,15 +33,13 @@ public class Subject {
     @JoinColumn(name="idcategory", referencedColumnName = "id")
     private Category category;
 
-    @Column(name="user_id")
-    private Integer expId;
-    @OneToMany
-    @JoinColumn(name="user_id",referencedColumnName = "user_id")
-    private List<User> expertId;
+    @ManyToOne
+    @JoinColumn(name="expert_id",referencedColumnName = "user_id")
+    private User expert;
 
     @Column(name = "course_name")
     private String courseName;
 
-    @Column(name = "dateStart")
+    @Column(name = "datestart")
     private Date dateStart;
 }
