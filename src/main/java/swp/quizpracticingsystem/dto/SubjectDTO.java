@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SubjectDTO {
     private Integer idCourse;
-    private Integer idCategory;
+    private CategoryDTO category;
     private Integer expertId;
     private String courseName;
     private Date dateStart;

@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserprofileDTO {
     private Integer userProfileId;
-    private Integer userId;
+    private UserDTO user;
     private String avatar;
     private String headline;
 }

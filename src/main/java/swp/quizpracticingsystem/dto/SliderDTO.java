@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SliderDTO {
     private Integer sliderId;
-    private Integer userId;
+    private UserDTO user;
     private String title;
     private String image;
     private String backlink;

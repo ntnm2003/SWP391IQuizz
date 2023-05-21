@@ -28,7 +28,7 @@ public class QuizReview {
     private String subject;
 
     @Column(name = "idquiz")
-    private Integer idQuiz;
+    private QuizDetail quiz;
 
     @Column(name = "score")
     private Integer score;

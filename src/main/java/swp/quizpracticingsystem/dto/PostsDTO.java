@@ -12,9 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PostsDTO {
     private Integer postId;
-    private Integer userId;
+    private UserDTO user;
     private String thumbnail;
-    private Integer postCategoryId;
+    private PostCategoryDTO postCategory;
     private String title;
     private Date updatedDate;
     private String author;

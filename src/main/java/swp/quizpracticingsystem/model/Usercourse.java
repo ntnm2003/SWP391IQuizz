@@ -25,7 +25,7 @@ public class Usercourse {
     private Integer idCourse;
 
     @Column(name = "iduser")
-    private Integer idUser;
+    private User user;
 
     @Column(name = "status")
     private String status;

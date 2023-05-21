@@ -26,13 +26,13 @@ public class Posts {
     private Integer postId;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private User user;
 
     @Column(name = "thumbnail")
     private String thumbnail;
 
     @Column(name = "post_category_id")
-    private Integer postCategoryId;
+    private PostCategory postCategory;
 
     @Column(name = "title")
     private String title;

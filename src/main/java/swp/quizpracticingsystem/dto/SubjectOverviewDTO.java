@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SubjectOverviewDTO {
     private Integer idOverview;
-    private Integer idSub;
+    private SubjectDTO subject;
     private String status;
     private String description;
     private String image;

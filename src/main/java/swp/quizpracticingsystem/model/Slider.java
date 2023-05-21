@@ -25,7 +25,7 @@ public class Slider {
     private Integer sliderId;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private User user;
 
     @Column(name = "title")
     private String title;

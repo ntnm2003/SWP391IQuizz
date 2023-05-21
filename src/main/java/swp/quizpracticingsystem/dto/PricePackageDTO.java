@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PricePackageDTO {
     private Integer idPrice;
-    private Integer idSub;
+    private SubjectDTO subject;
     private String packageName;
     private Integer duration;
     private Integer price;

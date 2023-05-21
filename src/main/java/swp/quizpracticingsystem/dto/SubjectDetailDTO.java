@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SubjectDetailDTO {
     private Integer idSub;
-    private Integer idCourse;
+    private SubjectDTO subject;
 }

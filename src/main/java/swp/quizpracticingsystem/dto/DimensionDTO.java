@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DimensionDTO {
     private Integer id;
-    private Integer idSub;
+    private SubjectDTO subject;
     private String dimension;
     private String type;
 }

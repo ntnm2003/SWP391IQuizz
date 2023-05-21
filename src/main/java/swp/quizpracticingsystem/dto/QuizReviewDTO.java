@@ -12,7 +12,7 @@ import lombok.Setter;
 public class QuizReviewDTO {
     private Integer userId;
     private String subject;
-    private Integer idQuiz;
+    private QuizDetailDTO quizDetail;
     private Integer score;
     private Boolean answer;
 }

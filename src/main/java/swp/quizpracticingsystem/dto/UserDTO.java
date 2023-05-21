@@ -17,5 +17,5 @@ public class UserDTO {
     private Boolean gender;
     private String mobile;
     private String password;
-    private Integer roleId;
+    private RoleDTO role;
 }

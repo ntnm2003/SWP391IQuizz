@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LessonDTO {
     private Integer idLesson;
-    private Integer idCourse;
+    private SubjectDTO subject;
     private String lesson;
     private Integer lessonOrder;
     private String lessonType;
