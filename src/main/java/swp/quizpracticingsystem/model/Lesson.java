@@ -20,11 +20,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Lesson {
     @Id
-    @Column(name = "idLesson")
+    @Column(name = "idlesson")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idLesson;
 
-    @Column(name = "idCourse")
+    @Column(name = "idcourse")
     private Integer idCourse;
 
     @Column(name = "lesson")

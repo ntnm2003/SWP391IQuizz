@@ -24,7 +24,7 @@ public class Dimension {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "idSub")
+    @Column(name = "idsub")
     private Integer idSub;
 
     @Column(name = "dimension")
