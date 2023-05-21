@@ -80,6 +80,9 @@ VALUES
 (2 , 7, 'Anyone can get 6.5 IELTS!', 'slider2.png', 'http://localhost:8080/course-detail?id=3', 'active', 1),
 (3 , 7, 'First Step to become a BA - Statistics and Probability', 'slider3.png', 'http://localhost:8080/course-detail?id=2', 'active', 1);
 
+alter table iquiz.posts
+modify column description varchar(8000);
+
 INSERT INTO `iquiz`.`posts`
 (`post_id`,
 `user_id`,
@@ -247,6 +250,9 @@ VALUES
 (5, 5),
 (6, 6);
 
+alter table iquiz.subject_overview
+modify column description varchar(5000);
+
 INSERT INTO `iquiz`.`subject_overview`
 (`idoverview`,
 `idsub`,
@@ -314,3 +320,7 @@ VALUES
 (16, 6, 'Business', 'Domain'),
 (17, 6, 'Process', 'Domain'),
 (18, 6, 'Initializing', 'Group');
+
+-- drop database iquiz;
+
+-- create database iquiz;

@@ -1,6 +1,8 @@
 package swp.quizpracticingsystem.model;
 
 
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,5 +34,8 @@ public class Usercourse {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "date_register")
+    private Date dateRegister;
 
 }
