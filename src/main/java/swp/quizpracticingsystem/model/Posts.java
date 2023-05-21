@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.sql.Date;
 import lombok.AllArgsConstructor;
@@ -25,13 +27,15 @@ public class Posts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postId;
 
-    @Column(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name="user_id",referencedColumnName = "user_id")
     private User user;
 
     @Column(name = "thumbnail")
     private String thumbnail;
 
-    @Column(name = "post_category_id")
+    @ManyToOne
+    @JoinColumn(name="post_category_id",referencedColumnName = "post_category_id")
     private PostCategory postCategory;
 
     @Column(name = "title")
