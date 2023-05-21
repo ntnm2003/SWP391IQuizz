@@ -11,6 +11,7 @@ import swp.quizpracticingsystem.model.User;
 public class UserController {
 
     @Autowired
+    
     @GetMapping("/register")
     public String register() {
         return "home/register";
@@ -21,8 +22,4 @@ public class UserController {
         return "home/login";
     }
 
-    @PostMapping("/login")
-    public String login(User user, HttpSession session) {
-        User acc = 
-    }
 }
