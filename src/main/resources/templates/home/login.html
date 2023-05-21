@@ -6,25 +6,27 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #2864F6;
         }
 
         .container {
             max-width: 400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             border-radius: 4px;
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            color: #2864F6;
+            font-size: 24px;
+            margin-bottom: 30px;
         }
 
         form {
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         label {
@@ -36,38 +38,50 @@
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
 
         .error-message {
             color: red;
-            margin-top: 5px;
+            margin-top: 10px;
         }
 
         .button-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
-        .signup-link,
+        .login-button,
         .forgot-password-link {
-            color: #777;
+            padding: 10px 20px;
+            background-color: #2864F6;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
+        .login-button:hover,
         .forgot-password-link:hover {
-            color: #333;
+            background-color: #1C4DA4;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Login to IQuizz</h1>
+        <h1>Login to <span style="font-weight: bold;">IQuizz</span></h1>
         <div th:if="${param.error}" class="error-message">
             Invalid username or password.
         </div>
@@ -81,8 +95,8 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <div class="button-container">
-                <button type="submit">Login</button>
-                Forgot password?<a class="forgot-password-link" th:href="@{/forgot_password"> Click here</a>
+                <button type="submit" class="login-button">Login</button>
+                <a class="forgot-password-link" href="#">Forgot password?</a>
             </div>
         </form>
         <div class="signup-link">
