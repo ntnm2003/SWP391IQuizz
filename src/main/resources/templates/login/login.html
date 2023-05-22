@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>IQuizz - Login</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #2864F6;
+            }
+
+            .container {
+                max-width: 400px;
+                margin: 0 auto;
+                padding: 40px;
+                background-color: #fff;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                border-radius: 4px;
+            }
+
+            h1 {
+                text-align: center;
+                color: #2864F6;
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            form {
+                margin-top: 30px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+                color: #777;
+            }
+
+            input[type="text"],
+            input[type="password"] {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .error-message {
+                color: red;
+                margin-top: 10px;
+            }
+
+            .button-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 30px;
+            }
+
+            .login-button,
+            .forgot-password-link {
+                padding: 10px 20px;
+                background-color: #2864F6;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                font-size: 14px;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+
+            }
+
+            .login-button:hover,
+            .forgot-password-link:hover {
+                background-color: #1C4DA4;
+            }
+
+            .signup-link {
+                text-align: center;
+                margin-top: 20px;
+                color: #777;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Login to <span style="font-weight: bold;">IQuizz</span></h1>
+            <div th:if="${param.error}" class="error-message">
+                Invalid username or password.
+            </div>
+            <form th:action="@{/login}" method="post">
+                <div>
+                    <p>Email:</p>
+                    <input type="text" name="email" required>
+                </div>
+                <div>
+                    <p>Password:</p>
+                    <input type="password" name="password" required>
+                </div>
+                <div class="button-container">
+                    <input type="submit" value="Login" class="login-button" />
+                </div>
+                <c:if test="${sessionScope.user == 1}">
+                    <h5 style="color :red">${sessionScope.message}</h5>
+                </c:if>
+
+                <div class="button-container">
+                    <a class="forgot-password-link" href="/home">Return Home Page</a>
+                    <a class="forgot-password-link" href="#">Forgot password?</a>
+                </div>
+            </form>
+            <div class="signup-link">
+                Don't have an account? <a th:href="@{/register}">Sign up now</a>
+            </div>
+        </div>
+    </body>
+</html>

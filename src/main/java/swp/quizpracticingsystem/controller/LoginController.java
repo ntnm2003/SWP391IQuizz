@@ -10,25 +10,22 @@ import swp.quizpracticingsystem.model.User;
 import swp.quizpracticingsystem.service.UserService;
 
 @Controller
-public class UserController {
+public class LoginController {
 
     @Autowired
     UserService userService;
-    @GetMapping("/register")
-    public String register() {
-        return "home/register";
-    }
+
 
     @GetMapping("/login")
     public String login() {
-        return "home/login";
+        return "login/login";
     }
     @PostMapping("/login")
     public String login(HttpServletRequest request, HttpSession session) {
         User account = userService.login(request.getParameter("email"), request.getParameter("password"));
         if(account == null) {
-            session.setAttribute("message", "Invalid username or password.");
-            return "home/login";
+            session.setAttribute("message", "Invalid email or password");
+            return "login/login";
         }else {
             session.setAttribute("user", account);
             return "home/homepage/homepage";
