@@ -41,13 +41,13 @@ public class Posts {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "updated_date")
+	@Column(name = "updated_date")
     private Date updatedDate;
 
     @Column(name = "author")
     private String author;
 
-    @Column(name = "brief_infor")
+	@Column(name = "brief_infor")
     private String briefInfor;
 
     @Column(name = "description")
@@ -58,4 +58,49 @@ public class Posts {
 
     @Column(name = "featuring")
     private Boolean featuring;
+    
+    
+    
+    
+//    GETTERS AND SETTERS 
+    
+    public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+    
+    public PostCategory getPostCategory() {
+		return postCategory;
+	}
+
+	public void setPostCategory(PostCategory postCategory) {
+		this.postCategory = postCategory;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getBriefInfor() {
+		return briefInfor;
+	}
+
+	public void setBriefInfor(String briefInfor) {
+		this.briefInfor = briefInfor;
+	}
 }
