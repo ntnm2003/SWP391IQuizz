@@ -36,7 +36,7 @@ public class ForgotPasswordController {
     
     @GetMapping("/forgot_password")
     public String showForgotPasswordForm(){
-        return "forgot_password_form";
+        return "password/forgot_password_form";
     }
     
     @PostMapping("/forgot_password")
