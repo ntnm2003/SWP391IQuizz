@@ -44,4 +44,60 @@ public class Slider {
 
     @Column(name = "visibility")
     private Boolean visibility;
+
+    public Integer getSliderId() {
+        return sliderId;
+    }
+
+    public void setSliderId(Integer sliderId) {
+        this.sliderId = sliderId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getBacklink() {
+        return backlink;
+    }
+
+    public void setBacklink(String backlink) {
+        this.backlink = backlink;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Boolean getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Boolean visibility) {
+        this.visibility = visibility;
+    }
 }

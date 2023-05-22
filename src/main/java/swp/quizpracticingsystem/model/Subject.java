@@ -42,4 +42,45 @@ public class Subject {
 
     @Column(name = "datestart")
     private Date dateStart;
+
+    public Integer getIdCourse() {
+        return idCourse;
+    }
+
+    public void setIdCourse(Integer idCourse) {
+        this.idCourse = idCourse;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public User getExpert() {
+        return expert;
+    }
+
+    public void setExpert(User expert) {
+        this.expert = expert;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
 }
