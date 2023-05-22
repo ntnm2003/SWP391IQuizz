@@ -65,6 +65,7 @@
             font-size: 14px;
             text-decoration: none;
             transition: background-color 0.3s ease;
+           
         }
 
         .login-button:hover,
@@ -87,15 +88,18 @@
         </div>
         <form th:action="@{/login}" method="post">
             <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <p>Email:</p>
+                <input type="text" name="email" required>
             </div>
             <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <p>Password:</p>
+                <input type="password" name="password" required>
             </div>
             <div class="button-container">
-                <button type="submit" class="login-button">Login</button>
+                <input type="submit" value="Login" class="login-button" />
+            </div>
+            <div class="button-container">
+                <a class="forgot-password-link" href="/home">Return Home Page</a>
                 <a class="forgot-password-link" href="#">Forgot password?</a>
             </div>
         </form>

@@ -5,12 +5,15 @@
 package swp.quizpracticingsystem.service;
 
 import org.springframework.stereotype.Service;
+import swp.quizpracticingsystem.model.User;
 
 /**
  *
  * @author Lenovo
  */
 @Service
-public class UserService {
+public interface UserService {
+
+    User login(String email, String password);
     
 }

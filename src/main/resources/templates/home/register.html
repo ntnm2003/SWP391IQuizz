@@ -7,6 +7,24 @@
                 font-family: Arial, sans-serif;
                 background-color: #2864F6;
             }
+            .button-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 30px;
+                margin-left: 120px;
+            }
+            .home-link {
+                padding: 10px 20px;
+                background-color: #2864F6;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                font-size: 14px;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+
+            }
             .form-container {
                 max-width: 400px;
                 margin: 0 auto;
@@ -39,7 +57,7 @@
                 margin-top: 8px;
             }
             .form-group input[type="submit"] {
-                background-color: #4CAF50;
+                background-color: #2864F6;
                 color: white;
                 border: none;
                 padding: 10px 20px;
@@ -47,7 +65,7 @@
                 border-radius: 5px;
             }
             .form-group input[type="submit"]:hover {
-                background-color: #45a049;
+                background-color: #2864F5;
             }
             .login-section {
                 text-align: center;
@@ -67,13 +85,19 @@
             .login-section button:hover {
                 background-color: #d32f2f;
             }
+            h2 {
+                text-align: center;
+                color: #2864F6;
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
         </style>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <div class="form-container">
-            <h2 onclick="goToHome()">IQuizz Registration</h2>
+            <h2 >IQuizz Registration</h2>
             <form>
                 <div class="form-group">
                     <label for="full-name">Full Name</label>
@@ -100,6 +124,9 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Register">
+                </div>
+                <div class="button-container">
+                    <a class="home-link" href="/home">Return Home Page</a>
                 </div>
             </form>
             <div class="login-section">
