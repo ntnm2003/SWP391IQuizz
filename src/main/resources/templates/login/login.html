@@ -83,9 +83,7 @@
     <body>
         <div class="container">
             <h1>Login to <span style="font-weight: bold;">IQuizz</span></h1>
-            <div th:if="${param.error}" class="error-message">
-                Invalid username or password.
-            </div>
+            <h1 th:text="${session.message}" class="error-message"></h1>
             <form th:action="@{/login}" method="post">
                 <div>
                     <p>Email:</p>
@@ -98,9 +96,6 @@
                 <div class="button-container">
                     <input type="submit" value="Login" class="login-button" />
                 </div>
-                <c:if test="${sessionScope.user == 1}">
-                    <h5 style="color :red">${sessionScope.message}</h5>
-                </c:if>
 
                 <div class="button-container">
                     <a class="forgot-password-link" href="/home">Return Home Page</a>
