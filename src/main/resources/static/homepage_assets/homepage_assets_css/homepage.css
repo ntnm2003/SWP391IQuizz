@@ -18,7 +18,7 @@ body {
 	overflow-x: hidden;
 	background-color: #f2f2f2;
 
-	font-size: 1.6rem;
+	font-size: 1.4rem;
 }
 
 /* ======= HEADER STYLE ========== */
@@ -49,7 +49,7 @@ header .navbar1 {
 	text-decoration: none;
 	width: 13rem;
 	height: 13rem;
-	margin-top: 0.8rem;
+	margin-top: 0;
 }
 
 .navbar__content {
@@ -302,7 +302,7 @@ section.slider {
 	margin-top: 2rem;
 }
 
-.lastest_posts h3 {
+.lastest_posts h4 {
 	color: rgb(209, 68, 68);
 	font-weight: 600;
 }
@@ -344,7 +344,7 @@ section.slider {
 
 .card {
 	margin: 0;
-	width: 90%;
+	width: 95%;
 	border-radius: 1rem;
 	transition: all 0.2s ease-in-out;
 	overflow: hidden;
@@ -360,9 +360,9 @@ section.slider {
 	box-shadow: rgba(0, 0, 0, 0.1) 0rem 0.4rem 1.2rem;
 }
 
-.img-wrapper {
+.main-content .img-wrapper {
 	width: 100%;
-	height: 23rem;
+	height: 180px !important;
 }
 
 .img-wrapper img {
