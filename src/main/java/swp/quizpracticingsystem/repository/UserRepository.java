@@ -15,7 +15,8 @@ import swp.quizpracticingsystem.model.User;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
-
+    
+    
     Optional<User> findUserByEmailAndPassword(String email, String password);
     
     
