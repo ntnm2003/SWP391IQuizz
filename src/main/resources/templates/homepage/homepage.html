@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8" />
@@ -14,10 +14,10 @@
 </head>
 
 <body>
-    <header style="font-size:16px;">
+    <header style="font-size:14px;">
         <div class="navbar1">
             <div class="logo">
-                <a href="home"><img style="margin-top: 0;" src="/templates_components_assets/img/iquizz-text_logo.png" alt="..." /></a>
+                <a href="../home"><img style="margin-top: 0;" src="/templates_components_assets/img/iquizz-text_logo.png" alt="..." /></a>
             </div>
             <div class="navbar__content">
                 <div class="group">
@@ -29,13 +29,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="subjects-list">
+                            <a href="subjects/subjects-list">
                                 <span class="navbar-item-icon"><ion-icon name="book"></ion-icon></span>
                                 <span class="navbar-item-text">Course</span>
                             </a>
                         </li>
                         <li>
-                            <a href="blogs-list">
+                            <a href="blogs/blogs-list">
                                 <span class="navbar-item-icon"><ion-icon name="earth"></ion-icon></span>
                                 <span class="navbar-item-text">Blog</span>
                             </a>
@@ -209,18 +209,6 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="col-md-3">
-                                <div class="card">
-                                    <div class="img-wrapper">
-                                        <img src="../../components/assets/img/Avatar.jpg" class="card-img-top"
-                                            alt="...">
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="card-title">Card title</h3>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
 
 
@@ -300,7 +288,7 @@
     </section>
 
     <!-- =============== FOOTER ================= -->
-    <footer style="font-size:14px; padding-bottom:30px;">
+    <footer style="font-size:14px; padding-bottom:20px;">
         <div class="container">
             <div class="sec about-us">
                 <h2>About Us</h2>
@@ -313,19 +301,25 @@
                 </p>
                 <ul class="sci">
                     <li>
-                        <a target="_blank" href="#"><img src="/templates_components_assets/img/linkedin_logo.png" alt=""></a>
+                        <a target="_blank" href="https://www.linkedin.com/?original_referer=https%3A%2F%2Fwww.google.com%2F">
+                            <img src="/templates_components_assets/img/linkedin_logo.png" alt="">
+                        </a>
                     </li>
                     <li>
-                        <a target="_blank" href="#"><img src="/templates_components_assets/img/facebook_logo.png" alt=""></a>
+                        <a target="_blank" href="https://www.facebook.com/iamntnm">
+                            <img src="/templates_components_assets/img/facebook_logo.png" alt="">
+                        </a>
                     </li>
                     <li>
-                        <a target="_blank" href="#"><img src="/templates_components_assets/img/insta_logo.png" alt=""></a>
+                        <a target="_blank" href="https://www.instagram.com/fptu.jsclub/">
+                            <img src="/templates_components_assets/img/insta_logo.png" alt="">
+                        </a>
                     </li>
                 </ul>
             </div>
             <div class="sec quick-links">
                 <h2>Quick Links</h2>
-                <ul>
+                <ul style="padding-left: 0;">
                     <li><a target="_blank" href="#">About</a></li>
                     <li><a target="_blank" href="#">FAQ</a></li>
                     <li><a target="_blank" href="#">Privacy Policy</a></li>
@@ -336,7 +330,7 @@
             </div>
             <div class="sec contact">
                 <h2>Contact Info</h2>
-                <ul class="contact-info">
+                <ul class="contact-info" style="padding-left: 0;">
                     <li>
                         <span><ion-icon name="location"></ion-icon></span>
                         <span>Km29 Highway 08<br />
