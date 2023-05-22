@@ -28,7 +28,7 @@ public class LoginController {
             return "login/login";
         }else {
             session.setAttribute("user", account);
-            return "home/homepage/homepage";
+            return "homepage/homepage";
         }
     }
 
