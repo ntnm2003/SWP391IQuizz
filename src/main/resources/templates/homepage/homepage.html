@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IQuiz - Level up IQ Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="../../static/homepage_assets/homepage_assets_css/homepage.css" /> -->
+    
+    <link rel="stylesheet" th:href=@{/homepage_assets/homepage_assets_css/homepage.css}>
+</head>
+
+<body>
+    <header style="font-size:14px;">
+        <div class="navbar1">
+            <div class="logo">
+                <a href="../home"><img style="margin-top: 0;" src="/templates_components_assets/img/iquizz-text_logo.png" alt="..." /></a>
+            </div>
+            <div class="navbar__content">
+                <div class="group">
+                    <ul class="navigation">
+                        <li>
+                            <a style="color: #1368ce;" href="home">
+                                <span class="navbar-item-icon"><ion-icon name="home"></ion-icon></span>
+                                <span class="navbar-item-text">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="subjects/subjects-list">
+                                <span class="navbar-item-icon"><ion-icon name="book"></ion-icon></span>
+                                <span class="navbar-item-text">Course</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="blogs/blogs-list">
+                                <span class="navbar-item-icon"><ion-icon name="earth"></ion-icon></span>
+                                <span class="navbar-item-text">Blog</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="action-btn">
+                    <a class="login" id="login" href="login">Login</a>
+                    <a href="register">
+                        <span class="navbar-item-icon"><ion-icon name="person-add"></ion-icon></span>
+                        <span class="navbar-item-text">Register</span>
+                    </a>
+                </div>
+            </div>
+            <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
+        </div>
+    </header>
+
+
+    <section class="slider">
+        <!-- =========== SLIDER =========== -->
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="#">
+                        <div class="img-wrapper">
+                            <img src="homepage_assets/homepage_assets_img/Green and Yellow Simple One Million Trees Day Banner.png"
+                                class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>First slide label</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#">
+                        <div class="img-wrapper">
+                            <img src="homepage_assets/homepage_assets_img/THANK YOU Banner Landscape.png"
+                                class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>First slide label</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="#">
+                        <div class="img-wrapper">
+                            <img src="homepage_assets/homepage_assets_img/Nature Happy Earth Day  Banner.png"
+                                class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>First slide label</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+
+    </section>
+
+    <!-- ============ BODY ================= -->
+    <section class="main">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- ================== SIDER ================== -->
+                <div class="sider col-md-3 p-5 h-auto">
+                    <div class="lastest_posts">
+                        <h4>
+                            <span><ion-icon name="flame"></ion-icon></span>
+                            Lastest Posts
+                            <span><ion-icon name="flame"></ion-icon></span>
+                        </h4>
+
+                        
+                        <div class="card">
+                            <a href="#">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-text">Some quick example text to build on the card title and make up the
+                                        bulk of the card's content.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="#">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-text">Some quick example text to build on the card title and make up the
+                                        bulk of the card's content.</p>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ================== MAIN CONTENT ================== -->
+                <div class="main-content p-5 col-md-9">
+                    <div class="blogs-list">
+                        <div class="section-title">
+                            <h1>
+                                <span id="heart"><ion-icon name="heart-circle"></ion-icon></span>
+                                Hot Posts
+                            </h1>
+                            <h3><a href="/blogs-list">View all</a></h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="img-wrapper" style="height:180px">
+                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
+                                            alt="...">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">Card title</h3>
+                                        <p class="updated-date">MM/DD/YYYY</p>
+                                        <a href="#" class="btn btn-success">View Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="img-wrapper" style="height:180px">
+                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
+                                            alt="...">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">Card title</h3>
+                                        <p class="updated-date">MM/DD/YYYY</p>
+                                        <a href="#" class="btn btn-success">View Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="img-wrapper" style="height:180px">
+                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
+                                            alt="...">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">Card title</h3>
+                                        <p class="updated-date">MM/DD/YYYY</p>
+                                        <a href="#" class="btn btn-success">View Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="img-wrapper" style="height:180px">
+                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
+                                            alt="...">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">Card title</h3>
+                                        <p class="updated-date">MM/DD/YYYY</p>
+                                        <a href="#" class="btn btn-success">View Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="subjects-list">
+                        <div class="section-title">
+                            <h1>
+                                <span><ion-icon name="school"></ion-icon></span>
+                                Featured Subjects
+                            </h1>
+                            <h3><a href="#">View all</a></h3>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="img-wrapper" style="height:180px">
+                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
+                                            alt="...">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">Card title</h3>
+                                        <p class="tag-line">Tag line</p>
+                                        <a href="#" class="btn btn-primary">Study Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="img-wrapper" style="height:180px">
+                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
+                                            alt="...">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">Card title</h3>
+                                        <p class="tag-line">Tag line</p>
+                                        <a href="#" class="btn btn-primary">Study Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="img-wrapper" style="height:180px">
+                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
+                                            alt="...">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">Card title</h3>
+                                        <p class="tag-line">Tag line</p>
+                                        <a href="#" class="btn btn-primary">Study Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="img-wrapper" style="height:180px">
+                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
+                                            alt="...">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">Card title</h3>
+                                        <p class="tag-line">Tag line</p>
+                                        <a href="#" class="btn btn-primary">Study Now</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =============== FOOTER ================= -->
+    <footer style="font-size:14px; padding-bottom:20px;">
+        <div class="container">
+            <div class="sec about-us">
+                <h2>About Us</h2>
+                <p>
+                    We are Team 5 - SE1714 - SWP391 from FPT University, Hanoi, Vietnam. We are embarking on an exciting
+                    project — a quiz-taking website. With diverse skills and a shared enthusiasm for education, we aim
+                    to create an interactive platform that promotes knowledge acquisition. Together, we are dedicated to
+                    delivering a seamless and engaging experience, making learning both fun and rewarding. Join us on
+                    this educational journey!
+                </p>
+                <ul class="sci">
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/?original_referer=https%3A%2F%2Fwww.google.com%2F">
+                            <img src="/templates_components_assets/img/linkedin_logo.png" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/iamntnm">
+                            <img src="/templates_components_assets/img/facebook_logo.png" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.instagram.com/fptu.jsclub/">
+                            <img src="/templates_components_assets/img/insta_logo.png" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sec quick-links">
+                <h2>Quick Links</h2>
+                <ul style="padding-left: 0;">
+                    <li><a target="_blank" href="#">About</a></li>
+                    <li><a target="_blank" href="#">FAQ</a></li>
+                    <li><a target="_blank" href="#">Privacy Policy</a></li>
+                    <li><a target="_blank" href="#">Help</a></li>
+                    <li><a target="_blank" href="#">Terms & Consitions</a></li>
+                    <li><a target="_blank" href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="sec contact">
+                <h2>Contact Info</h2>
+                <ul class="contact-info" style="padding-left: 0;">
+                    <li>
+                        <span><ion-icon name="location"></ion-icon></span>
+                        <span>Km29 Highway 08<br />
+                            Thach That, Hanoi<br />Vietnam</span>
+                    </li>
+                    <li>
+                        <span><ion-icon name="call"></ion-icon></span>
+                        <p>
+                            <a href="#">+84 787 129 386</a><br />
+                            <a href="#">+84 379 039 267</a>
+                        </p>
+                    </li>
+                    <li>
+                        <span><ion-icon name="mail-unread"></ion-icon></span>
+                        <p><a href="#">maintnhe176347@fpt.edu.vn</a></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <div class="copyrightText">
+        <p>
+            Copyright © 2023 IQuizz Team (Group 5 - SWP391 - SE1714). All Rights
+            Reserved.
+        </p>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+</body>
+
+</html>

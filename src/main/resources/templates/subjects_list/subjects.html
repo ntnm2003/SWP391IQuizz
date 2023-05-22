@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>IQuizz - IQ Quizzes</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>    
+        <link rel="stylesheet" th:href=@{/homepage_assets/homepage_assets_css/homepage.css}/>
+        <link rel="stylesheet" th:href=@{/subjects_list_assets/css/style.css}/>
+    </head>
+    <body>
+        <div th:insert="templates/components/header"></div>
+        <main class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="sidebar">
+                        <select class="form-select" name="categoryId" id="categorySelect" onchange="navigateToCategory(this)" >
+                            <option value="">All Categories</option>
+                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.catName}"></option>
+                        </select>
+                        <select class="form-select" id="sortBy" name="sort">
+                            <option value="" disabled="" selected="">Sort</option>
+                            <option value="ascending">Ascending</option>
+                            <option value="descending">Descending</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="d-flex justify-content-center mb-3">
+                        <input type="search" id="subjectSearch" placeholder="Search for subject" class="form-control" style="width: 80%" />
+                        <button class="btn btn-primary" onclick="searchSubjects()">Search</button>
+                    </div>
+                    <div class="container">
+                        <div class="row row-cols-1 row-cols-md-4 gy-4">
+                            <div class="col-md-3" th:each="subject : ${subjects}">
+                                <div class="card mb-3" style="height:180px">
+                                    <h5 class="card-title" th:text="${subject.courseName}"></h5>
+                                    <div class="card-body">
+                                        <p class="card-text" th:text="${subject.category.catName}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button th:if="${pageNo<totalPages}"><a th:href="@{'/subjects/subjects-list?pageNo='+${pageNo+1}+${categoryId != null ? '&category=' + categoryId : ''}}">Next</a></button>
+                            <div class="mr-2">
+                                <h4 class="text-center" th:text="'Page ' + ${pageNo} + '/' + ${totalPages}"></h4>
+                            </div>
+                            <button th:if="${pageNo>1}"><a th:href="@{'/subjects/subjects-list?pageNo='+${pageNo-1}+${categoryId != null ? '&category=' + categoryId : ''}}">Previous</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div th:insert="templates/components/footer"></div>
+        <script>
+            function navigateToCategory(selectElement){
+                var categoryId=selectElement.value;
+                if(categoryId){
+                    window.location.href='/subjects/subjects-list?pageNo=1&category='+categoryId;
+                }
+                else{
+                    window.location.href='/subjects/subjects-list?pageNo=1';
+                }
+            }
+            function searchSubjects(){
+                var subjectSearch=document.getElementById('subjectSearch').value;
+                if(subjectSearch){
+                    window.location.href='/subjects/subjects-list/search?searchValue='+subjectSearch;
+                }
+                else{
+                    window.location.href='/subjects/subjects-list?pageNo=1';
+                }
+            }
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryId = urlParams.get('category');
+
+            if (categoryId) {
+                const categorySelect = document.getElementById('categorySelect');
+                categorySelect.value = categoryId;
+            }
+        </script>
+    </body>
+</html>
