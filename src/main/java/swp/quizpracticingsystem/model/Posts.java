@@ -103,4 +103,6 @@ public class Posts {
 	public void setBriefInfor(String briefInfor) {
 		this.briefInfor = briefInfor;
 	}
+
+
 }
