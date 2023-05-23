@@ -41,13 +41,13 @@ public class Posts {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "updated_date")
+	@Column(name = "updated_date")
     private Date updatedDate;
 
     @Column(name = "author")
     private String author;
 
-    @Column(name = "brief_infor")
+	@Column(name = "brief_infor")
     private String briefInfor;
 
     @Column(name = "description")
