@@ -41,23 +41,36 @@ public class SubjectController {
     public String getAllSubject(
             @RequestParam(value="pageNo",defaultValue = "1") int pageNo,
             @RequestParam(value="category",required = false) Integer categoryId,
+            @RequestParam(value="sortBy",required=false) String sortBy,
+            @RequestParam(value="order", required=false) String order,
             Model model){
         Page<SubjectDTO> subjects;
-        if(categoryId!=null){
+        System.out.println("category "+categoryId+" sortBy "+sortBy+" order "+order);
+        if(categoryId!=null && sortBy==null && order==null){
             subjects=subjectService.filterSubjectByCategory(pageNo, 
                     8, categoryId);
+        }
+        else if(categoryId==null && sortBy!=null && order!=null){
+            subjects=subjectService.sortSubjectBy(pageNo, 8, 
+                                sortBy, order);
+        }
+        else if(categoryId!=null && sortBy!=null && order!=null){
+            subjects=subjectService.filterAndSortSubject(pageNo, 8, 
+                    categoryId, sortBy, order);
         }
         else{
             subjects=subjectService
                 .findPaginatedAllSubjects(pageNo, 8);
         }
         List<CategoryDTO> listCategory=categoryService.findAll();
-        for(SubjectDTO subject:subjects){
-            System.out.println(subjectOverviewService
-                    .findSubjectOverview(subject.getIdCourse()).getDescription());
-        }
+//        for(SubjectDTO subject:subjects){
+//            System.out.println(subjectOverviewService
+//                    .findSubjectOverview(subject.getIdCourse()).getDescription());
+//        }
         model.addAttribute("category", categoryId);
         model.addAttribute("subjects", subjects);
+        model.addAttribute("sortBy",sortBy);
+        model.addAttribute("order",order);
         model.addAttribute("categories", listCategory);
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("totalPages"
@@ -72,11 +85,22 @@ public class SubjectController {
             @RequestParam(value="searchValue", required = true) String searchValue,
             @RequestParam(value="pageNo",defaultValue = "1") int pageNo,
             @RequestParam(value="category",required = false) Integer categoryId,
+            @RequestParam(value="sortBy",required=false) String sortBy,
+            @RequestParam(value="order", required=false) String order,
             Model model){
         Page<SubjectDTO> subjects;
-        if(categoryId!=null){
+        if(categoryId!=null && sortBy==null && order==null){
             subjects=subjectService.findSubjectNameAndFilter(pageNo, 8, 
                     searchValue, categoryId);
+        }
+        else if(categoryId==null && sortBy!=null && order!=null){
+            subjects=subjectService.searchAndSortSubject(pageNo, 8, 
+                    searchValue, sortBy, order);
+        }
+        else if(categoryId!=null && sortBy!=null && order!=null){
+            subjects=subjectService.filterAndSearchAndSortSubject(pageNo,
+                    8, categoryId, searchValue,
+                    sortBy, order);
         }
         else{
             subjects=subjectService

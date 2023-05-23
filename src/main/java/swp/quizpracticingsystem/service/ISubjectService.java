@@ -21,4 +21,11 @@ public interface ISubjectService {
                         String subjectName, int categoryId);
     public Page<SubjectDTO> sortSubjectBy(int pageNo, int pageSize, 
                         String sortBy,String order);
+    public Page<SubjectDTO> filterAndSortSubject(int pageNo, int pageSize, 
+            int category, String sortBy,String order);
+    public Page<SubjectDTO> searchAndSortSubject(int pageNo, int pageSize, 
+            String subjectName, String sortBy,String order);
+    public Page<SubjectDTO> filterAndSearchAndSortSubject(int pageNo, 
+            int pageSize, int category, String subjectName, 
+            String sortBy,String order);
 }

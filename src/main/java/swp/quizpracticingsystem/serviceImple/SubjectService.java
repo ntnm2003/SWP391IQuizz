@@ -92,7 +92,7 @@ public class SubjectService implements ISubjectService {
     public Page<SubjectDTO> sortSubjectBy(int pageNo, int pageSize, 
             String sortBy, String order){
         Pageable pageable;
-        if(order.equals("Ascending")){
+        if(order.equals("ascending")){
             pageable=PageRequest.of(pageNo-1, pageSize,
                     Sort.by(sortBy).ascending());
         }
@@ -101,6 +101,75 @@ public class SubjectService implements ISubjectService {
                     Sort.by(sortBy).descending());
         }
         Page<Subject>subjectPage=iSubjectRepository.findAll(pageable);
+        List<SubjectDTO>paginatedList=subjectPage
+                .stream()
+                .map(this::convertEntitytoDTO)
+                .collect(Collectors.toList());
+        return new PageImpl<>(paginatedList,pageable,
+                subjectPage.getTotalElements());
+    }
+    
+    @Override
+    public Page<SubjectDTO> filterAndSortSubject(int pageNo, int pageSize, 
+            int category, String sortBy, String order) {
+        Pageable pageable;
+        if(order.equals("ascending")){
+            pageable=PageRequest.of(pageNo-1, pageSize,
+                    Sort.by(sortBy).ascending());
+        }
+        else{
+            pageable=PageRequest.of(pageNo-1, pageSize,
+                    Sort.by(sortBy).descending());
+        }
+        Page<Subject>subjectPage=iSubjectRepository.findByCategory(pageable,
+                category);
+        List<SubjectDTO>paginatedList=subjectPage
+                .stream()
+                .map(this::convertEntitytoDTO)
+                .collect(Collectors.toList());
+        return new PageImpl<>(paginatedList,pageable,
+                subjectPage.getTotalElements());
+    }
+    
+    @Override
+    public Page<SubjectDTO> searchAndSortSubject(int pageNo, int pageSize,
+            String subjectName, String sortBy, String order) {
+        Pageable pageable;
+        if(order.equals("ascending")){
+            pageable=PageRequest.of(pageNo-1, pageSize,
+                    Sort.by(sortBy).ascending());
+        }
+        else{
+            pageable=PageRequest.of(pageNo-1, pageSize,
+                    Sort.by(sortBy).descending());
+        }
+        Page<Subject>subjectPage=iSubjectRepository.searchSubjectName(pageable, 
+                                    subjectName);
+        List<SubjectDTO>paginatedList=subjectPage
+                .stream()
+                .map(this::convertEntitytoDTO)
+                .collect(Collectors.toList());
+        return new PageImpl<>(paginatedList,pageable,
+                subjectPage.getTotalElements());
+    }
+
+    @Override
+    public Page<SubjectDTO> filterAndSearchAndSortSubject(int pageNo, int pageSize, 
+            int category, String subjectName, String sortBy, String order) {
+        Pageable pageable;
+        if(order.equals("ascending")){
+            pageable=PageRequest.of(pageNo-1, pageSize,
+                    Sort.by(sortBy).ascending());
+            System.out.println(order);
+        }
+        else{
+            pageable=PageRequest.of(pageNo-1, pageSize,
+                    Sort.by(sortBy).descending());
+            System.out.println(order);
+        }
+        Page<Subject>subjectPage=iSubjectRepository
+                .searchSubjectNameAndCategory(pageable, subjectName, 
+                        category);
         List<SubjectDTO>paginatedList=subjectPage
                 .stream()
                 .map(this::convertEntitytoDTO)

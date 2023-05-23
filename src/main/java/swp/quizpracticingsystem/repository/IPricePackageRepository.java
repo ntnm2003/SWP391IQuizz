@@ -20,4 +20,8 @@ public interface IPricePackageRepository extends
     @Query(value="Select * from PricePackage "
             + "where idSub=?1",nativeQuery = true)
     public List<PricePackage> findAll(int subjectId);
+    
+    @Query(value="Select * from PricePackage "
+            + "where idSub=?1",nativeQuery=true)
+    public PricePackage findMinPricePackage(int subjectId);
 }
