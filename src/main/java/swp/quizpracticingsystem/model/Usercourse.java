@@ -3,18 +3,12 @@ package swp.quizpracticingsystem.model;
 
 import java.sql.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import swp.quizpracticingsystem.NotFound.UserCourseKey;
 
 @Entity
 @Table(name = "usercourse")
@@ -22,15 +16,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usercourse {
-    @Id
-    @Column(name = "idcourse")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCourse;
 
-    @OneToOne
-    @JoinColumn(name = "iduser",referencedColumnName = "user_id")
-    private User user;
+public class Usercourse {
+    @EmbeddedId
+    private UserCourseKey id;
 
     @Column(name = "status")
     private String status;
@@ -38,4 +27,6 @@ public class Usercourse {
     @Column(name = "date_register")
     private Date dateRegister;
 
+    @Column(name = "pricePackage")
+    private int price;
 }
