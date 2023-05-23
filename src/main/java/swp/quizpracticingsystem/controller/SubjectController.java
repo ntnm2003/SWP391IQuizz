@@ -19,20 +19,20 @@ import swp.quizpracticingsystem.dto.SubjectDTO;
 @Controller
 public class SubjectController {
     
-    @Autowired
-    private ISubjectService subjectService;
+//    @Autowired
+//    private ISubjectService subjectService;
     
-    @GetMapping("/subjects/page/{pageNo}")
-    public String getAllSubject(@PathVariable("pageNo") int pageNo,
-                                Model model){
-        Page<SubjectDTO> subjects=subjectService
-                .findPaginatedAllSubjects(1, 6);
-        model.addAttribute("subjects", subjects);
-        model.addAttribute("pageNo", pageNo);
-        model.addAttribute("totalPages"
-                , subjects.getTotalPages());
-        model.addAttribute("totaSubjects"
-                , subjects.getTotalElements());
-        return "home/subjects";
-    }
+//    @GetMapping("/subjects/page/{pageNo}")
+//    public String getAllSubject(@PathVariable("pageNo") int pageNo,
+//                                Model model){
+//        Page<SubjectDTO> subjects=subjectService
+//                .findPaginatedAllSubjects(1, 6);
+//        model.addAttribute("subjects", subjects);
+//        model.addAttribute("pageNo", pageNo);
+//        model.addAttribute("totalPages"
+//                , subjects.getTotalPages());
+//        model.addAttribute("totaSubjects"
+//                , subjects.getTotalElements());
+//        return "home/subjects";
+//    }
 }
