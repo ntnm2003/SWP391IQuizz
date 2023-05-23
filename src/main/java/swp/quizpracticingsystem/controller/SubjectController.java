@@ -63,10 +63,13 @@ public class SubjectController {
                 .findPaginatedAllSubjects(pageNo, 8);
         }
         List<CategoryDTO> listCategory=categoryService.findAll();
-//        for(SubjectDTO subject:subjects){
-//            System.out.println(subjectOverviewService
-//                    .findSubjectOverview(subject.getIdCourse()).getDescription());
-//        }
+        for(SubjectDTO subject:subjects){
+            String description=subjectOverviewService
+                    .findSubjectOverview(subject.getIdCourse())
+                    .getDescription();
+            model.addAttribute("subjectDesc_"+subject.getIdCourse(), 
+                    description);
+        }
         model.addAttribute("category", categoryId);
         model.addAttribute("subjects", subjects);
         model.addAttribute("sortBy",sortBy);
