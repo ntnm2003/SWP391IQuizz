@@ -42,6 +42,11 @@ public class User {
 
     @Column(name = "Password")
     private String password;
+    
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+     
+    private boolean enabled;
 
     @OneToOne
     @JoinColumn(name = "role_id",referencedColumnName = "role_id")
