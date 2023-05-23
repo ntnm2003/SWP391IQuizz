@@ -4,6 +4,7 @@
  */
 package swp.quizpracticingsystem.service;
 
+
 import org.springframework.stereotype.Service;
 import swp.quizpracticingsystem.model.User;
 
@@ -12,9 +13,15 @@ import swp.quizpracticingsystem.model.User;
  * @author Lenovo
  */
 @Service
-public interface UserService {
+public interface RegisterService {
 
-    User login( User user);
-    
-    
+    void register(User user, String siteURL) {
+        
+    }
+
+    void sendVerificationEmail(User user, String siteURL) {
+
+    }
+
+
 }

@@ -21,9 +21,9 @@ public class UserServiceImpl implements UserService{
     UserRepository userRepository;
 
     @Override
-    public User login(String email, String password) {
-        Optional<User> acc = userRepository.findUserByEmailAndPassword(email,
-                password);
+    public User login(User user) {
+        Optional<User> acc = userRepository.findUserByEmailAndPassword(user.getEmail(),
+                user.getPassword());
         return acc.isPresent() ? acc.get() : null;
     }
     
