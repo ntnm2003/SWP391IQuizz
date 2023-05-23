@@ -14,7 +14,7 @@ import java.util.List;
 public class PricePackageService {
     @Autowired private PricePackageRepo packageRepo;
     public List<PricePackage> listAll() {
-        return (List<PricePackage>) packageRepo.findAll();
+        return packageRepo.findAll();
     }
 
     public void save(PricePackage pricePackage) {packageRepo.save(pricePackage);
