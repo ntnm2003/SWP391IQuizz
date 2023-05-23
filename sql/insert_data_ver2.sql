@@ -32,15 +32,16 @@ INSERT INTO `iquiz`.`user`
 `Gender`,
 `Mobile`,
 `Password`,
-`role_id`)
+`role_id`,
+`enabled`)
 VALUES
-(1, 'Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', 'deptrai', 3),
-(2, 'Nguyen Van A', 'ntnm2003@gmail.com', 1, '012345678', 'ahaha', 1),
-(3, 'Nguyen Thi B', 'dungnpn28@gmail.com', 0, '0987654321', 'bebebe', 1),
-(4, 'Mr. Expert1', 'quannahe176660@gmail.com', 1, '068686868', 'hocgioi', 2),
-(5, 'Mr. Expert2', 'maintnhe176347@gmail.com', 0, '0973600757', 'xinhgai', 2),
-(6, 'Mr. Expert3', 'expert3@gmail.com', 1, '0978779519', 'numberone', 2),
-(7, 'Lung Thi Linh', 'lunglinh2003@gmail.com', 0, '0982712755', 'yeudoi', 4);
+(1, 'Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', 'deptrai', 3,1),
+(2, 'Nguyen Van A', 'ntnm2003@gmail.com', 1, '012345678', 'ahaha', 1,1), 
+(3, 'Nguyen Thi B', 'dungnpn28@gmail.com', 0, '0987654321', 'bebebe', 1,1),
+(4, 'Mr. Expert1', 'quannahe176660@gmail.com', 1, '068686868', 'hocgioi', 2,1),
+(5, 'Mr. Expert2', 'maintnhe176347@gmail.com', 0, '0973600757', 'xinhgai', 2,1),
+(6, 'Mr. Expert3', 'expert3@gmail.com', 1, '0978779519', 'numberone', 2,1),
+(7, 'Lung Thi Linh', 'lunglinh2003@gmail.com', 0, '0982712755', 'yeudoi', 4,1);
 
 
 INSERT INTO `iquiz`.`subject`
@@ -53,7 +54,7 @@ VALUES
 (1, 1, 4, 'Mathematics for Engineering', '2023-03-02'),
 (2, 1, 4, 'Statistics & Probability', '2023-01-06'),
 (3, 2, 5, 'IELTS Speaking - Road to 6.5', '2022-04-30'),
-(4, 2, 5, 'Master TOEIC in 2 Hours', '2021-25-12'),
+(4, 2, 5, 'Master TOEIC in 2 Hours', '2021-12-25'),
 (5, 3, 6, 'How to build for first Website - Full Course for Beginners', '2022-08-22'),
 (6, 3, 6, 'Master Spring Boot 3 & Spring Framework 6 with Java', '2023-02-02');
 
@@ -76,9 +77,9 @@ INSERT INTO `iquiz`.`slider`
 `status`,
 `visibility`)
 VALUES
-(1 , 7, 'Become a Full Stack Software Engineer with The Hottest Technologies Right Now', 'slider1.png', 'http://localhost:8080/course-detail?id=5', 'active', 1),
-(2 , 7, 'Anyone can get 6.5 IELTS!', 'slider2.png', 'http://localhost:8080/course-detail?id=3', 'active', 1),
-(3 , 7, 'First Step to become a BA - Statistics and Probability', 'slider3.png', 'http://localhost:8080/course-detail?id=2', 'active', 1);
+(1 , 7, 'Become a Full Stack Software Engineer with The Hottest Technologies Right Now', 'slider1-2.png', '/subjects/subject-detail?id=5', 'active', 1),
+(2 , 7, 'Anyone can get 6.5 IELTS!', 'slider2.png', '/subjects/subject-detail?id=3', 'active', 1),
+(3 , 7, 'First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2', 'active', 1);
 
 alter table iquiz.posts
 modify column description varchar(8000);
@@ -229,15 +230,17 @@ VALUES
 
 
 INSERT INTO `iquiz`.`usercourse`
-(`idCourse`,
-`idUser`,
-`status`, `date_register` )
+(`idcourse`,
+`user_id`,
+`status`, 
+`date_register`,
+`price_package`)
 VALUES
-(3, 2, 'submitted', '2023-05-19' ),
-(5, 2, 'completed', '2023-04-19'),
-(2, 3, 'completed', '2023-05-10'),
-(1, 2, 'completed', '2023-05-12'),
-(4, 3, 'submitted', '2023-05-10');
+(3, 2, 'submitted', '2023-05-19',7),
+(5, 2, 'completed', '2023-04-19',15),
+(2, 3, 'completed', '2023-05-10',5),
+(1, 2, 'completed', '2023-05-12',2),
+(4, 3, 'submitted', '2023-05-10',10);
 
 INSERT INTO `iquiz`.`subject_detail`
 (`idsub`,
@@ -254,18 +257,20 @@ alter table iquiz.subject_overview
 modify column description varchar(5000);
 
 INSERT INTO `iquiz`.`subject_overview`
-(`idoverview`,
-`idsub`,
+(`idOverview`,
+`idSub`,
 `status`,
 `description`,
-`image`)
+`image`,
+`featuring`,
+`tag_line`)
 VALUES
-(1, 1, 'published', 'Learn the mathematics needed to become an engineer. Study matrix algebra, differential equations, vector calculus, numerical methods and complete a capstone project.', 'subject1_img.png'),
-(2, 2, 'published', 'This course provides an elementary introduction to probability and statistics with applications. Topics include: basic combinatorics, random variables, probability distributions, Bayesian inference, hypothesis testing, confidence intervals, and linear regression.', 'subject2_img.png'),
-(3, 3, 'published', 'Improve your fluency, vocabulary, grammar and pronunciation in preparation for the IELTS Speaking test.', 'subject3_img.png'),
-(4, 4, 'published', 'Preparation for the Test of English for International Communication. Complete TOEIC TEST preparation course', 'subject4_img.png'),
-(5, 5, 'published', 'Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React, MongoDB, Web3 and DApps', 'subject5_img.png'),
-(6, 6, 'published', 'Become Java Spring Boot Full Stack Cloud Developer. Learn AWS, React, Docker, Spring Data JPA & Spring Security.', 'subject6_img.png');
+(1, 1, 'published', 'Learn the mathematics needed to become an engineer. Study matrix algebra, differential equations, vector calculus, numerical methods and complete a capstone project.', 'subject1_img.png', '1', 'We love Math'),
+(2, 2, 'published', 'This course provides an elementary introduction to probability and statistics with applications. Topics include: basic combinatorics, random variables, probability distributions, Bayesian inference, hypothesis testing, confidence intervals, and linear regression.', 'subject2_img.png', '1', 'Statistics is easy'),
+(3, 3, 'published', 'Improve your fluency, vocabulary, grammar and pronunciation in preparation for the IELTS Speaking test.', 'subject3_img.png', '1', 'English so simple'),
+(4, 4, 'published', 'Preparation for the Test of English for International Communication. Complete TOEIC TEST preparation course', 'subject4_img.png', '0', 'Master TOEIC'),
+(5, 5, 'published', 'Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React, MongoDB, Web3 and DApps', 'subject5_img.png', '0', 'Build your first website'),
+(6, 6, 'published', 'Become Java Spring Boot Full Stack Cloud Developer. Learn AWS, React, Docker, Spring Data JPA & Spring Security.', 'subject6_img.png', '0', 'Master Spring Boot');
 
 
 INSERT INTO `iquiz`.`price_package`
