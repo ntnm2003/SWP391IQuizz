@@ -10,4 +10,64 @@ main{
     margin-top: 100px;
     margin-bottom: 100px;
 }
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+.card-text{
+    color: black;
+    padding:5px;
+}
+.card-label{
+    position: absolute; 
+    bottom: 10px; 
+    font-size: 12px;
+    padding:5px;
+}
+.card-overlay{
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0, 0.5); 
+    display: none;
+}
+.register-subject.btn {
+    margin-right: 1rem;
+    color: #fffffc;
+    background-color: #1368ce;
+    padding: 0.8rem 1.2rem;
+    border-radius: 0.3rem;
+    transition: all 0.2s linear;
+}
+
+.register-subject.btn::before {
+    width: 0;
+    height: 0;
+}
+
+.register-subject.btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 110%;
+    border-radius: 0.3rem;
+    z-index: -1;
+}
+
+.register-subject.btn:hover {
+    transform: translateY(0.1rem);
+    background-color: #1368ce;
+}
+
+.card-label.price{
+    background-color: red;
+}
+.register-container {
+    display: flex;
+    align-items: center;
+}
 
