@@ -10,7 +10,6 @@ import swp.quizpracticingsystem.model.PricePackage;
 import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.model.Usercourse;
 import swp.quizpracticingsystem.service.PricePackageService;
-import swp.quizpracticingsystem.service.SubjectDetailService;
 import swp.quizpracticingsystem.service.SubjectService;
 import swp.quizpracticingsystem.service.UserCourseService;
 
@@ -20,7 +19,6 @@ public class PublicController {
     @Autowired
     private UserCourseService userCourseService;
     @Autowired private SubjectService subService;
-    @Autowired private SubjectDetailService detailService;
     @Autowired private PricePackageService packageService;
 
     @GetMapping("/registration/{course_id}")

@@ -3,8 +3,8 @@ package swp.quizpracticingsystem.model;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -38,6 +38,15 @@ public class User {
 
     @Column(name = "Password")
     private String password;
+
+    @Column(name = "token", nullable = true)
+    private String token;
+
+    @Column(name = "lastupdatedatetime", nullable = true)
+    private String lastupdatedatetime;
+
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
 
 
     @ManyToOne
