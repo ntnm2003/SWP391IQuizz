@@ -1,23 +1,36 @@
 package swp.quizpracticingsystem.model;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "price_package")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PricePackage {
     @Id
-    @Column(name = "idPrice")
+    @Column(name = "idprice")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPrice;
 
-    @Column(name = "idSub")
-    private Integer idSub;
+    @ManyToOne
+    @JoinColumn(name="idsub", referencedColumnName = "idcourse")
+    private Subject subject;
 
-    @Column(name = "packageName")
-    private Integer packageName;
+    @Column(name = "package_name")
+    private String packageName;
 
     @Column(name = "duration")
     private Integer duration;
@@ -25,7 +38,7 @@ public class PricePackage {
     @Column(name = "price")
     private Integer price;
 
-    @Column(name = "salePrice")
+    @Column(name = "sale_price")
     private Integer salePrice;
 
     @Column(name = "status")
