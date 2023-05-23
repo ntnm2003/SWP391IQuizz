@@ -55,7 +55,7 @@ public class ForgotPasswordController {
             ex.printStackTrace();
         }
 
-        return "forgot_password_form";
+        return "password/forgot_password_form";
     }
     
     public void sendEmail(String recipientEmail, String link)
@@ -96,16 +96,15 @@ public class ForgotPasswordController {
         if (currentDateTime.compareTo(dateTime) > 0) {
             return "timeout";
         } else {
-            return "reset_password_form";
+            return "password/reset_password_form";
         }
     }
     
     @PostMapping("/reset_password")
     public String processResetPassword(User a) {
-
         User acc = accountService.getByResetPasswordToken(a.getToken());
         acc.setPassword(a.getPassword());
         accountService.updatePassword(acc, a.getPassword());
-        return "message";
+        return "login";
     }
 }
