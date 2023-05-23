@@ -34,5 +34,18 @@ public class BlogService implements IBlogService {
 		return results;
 	}
 
+	@Override
+	public List<PostsDTO> getLatestPosts(boolean isFeatured, int limit) {
+		List<Posts> lastestPosts = blogRepository.findByFeaturingOrderByUpdatedDate(isFeatured, limit);
+		List<PostsDTO> results = new ArrayList<>();
+		for(Posts post : lastestPosts) {
+			PostsDTO postsDTO = new PostsDTO();
+			postsDTO.postsHomePage(post);
+			results.add(postsDTO);
+		}
+		return results;
+
+	}
+
 
 }

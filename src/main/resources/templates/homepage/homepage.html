@@ -10,6 +10,8 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
     
     <link rel="stylesheet" th:href=@{/homepage_assets/homepage_assets_css/homepage.css}>
+    <link rel="stylesheet" th:href=@{/templates_components_assets/css/header.css}>
+    <link rel="stylesheet" th:href=@{/templates_components_assets/css/footer.css}>
 </head>
 
 <body>
@@ -25,7 +27,7 @@
                 <div th:each="slider : ${sliders}" class="carousel-item active">
                     <a th:href="${slider.backlink}">
                         <div class="img-wrapper">
-                            <img th:src="${slider.image}"
+                            <img th:src="@{/database_images/{imageName}(imageName=${slider.image})}"
                                 class="d-block w-100" alt="...">
                         </div>
                         <div class="carousel-caption d-none d-md-block">
@@ -63,24 +65,16 @@
                             <span><ion-icon name="flame"></ion-icon></span>
                         </h4>
 
-                        
-                        <div class="card">
-                            <a href="#">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card">
-                            <a href="#">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.</p>
-                                </div>
-                            </a>
+                        <div th:each="lastestPost : ${lastestPosts}" class="latest_posts-cards">
+
+                            <div class="card">
+                                <a th:href="@{'blogs/blog-detail?id=' + ${lastestPost.postId}}">
+                                    <img th:src="@{/database_images/{imageName}(imageName=${lastestPost.thumbnail})}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <p th:text="${lastestPost.title}" class="card-text"></p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
 
                     </div>
@@ -95,64 +89,27 @@
                                 <span id="heart"><ion-icon name="heart-circle"></ion-icon></span>
                                 Hot Posts
                             </h1>
-                            <h3><a href="/blogs-list">View all</a></h3>
+                            <h3><a href="blogs/blogs-list">View all</a></h3>
                         </div>
 
                         <div class="row">
-                            <div th:each="blog : ${blogs}" class="col-md-3">
-                                <div class="card">
-                                    <div class="img-wrapper" style="height:180px">
-                                        <img src="@{/database_images/{imageName}(imageName=${blog.thumbnail})}" class="card-img-top"
-                                            alt="...">
+                            <div th:each="blog : ${blogs}" class="col-md-4">
+                                <a class="card_link" th:href="@{'blogs/blog-detail?id=' + ${blog.postId}}">
+                                    <div class="card">
+                                        <div class="img-wrapper" style="height:180px">
+                                            <img th:src="@{/database_images/{imageName}(imageName=${blog.thumbnail})}" class="card-img-top"
+                                                alt="...">
+                                        </div>
+                                        <div class="card-body">
+                                            <h3 th:text="${blog.title}" class="card-title"></h3>
+                                            <p th:text="${blog.updatedDate}" class="updated-date"></p>
+                                            <a id="post_detail_btn" th:href="@{'blogs/blog-detail?id=' + ${blog.postId}}" class="btn btn-success">View Detail</a>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <h3 th:text="${blog.title}" class="card-title"></h3>
-                                        <p th:text="${blog.updatedDate}" class="updated-date"></p>
-                                        <a th:href="@{'blogs/blog-detail?id=' + ${blog.postId}}" class="btn btn-success">View Detail</a>
-                                    </div>
-                                </div>
+                                </a>
                             </div>
 
-
-<!--                            <div class="col-md-3">-->
-<!--                                <div class="card">-->
-<!--                                    <div class="img-wrapper" style="height:180px">-->
-<!--                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"-->
-<!--                                            alt="...">-->
-<!--                                    </div>-->
-<!--                                    <div class="card-body">-->
-<!--                                        <h3 class="card-title">Card title</h3>-->
-<!--                                        <p class="updated-date">MM/DD/YYYY</p>-->
-<!--                                        <a href="#" class="btn btn-success">View Detail</a>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-3">-->
-<!--                                <div class="card">-->
-<!--                                    <div class="img-wrapper" style="height:180px">-->
-<!--                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"-->
-<!--                                            alt="...">-->
-<!--                                    </div>-->
-<!--                                    <div class="card-body">-->
-<!--                                        <h3 class="card-title">Card title</h3>-->
-<!--                                        <p class="updated-date">MM/DD/YYYY</p>-->
-<!--                                        <a href="#" class="btn btn-success">View Detail</a>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-md-3">-->
-<!--                                <div class="card">-->
-<!--                                    <div class="img-wrapper" style="height:180px">-->
-<!--                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"-->
-<!--                                            alt="...">-->
-<!--                                    </div>-->
-<!--                                    <div class="card-body">-->
-<!--                                        <h3 class="card-title">Card title</h3>-->
-<!--                                        <p class="updated-date">MM/DD/YYYY</p>-->
-<!--                                        <a href="#" class="btn btn-success">View Detail</a>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                    
                         </div>
 
                     </div>
@@ -168,58 +125,23 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="img-wrapper" style="height:180px">
-                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
-                                            alt="...">
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="card-title">Card title</h3>
-                                        <p class="tag-line">Tag line</p>
-                                        <a href="#" class="btn btn-primary">Study Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="img-wrapper" style="height:180px">
-                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
-                                            alt="...">
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="card-title">Card title</h3>
-                                        <p class="tag-line">Tag line</p>
-                                        <a href="#" class="btn btn-primary">Study Now</a>
+
+                                <div th:each="featuredSubjectOverview : ${featuredSubjectOverviews}"
+                                     th:with="featuredSubject=${featuredSubjects[featuredSubjectOverviewStat.index]}"
+                                     class="col-md-4">
+                                    <div class="card">
+                                        <div class="img-wrapper">
+                                            <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
+                                                 alt="...">
+                                        </div>
+                                        <div class="card-body">
+                                            <h3 th:text="${featuredSubject.courseName}" class="card-title"></h3>
+                                            <p th:text="${featuredSubjectOverview.tagLine}" class="tag-line"></p>
+                                            <a href="#" class="btn btn-primary">Study Now</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="img-wrapper" style="height:180px">
-                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
-                                            alt="...">
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="card-title">Card title</h3>
-                                        <p class="tag-line">Tag line</p>
-                                        <a href="#" class="btn btn-primary">Study Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="img-wrapper" style="height:180px">
-                                        <img src="/templates_components_assets/img/Avatar.png" class="card-img-top"
-                                            alt="...">
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="card-title">Card title</h3>
-                                        <p class="tag-line">Tag line</p>
-                                        <a href="#" class="btn btn-primary">Study Now</a>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
 
                     </div>

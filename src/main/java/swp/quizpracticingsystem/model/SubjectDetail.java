@@ -29,4 +29,20 @@ public class SubjectDetail {
     @OneToOne
     @JoinColumn(name = "id_course", referencedColumnName = "idcourse")
     private Subject subject;
+
+    public Integer getIdSub() {
+        return idSub;
+    }
+
+    public void setIdSub(Integer idSub) {
+        this.idSub = idSub;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 }
