@@ -42,7 +42,7 @@ public class RegisterController {
     public String processRegister(User user, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException {
         service.register(user, getSiteURL(request));       
-        return "register_success";
+        return "register/register_successfully";
     }
      
     private String getSiteURL(HttpServletRequest request) {
