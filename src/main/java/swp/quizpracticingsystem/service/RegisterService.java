@@ -15,13 +15,9 @@ import swp.quizpracticingsystem.model.User;
 @Service
 public interface RegisterService {
 
-    void register(User user, String siteURL) {
-        
-    }
+    void register(User user, String siteURL);
 
-    void sendVerificationEmail(User user, String siteURL) {
-
-    }
+    void sendVerificationEmail(User user, String siteURL);
 
 
 }
