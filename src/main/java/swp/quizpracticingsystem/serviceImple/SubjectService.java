@@ -5,6 +5,8 @@
 package swp.quizpracticingsystem.serviceImple;
 
 import jakarta.transaction.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
@@ -23,16 +25,16 @@ import swp.quizpracticingsystem.service.ISubjectService;
  *
  * @author Mosena
  */
-@Service(("subjectServiceImpl"))
+@Service()
 @Transactional
 public class SubjectService implements ISubjectService {
 
     @Autowired
     private ISubjectRepository iSubjectRepository;
-    
+
     @Autowired
     private ModelMapper modelmapper;
-    
+
     @Override
     public Page<SubjectDTO> findPaginatedAllSubjects(int pageNo, int pageSize) {
         Pageable pageable=PageRequest.of(pageNo-1,pageSize);
@@ -42,9 +44,34 @@ public class SubjectService implements ISubjectService {
                 .collect(Collectors.toList());
         return new PageImpl<>(paginatedList);
     }
-    
+
     public SubjectDTO convertEntitytoDTO(Subject entity){
         return modelmapper.map(entity, SubjectDTO.class);
     }
-    
+
+    @Override
+    public List<Subject> findByFeaturing(List<Integer> ids) {
+        List<Subject> featuringSubjects = new ArrayList<>();
+        for (Integer id : ids) {
+            Subject featuringSubject = iSubjectRepository.findByIdCourse(id);
+            featuringSubjects.add(featuringSubject);
+        }
+        return featuringSubjects;
+    }
+
+    public List<Subject> listAll() {
+        return (List<Subject>) iSubjectRepository.findAll();
+    }
+
+    public void save(Subject subject) {
+        iSubjectRepository.save(subject);
+    }
+    public Subject getById(Integer id){
+        return iSubjectRepository.getById(id);
+    }
+
+    @Override
+    public List<Subject> searchByCourseName(String s) {
+        return iSubjectRepository.findByCourseNameContaining(s);
+    }
 }

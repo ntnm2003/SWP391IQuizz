@@ -10,18 +10,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import swp.quizpracticingsystem.model.Subject;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Mosena
  */
 @Repository
-public interface ISubjectRepository extends JpaRepository<Subject, Long> {
+public interface ISubjectRepository extends JpaRepository<Subject, Integer> {
 
-    @Override
-    public Page<Subject> findAll(Pageable pageable);
-    
-    @Override
-    public List<Subject> findAll();
-    
+
+    Subject findByIdCourse(Integer id);
+
+    List<Subject> findByCourseNameContaining(String s);
+
 }

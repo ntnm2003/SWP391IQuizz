@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import swp.quizpracticingsystem.model.Posts;
 
 @Getter
 @Setter
@@ -22,4 +23,11 @@ public class PostsDTO {
     private String description;
     private String status;
     private Boolean featuring;
+
+    public void postsHomePage(Posts post) {
+        this.postId = post.getPostId();
+        this.thumbnail = post.getThumbnail();
+        this.title = post.getTitle();
+        this.updatedDate = post.getUpdatedDate();
+    }
 }
