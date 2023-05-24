@@ -16,8 +16,8 @@ import swp.quizpracticingsystem.model.User;
 @Repository 
 public interface RegisterRepository extends JpaRepository<User, Long> {
      
-    @Query("SELECT u FROM User u WHERE u.verificationCode = ?1")
-    public User findByVerificationCode(String code);
+    @Query("SELECT u FROM User u WHERE u.token = ?1")
+    public User findByToken(String code);
     
     @Override
     public List<User> findAll();

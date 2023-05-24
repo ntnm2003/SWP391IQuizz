@@ -61,7 +61,7 @@ public class RegisterController {
             return "register/register";
         } else {
         String randomCode = RandomString.make(64);
-        user.setVerificationCode(randomCode);
+        user.setToken(randomCode);
         user.setEnabled(false);
         Role role = new Role(1, "customer", "dan thuong");
         user.setRole(role);
@@ -105,7 +105,7 @@ public class RegisterController {
         helper.setSubject(subject);
 
         content = content.replace("[[name]]", user.getFullName());
-        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
+        String verifyURL = siteURL + "/verify?code=" + user.getToken();
 
         content = content.replace("[[URL]]", verifyURL);
 
