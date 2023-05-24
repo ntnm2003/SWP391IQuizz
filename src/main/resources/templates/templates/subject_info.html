@@ -36,14 +36,8 @@
                     <span class="inline-block ml-2">Categories</span>
                 </a>
                 <ul id="categories-list" class="hidden flex-col items-start w-full ml-6">
-                    <li>
-                        <a href="" class="block px-8 py-1">Math</a>
-                    </li>
-                    <li>
-                        <a href="" class="block px-8 py-1">SE</a>
-                    </li>
-                    <li>
-                        <a href="" class="block px-8 py-1">English</a>
+                    <li th:each="ca:${cat}">
+                        <a href="" class="block px-8 py-1" th:text="${ca.getCatName()}"></a>
                     </li>
                 </ul>
             </div>
@@ -97,7 +91,9 @@
             </div>
         </article>
     </div>
+
 </main>
+<div th:insert="templates/components/footer"></div>
 <script>
     const categoriesBtn = document.getElementById('categories-btn');
     const categoriesIcon = categoriesBtn.querySelector('span');
