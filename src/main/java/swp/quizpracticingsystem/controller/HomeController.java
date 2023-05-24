@@ -34,7 +34,10 @@ public class HomeController {
 
 	@Autowired
 	private ISubjectService subjectService;
-
+        @GetMapping("/")
+        public String redirectToHome() {
+            return "redirect:/home";
+        }
 	@GetMapping("/home")
 	public String getToHomePage(Model model, HttpSession session) {
 

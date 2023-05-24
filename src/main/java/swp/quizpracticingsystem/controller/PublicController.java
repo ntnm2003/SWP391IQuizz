@@ -9,11 +9,11 @@ import swp.quizpracticingsystem.NotFound.UserCourseKey;
 import swp.quizpracticingsystem.model.PricePackage;
 import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.model.Usercourse;
-import swp.quizpracticingsystem.service.PricePackageService;
-import swp.quizpracticingsystem.service.SubjectService;
 import swp.quizpracticingsystem.service.UserCourseService;
 
 import java.util.List;
+import swp.quizpracticingsystem.serviceImple.PricePackageService;
+import swp.quizpracticingsystem.serviceImple.SubjectService;
 @Controller
 public class PublicController {
     @Autowired
@@ -51,7 +51,7 @@ public class PublicController {
                 if (u==null){
                     u= new Usercourse();
                 }
-                    p = packageService.getById(u.getPrice());
+                p = packageService.getById(u.getId().getUser_id());
                 model.addAttribute("u", u);
 
                 p = new PricePackage();
