@@ -104,11 +104,11 @@ public class RegisterController {
         helper.setTo(toAddress);
         helper.setSubject(subject);
 
+        System.out.println(user.getFullName());
         content = content.replace("[[name]]", user.getFullName());
         String verifyURL = siteURL + "/verify?code=" + user.getToken();
 
         content = content.replace("[[URL]]", verifyURL);
-
         helper.setText(content, true);
 
         mailSender.send(message);
