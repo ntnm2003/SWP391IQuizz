@@ -62,14 +62,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="d-flex justify-content-center justify-content-between mt-3">
                         <a  
                            th:href="@{'/subjects/subjects-list?pageNo='+${pageNo-1}+${categoryId != null ? '&category=' + categoryId : ''}}"
-                           th:class="${pageNo > 1} ? '' : 'disabled'"
-                           onclick="return !this.classList.contains('disabled');">Previous</a>                        <div class="mr-2">
+                           th:class="${pageNo > 1} ? 'nondisabled' : 'disabled'"
+                           onclick="return !this.classList.contains('disabled');"
+                           style="color: #053f86">Previous</a>                        
+                        <div class="mr-2">
                             <h4 class="text-center" th:text="'Page ' + ${pageNo} + '/' + ${totalPages}"></h4>
                         </div>
                         <a  
                             th:href="@{'/subjects/subjects-list?pageNo='+${pageNo+1}+${categoryId != null ? '&category=' + categoryId : ''}}"
-                            th:class="${pageNo < totalPages} ? '' : 'disabled'"
-                            onclick="return !this.classList.contains('disabled');">Next</a>
+                            th:class="${pageNo < totalPages} ? 'nondisabled' : 'disabled'"
+                            onclick="return !this.classList.contains('disabled');"
+                            style="color: #053f86">Next</a>
                     </div>
                 </div>
             </div>
