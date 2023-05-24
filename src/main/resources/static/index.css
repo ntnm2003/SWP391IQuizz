@@ -65,8 +65,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
           color: white;
         }
         .row .form-group input:focus, .row .form-group button:focus {
-          background-color: #fff;
-          color: #000;
           border: none;
           padding: 1em 0.5em; animation: pulse 1s infinite ease;}
       .row .form-group button {
