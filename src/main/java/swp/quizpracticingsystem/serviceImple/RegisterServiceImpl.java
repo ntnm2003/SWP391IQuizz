@@ -26,12 +26,12 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     public boolean verify(String verificationCode) {
-        User user = repository.findByVerificationCode(verificationCode);
+        User user = repository.findByToken(verificationCode);
 
         if (user == null || user.isEnabled()) {
             return false;
         } else {
-            user.setVerificationCode(null);
+            user.setToken(null);
             user.setEnabled(true);
             repository.save(user);
 

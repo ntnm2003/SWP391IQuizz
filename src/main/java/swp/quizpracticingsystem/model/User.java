@@ -43,8 +43,8 @@ public class User {
     @Column(name = "Password")
     private String password;
     
-    @Column(name = "verification_code")
-    private String verificationCode;
+    @Column(name = "Token")
+    private String token;
      
     private boolean enabled;
 
