@@ -9,6 +9,7 @@ import java.util.List;
 public interface ISubjectService {
 
     List<Subject> findByFeaturing(List<Integer> ids);
+
     public Page<SubjectDTO> findPaginatedAllSubjects(int pageNo, int pageSize);
 
 }
