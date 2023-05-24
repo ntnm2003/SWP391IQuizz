@@ -60,32 +60,12 @@ public class HomeController {
 		//Get all subjects by id
 		List<Subject> featuredSubjects = subjectService.findByFeaturing(featuredSubjectsIds);
 
-		//Testing
-		System.out.println("Is the featured subjects list null? " + featuredSubjects.isEmpty());
-		System.out.println("Is the featured subject overviews list null? " + featuredSubjectOverviews.isEmpty());
-
-		for(int i = 0; i < featuredSubjects.size(); i++) {
-			System.out.println("Subject name: " + featuredSubjects.get(i).getCourseName());
-			System.out.println("Subject thumbnail: " + featuredSubjectOverviews.get(i).getImage());
-			System.out.println("Subject tag line: " + featuredSubjectOverviews.get(i).getTagLine());
-		}
-
 		//Add to model
 		model.addAttribute("sliders", sliders);
 		model.addAttribute("blogs", blogs);
 		model.addAttribute("lastestPosts", latestPosts);
 		model.addAttribute("featuredSubjects", featuredSubjects);
 		model.addAttribute("featuredSubjectOverviews", featuredSubjectOverviews);
-
-
-
-
-		//Testing Session
-		User user = new User();
-		user.setFullName("Nguyen Anh Quan");
-		user.setUserId(1);
-		session.setAttribute("user", user);
-		System.out.println(session.getAttribute("user") == null);
 
 
 		model.addAttribute("userSession", session.getAttribute("user"));
