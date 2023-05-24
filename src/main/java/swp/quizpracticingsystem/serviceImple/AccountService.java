@@ -7,6 +7,7 @@ package swp.quizpracticingsystem.serviceImple;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import swp.quizpracticingsystem.model.User;
 import swp.quizpracticingsystem.repository.IAccountRepository;
@@ -23,6 +24,8 @@ public class AccountService implements IAccountService{
     @Autowired
     IAccountRepository accountRepository;
     
+    @Value("${reset.link.timeout}")
+    private int timeout;
 
     @Override
     public void updateResetPasswordToken(String token, String email) {
@@ -30,7 +33,7 @@ public class AccountService implements IAccountService{
         if (acc != null) {
             acc.token(token);
             LocalDateTime currentDateTime = LocalDateTime.now();
-            LocalDateTime updatedDateTime = currentDateTime.plusMinutes(5);
+            LocalDateTime updatedDateTime = currentDateTime.plusMinutes(timeout);
             acc.setLastupdatedatetime(updatedDateTime.toString());
             accountRepository.save(acc);
         }
