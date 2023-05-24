@@ -9,10 +9,10 @@ import swp.quizpracticingsystem.NotFound.UserCourseKey;
 import swp.quizpracticingsystem.model.PricePackage;
 import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.model.Usercourse;
-import swp.quizpracticingsystem.service.PricePackageService;
-import swp.quizpracticingsystem.service.SubjectDetailService;
-import swp.quizpracticingsystem.service.SubjectService;
-import swp.quizpracticingsystem.service.UserCourseService;
+
+import swp.quizpracticingsystem.serviceImple.PricePackageService;
+import swp.quizpracticingsystem.serviceImple.SubjectService;
+import swp.quizpracticingsystem.serviceImple.UserCourseService;
 
 import java.util.List;
 @Controller
@@ -20,7 +20,6 @@ public class PublicController {
     @Autowired
     private UserCourseService userCourseService;
     @Autowired private SubjectService subService;
-    @Autowired private SubjectDetailService detailService;
     @Autowired private PricePackageService packageService;
 
     @GetMapping("/registration/{course_id}")
@@ -29,7 +28,7 @@ public class PublicController {
         List<PricePackage> price = packageService.getBySubject(course_id);
         model.addAttribute("sub",su);
         model.addAttribute("pack", price);
-        return "templates/subject_register";
+        return "subject_register/subject_register";
     }
     @GetMapping("/registration/{course_id}/{user_id}")
     public String registerSubject(@PathVariable("course_id") Integer course_id, @PathVariable("user_id") Integer user_id, Model model) {
@@ -60,7 +59,7 @@ public class PublicController {
             }
             model.addAttribute("sub", su);
             model.addAttribute("pack", price);
-            return "templates/subject_register";
+            return "subject_register/subject_register";
         }
 
 }

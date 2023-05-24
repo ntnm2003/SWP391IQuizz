@@ -38,4 +38,10 @@ public class SubjectOverview {
 
     @Column(name = "image")
     private String image;
+
+    @Column(name = "tag_line")
+    private String tagLine;
+
+    @Column(name = "featuring")
+    private String featuring;
 }

@@ -1,6 +1,5 @@
 package swp.quizpracticingsystem.controller;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import swp.quizpracticingsystem.model.Category;
 import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.model.Usercourse;
 import swp.quizpracticingsystem.service.*;
+import swp.quizpracticingsystem.serviceImple.PricePackageService;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -25,10 +25,10 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-    private final UserCourseService userCourseService;
-    private final SubjectService subService;
+    private final IUserCourseService userCourseService;
+    private final ISubjectService subService;
     private final PricePackageService packageService;
-    private final CategoryService categoryService;
+    private final ICategoryService categoryService;
 
     private List<MyRegistration> reg(Integer id) {
         List<Subject> subjects = userCourseService.courseById(id);
@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @GetMapping("/users/myregistration/{id}")
-    public String showRegistation(@PathVariable("id") Integer id, Model model) {
+    public String showRegistation(@PathVariable("id") Integer id,  Model model) {
         List<MyRegistration> regis = reg(id);
         List<Subject> subjects = userCourseService.courseById(id);
         List<Category> cat = categoryService.listAll();
@@ -81,20 +81,21 @@ public class UserController {
         model.addAttribute("cat", cat);
         model.addAttribute("regis", regis);
 
-        return "templates/my_registration";
+        return "myregistration/my_registration";
     }
 
     @GetMapping("/users/myregistration/{uid}/{cid}")
     public String regisCourse(@PathVariable("uid") Integer uid, @PathVariable("cid") Integer cid, Model model) {
         List<MyRegistration> regis = reg(uid);
+        MyRegistration re=new MyRegistration();
         List<Subject> sub = new ArrayList<>();
         for (MyRegistration r : regis) {
             if (r.getSubName().equals(subService.getById(cid).getCourseName())) {
-                sub.add(subService.getById(cid));
+                r=re;
             }
         }
-        model.addAttribute("subj", sub);
-        return "templates/subject_info";
+        model.addAttribute("re", re);
+        return "myregistration/subject_info";
     }
 
     @GetMapping("/users/registration/save/{user_id}/{course_id}")
@@ -115,10 +116,17 @@ public class UserController {
         ra.addFlashAttribute("message", "The user has been saved successfully.");
         return new ModelAndView("redirect:/home", model);
     }
-//    @GetMapping("/users/myregistration/{id}/search")
-//    public String search(
-//
-//    )
+    @GetMapping("/users/registration/search/{uid}")
+    public String submitSearchForm(@PathVariable("uid") Integer uid, @RequestParam("search") String search,Model model) {
 
+        List<Subject> subjects = subService.searchByCourseName("search");
+       // model.addAttribute("search", search);
+        List<Category> cat = categoryService.listAll();
+        model.addAttribute("cat", cat);
+        model.addAttribute("sub", subjects);
+        List<MyRegistration> regis = reg(uid);
+        model.addAttribute("regis", regis);
+        return "myregistration/search";
+    }
 
 }
