@@ -42,4 +42,6 @@ public interface ISubjectRepository extends JpaRepository<Subject, Integer> {
             + "where s.course_name like %?1% && c.id = ?2", nativeQuery = true)
     public Page<Subject>searchSubjectNameAndCategory(Pageable pageable, 
             String subjectName, int categoryId);
+    
+    Subject findByIdCourse(int id);
 }

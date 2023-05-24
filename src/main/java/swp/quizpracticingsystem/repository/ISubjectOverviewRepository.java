@@ -4,6 +4,7 @@
  */
 package swp.quizpracticingsystem.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,4 +20,7 @@ public interface ISubjectOverviewRepository extends
     @Query(value="select * from subject_overview "
             + "where idsub=?1",nativeQuery = true)
     public SubjectOverview findSubjectOverview(int subjectId);
+    
+    public List<SubjectOverview> findByFeaturing(String featuring);
+    
 }

@@ -39,4 +39,12 @@ public class CategoryService implements ICategoryService {
     public CategoryDTO convertEntityToDTO(Category category){
         return modelmapper.map(category, CategoryDTO.class);
     }
+
+    public List<Category> listAll() {
+        return categoryRepository.findAll();
+    }
+
+    public Category getById(Integer id) {
+        return categoryRepository.getById(id);
+    }
 }

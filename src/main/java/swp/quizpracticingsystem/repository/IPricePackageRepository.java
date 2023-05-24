@@ -24,4 +24,7 @@ public interface IPricePackageRepository extends
     @Query(value="Select * from PricePackage "
             + "where idSub=?1",nativeQuery=true)
     public PricePackage findMinPricePackage(int subjectId);
+    @Override
+    public PricePackage getById(Integer id);
+    public List<PricePackage> getBySubject(Integer subId);
 }

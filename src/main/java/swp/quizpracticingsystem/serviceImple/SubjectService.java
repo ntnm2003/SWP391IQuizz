@@ -5,6 +5,7 @@
 package swp.quizpracticingsystem.serviceImple;
 
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
@@ -178,7 +179,29 @@ public class SubjectService implements ISubjectService {
                 subjectPage.getTotalElements());
     }
     
+    @Override
+    public List<Subject> findByFeaturing(List<Integer> ids) {
+        List<Subject> featuringSubjects=new ArrayList<>();
+        for (Integer id : ids) {
+            Subject featuringSubject = iSubjectRepository.findByIdCourse(id);
+            featuringSubjects.add(featuringSubject);
+        }
+        return featuringSubjects;
+    }
+
+    
     public SubjectDTO convertEntitytoDTO(Subject entity){
         return modelmapper.map(entity, SubjectDTO.class);
+    }
+    
+    public List<Subject> listAll() {
+        return (List<Subject>) iSubjectRepository.findAll();
+    }
+
+    public void save(Subject subject) {
+        iSubjectRepository.save(subject);
+    }
+    public Subject getById(Integer id){
+        return iSubjectRepository.getById(id);
     }
 }

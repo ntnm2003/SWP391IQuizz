@@ -34,3 +34,12 @@
 /src/main/resources/static/templates_components_assets/img/insta_logo.png filter=lfs diff=lfs merge=lfs -text
 /src/main/resources/static/templates_components_assets/img/iquizz-logo_official.png filter=lfs diff=lfs merge=lfs -text
 /src/main/resources/static/templates_components_assets/img/iquizz_logo_rmbg.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/database_images/post2_thumbnail.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/database_images/post3_thumbnail.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/database_images/slider1-2.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/database_images/slider2.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/database_images/slider3.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/img/Avatar.jpg filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/img/insta_logo.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/img/iquizz-logo_official.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/img/iquizz_logo_rmbg.png filter=lfs diff=lfs merge=lfs -text

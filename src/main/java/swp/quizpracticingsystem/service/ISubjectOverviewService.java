@@ -1,17 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package swp.quizpracticingsystem.service;
 
-import org.springframework.stereotype.Repository;
-import swp.quizpracticingsystem.dto.SubjectOverviewDTO;
+import swp.quizpracticingsystem.model.SubjectOverview;
 
-/**
- *
- * @author Mosena
- */
-@Repository
+import java.util.List;
+import swp.quizpracticingsystem.dto.SubjectOverviewDTO;
+import swp.quizpracticingsystem.model.Subject;
+
 public interface ISubjectOverviewService {
-    public SubjectOverviewDTO findSubjectOverview(int subjectId);
+    List<SubjectOverview> getAllSubjectOverview();
+
+    List<SubjectOverview> getSObyFeaturing(String featuring);
+
+    SubjectOverviewDTO findSubjectOverview(int subjectId);
+    List<Subject> findByFeaturing(List<Integer> ids);
 }

@@ -70,34 +70,4 @@ main{
     display: flex;
     align-items: center;
 }
-.disabled{
-    text-decoration: none;
-    cursor: default;
-    color:  #586380;
-}
-.nondisabled{
-    text-decoration: none;
-    color: #1368ce;
-    transition: all 0.2s linear;
-}
-.nondisabled::before {
-    width: 0;
-    height: 0;
-}
-
-.nondisabled::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 110%;
-    border-radius: 0.3rem;
-    z-index: -1;
-}
-
-.nondisabled:hover {
-    transform: translateY(0.1rem);
-    background-color: #1368ce;
-}
 
