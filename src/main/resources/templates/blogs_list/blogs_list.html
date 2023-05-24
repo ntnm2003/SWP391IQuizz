@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQuiz - Level up IQ Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
+    <link rel="stylesheet" th:href=@{/blogs_list_assets/blogs_list_assets_css/blogs_list_style.css}>
+</head>
+
+<body style="font-size:14px;">
+    <!-- ================ HEADER ================ -->
+    <div th:insert="templates/components/header"></div>
+
+
+    <!-- ========== MAIN CONTENT ============ -->
+    <section class="main">
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- =========== SIDER ============= -->
+                <div class="sider col-md-4 p-5 h-auto">
+                    <div class="sider-content">
+                        <div class="search-box">
+                            <input type="text">
+                            <span>Search For Posts</span>
+                        </div>
+
+                        <div class="category">
+                            <h3>
+                                Post Categories
+                            </h3>
+                            <input id="cate1" type="radio" name="cate" value="">
+                            <label for="cate1">Category 1</label>
+                            <input id="cate2" type="radio" name="cate" value="">
+                            <label for="cate2">Category 2</label>
+                            <input id="cate3" type="radio" name="cate" value="">
+                            <label for="cate3">Category 3</label>
+                        </div>
+                    </div>
+
+                    <div class="lastest_posts">
+                        <h3>
+                            <span><ion-icon name="flame"></ion-icon></span>
+                            Lastest Posts
+                            <span><ion-icon name="flame"></ion-icon></span>
+                        </h3>
+
+
+                        <div class="card">
+                            <a href="#">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-text">Some quick example text to build on the card title and make
+                                        up
+                                        the
+                                        bulk of the card's content.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="#">
+                                <img src="..." class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <p class="card-text">Some quick example text to build on the card title and make
+                                        up
+                                        the
+                                        bulk of the card's content.</p>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- ============= BLOGS LIST ================== -->
+                <div class="blogs-list col-md-8 p-5 h-auto">
+
+                    <div class="card">
+                        <img src="homepage_assets/homepage_assets_img/Green and Yellow Simple One Million Trees Day Banner.png"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="text-section">
+                                <h1 class="card-title">Post title</h1>
+                                <h4>Post Category</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
+                                    recusandae eaque repellat dolorem mollitia facilis ipsum, vero ratione laudantium
+                                    quas, ab beatae officiis ea numquam. Quia sunt numquam perferendis</p>
+                            </div>
+                            <div class="cta-section">
+                                <a href="#" class="btn btn-primary">View Detail</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="homepage_assets/homepage_assets_img/Green and Yellow Simple One Million Trees Day Banner.png"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="text-section">
+                                <h1 class="card-title">Post title</h1>
+                                <h4>Post Category</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
+                                    recusandae eaque repellat dolorem mollitia facilis ipsum, vero ratione laudantium
+                                    quas, ab beatae officiis ea numquam. Quia sunt numquam perferendis</p>
+                            </div>
+                            <div class="cta-section">
+                                <a href="#" class="btn btn-primary">View Detail</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="homepage_assets/homepage_assets_img/Green and Yellow Simple One Million Trees Day Banner.png"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="text-section">
+                                <h1 class="card-title">Post title</h1>
+                                <h4>Post Category</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
+                                    recusandae eaque repellat dolorem mollitia facilis ipsum, vero ratione laudantium
+                                    quas, ab beatae officiis ea numquam. Quia sunt numquam perferendis</p>
+                            </div>
+                            <div class="cta-section">
+                                <a href="#" class="btn btn-primary">View Detail</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="homepage_assets/homepage_assets_img/Green and Yellow Simple One Million Trees Day Banner.png"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="text-section">
+                                <h1 class="card-title">Post title</h1>
+                                <h4>Post Category</h4>
+                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
+                                    recusandae eaque repellat dolorem mollitia facilis ipsum, vero ratione laudantium
+                                    quas, ab beatae officiis ea numquam. Quia sunt numquam perferendis</p>
+                            </div>
+                            <div class="cta-section">
+                                <a href="#" class="btn btn-primary">View Detail</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="pagination">
+            <nav aria-label="...">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">1</span>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </section>
+
+
+    <div class="test">
+        <h1>Testing</h1>
+        <ul th:each="item : ${blogs}">
+            <li>
+            	<span th:text="${item.getTitle()}"></span><br>
+            	<span th:text="${item.getAuthor()}"></span><br>
+            	<span th:text="${item.getPostCategory()}"></span><br>
+            	<span th:text="${item.getUpdatedDate()}"></span><br>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- =================== FOOTER =================== -->
+    <div th:insert="templates/components/footer"></div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</body>
+
+</html>
