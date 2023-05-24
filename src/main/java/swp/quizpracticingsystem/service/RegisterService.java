@@ -5,6 +5,7 @@
 package swp.quizpracticingsystem.service;
 
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 import swp.quizpracticingsystem.model.User;
 
@@ -17,6 +18,8 @@ public interface RegisterService {
 
     public void register(User user);
     boolean verify(String verificationCode);
+
+    public List<User> getAllAccount();
     
 
 
