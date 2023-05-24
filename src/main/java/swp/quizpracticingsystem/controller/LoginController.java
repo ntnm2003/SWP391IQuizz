@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import swp.quizpracticingsystem.model.User;
-import swp.quizpracticingsystem.service.UserService;
+import swp.quizpracticingsystem.service.LoginService;
 
 @Controller
 public class LoginController {
 
     @Autowired
-    UserService userService;
+    LoginService userService;
 
     @GetMapping("/login")
     public String login(HttpSession session) {
