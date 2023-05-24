@@ -34,10 +34,12 @@ public class HomeController {
 
 	@Autowired
 	private ISubjectService subjectService;
-        @GetMapping("/")
-        public String redirectToHome() {
-            return "redirect:/home";
-        }
+
+	@GetMapping("/")
+	public String redirectToHome() {
+		return "redirect:/home";
+	}
+
 	@GetMapping("/home")
 	public String getToHomePage(Model model, HttpSession session) {
 
@@ -72,6 +74,13 @@ public class HomeController {
 
 
 		return "homepage/homepage";
+	}
+
+
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/home";
 	}
 
 }
