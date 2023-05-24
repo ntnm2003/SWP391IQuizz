@@ -9,12 +9,14 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +48,18 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user, HttpServletRequest request) {
+    public String register(@ModelAttribute User user, HttpServletRequest request, Model model) {
+        List<User> getAllAccount = service.getAllAccount();
+        boolean isExist = false;
+        for (User user1 : getAllAccount) {
+            if(user1.getEmail().equals(user.getEmail())) {
+                isExist = true;
+            }
+        }
+        if(isExist) {
+            model.addAttribute("message", "Email has been used to create account!");
+            return "register/register";
+        } else {
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         user.setEnabled(false);
@@ -60,6 +73,7 @@ public class RegisterController {
             ex.printStackTrace();
         }
         return "register/register_successfully";
+        }
     }
 
     @GetMapping("/verify")

@@ -5,6 +5,7 @@
 package swp.quizpracticingsystem.serviceImple;
 
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Component;
@@ -41,6 +42,12 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public void register(User user) {
         repository.save(user);
+    }
+
+    @Override
+    public List<User> getAllAccount() {
+        List<User> accountList = repository.findAll();
+        return accountList;
     }
 
 }
