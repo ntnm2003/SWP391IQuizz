@@ -43,3 +43,4 @@
 /src/main/resources/static/img/insta_logo.png filter=lfs diff=lfs merge=lfs -text
 /src/main/resources/static/img/iquizz-logo_official.png filter=lfs diff=lfs merge=lfs -text
 /src/main/resources/static/img/iquizz_logo_rmbg.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/database_images/slider1.png filter=lfs diff=lfs merge=lfs -text
