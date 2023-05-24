@@ -39,14 +39,17 @@ public class User {
     @Column(name = "Password")
     private String password;
 
-    @Column(name = "token", nullable = true)
+    @Column(name = "token")
     private String token;
+    
+    
+    private Boolean enabled;
 
     @Column(name = "lastupdatedatetime", nullable = true)
     private String lastupdatedatetime;
 
-    @Column(name = "enabled", nullable = false)
-    private Boolean enabled;
+
+    
 
 
     @ManyToOne
