@@ -1,5 +1,6 @@
 package swp.quizpracticingsystem.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import swp.quizpracticingsystem.dto.SliderDTO;
 import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.model.SubjectDetail;
 import swp.quizpracticingsystem.model.SubjectOverview;
+import swp.quizpracticingsystem.model.User;
 import swp.quizpracticingsystem.repository.IBlogRepository;
 import swp.quizpracticingsystem.service.*;
 import swp.quizpracticingsystem.serviceImple.SliderService;
@@ -34,13 +36,15 @@ public class HomeController {
 	private ISubjectService subjectService;
 
 	@GetMapping("/home")
-	public String getToHomePage(Model model) {
+	public String getToHomePage(Model model, HttpSession session) {
+
+
 		//Get sliders
 		List<SliderDTO> sliders = sliderSevice.getAllSlidersForHomepage();
 		//Get featured posts
 		List<PostsDTO> blogs = blogService.getFeaturedPosts(true);
 		//Get latest posts
-		List<PostsDTO> latestPosts = blogService.getLatestPosts(true, 2);
+		List<PostsDTO> latestPosts = blogService.getFeaturedLatestPosts(true, 2);
 
 		//Get all subject overview by featuring
 		List<SubjectOverview> featuredSubjectOverviews = subjectOverviewService.getSObyFeaturing("1");
@@ -71,6 +75,17 @@ public class HomeController {
 		model.addAttribute("featuredSubjectOverviews", featuredSubjectOverviews);
 
 
+
+
+		//Testing Session
+		User user = new User();
+		user.setFullName("Nguyen Anh Quan");
+		user.setUserId(1);
+		session.setAttribute("user", user);
+		System.out.println(session.getAttribute("user") == null);
+
+
+		model.addAttribute("userSession", session.getAttribute("user"));
 
 
 		return "homepage/homepage";

@@ -32,7 +32,7 @@ public class PublicController {
     @GetMapping("/registration/{course_id}/{user_id}")
     public String registerSubject(@PathVariable("course_id") Integer course_id, @PathVariable("user_id") Integer user_id, Model model) {
 
-            Subject su = subService.getById(course_id);
+        Subject su = subService.getById(course_id);
         List<PricePackage> price = packageService.getBySubject(course_id);
         List<Subject> subjects;
             model.addAttribute("su", su);
@@ -59,6 +59,6 @@ public class PublicController {
             model.addAttribute("sub", su);
             model.addAttribute("pack", price);
             return "templates/subject_register";
-        }
+    }
 
 }

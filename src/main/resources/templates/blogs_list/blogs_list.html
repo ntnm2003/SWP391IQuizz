@@ -13,7 +13,17 @@
 
 <body style="font-size:14px;">
     <!-- ================ HEADER ================ -->
-    <div th:insert="templates/components/header"></div>
+    <!-- <div th:insert="templates/components/header"></div> -->
+
+
+    <!-- ================ HEADER ================ -->
+    <th:block th:if="${userSession == null}">
+        <div th:insert="templates/components/header"></div>
+    </th:block>
+
+    <th:block th:if="${userSession != null}">
+        <div th:insert="templates/components/header_logged_in"></div>
+    </th:block>
 
 
     <!-- ========== MAIN CONTENT ============ -->
@@ -25,24 +35,54 @@
                 <div class="sider col-md-4 p-5 h-auto">
                     <div class="sider-content">
                         <div class="search-box">
-                            <input type="text">
-                            <span>Search For Posts</span>
-                        </div>
+                                <!-- <form th:action="@{/blogs/search}" th:object="" method="get">
+                                    <input type="text" name="searchTerm" th:value="${searchTerm}">
+                                    <span>Search For Posts</span>
+                                </form> -->
+                                <form action="#" th:action="@{/blogs/search}" method="get">
+                                    <input type="text" name="searchTerm" th:value="${searchTerm}">
+                                    <span>Search For Posts</span>
+                                </form>
+                            </div>
 
                         <div class="category">
                             <h3>
                                 Post Categories
                             </h3>
-                            <input id="cate1" type="radio" name="cate" value="">
-                            <label for="cate1">Category 1</label>
-                            <input id="cate2" type="radio" name="cate" value="">
-                            <label for="cate2">Category 2</label>
-                            <input id="cate3" type="radio" name="cate" value="">
-                            <label for="cate3">Category 3</label>
+                            
+                            
+                            <form th:action="@{/blogs/filter}" method="get" onsubmit="return validateForm()">
+                                <ul>
+                                <li style="list-style-type: none">
+                                    <input class="checkbox" id="all" type="checkbox" th:name="selectedCategories" th:value="0">
+                                    <label for="all">All</label>
+                                </li>
+                                
+                                <li th:each="postCategory : ${postCategories}" style="list-style-type: none">
+                                    <th:block th:if="${#strings.arrayIsEmpty(param.selectedCategories)}">
+                                        <input class="checkbox" type="checkbox" th:id="${postCategory.postCategoryId}" th:name="selectedCategories" th:value="${postCategory.postCategoryId}" th:if="${#lists.contains(param.selectedCategories, #strings.toString(postCategory.postCategoryId))}" checked>
+                                        <input class="checkbox" type="checkbox" th:id="${postCategory.postCategoryId}" th:name="selectedCategories" th:value="${postCategory.postCategoryId}" th:unless="${#lists.contains(param.selectedCategories, #strings.toString(postCategory.postCategoryId))}">
+                                    </th:block>
+                                    
+                                    <input class="checkbox" type="checkbox" th:id="${postCategory.postCategoryId}" th:name="selectedCategories" th:value="${postCategory.postCategoryId}" th:unless="${#strings.arrayIsEmpty(param.selectedCategories)}">
+                                    <label th:text="${postCategory.postCategory}" th:for="${postCategory.postCategoryId}"></label>
+                                </li>
+                                </ul>
+
+                                <!-- <label style="display: block;" th:each="postCategory : ${postCategories}">
+                                    <input type="checkbox" th:name="selectedCategories" th:value="${category}">
+                                    <span th:text="${postCategory.postCategory}"></span>
+                                    <br>
+                                </label> -->
+
+                                <input class="btn btn-primary filter-by-categories" type="submit" value="Filter">
+                            </form>
+
+
                         </div>
                     </div>
 
-                    <div class="lastest_posts">
+                    <div class="latest_posts">
                         <h3>
                             <span><ion-icon name="flame"></ion-icon></span>
                             Lastest Posts
@@ -50,28 +90,20 @@
                         </h3>
 
 
-                        <div class="card">
-                            <a href="#">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">Some quick example text to build on the card title and make
-                                        up
-                                        the
-                                        bulk of the card's content.</p>
-                                </div>
-                            </a>
+                        <div th:each="lastestBlog : ${lastestBlogs}" class="latest_posts-cards">
+
+                            <div class="card">
+                                <a th:href="@{'blogs/blog-detail?id=' + ${lastestBlog.postId}}">
+                                    <img th:src="@{/database_images/{imageName}(imageName=${lastestBlog.thumbnail})}"
+                                        class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <p th:text="${lastestBlog.title}" class="card-text"></p>
+                                    </div>
+                                </a>
+                            </div>
+
                         </div>
-                        <div class="card">
-                            <a href="#">
-                                <img src="..." class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">Some quick example text to build on the card title and make
-                                        up
-                                        the
-                                        bulk of the card's content.</p>
-                                </div>
-                            </a>
-                        </div>
+
 
                     </div>
                 </div>
@@ -79,74 +111,31 @@
 
                 <!-- ============= BLOGS LIST ================== -->
                 <div class="blogs-list col-md-8 p-5 h-auto">
+                    <th:block th:if="${posts.isEmpty()}">
+                        <h1>No Blog Found</h1>
+                    </th:block>
 
-                    <div class="card">
-                        <img src="homepage_assets/homepage_assets_img/Green and Yellow Simple One Million Trees Day Banner.png"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <div class="text-section">
-                                <h1 class="card-title">Post title</h1>
-                                <h4>Post Category</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                                    recusandae eaque repellat dolorem mollitia facilis ipsum, vero ratione laudantium
-                                    quas, ab beatae officiis ea numquam. Quia sunt numquam perferendis</p>
-                            </div>
-                            <div class="cta-section">
-                                <a href="#" class="btn btn-primary">View Detail</a>
+                    <th:block th:if="${!posts.isEmpty()}">
+                        <div th:each="post : ${posts}">
+                            <div class="card">
+                                <img th:src="@{/database_images/{imageName}(imageName=${post.thumbnail})}"
+                                                    class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <div class="text-section">
+                                        <h1 th:text="${post.title}" class="card-title"></h1>
+                                        <h4 th:text="${post.postCategory.postCategory}"></h4>
+                                        <p th:text="${post.briefInfor}" class="card-text"></p>
+                                    </div>
+                                    <div class="cta-section">
+                                        <a th:href="@{'blogs/blog-detail?id=' + ${post.postId}}" class="btn btn-primary">View Detail</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </th:block>
 
-                    <div class="card">
-                        <img src="homepage_assets/homepage_assets_img/Green and Yellow Simple One Million Trees Day Banner.png"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <div class="text-section">
-                                <h1 class="card-title">Post title</h1>
-                                <h4>Post Category</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                                    recusandae eaque repellat dolorem mollitia facilis ipsum, vero ratione laudantium
-                                    quas, ab beatae officiis ea numquam. Quia sunt numquam perferendis</p>
-                            </div>
-                            <div class="cta-section">
-                                <a href="#" class="btn btn-primary">View Detail</a>
-                            </div>
-                        </div>
-                    </div>
+                    
 
-                    <div class="card">
-                        <img src="homepage_assets/homepage_assets_img/Green and Yellow Simple One Million Trees Day Banner.png"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <div class="text-section">
-                                <h1 class="card-title">Post title</h1>
-                                <h4>Post Category</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                                    recusandae eaque repellat dolorem mollitia facilis ipsum, vero ratione laudantium
-                                    quas, ab beatae officiis ea numquam. Quia sunt numquam perferendis</p>
-                            </div>
-                            <div class="cta-section">
-                                <a href="#" class="btn btn-primary">View Detail</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <img src="homepage_assets/homepage_assets_img/Green and Yellow Simple One Million Trees Day Banner.png"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <div class="text-section">
-                                <h1 class="card-title">Post title</h1>
-                                <h4>Post Category</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                                    recusandae eaque repellat dolorem mollitia facilis ipsum, vero ratione laudantium
-                                    quas, ab beatae officiis ea numquam. Quia sunt numquam perferendis</p>
-                            </div>
-                            <div class="cta-section">
-                                <a href="#" class="btn btn-primary">View Detail</a>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
 
@@ -156,29 +145,14 @@
         <div class="pagination">
             <nav aria-label="...">
                 <ul class="pagination pagination-lg">
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link">1</span>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'../../blogs/blogs-list'}">1</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'../../blogs/blogs-list/2'}">2</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'../../blogs/blogs-list/3'}">3</a></li>
                 </ul>
             </nav>
         </div>
 
     </section>
-
-
-    <div class="test">
-        <h1>Testing</h1>
-        <ul th:each="item : ${blogs}">
-            <li>
-            	<span th:text="${item.getTitle()}"></span><br>
-            	<span th:text="${item.getAuthor()}"></span><br>
-            	<span th:text="${item.getPostCategory()}"></span><br>
-            	<span th:text="${item.getUpdatedDate()}"></span><br>
-            </li>
-        </ul>
-    </div>
 
 
     <!-- =================== FOOTER =================== -->
@@ -190,6 +164,7 @@
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script type="text/javascript" th:src="@{/blogs_list_assets/blogs_list_assets_js/blogs_list_assets.js}"></script>
 </body>
 
 </html>
