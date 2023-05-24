@@ -7,8 +7,6 @@ package swp.quizpracticingsystem.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,37 +33,34 @@ public class ChangePasswordController {
     private IAccountRepository iAccountRepository;
     
     @GetMapping("/change_password")
-    public String showChangePasswordForm(){
-        return "password/change_password_form";
+    public String showChangePasswordForm(HttpServletRequest request,Model model){
+        HttpSession session = request.getSession(false);
+        if(session != null && session.getAttribute("user") != null){
+            return"password/change_password_form";
+        }else{
+            return"homepage/homepage";
+        }
     }
     
     @PostMapping("/change_password")
-    public String processChangePassword(HttpServletRequest request, Model model){
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        
-        String oldPassword = request.getParameter("oldPass");
-        String newPassword = request.getParameter("newPass");
-        String confirmPassword = request.getParameter("confirmPass");
-        HttpSession session = request.getSession(false);
-        
-        if (session != null && session.getAttribute("user") != null) {
-            User user = (User) session.getAttribute("user");
-            if (passwordEncoder.matches(oldPassword, user.getPassword())) {
-                if(newPassword.matches(confirmPassword)){
-                user.setPassword(passwordEncoder.encode(newPassword));
-                accountService.updatePassword(user, newPassword);
-                return "redirect:/home";
+    public String processChangePassword(HttpServletRequest request,User user,Model model){
+            HttpSession session = request.getSession(false);
+            String oldPass = request.getParameter("oldPass");
+            String newPass = request.getParameter("newPass");
+            String confirmPass = request.getParameter("confirmPass");
+            String password = (String) session.getAttribute("password");
+            if(oldPass.matches(password)){
+                if(newPass.matches(confirmPass)){
+                    user.setPassword(newPass);
+                    accountService.updatePassword(user, newPass);
+                    return "redirect:/login";
                 }else{
-                    model.addAttribute("error2","Wrong re-enter new password");
+                    model.addAttribute("error2", "Incorrect Re-enter New Password");
                     return "password/change_password_form";
                 }
-            } else {
-                model.addAttribute("error1", "Wrong old password");
+            }else{
+                model.addAttribute("error1", "Incorrect Old Password");
                 return "password/change_password_form";
             }
-        } else {
-            return "redirect:/login";
-        }
-            
     }
 }

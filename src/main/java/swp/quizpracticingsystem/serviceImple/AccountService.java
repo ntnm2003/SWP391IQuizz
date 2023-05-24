@@ -6,7 +6,6 @@ package swp.quizpracticingsystem.serviceImple;
 
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import swp.quizpracticingsystem.model.User;
