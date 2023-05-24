@@ -15,4 +15,6 @@ public class SubjectOverviewDTO {
     private String status;
     private String description;
     private String image;
+    private String tagLine;
+    private String featuring;
 }
