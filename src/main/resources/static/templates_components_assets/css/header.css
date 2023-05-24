@@ -81,6 +81,10 @@ header ul li {
 	list-style: none;
 }
 
+.active {
+	color: #1368ce;
+}
+
 header a {
 	position: relative;
 	text-decoration: none;

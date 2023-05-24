@@ -58,49 +58,4 @@ public class Posts {
 
     @Column(name = "featuring")
     private Boolean featuring;
-    
-    
-    
-    
-//    GETTERS AND SETTERS 
-    
-    public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-    
-    public PostCategory getPostCategory() {
-		return postCategory;
-	}
-
-	public void setPostCategory(PostCategory postCategory) {
-		this.postCategory = postCategory;
-	}
-
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getBriefInfor() {
-		return briefInfor;
-	}
-
-	public void setBriefInfor(String briefInfor) {
-		this.briefInfor = briefInfor;
-	}
 }

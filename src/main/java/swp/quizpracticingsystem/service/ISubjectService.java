@@ -4,8 +4,10 @@
  */
 package swp.quizpracticingsystem.service;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import swp.quizpracticingsystem.dto.SubjectDTO;
+import swp.quizpracticingsystem.model.Subject;
 
 /**
  *
@@ -28,4 +30,7 @@ public interface ISubjectService {
     public Page<SubjectDTO> filterAndSearchAndSortSubject(int pageNo, 
             int pageSize, int category, String subjectName, 
             String sortBy,String order);
+    List<Subject> findByFeaturing(List<Integer> ids);
+    
+
 }
