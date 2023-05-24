@@ -60,8 +60,7 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "idcourse")})
     private Set<Subject> subjects = new HashSet<>();
-}
-public User token(String token) {
+    public User token(String token) {
         setToken(token);
         return this;
     }
@@ -70,3 +69,5 @@ public User token(String token) {
         setLastupdatedatetime(lastUpdateDateTime);
         return this;
     }
+}
+
