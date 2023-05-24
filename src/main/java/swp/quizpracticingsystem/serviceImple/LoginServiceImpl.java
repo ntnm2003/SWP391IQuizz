@@ -8,17 +8,17 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import swp.quizpracticingsystem.model.User;
-import swp.quizpracticingsystem.repository.UserRepository;
-import swp.quizpracticingsystem.service.UserService;
+import swp.quizpracticingsystem.repository.LoginRepository;
+import swp.quizpracticingsystem.service.LoginService;
 
 /**
  *
  * @author Lenovo
  */
 @Component
-public class UserServiceImpl implements UserService{
+public class LoginServiceImpl implements LoginService{
     @Autowired
-    UserRepository userRepository;
+    LoginRepository userRepository;
 
     @Override
     public User login(User user) {

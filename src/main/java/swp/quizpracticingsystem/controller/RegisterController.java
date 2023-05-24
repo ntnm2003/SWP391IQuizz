@@ -11,11 +11,15 @@ import jakarta.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import swp.quizpracticingsystem.Utils.Utility;
+import swp.quizpracticingsystem.model.Role;
 import swp.quizpracticingsystem.model.User;
 import swp.quizpracticingsystem.service.RegisterService;
 
@@ -25,9 +29,12 @@ import swp.quizpracticingsystem.service.RegisterService;
  */
 @Controller
 public class RegisterController {
-    
+
     @Autowired
     private RegisterService service;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     @GetMapping("/register")
     public String register(HttpSession session) {
@@ -39,16 +46,59 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String processRegister(User user, HttpServletRequest request)
-            throws UnsupportedEncodingException, MessagingException {
-        service.register(user, getSiteURL(request));       
+    public String register(@ModelAttribute User user, HttpServletRequest request) {
+        String randomCode = RandomString.make(64);
+        user.setVerificationCode(randomCode);
+        user.setEnabled(false);
+        Role role = new Role(1, "customer", "dan thuong");
+        user.setRole(role);
+        service.register(user);
+        try {
+
+            sendVerificationEmail(user, Utility.getSiteURL(request));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return "register/register_successfully";
     }
-     
-    private String getSiteURL(HttpServletRequest request) {
-        String siteURL = request.getRequestURL().toString();
-        return siteURL.replace(request.getServletPath(), "");
+
+    @GetMapping("/verify")
+    public String verifyUser(@Param("code") String code) {
+        if (service.verify(code)) {
+            return "register/verify_success";
+        } else {
+            return "register/verify_fail";
+        }
     }
 
-    
+    public void sendVerificationEmail(User user, String siteURL)
+            throws MessagingException, UnsupportedEncodingException {
+        String toAddress = user.getEmail();
+        String fromAddress = "gmail@sss";
+        String senderName = "IQuizz";
+        String subject = "Please verify your registration";
+        String content = "Dear [[name]],<br>"
+                + "Please click the link below to verify your registration:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "Thank you,<br>"
+                + "Your company name.";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(fromAddress, senderName);
+        helper.setTo(toAddress);
+        helper.setSubject(subject);
+
+        content = content.replace("[[name]]", user.getFullName());
+        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
+
+        content = content.replace("[[URL]]", verifyURL);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+
+    }
+
 }

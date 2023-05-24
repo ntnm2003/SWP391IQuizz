@@ -12,7 +12,7 @@ import swp.quizpracticingsystem.model.User;
  * @author Lenovo
  */
 @Service
-public interface UserService {
+public interface LoginService {
 
     User login( User user);
     

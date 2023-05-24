@@ -43,7 +43,7 @@ public class User {
     @Column(name = "Password")
     private String password;
     
-    @Column(name = "verification_code", length = 64)
+    @Column(name = "verification_code")
     private String verificationCode;
      
     private boolean enabled;
