@@ -1,6 +1,5 @@
 package swp.quizpracticingsystem.controller;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +20,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import swp.quizpracticingsystem.serviceImple.CategoryService;
+import swp.quizpracticingsystem.serviceImple.PricePackageService;
+import swp.quizpracticingsystem.serviceImple.SubjectService;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,11 +47,11 @@ public class UserController {
                         status.add(uc.getStatus());
                         registationId.add(uc.getId().toString());
                         price.add(uc.getPrice());
+                        System.out.println("Test 1 "+uc.getPrice());
                     }
                 }
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < subjects.size(); i++) {
             MyRegistration r = new MyRegistration();
