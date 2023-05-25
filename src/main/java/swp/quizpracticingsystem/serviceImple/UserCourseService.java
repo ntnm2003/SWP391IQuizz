@@ -1,5 +1,6 @@
 package swp.quizpracticingsystem.serviceImple;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import swp.quizpracticingsystem.NotFound.UserCourseKey;
 import swp.quizpracticingsystem.model.Subject;
@@ -10,6 +11,7 @@ import swp.quizpracticingsystem.service.IUserCourseService;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class UserCourseService implements IUserCourseService {
     private final IUserCourseRepo userCourseRepo;
@@ -22,6 +24,7 @@ public class UserCourseService implements IUserCourseService {
 
     @Override
     public List<Usercourse> listAll() {
+
         return (List<Usercourse>) userCourseRepo.findAll();
     }
 
@@ -41,13 +44,13 @@ public class UserCourseService implements IUserCourseService {
         List<Usercourse> filteredUserCourses = new ArrayList<>(); // create a new list
 
         for (Usercourse uc : userCourses) {
-            if (uc.getId().getUser_id() == id) {
+            if (uc.getId().getUser_id().equals(id)) {
                 filteredUserCourses.add(uc); // add to the new list instead of original list
             }
         }
 
         List<Subject> subjects = new ArrayList<>();
-
+        System.out.println(filteredUserCourses.size());
         for (Usercourse userCourse : filteredUserCourses) { // iterate over the filtered list
             Subject sub = subjectRepository.getById(userCourse.getId().getIdcourse());
             subjects.add(sub);
@@ -55,4 +58,6 @@ public class UserCourseService implements IUserCourseService {
 
         return subjects;
     }
+
+
 }

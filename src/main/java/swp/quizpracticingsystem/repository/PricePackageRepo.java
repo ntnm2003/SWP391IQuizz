@@ -6,9 +6,6 @@ import swp.quizpracticingsystem.model.PricePackage;
 
 import java.util.List;
 
-@Repository
 public interface PricePackageRepo extends JpaRepository<PricePackage, Integer> {
-    @Override
-    public List<PricePackage> findAll();
 
 }

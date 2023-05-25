@@ -1,12 +1,23 @@
-var carouselWidth = $('.main-content .carousel-inner')[0].scrollWidth;
-var cardWidth = $('.main-content .carousel-item').width();
+const scrollRight1 = document.getElementById('scroll-right-1');
+const scrollLeft1 = document.getElementById('scroll-left-1');
+const scrollRight2 = document.getElementById('scroll-right-2');
+const scrollLeft2 = document.getElementById('scroll-left-2');
 
-var scrollPosition = 0;
+scrollLeft1.onclick = () => scroll('left', document.getElementById('hot-posts'));
+scrollRight1.onclick = () => scroll('right', document.getElementById('hot-posts'));
+scrollLeft2.onclick = () => scroll('left', document.getElementById('featured-subjects'));
+scrollRight2.onclick = () => scroll('right', document.getElementById('featured-subjects'));
 
-$('.carousel-control-next').on('click', function() {
-    if(scrollPosition < (cardWidth - (cardWidth * 4))) {
-        console.log('next');
-        scrollPosition = scrollPosition + cardWidth;
-        $('.main-content .carousel-inner').animate({scrollLeft: scrollPosition}, 600);
+const scroll = (dir, list) => {
+    if (dir === 'right') {
+        list.scrollBy({
+            left: 300,
+            behavior: 'smooth'
+        });
+    } else {
+        list.scrollBy({
+            left: -300,
+            behavior: 'smooth'
+        });
     }
-});
+}

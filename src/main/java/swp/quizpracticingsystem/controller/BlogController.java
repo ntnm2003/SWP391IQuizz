@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import swp.quizpracticingsystem.dto.PostsDTO;
 import swp.quizpracticingsystem.model.Posts;
 import swp.quizpracticingsystem.service.IBlogService;
 
@@ -20,7 +21,7 @@ public class BlogController {
 
 	@GetMapping("/blogs-list")
 	public String getToBlogsListPage(Model model) {
-		List<Posts> blogs = (List<Posts>)blogService.getAllBlogs();
+		List<PostsDTO> blogs = (List<PostsDTO>) blogService.getAllBlogs();
 		model.addAttribute("blogs", blogs);
 		return "blogs_list/blogs_list";
 	}

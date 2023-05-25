@@ -26,7 +26,6 @@ body {
 	color: #1368ce;
 }
 
-
 /* ============ SLIDER =============== */
 section.slider {
 	margin-top: 6rem;
@@ -57,11 +56,14 @@ section.slider {
 	transform: translateY(-50%);
 }
 
-
 .slider .carousel-control-prev,
 .slider .carousel-control-next {
 	margin: 2rem;
 }
+
+
+
+/* LATEST POSTS */
 
 .sider {
 	/* background-color: #ffffff; */
@@ -101,8 +103,8 @@ section.slider {
 
 .latest_posts-cards .card a {
 	text-decoration: none;
-    color: black;
-    font-weight: 500;
+	color: black;
+	font-weight: 500;
 }
 
 .latest_posts-cards .card img {
@@ -111,8 +113,9 @@ section.slider {
 	object-fit: cover;
 }
 
+/* BLOGS LIST */
 
-.blogs-list {
+.blogs-list, .subjects-list {
 	width: 100%;
 	margin-bottom: 4rem;
 }
@@ -127,6 +130,7 @@ section.slider {
 
 .section-title h1 {
 	font-weight: 600;
+	font-size: 2.2rem;
 	color: #1368ce;
 }
 
@@ -138,7 +142,7 @@ section.slider {
 	color: green;
 }
 
-a.card_link {
+/* a.card_link {
 	text-decoration: none;
 	margin: 0;
 	width: 100%;
@@ -148,10 +152,14 @@ a.card_link {
 
 a.card_link a {
 	text-decoration: none;
+} */
+
+#post_detail_btn, #subject_detail_btn {
+	text-decoration: none;
 }
 
-.section-title a#post_detail_btn {
-	text-decoration: none;
+.section-title h3 a {
+	font-weight: 500;
 }
 
 .blogs-list .section-title a {
@@ -167,18 +175,31 @@ a.card_link a {
 	/* height: 32rem; */
 }
 
-.blogs-list .card {
+.blogs-list .card  {
 	height: 32rem;
 }
 
+.subjects-list .card {
+	height: 30rem;
+}
+
+.card .card-body h3 {
+	font-weight: 550;
+	font-size: 1.5rem;
+}
+
 .card a {
-	font-size: 85%;
+	font-size: 100%;
 }
 
 .card:hover {
 	transform: translateY(-0.2rem);
 	transform: scale(1.05);
 	box-shadow: rgba(0, 0, 0, 0.1) 0rem 0.4rem 1.2rem;
+}
+
+.hot-post-card {
+	margin-bottom: 1.5rem;
 }
 
 .main-content .img-wrapper {
@@ -199,16 +220,22 @@ a.card_link a {
 	position: relative;
 }
 
-.card .card-body a#post_detail_btn {
+#post_detail_btn, #subject_detail_btn {
 	position: absolute;
 	bottom: 1rem;
 	left: 1rem;
 }
 
-.card .updated-date, .card .tag-line {
+.card .updated-date,
+.card .tag-line {
 	font-size: 90%;
 	color: #424242;
 }
 
 
+
+
 /* ============= FOOTER STYLE ============== */
+footer .container .sec h2 {
+	font-size: 1.8rem;
+}
