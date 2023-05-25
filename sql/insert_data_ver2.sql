@@ -80,6 +80,20 @@ VALUES
 (2 , 7, 'Anyone can get 6.5 IELTS!', 'slider2.png', '/subjects/subject-detail?id=3', 'active', 1),
 (3 , 7, 'First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2', 'active', 1);
 
+
+update iquiz.slider
+set backlink = '/subject/subject-detail/5'
+where slider_id = 1;
+
+update iquiz.slider
+set backlink = '/subject/subject-detail/3'
+where slider_id = 2;
+
+update iquiz.slider
+set backlink = '/subject/subject-detail/2'
+where slider_id = 3;
+
+
 alter table iquiz.posts
 modify column description varchar(10000);
 
