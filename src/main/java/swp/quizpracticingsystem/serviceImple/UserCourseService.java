@@ -1,49 +1,61 @@
-package swp.quizpracticingsystem.service;
+package swp.quizpracticingsystem.serviceImple;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import swp.quizpracticingsystem.NotFound.UserCourseKey;
 import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.model.Usercourse;
-import swp.quizpracticingsystem.repository.SubjectRepository;
-import swp.quizpracticingsystem.repository.UserCourseRepo;
+import swp.quizpracticingsystem.repository.ISubjectRepository;
+import swp.quizpracticingsystem.repository.IUserCourseRepo;
+import swp.quizpracticingsystem.service.IUserCourseService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserCourseService {
-@Autowired private UserCourseRepo userCourseRepo;
-@Autowired private SubjectRepository subjectRepository;
+public class UserCourseService implements IUserCourseService {
+    private final IUserCourseRepo userCourseRepo;
+    private final ISubjectRepository subjectRepository;
+
+    public UserCourseService(IUserCourseRepo userCourseRepo, ISubjectRepository subjectRepository) {
+        this.userCourseRepo = userCourseRepo;
+        this.subjectRepository = subjectRepository;
+    }
+
+    @Override
     public List<Usercourse> listAll() {
 
         return (List<Usercourse>) userCourseRepo.findAll();
     }
 
+    @Override
     public void save(Usercourse usercourse) {
         userCourseRepo.save(usercourse);
     }
-    public Usercourse getId(UserCourseKey uk){
+
+    @Override
+    public Usercourse getId(UserCourseKey uk) {
         return userCourseRepo.getUsercourseById(uk);
     }
+
+    @Override
     public List<Subject> courseById(Integer id) {
         List<Usercourse> userCourses = listAll();
         List<Usercourse> filteredUserCourses = new ArrayList<>(); // create a new list
 
         for (Usercourse uc : userCourses) {
-            if (uc.getId().getUser_id() == id) {
+            if (uc.getId().getUser_id().equals(id)) {
                 filteredUserCourses.add(uc); // add to the new list instead of original list
             }
         }
 
         List<Subject> subjects = new ArrayList<>();
-
+        System.out.println(filteredUserCourses.size());
         for (Usercourse userCourse : filteredUserCourses) { // iterate over the filtered list
             Subject sub = subjectRepository.getById(userCourse.getId().getIdcourse());
             subjects.add(sub);
         }
+
         return subjects;
     }
 

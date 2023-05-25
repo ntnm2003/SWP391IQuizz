@@ -5,11 +5,6 @@
 package swp.quizpracticingsystem.serviceImple;
 
 import jakarta.transaction.Transactional;
-<<<<<<<<< Temporary merge branch 1
-=========
-
->>>>>>>>> Temporary merge branch 2
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
@@ -18,31 +13,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-<<<<<<<<< Temporary merge branch 1
 import org.springframework.data.domain.Sort;
-=========
->>>>>>>>> Temporary merge branch 2
 import org.springframework.stereotype.Service;
 import swp.quizpracticingsystem.dto.SubjectDTO;
 import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.repository.ISubjectRepository;
 import swp.quizpracticingsystem.service.ISubjectService;
-
+import java.util.ArrayList;
 /**
  *
  * @author Mosena
  */
-<<<<<<<<< Temporary merge branch 1
 @Service
-=========
-@Service(("subjectServiceImpl"))
->>>>>>>>> Temporary merge branch 2
 @Transactional
 public class SubjectService implements ISubjectService {
 
     @Autowired
     private ISubjectRepository iSubjectRepository;
-<<<<<<<<< Temporary merge branch 1
     
     @Autowired
     private ModelMapper modelmapper;
@@ -58,9 +45,9 @@ public class SubjectService implements ISubjectService {
         return new PageImpl<>(paginatedList,pageable,
                 subjectPage.getTotalElements());
     }
-    
+
     @Override
-    public Page<SubjectDTO> filterSubjectByCategory(int pageNo, 
+    public Page<SubjectDTO> filterSubjectByCategory(int pageNo,
             int pageSize, int category) {
         Pageable pageable=PageRequest.of(pageNo-1, pageSize);
         Page<Subject> subjectPage = iSubjectRepository
@@ -74,7 +61,7 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
-    public Page<SubjectDTO> findSubjectBySubjectName(int pageNo, 
+    public Page<SubjectDTO> findSubjectBySubjectName(int pageNo,
             int pageSize, String subjectName) {
         Pageable pageable=PageRequest.of(pageNo-1, pageSize);
         Page<Subject> subjectPage = iSubjectRepository
@@ -86,9 +73,9 @@ public class SubjectService implements ISubjectService {
         return new PageImpl<>(paginatedList,pageable,
                 subjectPage.getTotalElements());
     }
-    
+
     @Override
-    public Page<SubjectDTO> findSubjectNameAndFilter(int pageNo, int pageSize, 
+    public Page<SubjectDTO> findSubjectNameAndFilter(int pageNo, int pageSize,
             String subjectName, int categoryId) {
         Pageable pageable=PageRequest.of(pageNo-1, pageSize);
         Page<Subject> subjectPage=iSubjectRepository
@@ -100,9 +87,9 @@ public class SubjectService implements ISubjectService {
         return new PageImpl<>(paginatedList,pageable,
                 subjectPage.getTotalElements());
     }
-    
+
     @Override
-    public Page<SubjectDTO> sortSubjectBy(int pageNo, int pageSize, 
+    public Page<SubjectDTO> sortSubjectBy(int pageNo, int pageSize,
             String sortBy, String order){
         Pageable pageable;
         if(order.equals("ascending")){
@@ -121,9 +108,9 @@ public class SubjectService implements ISubjectService {
         return new PageImpl<>(paginatedList,pageable,
                 subjectPage.getTotalElements());
     }
-    
+
     @Override
-    public Page<SubjectDTO> filterAndSortSubject(int pageNo, int pageSize, 
+    public Page<SubjectDTO> filterAndSortSubject(int pageNo, int pageSize,
             int category, String sortBy, String order) {
         Pageable pageable;
         if(order.equals("ascending")){
@@ -143,7 +130,7 @@ public class SubjectService implements ISubjectService {
         return new PageImpl<>(paginatedList,pageable,
                 subjectPage.getTotalElements());
     }
-    
+
     @Override
     public Page<SubjectDTO> searchAndSortSubject(int pageNo, int pageSize,
             String subjectName, String sortBy, String order) {
@@ -156,7 +143,7 @@ public class SubjectService implements ISubjectService {
             pageable=PageRequest.of(pageNo-1, pageSize,
                     Sort.by(sortBy).descending());
         }
-        Page<Subject>subjectPage=iSubjectRepository.searchSubjectName(pageable, 
+        Page<Subject>subjectPage=iSubjectRepository.searchSubjectName(pageable,
                                     subjectName);
         List<SubjectDTO>paginatedList=subjectPage
                 .stream()
@@ -167,7 +154,7 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
-    public Page<SubjectDTO> filterAndSearchAndSortSubject(int pageNo, int pageSize, 
+    public Page<SubjectDTO> filterAndSearchAndSortSubject(int pageNo, int pageSize,
             int category, String subjectName, String sortBy, String order) {
         Pageable pageable;
         if(order.equals("ascending")){
@@ -181,7 +168,7 @@ public class SubjectService implements ISubjectService {
             System.out.println(order);
         }
         Page<Subject>subjectPage=iSubjectRepository
-                .searchSubjectNameAndCategory(pageable, subjectName, 
+                .searchSubjectNameAndCategory(pageable, subjectName,
                         category);
         List<SubjectDTO>paginatedList=subjectPage
                 .stream()
@@ -190,33 +177,10 @@ public class SubjectService implements ISubjectService {
         return new PageImpl<>(paginatedList,pageable,
                 subjectPage.getTotalElements());
     }
-    
+
     @Override
     public List<Subject> findByFeaturing(List<Integer> ids) {
         List<Subject> featuringSubjects=new ArrayList<>();
-=========
-
-    @Autowired
-    private ModelMapper modelmapper;
-
-    @Override
-    public Page<SubjectDTO> findPaginatedAllSubjects(int pageNo, int pageSize) {
-        Pageable pageable=PageRequest.of(pageNo-1,pageSize);
-        List<SubjectDTO> paginatedList=iSubjectRepository.findAll(pageable)
-                .stream()
-                .map(this::convertEntitytoDTO)
-                .collect(Collectors.toList());
-        return new PageImpl<>(paginatedList);
-    }
-
-    public SubjectDTO convertEntitytoDTO(Subject entity){
-        return modelmapper.map(entity, SubjectDTO.class);
-    }
-
-    @Override
-    public List<Subject> findByFeaturing(List<Integer> ids) {
-        List<Subject> featuringSubjects = new ArrayList<>();
->>>>>>>>> Temporary merge branch 2
         for (Integer id : ids) {
             Subject featuringSubject = iSubjectRepository.findByIdCourse(id);
             featuringSubjects.add(featuringSubject);
@@ -224,12 +188,11 @@ public class SubjectService implements ISubjectService {
         return featuringSubjects;
     }
 
-<<<<<<<<< Temporary merge branch 1
-    
+
     public SubjectDTO convertEntitytoDTO(Subject entity){
         return modelmapper.map(entity, SubjectDTO.class);
     }
-    
+
     public List<Subject> listAll() {
         return (List<Subject>) iSubjectRepository.findAll();
     }
@@ -240,6 +203,8 @@ public class SubjectService implements ISubjectService {
     public Subject getById(Integer id){
         return iSubjectRepository.getById(id);
     }
-=========
->>>>>>>>> Temporary merge branch 2
+    @Override
+    public List<Subject> searchByCourseName(String s) {
+        return iSubjectRepository.findByCourseNameContaining(s);
+    }
 }
