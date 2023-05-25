@@ -13,10 +13,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <link rel="stylesheet" th:href=@{/subjects_list_assets/css/style.css}/>
     </head>
     <body>
-        <div th:insert="templates/components/header"></div>
+        <th:block th:if="${userSession==null}">
+            <div th:insert="templates/components/header"></div>
+        </th:block>
+        <th:block th:if="${userSession!=null}">
+            <div th:insert="templates/components/header_logged_in"></div>
+        </th:block>
         <main class="container">
             <div id="sidebar-button" onclick="w3_open()"> Sidebar</div>
-            <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none; left:0; background-color: rgba(255, 255, 255,0.5);" id="mySidebar">
+            <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none; background-color: rgba(255, 255, 255,0.5);" id="mySidebar">
                 <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
                 <select class="form-select" name="categoryId" id="categorySelect" onchange="navigateToCategory()" >
                     <option value="">All Categories</option>
@@ -27,6 +32,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <option value="ascending">Ascending</option>
                     <option value="descending">Descending</option>
                 </select>
+            </div>
+            <div class="row">
                 <div class="d-flex justify-content-center mb-3">
                     <input type="search" id="subjectSearch" placeholder="Search for subject" class="form-control search-box" style="width: 80%" />
                     <button class="btn btn-primary" onclick="searchSubjects()">
@@ -50,7 +57,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </a>
                         <div class="register-container">
                             <a class="register-subject btn" th:href="@{'/subjects/details/' + ${subject.idCourse}}">Register</a>
-                            <p style="font-size: 14px;">From 14$</p>
+                            <p class="price-text" th:text="'From '+${__${'subjectPrice_' + subject.idCourse}__}"></p>
                         </div>
                     </div>
                 </div>
