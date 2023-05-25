@@ -308,6 +308,11 @@ Như đã viết, hai phương pháp Active Recall và Spaced Repetition đã đ
 -- Chúc các bạn áp dụng thành công phương pháp này để hoàn thành công việc hiệu quả hơn - trong thời gian ngắn hơn, để dành ra được nhiều thời gian cho bản thân hơn bạn nhé!', 
 -- 'uploaded', 1);
 
+-- select * from iquiz.posts;
+
+update iquiz.posts
+set title = 'Phương pháp ôn thi hiệu quả: Active Recall & Spaced Repetition'
+where post_id = 5;
 
 INSERT INTO `iquiz`.`userprofile`
 (`user_profile_id`,
