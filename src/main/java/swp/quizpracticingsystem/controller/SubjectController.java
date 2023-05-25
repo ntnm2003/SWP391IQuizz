@@ -67,8 +67,13 @@ public class SubjectController {
             String description=subjectOverviewService
                     .findSubjectOverview(subject.getIdCourse())
                     .getDescription();
+            Integer lowestPrice=pricePackageService
+                    .findMinPricePackage(subject.getIdCourse())
+                    .getSalePrice();
             model.addAttribute("subjectDesc_"+subject.getIdCourse(), 
                     description);
+            model.addAttribute("subjectPrice_"+subject.getIdCourse(), 
+                    lowestPrice);
         }
         model.addAttribute("category", categoryId);
         model.addAttribute("subjects", subjects);
@@ -110,6 +115,18 @@ public class SubjectController {
                 .findSubjectBySubjectName(pageNo, 8, searchValue);
         }
         List<CategoryDTO> listCategory=categoryService.findAll();
+        for(SubjectDTO subject:subjects){
+            String description=subjectOverviewService
+                    .findSubjectOverview(subject.getIdCourse())
+                    .getDescription();
+            Integer lowestPrice=pricePackageService
+                    .findMinPricePackage(subject.getIdCourse())
+                    .getSalePrice();
+            model.addAttribute("subjectDesc_"+subject.getIdCourse(), 
+                    description);
+            model.addAttribute("subjectPrice_"+subject.getIdCourse(), 
+                    lowestPrice);
+        }
         model.addAttribute("searchValue", searchValue);
         model.addAttribute("category", categoryId);
         model.addAttribute("subjects", subjects);
