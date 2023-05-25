@@ -27,8 +27,7 @@ public class PricePackageService implements IPricePackageService {
     private IPricePackageRepository pricePackageRepository;
     @Autowired
     private ModelMapper modelmapper;
-    
-    @Override
+
     public List<PricePackageDTO> findAllPricePackage(int subjectId) {
         return pricePackageRepository.findAll(subjectId)
                 .stream()
