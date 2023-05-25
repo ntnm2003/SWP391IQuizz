@@ -12,5 +12,4 @@ public interface IBlogService {
 	List<PostsDTO> getFeaturedPosts(boolean isFeatured);
 
 	List<PostsDTO> getLatestPosts(boolean isFeatured, int limit);
-	
 }
