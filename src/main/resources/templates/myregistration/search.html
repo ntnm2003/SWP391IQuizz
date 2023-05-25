@@ -42,16 +42,17 @@
             <div class="px-16 py-8 grid grid-cols-12">
                 <div class="col-span-8">
                     <a th:href="@{'/users/myregistration/'+${uid}}" class="block mb-6"><i class="fa-solid fa-chevron-left"></i> Back to course list</a>
-                    <div class="w-full">
-                        <a href="index2.html" class="flex gap-4 w-full border border-black/20 p-4 rounded-3xl mb-6">
+                    <ul class="w-full">
+                        <li th:each=" su:${sub}">
+                        <a th:href="@{'/users/myregistration/'+${uid}+'/'+${su.idCourse}}" class="flex gap-4 w-full border border-black/20 p-4 rounded-3xl mb-6">
                             <img src="https://anhcocvang.com/static/media/MAE101.ee704482946a2485d1e5.png" alt="course" class="rounded-xl w-60">
                             <div>
-                                <h3 class="font-bold text-2xl mb-2">Mathematics for Engineering</h3>
+                                <h3 class="font-bold text-2xl mb-2" th:text="${su.getCourseName()}"></h3>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore quidem consectetur aspernatur culpa placeat atque commodi iure ad ab omnis!</p>
                             </div>
                         </a>
-
-                    </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </article>

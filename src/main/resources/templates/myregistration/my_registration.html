@@ -14,7 +14,7 @@
 </head>
 <body class="bg-neutral-50 text-teal-700">
 <div th:insert="templates/components/header"></div>
-<main >
+<main>
     <div style="margin-top: 15px" class="flex items-center justify-center border-b border-b-black/10 fixed top-50 left-0 right-0 w-full z-20 bg-neutral-50">
         <div class="flex items-center justify-between px-8 py-1 w-full">
             <a href="https://facebook.com/x.quy.203" target="_blank" class="text-2xl font-bold">Course App</a>
@@ -55,7 +55,7 @@
                 <div class="relative mb-8 overflow-auto">
                     <h1 class="text-2xl font-bold capitalize mb-6">Courses purchased</h1>
                     <ul id="courses-purchased" class="flex snap-x gap-4 w-full overflow-x-hidden">
-                        <li th:each="reg:${regis}">
+                        <li th:each="reg:${regis}" th:if="${reg.getStatus() != 'submitted'}">
                             <a th:href="@{'/users/myregistration/'+${id}+'/'+${reg.getCid()}}"
                                class="snap-start shrink-0">
                                 <img src="https://anhcocvang.com/static/media/MAD101.20b9f72d53ca43e48a53.png"
@@ -79,8 +79,8 @@
                 <div class="relative mb-8 overflow-auto">
                     <h1 class="text-2xl font-bold capitalize mb-6">Other courses</h1>
                     <ul id="other-courses" class="flex snap-x gap-4 w-full overflow-x-hidden">
-                        <li th:each="reg:${regis}">
-                            <a href="subject_info.html" class="snap-start shrink-0">
+                        <li th:each="reg:${regis}" th:if="${reg.getStatus() == 'submitted'}">
+                            <a th:href="@{'/users/myregistration/'+${id}+'/'+${reg.getCid()}}">
                                 <img src="https://anhcocvang.com/static/media/MAD101.20b9f72d53ca43e48a53.png"
                                      alt="course"
                                      class="rounded-xl mb-2 w-80">
