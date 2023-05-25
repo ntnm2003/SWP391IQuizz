@@ -47,5 +47,4 @@ public class BlogService implements IBlogService {
 
 	}
 
-
 }
