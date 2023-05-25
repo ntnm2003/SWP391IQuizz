@@ -16,6 +16,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import swp.quizpracticingsystem.Utility.Utility;
@@ -40,17 +41,14 @@ public class ForgotPasswordController {
     }
     
     @PostMapping("/forgot_password")
-    public String processForgotPassword(HttpServletRequest request) {
-        // email muốn reset password
+    public String processForgotPassword(HttpServletRequest request,Model model) {
         String email = request.getParameter("email");
-        // gen token
         String token = RandomString.make(30);
         try {
-            // lưu token vào db
             accountService.updateResetPasswordToken(token, email);
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
             sendEmail(email, resetPasswordLink);
-
+            model.addAttribute("message", "Email has been sent, Please check your inbox !");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -63,7 +61,7 @@ public class ForgotPasswordController {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("gmail@sss", "Test");
+        helper.setFrom("gmail@sss", "Iquiz");
         helper.setTo(recipientEmail);
 
         String subject = "Here's the link to reset your password";
@@ -101,10 +99,17 @@ public class ForgotPasswordController {
     }
     
     @PostMapping("/reset_password")
-    public String processResetPassword(User a) {
+    public String processResetPassword(HttpServletRequest request, User a,Model model) {
+         String newPass = request.getParameter("newPass");
+        String confirmPass = request.getParameter("confirmPass");
+        if(newPass.matches(confirmPass)){
         User acc = accountService.getByResetPasswordToken(a.getToken());
-        acc.setPassword(a.getPassword());
-        accountService.updatePassword(acc, a.getPassword());
-        return "login";
+        acc.setPassword(newPass);
+        accountService.updatePassword(acc, newPass);
+        return "login/login";
+        }else{
+             model.addAttribute("error", "Incorrect Re-enter new password");
+             return"password/reset_password_form";
+                }
     }
 }

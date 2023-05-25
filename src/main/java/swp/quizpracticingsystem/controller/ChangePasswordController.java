@@ -38,7 +38,7 @@ public class ChangePasswordController {
         if(session != null && session.getAttribute("user") != null){
             return"password/change_password_form";
         }else{
-            return"homepage/homepage";
+            return"login/login";
         }
     }
     
@@ -48,8 +48,8 @@ public class ChangePasswordController {
             String oldPass = request.getParameter("oldPass");
             String newPass = request.getParameter("newPass");
             String confirmPass = request.getParameter("confirmPass");
-            String password = (String) session.getAttribute("password");
-            if(oldPass.matches(password)){
+            user = (User) session.getAttribute("user");
+            if(oldPass.matches(user.getPassword())){
                 if(newPass.matches(confirmPass)){
                     user.setPassword(newPass);
                     accountService.updatePassword(user, newPass);
