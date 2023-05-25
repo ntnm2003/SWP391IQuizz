@@ -13,7 +13,13 @@
     <link rel="stylesheet" th:href="@{/templates_components_assets/css/footer.css}">
 </head>
 <body class="bg-neutral-50 text-teal-700">
-<div th:insert="templates/components/header"></div>
+<th:block th:if="${userSession == null}">
+    <div th:insert="templates/components/header"></div>
+</th:block>
+
+<th:block th:if="${userSession != null}">
+    <div th:insert="templates/components/header_logged_in"></div>
+</th:block>
 <main>
 
     <div>

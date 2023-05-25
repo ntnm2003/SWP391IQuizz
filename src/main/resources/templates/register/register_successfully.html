@@ -5,11 +5,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 -->
 <html>
     <head>
-        <title>Home</title>
+        <title>Registration Success</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/register_assets/register_success.css}" />
     </head>
     <body>
-        <div>TODO write content</div>
+        <div class="container">
+            <h3>You have signed up successfully!</h3>
+            <p>Please check your email to verify your account.</p>
+            <h4><a th:href="@{/login}">Click here to Login</a></h4>
+        </div>
     </body>
 </html>

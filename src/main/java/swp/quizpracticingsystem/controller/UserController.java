@@ -1,5 +1,6 @@
 package swp.quizpracticingsystem.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import swp.quizpracticingsystem.serviceImple.CategoryService;
+import swp.quizpracticingsystem.serviceImple.PricePackageService;
+import swp.quizpracticingsystem.serviceImple.SubjectService;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,11 +50,11 @@ public class UserController {
                         status.add(uc.getStatus());
                         registationId.add(uc.getId().toString());
                         price.add(uc.getPrice());
+                        System.out.println("Test 1 "+uc.getPrice());
                     }
                 }
             }
         }
-
         Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < subjects.size(); i++) {
             MyRegistration r = new MyRegistration();
@@ -82,19 +86,19 @@ public class UserController {
     }
 
     @GetMapping("/users/myregistration/{id}")
-    public String showRegistation(@PathVariable("id") Integer id,  Model model) {
+    public String showRegistation(@PathVariable("id") Integer id, Model model, HttpSession session) {
         List<MyRegistration> regis = reg(id);
         List<Subject> subjects = userCourseService.courseById(id);
         List<Category> cat = categoryService.listAll();
         model.addAttribute("sub", subjects);
         model.addAttribute("cat", cat);
         model.addAttribute("regis", regis);
-
+        model.addAttribute("userSession", session.getAttribute("user"));
         return "myregistration/my_registration";
     }
 
     @GetMapping("/users/myregistration/{uid}/{cid}")
-    public String regisCourse(@PathVariable("uid") Integer uid, @PathVariable("cid") Integer cid, Model model) {
+    public String regisCourse(@PathVariable("uid") Integer uid, @PathVariable("cid") Integer cid, Model model, HttpSession session) {
         List<MyRegistration> regis = reg(uid);
         MyRegistration re=new MyRegistration();
 
@@ -104,6 +108,7 @@ public class UserController {
                 break;
             }
         }
+        model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("re", re);
         Subject su = subService.getById(cid);
         List<PricePackage> price = packageService.getBySubject(cid);

@@ -15,7 +15,13 @@
 
 </head>
 <body class="bg-neutral-50 text-teal-700">
-<div th:insert="templates/components/header"></div>
+<th:block th:if="${userSession == null}">
+    <div th:insert="templates/components/header"></div>
+</th:block>
+
+<th:block th:if="${userSession != null}">
+    <div th:insert="templates/components/header_logged_in"></div>
+</th:block>
 <main>
 
     <div style="margin-top: 15px" class="flex items-center justify-center border-b border-b-black/10 fixed top-50 left-0 right-0 w-full z-20 bg-neutral-50">
@@ -55,7 +61,7 @@
 
 
 
-                    <p class="mb-4">Để có cái nhìn tổng quan về toán rời rạc các bạn nên học khóa này trước
+                    <p class="mb-4">Để có cái nhìn tổng quan các bạn nên học khóa này trước
                         nhé.</p>
                     <h2 class="text-xl font-semibold capitalize mb-2">Infomation:</h2>
                     <ul>
@@ -83,7 +89,7 @@
                 <div class="col-span-4 flex flex-col items-center">
                     <img src="https://anhcocvang.com/static/media/MAE101.ee704482946a2485d1e5.png" alt="course"
                          class="rounded-xl mb-4 w-full">
-                    <h3 class="text-center text-3xl font-bold mb-4">300$</h3>
+                    <h3 class="text-center text-3xl font-bold mb-4" th:text="'Total cost: $'${re.getTotalcost()}"></h3>
                     <!-- <button class="px-4 py-2 mb-4 bg-red-600 text-white rounded-full font-bold">Unenroll</button> -->
 
                     <div th:if="${re.getStatus() == 'submitted'}">
