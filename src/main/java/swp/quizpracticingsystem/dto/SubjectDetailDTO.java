@@ -12,4 +12,20 @@ import lombok.Setter;
 public class SubjectDetailDTO {
     private Integer idSub;
     private SubjectDTO subject;
+
+    public Integer getIdSub() {
+        return idSub;
+    }
+
+    public void setIdSub(Integer idSub) {
+        this.idSub = idSub;
+    }
+
+    public SubjectDTO getSubject() {
+        return subject;
+    }
+
+    public void setSubject(SubjectDTO subject) {
+        this.subject = subject;
+    }
 }
