@@ -124,4 +124,18 @@ main{
 .search-box{
     font-size: 14px;
 }
+#sidebar-button {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  height: 100px;
+  background-color: #1368ce;
+  color:white;
+  writing-mode: vertical-lr;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1000;
+}
+
 
