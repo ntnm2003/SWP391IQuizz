@@ -1,9 +1,8 @@
 package swp.quizpracticingsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import swp.quizpracticingsystem.model.Posts;
-import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.model.SubjectDetail;
+import swp.quizpracticingsystem.model.SubjectOverview;
 
 import java.util.List;
 
