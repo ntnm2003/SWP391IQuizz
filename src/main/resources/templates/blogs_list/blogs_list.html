@@ -115,7 +115,7 @@
                         <h1>No Blog Found</h1>
                     </th:block>
 
-                    <th:block th:if="${!posts.isEmpty()}">
+                    <th:block th:if="${!(posts.isEmpty())}">
                         <div th:each="post : ${posts}">
                             <div class="card">
                                 <img th:src="@{/database_images/{imageName}(imageName=${post.thumbnail})}"
