@@ -2,15 +2,13 @@ package swp.quizpracticingsystem.model;
 
 
 import jakarta.persistence.*;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -39,17 +37,14 @@ public class User {
     @Column(name = "Password")
     private String password;
 
-    @Column(name = "token")
+    @Column(name = "token", nullable = true)
     private String token;
-    
-    
-    private Boolean enabled;
 
     @Column(name = "lastupdatedatetime", nullable = true)
     private String lastupdatedatetime;
 
-
-    
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
 
 
     @ManyToOne
@@ -60,14 +55,7 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "idcourse")})
     private Set<Subject> subjects = new HashSet<>();
-    public User token(String token) {
-        setToken(token);
-        return this;
-    }
-    
-    public User lastupdatedatetime(String lastUpdateDateTime) {
-        setLastupdatedatetime(lastUpdateDateTime);
-        return this;
+
+    public void token(String token) {
     }
 }
-
