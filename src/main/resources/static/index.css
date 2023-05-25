@@ -104,7 +104,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
   
   .information-text {
     color: #2864F6; }
-  
+  .error-message{
+      color:red;
+  }
   
     @media screen and (max-width: 320px) {
         .row {

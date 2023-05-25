@@ -1,5 +1,6 @@
 package swp.quizpracticingsystem.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +11,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp.quizpracticingsystem.NotFound.MyRegistration;
 import swp.quizpracticingsystem.NotFound.UserCourseKey;
 import swp.quizpracticingsystem.model.Category;
+import swp.quizpracticingsystem.model.PricePackage;
 import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.model.Usercourse;
 import swp.quizpracticingsystem.service.*;
+import swp.quizpracticingsystem.serviceImple.PricePackageService;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -27,10 +30,10 @@ import swp.quizpracticingsystem.serviceImple.SubjectService;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-    private final UserCourseService userCourseService;
-    private final SubjectService subService;
+    private final IUserCourseService userCourseService;
+    private final ISubjectService subService;
     private final PricePackageService packageService;
-    private final CategoryService categoryService;
+    private final ICategoryService categoryService;
 
     private List<MyRegistration> reg(Integer id) {
         List<Subject> subjects = userCourseService.courseById(id);
@@ -64,45 +67,60 @@ public class UserController {
             r.setPackageName(packageService.getById((Integer) price.get(i)).getPackageName());
 
             Date date = dateRegis.get(i);
+            Date date1 = dateRegis.get(i);
             calendar.setTime(date);
+            if (r.getPackageName().contains("3")){
             calendar.add(Calendar.DATE, 90);
-            date = new Date(calendar.getTimeInMillis());
-            r.setValidTo(date);
+            date = new Date(calendar.getTimeInMillis());}
+            else if (r.getPackageName().contains("6")) {
+                calendar.add(Calendar.DATE, 180);
+                date = new Date(calendar.getTimeInMillis());}
+            else { date=null;
 
+        }
+            r.setValidTo(date);
+            r.setValidfrom(date1);
             regis.set(i, r);
         }
         return regis;
     }
 
     @GetMapping("/users/myregistration/{id}")
-    public String showRegistation(@PathVariable("id") Integer id, Model model) {
+    public String showRegistation(@PathVariable("id") Integer id, Model model, HttpSession session) {
         List<MyRegistration> regis = reg(id);
         List<Subject> subjects = userCourseService.courseById(id);
         List<Category> cat = categoryService.listAll();
         model.addAttribute("sub", subjects);
         model.addAttribute("cat", cat);
         model.addAttribute("regis", regis);
-
-        return "templates/my_registration";
+        model.addAttribute("userSession", session.getAttribute("user"));
+        return "myregistration/my_registration";
     }
 
     @GetMapping("/users/myregistration/{uid}/{cid}")
-    public String regisCourse(@PathVariable("uid") Integer uid, @PathVariable("cid") Integer cid, Model model) {
+    public String regisCourse(@PathVariable("uid") Integer uid, @PathVariable("cid") Integer cid, Model model, HttpSession session) {
         List<MyRegistration> regis = reg(uid);
-        List<Subject> sub = new ArrayList<>();
+        MyRegistration re=new MyRegistration();
+
         for (MyRegistration r : regis) {
             if (r.getSubName().equals(subService.getById(cid).getCourseName())) {
-                sub.add(subService.getById(cid));
+                re=r;
+                break;
             }
         }
-        model.addAttribute("subj", sub);
-        return "templates/subject_info";
+        model.addAttribute("userSession", session.getAttribute("user"));
+        model.addAttribute("re", re);
+        Subject su = subService.getById(cid);
+        List<PricePackage> price = packageService.getBySubject(cid);
+        model.addAttribute("sub",su);
+        model.addAttribute("pack", price);
+        return "myregistration/subject_info";
     }
 
     @GetMapping("/users/registration/save/{user_id}/{course_id}")
-    public ModelAndView saveRegistration(@PathVariable("user_id") Integer user_id, @PathVariable("course_id") Integer course_id,
+    public String saveRegistration(@PathVariable("user_id") Integer user_id, @PathVariable("course_id") Integer course_id,
                                          @RequestParam("button") Integer but,
-                                         RedirectAttributes ra, ModelMap model) {
+                                         RedirectAttributes ra, RedirectAttributes redirectAttrs, HttpSession session, Model model) {
         Usercourse uc = new Usercourse();
 
         UserCourseKey uk = new UserCourseKey();
@@ -113,14 +131,24 @@ public class UserController {
         java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
         uc.setDateRegister(sqlDate);
         uc.setPrice(but);
+        uc.setStatus("submitted");
         userCourseService.save(uc);
-        ra.addFlashAttribute("message", "The user has been saved successfully.");
-        return new ModelAndView("redirect:/home", model);
+        model.addAttribute("userSession", session.getAttribute("user"));
+        redirectAttrs.addAttribute("course_id", course_id);
+        redirectAttrs.addAttribute("user_id", user_id);
+        return "redirect:/users/myregistration/{course_id}/{user_id}";
     }
-//    @GetMapping("/users/myregistration/{id}/search")
-//    public String search(
-//
-//    )
+    @GetMapping("/users/registration/search/{uid}")
+    public String submitSearchForm(@PathVariable("uid") Integer uid, @RequestParam("search") String search,Model model) {
 
+        List<Subject> subjects = subService.searchByCourseName(search);
+       // model.addAttribute("search", search);
+        List<Category> cat = categoryService.listAll();
+        model.addAttribute("cat", cat);
+        model.addAttribute("sub", subjects);
+        List<MyRegistration> regis = reg(uid);
+        model.addAttribute("regis", regis);
+        return "myregistration/search";
+    }
 
 }
