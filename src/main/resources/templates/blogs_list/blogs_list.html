@@ -39,7 +39,7 @@
                                     <input type="text" name="searchTerm" th:value="${searchTerm}">
                                     <span>Search For Posts</span>
                                 </form> -->
-                                <form action="#" th:action="@{/blogs/search}" method="get">
+                                <form action="#" th:action="@{/search}" method="get">
                                     <input type="text" name="searchTerm" th:value="${searchTerm}">
                                     <span>Search For Posts</span>
                                 </form>
@@ -51,7 +51,7 @@
                             </h3>
                             
                             
-                            <form th:action="@{/blogs/filter}" method="get" onsubmit="return validateForm()">
+                            <form th:action="@{/filter}" method="get" onsubmit="return validateForm()">
                                 <ul>
                                 <li style="list-style-type: none">
                                     <input class="checkbox" id="all" type="checkbox" th:name="selectedCategories" th:value="0">
@@ -115,7 +115,7 @@
                         <h1>No Blog Found</h1>
                     </th:block>
 
-                    <th:block th:if="${!posts.isEmpty()}">
+                    <th:block th:if="${!(posts.isEmpty())}">
                         <div th:each="post : ${posts}">
                             <div class="card">
                                 <img th:src="@{/database_images/{imageName}(imageName=${post.thumbnail})}"
