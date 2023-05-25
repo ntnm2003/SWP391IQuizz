@@ -29,10 +29,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+<<<<<<<<< Temporary merge branch 1
+
+=========
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
+>>>>>>>>> Temporary merge branch 2
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -47,7 +51,11 @@
                     <groupId>org.projectlombok</groupId>
                     <artifactId>lombok</artifactId>
                     <type>jar</type>
+<<<<<<<<< Temporary merge branch 1
+                    <version>1.18.24</version>  
+=========
                     <version>1.18.24</version>
+>>>>>>>>> Temporary merge branch 2
                 </dependency>
                 <dependency>
                     <groupId>org.modelmapper</groupId>
@@ -55,22 +63,26 @@
                     <version>3.1.0</version>
                         <type>jar</type>
                 </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>6.0.9</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-        <dependency>
+<<<<<<<<< Temporary merge branch 1
+	 <dependency>
+	  <groupId>org.springframework</groupId>
+	  <artifactId>spring-context-support</artifactId>
+	  <version>6.0.9</version>
+	  <type>jar</type>  
+	 </dependency>
+	 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+    <dependency>
             <groupId>org.eclipse.angus</groupId>
             <artifactId>jakarta.mail</artifactId>
             <version>1.0.0</version>
+            <type>jar</type>
         </dependency>
-    </dependencies>
+=========
+>>>>>>>>> Temporary merge branch 2
+	</dependencies>
 
 	<build>
 		<plugins>

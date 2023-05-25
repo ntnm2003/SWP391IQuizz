@@ -2,13 +2,15 @@ package swp.quizpracticingsystem.model;
 
 
 import jakarta.persistence.*;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -37,14 +39,27 @@ public class User {
     @Column(name = "Password")
     private String password;
 
+<<<<<<<<< Temporary merge branch 1
+    @Column(name = "token")
+    private String token;
+    
+    
+    private Boolean enabled;
+=========
     @Column(name = "token", nullable = true)
     private String token;
+>>>>>>>>> Temporary merge branch 2
 
     @Column(name = "lastupdatedatetime", nullable = true)
     private String lastupdatedatetime;
 
+<<<<<<<<< Temporary merge branch 1
+
+    
+=========
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
+>>>>>>>>> Temporary merge branch 2
 
 
     @ManyToOne
@@ -55,7 +70,18 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "idcourse")})
     private Set<Subject> subjects = new HashSet<>();
-
-    public void token(String token) {
+<<<<<<<<< Temporary merge branch 1
+    public User token(String token) {
+        setToken(token);
+        return this;
+    }
+    
+    public User lastupdatedatetime(String lastUpdateDateTime) {
+        setLastupdatedatetime(lastUpdateDateTime);
+        return this;
     }
 }
+
+=========
+}
+>>>>>>>>> Temporary merge branch 2
