@@ -3,8 +3,8 @@ package swp.quizpracticingsystem.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -41,15 +41,15 @@ public class User {
 
     @Column(name = "token")
     private String token;
-    
-    
+
+
     private Boolean enabled;
 
     @Column(name = "lastupdatedatetime", nullable = true)
     private String lastupdatedatetime;
 
 
-    
+
 
 
     @ManyToOne
@@ -64,7 +64,7 @@ public class User {
         setToken(token);
         return this;
     }
-    
+
     public User lastupdatedatetime(String lastUpdateDateTime) {
         setLastupdatedatetime(lastUpdateDateTime);
         return this;

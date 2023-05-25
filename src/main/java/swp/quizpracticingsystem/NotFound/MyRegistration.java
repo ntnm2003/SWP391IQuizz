@@ -12,7 +12,7 @@ public class MyRegistration {
     private String status;
     private String subName;
     private Integer cid;
-
+    private Date validfrom;
     private String packageName;
     private Integer totalcost;
     private String regisId;
