@@ -1,5 +1,6 @@
 package swp.quizpracticingsystem.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,11 +10,12 @@ import swp.quizpracticingsystem.NotFound.UserCourseKey;
 import swp.quizpracticingsystem.model.PricePackage;
 import swp.quizpracticingsystem.model.Subject;
 import swp.quizpracticingsystem.model.Usercourse;
-import swp.quizpracticingsystem.service.UserCourseService;
 
-import java.util.List;
 import swp.quizpracticingsystem.serviceImple.PricePackageService;
 import swp.quizpracticingsystem.serviceImple.SubjectService;
+import swp.quizpracticingsystem.serviceImple.UserCourseService;
+
+import java.util.List;
 @Controller
 public class PublicController {
     @Autowired
@@ -22,17 +24,18 @@ public class PublicController {
     @Autowired private PricePackageService packageService;
 
     @GetMapping("/registration/{course_id}")
-    public String registerSubject(@PathVariable("course_id") Integer course_id, Model model) {
+    public String registerSubject(@PathVariable("course_id") Integer course_id, Model model, HttpSession session) {
         Subject su = subService.getById(course_id);
         List<PricePackage> price = packageService.getBySubject(course_id);
+        model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("sub",su);
         model.addAttribute("pack", price);
-        return "templates/subject_register";
+        return "subject_register/subject_register";
     }
     @GetMapping("/registration/{course_id}/{user_id}")
-    public String registerSubject(@PathVariable("course_id") Integer course_id, @PathVariable("user_id") Integer user_id, Model model) {
+    public String registerSubject(@PathVariable("course_id") Integer course_id, @PathVariable("user_id") Integer user_id, Model model, HttpSession session) {
 
-        Subject su = subService.getById(course_id);
+            Subject su = subService.getById(course_id);
         List<PricePackage> price = packageService.getBySubject(course_id);
         List<Subject> subjects;
             model.addAttribute("su", su);
@@ -51,14 +54,15 @@ public class PublicController {
                 if (u==null){
                     u= new Usercourse();
                 }
-                p = packageService.getById(u.getId().getUser_id());
+                    p = packageService.getById(u.getPrice());
                 model.addAttribute("u", u);
 
                 p = new PricePackage();
             }
+        model.addAttribute("userSession", session.getAttribute("user"));
             model.addAttribute("sub", su);
             model.addAttribute("pack", price);
-            return "templates/subject_register";
-    }
+            return "subject_register/subject_register";
+        }
 
 }
