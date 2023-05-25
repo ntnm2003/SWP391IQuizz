@@ -92,7 +92,7 @@ public class ForgotPasswordController {
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         if (currentDateTime.compareTo(dateTime) > 0) {
-            return "timeout";
+            return "password/timeout";
         } else {
             return "password/reset_password_form";
         }
