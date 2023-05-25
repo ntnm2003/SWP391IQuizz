@@ -51,16 +51,19 @@
             <span><ion-icon name="flame"></ion-icon></span>
           </h3>
 
-          <div th:each="lastestPost : ${lastestPosts}" class="latest_posts-cards">
-
-            <div class="card">
-              <a th:href="@{'blogs/blog-detail/{id}' + ${lastestPost.postId}}">
-                <img th:src="@{/database_images/{imageName}(imageName=${lastestPost.thumbnail})}" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p th:text="${lastestPost.title}" class="card-text"></p>
-                </div>
-              </a>
-            </div>
+          <div class="card">
+            <a href="#">
+              <div class="card-body">
+                <p class="card-text">ĐỌC VỚI NOTECARD: PHƯƠNG PHÁP ĐỌC SÁCH HIỆU QUẢ VÀ NHỚ LÂU</p>
+              </div>
+            </a>
+          </div>
+          <div class="card">
+            <a href="#">
+              <div class="card-body">
+                <p class="card-text">Quản lý thời gian hiệu quả hơn với phương pháp Timeboxing! Bạn đã thử?</p>
+              </div>
+            </a>
           </div>
         </div>-
       </div>
@@ -70,7 +73,7 @@
 
       <div class="blogs-list col-md-8 p-5 h-auto">
 
-          <div class="section-title">
+          <div class="blog-title">
             <h1 th:text="${blogs.title}"></h1>
           </div>
           <p class="post-meta"></p> Posted on <span th:text="${blogs.updatedDate}"></span>

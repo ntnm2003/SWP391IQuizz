@@ -10,13 +10,17 @@ import java.util.List;
 
 public interface ISubjectOverviewRepository extends JpaRepository<SubjectOverview, Integer> {
 
-    List<SubjectOverview> findByFeaturing(String featuring);
+    @Override
+    List<SubjectOverview> findAll();
 
     @Override
-    public Page<SubjectOverview> findAll(Pageable pageable);
+    SubjectOverview getById(Integer integer);
 
     @Override
-    public List<SubjectOverview> findAll();
+    List<SubjectOverview> findAllById(Iterable<Integer> integers);
 
-    SubjectOverview findByIdOverview(int idOverview);
+    public List<SubjectOverview> findByFeaturing(String featuring);
 }
+
+
+

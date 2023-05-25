@@ -1,8 +1,8 @@
 package swp.quizpracticingsystem.service;
-import swp.quizpracticingsystem.model.Subject;
+import swp.quizpracticingsystem.model.SubjectDetail;
 
 
 public interface ISubjectDetailService {
 
-    Subject getSubjectById(Integer idOverview);
+
 }

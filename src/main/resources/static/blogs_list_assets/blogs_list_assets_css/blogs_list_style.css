@@ -239,3 +239,11 @@ input[type="radio"]:checked + label::before {
     justify-content: space-between;
     margin-bottom: 1.5rem;
 }
+
+.blog-title h1 {
+    font-weight: 1000;
+    color: royalblue;
+}
+.status {
+    color: limegreen;
+}

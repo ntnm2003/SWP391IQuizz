@@ -10,7 +10,6 @@
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
     <link rel="stylesheet" th:href=@{/blogs_list_assets/blogs_list_assets_css/blogs_list_style.css}>
     <link rel="stylesheet" th:href=@{/subjects_list_assets/css/style.css}>
-    <link rel="stylesheet" th:href=@{/homepage_assets/homepage_assets_css/homepage.css}>
     <link rel="stylesheet" th:href=@{/templates_components_assets/css/header.css}>
     <link rel="stylesheet" th:href=@{/templates_components_assets/css/footer.css}>
 </head>
@@ -38,31 +37,34 @@
                             Subject Categories
                         </h3>
                         <input id="cate1" type="radio" name="cate" value="">
-                        <label for="cate1">Category 1</label>
+                        <label for="cate1">Maths</label>
                         <input id="cate2" type="radio" name="cate" value="">
-                        <label for="cate2">Category 2</label>
+                        <label for="cate2">English</label>
                         <input id="cate3" type="radio" name="cate" value="">
-                        <label for="cate3">Category 3</label>
+                        <label for="cate3">Program</label>
                     </div>
                 </div>
 
                 <div class="lastest_posts">
-                    <h4>
+                    <h3>
                         <span><ion-icon name="school"></ion-icon></span>
                         Featured Subjects
                         <span><ion-icon name="school"></ion-icon></span>
-                    </h4>
+                    </h3>
 
-                    <div th:each="lastestPost : ${lastestPosts}" class="latest_posts-cards">
-
-                        <div class="card">
-                            <a th:href="@{'blogs/blog-detail?id=' + ${lastestPost.postId}}">
-                                <img th:src="@{/database_images/{imageName}(imageName=${lastestPost.thumbnail})}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p th:text="${lastestPost.title}" class="card-text"></p>
-                                </div>
-                            </a>
-                        </div>
+                    <div class="card">
+                        <a href="#">
+                            <div class="card-body">
+                                <p class="card-text">How to build for first Website - Full Course for Beginners</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="#">
+                            <div class="card-body">
+                                <p class="card-text">Master Spring Boot 3 & Spring Framework 6 with Java</p>
+                            </div>
+                        </a>
                     </div>
 
                 </div>-
@@ -73,26 +75,12 @@
             <div class="blogs-list col-md-8 p-5 h-auto">
                 <div class="subject-content">
                     <article>
-                        <p class="post-meta">Mathematics</p>
+                        <h3 th:text="${subject.status}" class="status"></h3>
                         <div class="section-title">
-                            <h1>Mathematics for Engineering</h1>
+                            <h1 th:text="${subject.tagLine}"></h1>
                         </div>
-                        <div class="sale-price">
-                            <h3>320.000đ</h3>
-                        </div>
-                        <div class="subject-price">
-                            <span class="price">
-                                <h4>500.000đ</h4>
-                            </span>
-                            <span class="package">
-                                <h4>Gói truy cập 3 tháng</h4>
-                            </span>
-                        </div>
-                        <div class="post-content">
+                        <div th:text="${subject.description}" class="post-content"></div>
 
-                            <p>Learn the mathematics needed to become an engineer. Study matrix algebra, differential equations, vector calculus, numerical methods and complete a capstone project.</p>
-
-                        </div>
                     </article>
                     <div class="register-btn">
                         <a class="register" id="register" href="register">Register Subject</a>
@@ -104,19 +92,6 @@
 
         </div>
     </div>
-
-    <div class="pagination">
-        <nav aria-label="...">
-            <ul class="pagination pagination-lg">
-                <li class="page-item active" aria-current="page">
-                    <span class="page-link">1</span>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-            </ul>
-        </nav>
-    </div>
-
 
 </section>
 
