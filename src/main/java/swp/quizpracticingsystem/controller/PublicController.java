@@ -1,5 +1,6 @@
 package swp.quizpracticingsystem.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,15 +24,16 @@ public class PublicController {
     @Autowired private PricePackageService packageService;
 
     @GetMapping("/registration/{course_id}")
-    public String registerSubject(@PathVariable("course_id") Integer course_id, Model model) {
+    public String registerSubject(@PathVariable("course_id") Integer course_id, Model model, HttpSession session) {
         Subject su = subService.getById(course_id);
         List<PricePackage> price = packageService.getBySubject(course_id);
+        model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("sub",su);
         model.addAttribute("pack", price);
         return "subject_register/subject_register";
     }
     @GetMapping("/registration/{course_id}/{user_id}")
-    public String registerSubject(@PathVariable("course_id") Integer course_id, @PathVariable("user_id") Integer user_id, Model model) {
+    public String registerSubject(@PathVariable("course_id") Integer course_id, @PathVariable("user_id") Integer user_id, Model model, HttpSession session) {
 
             Subject su = subService.getById(course_id);
         List<PricePackage> price = packageService.getBySubject(course_id);
@@ -57,6 +59,7 @@ public class PublicController {
 
                 p = new PricePackage();
             }
+        model.addAttribute("userSession", session.getAttribute("user"));
             model.addAttribute("sub", su);
             model.addAttribute("pack", price);
             return "subject_register/subject_register";

@@ -120,7 +120,7 @@ public class UserController {
     @GetMapping("/users/registration/save/{user_id}/{course_id}")
     public String saveRegistration(@PathVariable("user_id") Integer user_id, @PathVariable("course_id") Integer course_id,
                                          @RequestParam("button") Integer but,
-                                         RedirectAttributes ra, RedirectAttributes redirectAttrs) {
+                                         RedirectAttributes ra, RedirectAttributes redirectAttrs, HttpSession session, Model model) {
         Usercourse uc = new Usercourse();
 
         UserCourseKey uk = new UserCourseKey();
@@ -133,7 +133,7 @@ public class UserController {
         uc.setPrice(but);
         uc.setStatus("submitted");
         userCourseService.save(uc);
-
+        model.addAttribute("userSession", session.getAttribute("user"));
         redirectAttrs.addAttribute("course_id", course_id);
         redirectAttrs.addAttribute("user_id", user_id);
         return "redirect:/users/myregistration/{course_id}/{user_id}";
