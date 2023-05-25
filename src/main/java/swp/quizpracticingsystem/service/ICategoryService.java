@@ -6,6 +6,7 @@ package swp.quizpracticingsystem.service;
 
 import java.util.List;
 import swp.quizpracticingsystem.dto.CategoryDTO;
+import swp.quizpracticingsystem.model.Category;
 
 /**
  *
@@ -13,4 +14,6 @@ import swp.quizpracticingsystem.dto.CategoryDTO;
  */
 public interface ICategoryService {
     public List<CategoryDTO> findAll();
+    public List<Category> listAll() ;
+    public Category getById(Integer id) ;
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package swp.quizpracticingsystem.repository;
 
 import java.util.List;
@@ -33,15 +29,19 @@ public interface ISubjectRepository extends JpaRepository<Subject, Integer> {
 
     @Query(value="Select * from `subject` s "
             + "where s.course_name like %?1%",nativeQuery = true)
-    public Page<Subject> searchSubjectName(Pageable pageable, 
+    public Page<Subject> searchSubjectName(Pageable pageable,
             String subjectName);
-    
+
     @Query(value="Select * from `subject` s "
             + "join category c "
             + "on s.idCategory=c.id "
             + "where s.course_name like %?1% && c.id = ?2", nativeQuery = true)
-    public Page<Subject>searchSubjectNameAndCategory(Pageable pageable, 
+    public Page<Subject>searchSubjectNameAndCategory(Pageable pageable,
             String subjectName, int categoryId);
-    
+
     Subject findByIdCourse(int id);
+    Subject findByIdCourse(Integer id);
+
+    List<Subject> findByCourseNameContaining(String s);
+
 }
