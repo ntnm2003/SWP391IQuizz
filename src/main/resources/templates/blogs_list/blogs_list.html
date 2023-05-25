@@ -93,7 +93,7 @@
                         <div th:each="lastestBlog : ${lastestBlogs}" class="latest_posts-cards">
 
                             <div class="card">
-                                <a th:href="@{'blogs/blog-detail?id=' + ${lastestBlog.postId}}">
+                                <a th:href="@{'blogs/blog-detail/' + ${lastestBlog.postId}}">
                                     <img th:src="@{/database_images/{imageName}(imageName=${lastestBlog.thumbnail})}"
                                         class="card-img-top" alt="...">
                                     <div class="card-body">
@@ -127,7 +127,7 @@
                                         <p th:text="${post.briefInfor}" class="card-text"></p>
                                     </div>
                                     <div class="cta-section">
-                                        <a th:href="@{'blogs/blog-detail?id=' + ${post.postId}}" class="btn btn-primary">View Detail</a>
+                                        <a th:href="@{'blogs/blog-detail/' + ${post.postId}}" class="btn btn-primary">View Detail</a>
                                     </div>
                                 </div>
                             </div>
