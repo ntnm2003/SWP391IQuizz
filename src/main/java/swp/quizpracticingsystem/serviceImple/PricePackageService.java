@@ -58,7 +58,15 @@ public class PricePackageService implements IPricePackageService {
         return pi;
     }
     
+    @Override
+    public PricePackageDTO findMinPricePackage(int subjectId) {
+        return convertEntitytoDTO(pricePackageRepository
+                .findMinPricePackage(subjectId));
+    }
+    
     public PricePackageDTO convertEntitytoDTO(PricePackage entity){
         return modelmapper.map(entity, PricePackageDTO.class);
     }
+
+    
 }
