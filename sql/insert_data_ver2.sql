@@ -80,6 +80,20 @@ VALUES
 (2 , 7, 'Anyone can get 6.5 IELTS!', 'slider2.png', '/subjects/subject-detail?id=3', 'active', 1),
 (3 , 7, 'First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2', 'active', 1);
 
+
+update iquiz.slider
+set backlink = '/subject/subject-detail/5'
+where slider_id = 1;
+
+update iquiz.slider
+set backlink = '/subject/subject-detail/3'
+where slider_id = 2;
+
+update iquiz.slider
+set backlink = '/subject/subject-detail/2'
+where slider_id = 3;
+
+
 alter table iquiz.posts
 modify column description varchar(10000);
 
@@ -294,6 +308,11 @@ Như đã viết, hai phương pháp Active Recall và Spaced Repetition đã đ
 -- Chúc các bạn áp dụng thành công phương pháp này để hoàn thành công việc hiệu quả hơn - trong thời gian ngắn hơn, để dành ra được nhiều thời gian cho bản thân hơn bạn nhé!', 
 -- 'uploaded', 1);
 
+-- select * from iquiz.posts;
+
+update iquiz.posts
+set title = 'Phương pháp ôn thi hiệu quả: Active Recall & Spaced Repetition'
+where post_id = 5;
 
 INSERT INTO `iquiz`.`userprofile`
 (`user_profile_id`,
