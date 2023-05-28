@@ -34,7 +34,6 @@ import java.util.List;
 @Controller
 public class RegisterController {
 
-    @Qualifier("registerService")
     @Autowired
     private RegisterService service;
 
