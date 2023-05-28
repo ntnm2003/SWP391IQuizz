@@ -24,19 +24,19 @@ import swp.quizpracticingsystem.service.ISubjectService;
  */
 @Controller
 public class SubjectController {
-    
+
     @Autowired
     private ISubjectService subjectService;
-    
+
     @Autowired
     private ICategoryService categoryService;
-    
+
     @Autowired
     private IPricePackageService pricePackageService;
-    
+
     @Autowired
     private ISubjectOverviewService subjectOverviewService;
-    
+
     @GetMapping("/subjects/subjects-list")
     public String getAllSubject(
             @RequestParam(value="pageNo",defaultValue = "1") int pageNo,
@@ -47,20 +47,20 @@ public class SubjectController {
         Page<SubjectDTO> subjects;
         System.out.println("category "+categoryId+" sortBy "+sortBy+" order "+order);
         if(categoryId!=null && sortBy==null && order==null){
-            subjects=subjectService.filterSubjectByCategory(pageNo, 
+            subjects=subjectService.filterSubjectByCategory(pageNo,
                     8, categoryId);
         }
         else if(categoryId==null && sortBy!=null && order!=null){
-            subjects=subjectService.sortSubjectBy(pageNo, 8, 
-                                sortBy, order);
+            subjects=subjectService.sortSubjectBy(pageNo, 8,
+                    sortBy, order);
         }
         else if(categoryId!=null && sortBy!=null && order!=null){
-            subjects=subjectService.filterAndSortSubject(pageNo, 8, 
+            subjects=subjectService.filterAndSortSubject(pageNo, 8,
                     categoryId, sortBy, order);
         }
         else{
             subjects=subjectService
-                .findPaginatedAllSubjects(pageNo, 8);
+                    .findPaginatedAllSubjects(pageNo, 8);
         }
         List<CategoryDTO> listCategory=categoryService.findAll();
         for(SubjectDTO subject:subjects){
@@ -70,9 +70,9 @@ public class SubjectController {
             Integer lowestPrice=pricePackageService
                     .findMinPricePackage(subject.getIdCourse())
                     .getSalePrice();
-            model.addAttribute("subjectDesc_"+subject.getIdCourse(), 
+            model.addAttribute("subjectDesc_"+subject.getIdCourse(),
                     description);
-            model.addAttribute("subjectPrice_"+subject.getIdCourse(), 
+            model.addAttribute("subjectPrice_"+subject.getIdCourse(),
                     lowestPrice);
         }
         model.addAttribute("category", categoryId);
@@ -87,7 +87,7 @@ public class SubjectController {
                 , subjects.getTotalElements());
         return "subjects_list/subjects";
     }
-    
+
     @GetMapping("/subjects/subjects-list/search")
     public String searchSubject(
             @RequestParam(value="searchValue", required = true) String searchValue,
@@ -98,11 +98,11 @@ public class SubjectController {
             Model model){
         Page<SubjectDTO> subjects;
         if(categoryId!=null && sortBy==null && order==null){
-            subjects=subjectService.findSubjectNameAndFilter(pageNo, 8, 
+            subjects=subjectService.findSubjectNameAndFilter(pageNo, 8,
                     searchValue, categoryId);
         }
         else if(categoryId==null && sortBy!=null && order!=null){
-            subjects=subjectService.searchAndSortSubject(pageNo, 8, 
+            subjects=subjectService.searchAndSortSubject(pageNo, 8,
                     searchValue, sortBy, order);
         }
         else if(categoryId!=null && sortBy!=null && order!=null){
@@ -112,7 +112,7 @@ public class SubjectController {
         }
         else{
             subjects=subjectService
-                .findSubjectBySubjectName(pageNo, 8, searchValue);
+                    .findSubjectBySubjectName(pageNo, 8, searchValue);
         }
         List<CategoryDTO> listCategory=categoryService.findAll();
         for(SubjectDTO subject:subjects){
@@ -122,9 +122,9 @@ public class SubjectController {
             Integer lowestPrice=pricePackageService
                     .findMinPricePackage(subject.getIdCourse())
                     .getSalePrice();
-            model.addAttribute("subjectDesc_"+subject.getIdCourse(), 
+            model.addAttribute("subjectDesc_"+subject.getIdCourse(),
                     description);
-            model.addAttribute("subjectPrice_"+subject.getIdCourse(), 
+            model.addAttribute("subjectPrice_"+subject.getIdCourse(),
                     lowestPrice);
         }
         model.addAttribute("searchValue", searchValue);

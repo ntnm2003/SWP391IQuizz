@@ -26,7 +26,7 @@ public interface ISubjectService {
             String subjectName, String sortBy,String order);
     public Page<SubjectDTO> filterAndSearchAndSortSubject(int pageNo,
             int pageSize, int category, String subjectName,
-            String sortBy,String order);
+            String sortBy, String order);
 
     List<Subject> findByFeaturing(List<Integer> ids);
 
