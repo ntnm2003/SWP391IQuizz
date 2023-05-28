@@ -76,7 +76,7 @@ public class BlogsListController {
 		System.out.println("Call searchPosts() method!!!");
 
 		if(searchTerm.isEmpty()) {
-			return "redirect:/blogs/blogs-list";
+			return "redirect:/blogs-list";
 		}
 
 		//Get all categories
@@ -106,7 +106,7 @@ public class BlogsListController {
 		for(String selectedCategory : selectedCategories) {
 
 			if(selectedCategory.equals("0")) {
-				return "redirect:/blogs/blogs-list";
+				return "redirect:/blogs-list";
 			}
 			else {
 				PostCategory postCategory = new PostCategory();
