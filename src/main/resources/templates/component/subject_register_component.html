@@ -25,14 +25,14 @@
                     </ul>
                     <div class="d-grid">
                         <form  th:unless= "${uid== null}"
-                               th:action="@{'/users/registration/save/'+${cid}+'/'+${uid}}"
+                               th:action="@{'/users/registration/save/'+${uid}+'/'+${cid}}"
                                th:method="get">
                             <button type="submit"
                                     class="btn btn-primary text-uppercase"
                                     th:name="button"
                                     th:value="${pack.get(0).getIdPrice()}">Click me!</button>
                         </form>
-                        <form  th:if= "${uid== null}"
+                        <form  th:unless= "${uid== null}"
                                th:action="@{'/register'}"
                                th:method="get">
                             <button type="submit"
@@ -62,15 +62,15 @@
                             Reports</li>
                     </ul>
                     <div class="d-grid">
-                        <form  th:unless= "${user_id== null}"
-                               th:action="@{'/users/registration/save/'+${course_id}+'/'+${user_id}}"
+                        <form  th:unless= "${uid== null}"
+                               th:action="@{'/users/registration/save/'+${uid}+'/'+${cid}}"
                                th:method="get">
                             <button type="submit" id="sub"
                                     class="btn btn-primary text-uppercase"
                                     th:name="button"
                                     th:value="${pack.get(1).getIdPrice()}">Click me!</button>
                         </form>
-                        <form  th:if= "${user_id== null}"
+                        <form  th:if= "${uid== null}"
                                th:action="@{'/register'}"
                                th:method="get">
                             <button type="submit"
@@ -102,15 +102,15 @@
                         <li><span class="fa-li"><i class="fas fa-check"></i></span>Monthly Status Reports</li>
                     </ul>
                     <div class="d-grid">
-                        <form  th:unless= "${user_id== null}"
-                               th:action="@{'/users/registration/save/'+${course_id}+'/'+${user_id}}"
+                        <form  th:unless= "${uid== null}"
+                               th:action="@{'/users/registration/save/'+${uid}+'/'+${cid}}"
                                th:method="get">
                             <button type="submit"
                                     class="btn btn-primary text-uppercase"
                                     th:name="button"
                                     th:value="${pack.get(2).getIdPrice()}">Click me!</button>
                         </form>
-                        <form  th:if= "${user_id== null}"
+                        <form  th:if= "${uid== null}"
                                th:action="@{'/register'}"
                                th:method="get">
                             <button type="submit"
@@ -127,13 +127,28 @@
     </div>
 </div>
 <script>
-    var forms = document.getElementsByClassName("d-grid");
-    for (var i = 0; i < forms.length; i++) {
+    var forms = document.getElementsByClassName("btn btn-primary text-uppercase");
+    for (var i = 0; i < forms.length; i=i+2) {
         forms[i].addEventListener("submit", function(event) {
             event.preventDefault(); // prevent the default form submission
-            alert("You have been register the subject successfully." +"\n" +
-                               " Please purchase the course through Bank Account: 0787129386, OCB" +"\n"+
-                "following syntax: UseName + CourseID + DateRegistration");
+
+            var msg = "You have been register the subject successfully." +"\n" +
+                " Please purchase the course through Bank Account: 0787129386, OCB" +"\n"+
+                "following syntax: UseName + CourseID + DateRegistration";
+            var url = window.location.href;
+
+// Extract the values of user_id and course_id from the URL
+            var uid = url.split("/")[5];
+            var cid = url.split("/")[6];
+
+// Replace {user_id} and {course_id} in the URL with the actual values
+            var target_url = "/users/registration/save/" + uid + "/" + cid;
+            var value = this.value;
+            if(confirm(msg)){
+                var button = event.currentTarget.getAttribute("th:value");
+                window.location.href = target_url;
+
+            }
         });
     }
 </script>
