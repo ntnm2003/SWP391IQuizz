@@ -24,21 +24,19 @@ public class PublicController {
     @Autowired private PricePackageService packageService;
 
     @GetMapping("/registration/{course_id}")
-    public String registerSubject(@PathVariable("course_id") Integer course_id, Model model, HttpSession session) {
+    public String registerSubject(@PathVariable("course_id") Integer course_id, Model model) {
         Subject su = subService.getById(course_id);
         List<PricePackage> price = packageService.getBySubject(course_id);
-        model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("sub",su);
         model.addAttribute("pack", price);
         return "subject_register/subject_register";
     }
     @GetMapping("/registration/{course_id}/{user_id}")
-    public String registerSubject(@PathVariable("course_id") Integer course_id, @PathVariable("user_id") Integer user_id, Model model, HttpSession session) {
+    public String registerSubject(@PathVariable("course_id") Integer course_id,  @PathVariable("user_id") Integer user_id, Model model, HttpSession session) {
 
             Subject su = subService.getById(course_id);
         List<PricePackage> price = packageService.getBySubject(course_id);
         List<Subject> subjects;
-            model.addAttribute("su", su);
 
             UserCourseKey uk = new UserCourseKey();
 
@@ -48,15 +46,15 @@ public class PublicController {
             } else {
                 uk.setUser_id(user_id);
                 uk.setIdcourse(course_id);
-                Usercourse u = new Usercourse();
+
                 subjects = userCourseService.courseById(user_id);
-                    u = userCourseService.getId(uk);
+                Usercourse u = userCourseService.getId(uk);
                 if (u==null){
                     u= new Usercourse();
-                }
+                } else {
                     p = packageService.getById(u.getPrice());
-                model.addAttribute("u", u);
-
+                    model.addAttribute("u", u);
+                }
                 p = new PricePackage();
             }
         model.addAttribute("userSession", session.getAttribute("user"));
