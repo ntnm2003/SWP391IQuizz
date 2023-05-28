@@ -8,7 +8,7 @@ package swp.quizpracticingsystem.serviceImple;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import swp.quizpracticingsystem.model.User;
 import swp.quizpracticingsystem.repository.RegisterRepository;
 import swp.quizpracticingsystem.service.RegisterService;
@@ -17,7 +17,7 @@ import swp.quizpracticingsystem.service.RegisterService;
  *
  * @author Lenovo
  */
-@Component
+@Service
 public class RegisterServiceImpl implements RegisterService {
 
 

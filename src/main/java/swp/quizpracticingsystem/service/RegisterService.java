@@ -13,7 +13,6 @@ import swp.quizpracticingsystem.model.User;
  *
  * @author Lenovo
  */
-@Service
 public interface RegisterService {
 
     public void register(User user);
