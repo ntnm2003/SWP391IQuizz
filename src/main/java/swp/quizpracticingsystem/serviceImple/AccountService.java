@@ -8,7 +8,7 @@ import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import swp.quizpracticingsystem.model.User;
 import swp.quizpracticingsystem.repository.IAccountRepository;
 import swp.quizpracticingsystem.service.IAccountService;
@@ -17,7 +17,7 @@ import swp.quizpracticingsystem.service.IAccountService;
  *
  * @author Admin
  */
-@Component
+@Service
 @Transactional
 public class AccountService implements IAccountService{
     
