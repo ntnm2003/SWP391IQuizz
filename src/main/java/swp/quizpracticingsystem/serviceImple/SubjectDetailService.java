@@ -9,7 +9,10 @@ import swp.quizpracticingsystem.service.ISubjectDetailService;
 @Service
 public class SubjectDetailService implements ISubjectDetailService {
     @Autowired
-    private ISubjectDetailRepository subjectRepository;
-
+    private ISubjectDetailRepository subjectDetailRepository;
+    @Override
+    public List<SubjectDetail> getAllSubjectDetail() {
+        return subjectDetailRepository.findAll();
+    }
 
 }
