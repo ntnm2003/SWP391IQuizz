@@ -43,7 +43,6 @@ public class HomeController {
 	@GetMapping("/home")
 	public String getToHomePage(Model model, HttpSession session) {
 
-
 		//Get sliders
 		List<SliderDTO> sliders = sliderSevice.getAllSlidersForHomepage();
 		//Get featured posts
