@@ -16,4 +16,5 @@ public class SubjectDetailService implements ISubjectDetailService {
     public List<SubjectDetail> getAllSubjectDetail() {
         return subjectDetailRepository.findAll();
     }
+
 }
