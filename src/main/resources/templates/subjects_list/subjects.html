@@ -14,7 +14,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
     </head>
     <body>
-        <div th:insert="templates/components/header"></div>
+        <th:block th:if="${userSession == null}">
+            <div th:insert="templates/components/header"></div>
+        </th:block>
+
+        <th:block th:if="${userSession != null}">
+            <div th:insert="templates/components/header_logged_in"></div>
+        </th:block>
         <main class="container">
             <div id="sidebar-button" onclick="w3_open()"> Sidebar</div>
             <div class="w3-sidebar w3-bar-block w3-border-right" style="display:none; background-color: rgba(255, 255, 255,0.5);" id="mySidebar">
@@ -52,7 +58,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             </div>
                         </a>
                         <div class="register-container">
-                            <a class="register-subject btn" th:href="@{'/subject/subject-detail/' + ${subject.idCourse}}">Register</a>
+                            <th:block th:if="${userSession!=null}">
+                                <a class="register-subject btn" th:href="@{'/registration/'+{subject.idCourse}+'/'+{user_id}}">Register</a>
+                            </th:block>
+                            <th:block th:if="${userSession==null}">
+                                <a class="register-subject btn" th:href="@{'/registration/'+{subject.idCourse}}">Register</a>
+                            </th:block>
                             <p class="price-text" th:text="'From '+${__${'subjectPrice_' + subject.idCourse}__}"></p>
                         </div>
                     </div>

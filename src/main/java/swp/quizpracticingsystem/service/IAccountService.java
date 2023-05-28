@@ -11,7 +11,6 @@ import swp.quizpracticingsystem.model.User;
  *
  * @author Admin
  */
-@Service
 public interface IAccountService {
     
     void updateResetPasswordToken(String token, String email);
