@@ -22,7 +22,7 @@ import swp.quizpracticingsystem.service.IBlogCategoryService;
 import swp.quizpracticingsystem.service.IBlogService;
 
 @Controller
-
+//@RequestMapping("/blogs")
 public class BlogsListController {
 
 	@Autowired

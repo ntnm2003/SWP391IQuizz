@@ -235,7 +235,47 @@ a.card_link a {
 
 
 
-/* ============= FOOTER STYLE ============== */
-footer .container .sec h2 {
-	font-size: 1.8rem;
+.copyrightText {
+	width: 100%;
+	background: #ffffff;
+	padding: 0.8rem 10rem;
+	text-align: center;
+	color: #656363;
 }
+
+/* ============= RESPONSIVE FOR FOOTER ============== */
+@media (max-width: 991px) {
+	footer {
+		padding: 40px;
+		padding-bottom: 0;
+	}
+
+	footer .container {
+		flex-direction: column;
+	}
+
+	footer .container .sec {
+		margin-right: 0;
+		margin-bottom: 40px;
+	}
+
+	footer .container .sec.about-us,
+	.quick-links,
+	.contact {
+		width: 100%;
+	}
+
+	footer .container .sec.quick-links {
+		padding-left: 0;
+	}
+
+	.copyrightText {
+		width: 100%;
+		padding: 8px 40px;
+	}
+}
+
+	.copyrightText {
+		width: 100%;
+		padding: 8px 40px;
+	}

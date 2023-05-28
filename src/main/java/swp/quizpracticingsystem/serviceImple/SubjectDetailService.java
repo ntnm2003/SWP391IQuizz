@@ -6,8 +6,6 @@ import swp.quizpracticingsystem.model.SubjectDetail;
 import swp.quizpracticingsystem.repository.ISubjectDetailRepository;
 import swp.quizpracticingsystem.service.ISubjectDetailService;
 
-import java.util.List;
-
 @Service
 public class SubjectDetailService implements ISubjectDetailService {
     @Autowired
