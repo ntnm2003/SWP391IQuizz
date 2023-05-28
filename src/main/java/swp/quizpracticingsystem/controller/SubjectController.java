@@ -4,6 +4,7 @@
  */
 package swp.quizpracticingsystem.controller;
 
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,7 +44,7 @@ public class SubjectController {
             @RequestParam(value="category",required = false) Integer categoryId,
             @RequestParam(value="sortBy",required=false) String sortBy,
             @RequestParam(value="order", required=false) String order,
-            Model model){
+            Model model, HttpSession session){
         Page<SubjectDTO> subjects;
         System.out.println("category "+categoryId+" sortBy "+sortBy+" order "+order);
         if(categoryId!=null && sortBy==null && order==null){
@@ -51,24 +52,29 @@ public class SubjectController {
                     8, categoryId);
         }
         else if(categoryId==null && sortBy!=null && order!=null){
-            subjects=subjectService.sortSubjectBy(pageNo, 8, 
+            subjects=subjectService.sortSubjectBy(pageNo, 1, 
                                 sortBy, order);
         }
         else if(categoryId!=null && sortBy!=null && order!=null){
-            subjects=subjectService.filterAndSortSubject(pageNo, 8, 
+            subjects=subjectService.filterAndSortSubject(pageNo, 1, 
                     categoryId, sortBy, order);
         }
         else{
             subjects=subjectService
-                .findPaginatedAllSubjects(pageNo, 8);
+                .findPaginatedAllSubjects(pageNo, 1);
         }
         List<CategoryDTO> listCategory=categoryService.findAll();
         for(SubjectDTO subject:subjects){
             String description=subjectOverviewService
-                    .findSubjectOverview(subject.getIdCourse())
+                    .getSubjectById(subject.getIdCourse())
                     .getDescription();
+            Integer lowestPrice=pricePackageService
+                    .findMinPricePackage(subject.getIdCourse())
+                    .getSalePrice();
             model.addAttribute("subjectDesc_"+subject.getIdCourse(), 
                     description);
+            model.addAttribute("subjectPrice_"+subject.getIdCourse(), 
+                    lowestPrice);
         }
         model.addAttribute("category", categoryId);
         model.addAttribute("subjects", subjects);
@@ -80,6 +86,7 @@ public class SubjectController {
                 , subjects.getTotalPages());
         model.addAttribute("totaSubjects"
                 , subjects.getTotalElements());
+        model.addAttribute("userSession",session.getAttribute("user"));
         return "subjects_list/subjects";
     }
     
@@ -90,26 +97,38 @@ public class SubjectController {
             @RequestParam(value="category",required = false) Integer categoryId,
             @RequestParam(value="sortBy",required=false) String sortBy,
             @RequestParam(value="order", required=false) String order,
-            Model model){
+            Model model, HttpSession session){
         Page<SubjectDTO> subjects;
         if(categoryId!=null && sortBy==null && order==null){
-            subjects=subjectService.findSubjectNameAndFilter(pageNo, 8, 
+            subjects=subjectService.findSubjectNameAndFilter(pageNo, 1, 
                     searchValue, categoryId);
         }
         else if(categoryId==null && sortBy!=null && order!=null){
-            subjects=subjectService.searchAndSortSubject(pageNo, 8, 
+            subjects=subjectService.searchAndSortSubject(pageNo, 1, 
                     searchValue, sortBy, order);
         }
         else if(categoryId!=null && sortBy!=null && order!=null){
             subjects=subjectService.filterAndSearchAndSortSubject(pageNo,
-                    8, categoryId, searchValue,
+                    1, categoryId, searchValue,
                     sortBy, order);
         }
         else{
             subjects=subjectService
-                .findSubjectBySubjectName(pageNo, 8, searchValue);
+                .findSubjectBySubjectName(pageNo, 1, searchValue);
         }
         List<CategoryDTO> listCategory=categoryService.findAll();
+        for(SubjectDTO subject:subjects){
+            String description=subjectOverviewService
+                    .getSubjectById(subject.getIdCourse())
+                    .getDescription();
+            Integer lowestPrice=pricePackageService
+                    .findMinPricePackage(subject.getIdCourse())
+                    .getSalePrice();
+            model.addAttribute("subjectDesc_"+subject.getIdCourse(), 
+                    description);
+            model.addAttribute("subjectPrice_"+subject.getIdCourse(), 
+                    lowestPrice);
+        }
         model.addAttribute("searchValue", searchValue);
         model.addAttribute("category", categoryId);
         model.addAttribute("subjects", subjects);
@@ -119,6 +138,7 @@ public class SubjectController {
                 , subjects.getTotalPages());
         model.addAttribute("totaSubjects"
                 , subjects.getTotalElements());
+        model.addAttribute("userSession",session.getAttribute("user"));
         return "subjects_list/subjects-search";
     }
 }

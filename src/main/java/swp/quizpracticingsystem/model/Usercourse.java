@@ -27,6 +27,6 @@ public class Usercourse {
     @Column(name = "date_register")
     private Date dateRegister;
 
-    @Column(name = "price_package")
-    private Integer price;
+    @Column(name = "pricePackage")
+    private int price;
 }

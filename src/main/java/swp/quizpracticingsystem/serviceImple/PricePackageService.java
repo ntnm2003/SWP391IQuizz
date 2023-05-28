@@ -27,7 +27,8 @@ public class PricePackageService implements IPricePackageService {
     private IPricePackageRepository pricePackageRepository;
     @Autowired
     private ModelMapper modelmapper;
-
+    
+    @Override
     public List<PricePackageDTO> findAllPricePackage(int subjectId) {
         return pricePackageRepository.findAll(subjectId)
                 .stream()
@@ -57,7 +58,15 @@ public class PricePackageService implements IPricePackageService {
         return pi;
     }
     
+    @Override
+    public PricePackageDTO findMinPricePackage(int subjectId) {
+        return convertEntitytoDTO(pricePackageRepository
+                .findMinPricePackage(subjectId));
+    }
+    
     public PricePackageDTO convertEntitytoDTO(PricePackage entity){
         return modelmapper.map(entity, PricePackageDTO.class);
     }
+
+    
 }

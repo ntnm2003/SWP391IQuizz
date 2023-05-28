@@ -3,24 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package swp.quizpracticingsystem.controller;
-
-import jakarta.mail.MessagingException;
+import org.springframework.mail.javamail.JavaMailSender;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import swp.quizpracticingsystem.Utility.Utility;
 import swp.quizpracticingsystem.model.User;
 import swp.quizpracticingsystem.serviceImple.AccountService;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
+import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -40,17 +41,14 @@ public class ForgotPasswordController {
     }
     
     @PostMapping("/forgot_password")
-    public String processForgotPassword(HttpServletRequest request) {
-        // email muốn reset password
+    public String processForgotPassword(HttpServletRequest request,Model model) {
         String email = request.getParameter("email");
-        // gen token
         String token = RandomString.make(30);
         try {
-            // lưu token vào db
             accountService.updateResetPasswordToken(token, email);
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
             sendEmail(email, resetPasswordLink);
-
+            model.addAttribute("message", "Email has been sent, Please check your inbox !");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -63,7 +61,7 @@ public class ForgotPasswordController {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("gmail@sss", "Test");
+        helper.setFrom("gmail@sss", "Iquiz");
         helper.setTo(recipientEmail);
 
         String subject = "Here's the link to reset your password";
@@ -94,17 +92,24 @@ public class ForgotPasswordController {
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         if (currentDateTime.compareTo(dateTime) > 0) {
-            return "timeout";
+            return "password/timeout";
         } else {
             return "password/reset_password_form";
         }
     }
     
     @PostMapping("/reset_password")
-    public String processResetPassword(User a) {
+    public String processResetPassword(HttpServletRequest request, User a,Model model) {
+         String newPass = request.getParameter("newPass");
+        String confirmPass = request.getParameter("confirmPass");
+        if(newPass.matches(confirmPass)){
         User acc = accountService.getByResetPasswordToken(a.getToken());
-        acc.setPassword(a.getPassword());
-        accountService.updatePassword(acc, a.getPassword());
-        return "login";
+        acc.setPassword(newPass);
+        accountService.updatePassword(acc, newPass);
+        return "login/login";
+        }else{
+             model.addAttribute("error", "Incorrect Re-enter new password");
+             return"password/reset_password_form";
+                }
     }
 }

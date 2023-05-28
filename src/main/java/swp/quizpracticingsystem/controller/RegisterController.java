@@ -8,12 +8,11 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +23,9 @@ import swp.quizpracticingsystem.Utils.Utility;
 import swp.quizpracticingsystem.model.Role;
 import swp.quizpracticingsystem.model.User;
 import swp.quizpracticingsystem.service.RegisterService;
+
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 /**
  *
@@ -36,7 +38,7 @@ public class RegisterController {
     private RegisterService service;
 
     @Autowired
-    private JavaMailSender mailSender;
+    private JavaMailSenderImpl mailSender;
 
     @GetMapping("/register")
     public String register(HttpSession session) {
