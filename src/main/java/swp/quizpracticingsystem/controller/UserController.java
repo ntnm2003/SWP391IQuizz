@@ -19,10 +19,8 @@ import swp.quizpracticingsystem.serviceImple.PricePackageService;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
 import swp.quizpracticingsystem.serviceImple.CategoryService;
 import swp.quizpracticingsystem.serviceImple.PricePackageService;
 import swp.quizpracticingsystem.serviceImple.SubjectService;
@@ -85,8 +83,8 @@ public class UserController {
         return regis;
     }
 
-    @GetMapping("/users/myregistration/{id}")
-    public String showRegistation(@PathVariable("id") Integer id, Model model, HttpSession session) {
+    @GetMapping("/users/myregistration/{uid}")
+    public String showRegistation(@PathVariable("uid") Integer id, Model model, HttpSession session) {
         List<MyRegistration> regis = reg(id);
         List<Subject> subjects = userCourseService.courseById(id);
         List<Category> cat = categoryService.listAll();
@@ -101,13 +99,16 @@ public class UserController {
     public String regisCourse(@PathVariable("uid") Integer uid, @PathVariable("cid") Integer cid, Model model, HttpSession session) {
         List<MyRegistration> regis = reg(uid);
         MyRegistration re=new MyRegistration();
+        List<Category> cat = categoryService.listAll();
+        model.addAttribute("cat", cat);
 
         for (MyRegistration r : regis) {
-            if (r.getSubName().equals(subService.getById(cid).getCourseName())) {
+            if (Objects.equals(r.getCid(), cid)) {
                 re=r;
                 break;
             }
         }
+
         model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("re", re);
         Subject su = subService.getById(cid);
@@ -117,16 +118,20 @@ public class UserController {
         return "myregistration/subject_info";
     }
 
-    @GetMapping("/users/registration/save/{user_id}/{course_id}")
-    public String saveRegistration(@PathVariable("user_id") Integer user_id, @PathVariable("course_id") Integer course_id,
+    @GetMapping("/users/registration/save/{uid}/{cid}")
+    public String saveRegistration(@PathVariable("uid") Integer user_id, @PathVariable("cid") Integer course_id,
                                          @RequestParam("button") Integer but,
-                                         RedirectAttributes ra, RedirectAttributes redirectAttrs, HttpSession session, Model model) {
-        Usercourse uc = new Usercourse();
+                                         RedirectAttributes ra,  HttpSession session, Model model) {
+
 
         UserCourseKey uk = new UserCourseKey();
         uk.setIdcourse(course_id);
         uk.setUser_id(user_id);
-        uc.setId(uk);
+        Usercourse uc=userCourseService.getId(uk);
+        if (uc==null) {
+            uc=new Usercourse();
+            uc.setId(uk);
+        }
         LocalDate localDate = LocalDate.now();
         java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
         uc.setDateRegister(sqlDate);
@@ -134,9 +139,9 @@ public class UserController {
         uc.setStatus("submitted");
         userCourseService.save(uc);
         model.addAttribute("userSession", session.getAttribute("user"));
-        redirectAttrs.addAttribute("course_id", course_id);
-        redirectAttrs.addAttribute("user_id", user_id);
-        return "redirect:/users/myregistration/{course_id}/{user_id}";
+        ra.addAttribute("course_id", course_id);
+        ra.addAttribute("user_id", user_id);
+        return "redirect:/users/myregistration/{user_id}/{course_id}";
     }
     @GetMapping("/users/registration/search/{uid}")
     public String submitSearchForm(@PathVariable("uid") Integer uid, @RequestParam("search") String search,Model model) {
