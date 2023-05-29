@@ -31,31 +31,32 @@ public class BlogsListController {
 	@Autowired
 	private IBlogCategoryService iBlogCategoryService;
 
+//	@GetMapping("/blogs-list")
+//	public String getToBlogsListPage(Model model, HttpSession session) {
+//		//Get All post with their corresponding categories (with pagination)
+//		Page<Posts> postsWithPagination = iBlogService.getAllPostsWithPagination(0);
+//		//Get latest blogs
+//		List<PostsDTO> latestBlogs = iBlogService.getLatestPosts(1);
+//		//Get all categories
+//		List<PostCategoryDTO> postCategories = iBlogCategoryService.getAllCategories();
+//		//Get Paginated Blogs with corresponding categories
+//
+//
+//		//Add to model
+//		model.addAttribute("posts", postsWithPagination);
+//		model.addAttribute("lastestBlogs", latestBlogs);
+//		model.addAttribute("postCategories", postCategories);
+//
+//
+//		model.addAttribute("userSession", session.getAttribute("user"));
+//
+//		return "blogs_list/blogs_list";
+//	}
+
 	@GetMapping("/blogs-list")
-	public String getToBlogsListPage(Model model, HttpSession session) {
-		//Get All post with their corresponding categories (with pagination)
-		Page<Posts> postsWithPagination = iBlogService.getAllPostsWithPagination(0);
-		//Get latest blogs
-		List<PostsDTO> latestBlogs = iBlogService.getLatestPosts(1);
-		//Get all categories
-		List<PostCategoryDTO> postCategories = iBlogCategoryService.getAllCategories();
-		//Get Paginated Blogs with corresponding categories
+	public String listByPage(@RequestParam(name = "page", required = false) Integer page, Model model, HttpSession session) {
 
-
-		//Add to model
-		model.addAttribute("posts", postsWithPagination);
-		model.addAttribute("lastestBlogs", latestBlogs);
-		model.addAttribute("postCategories", postCategories);
-
-
-		model.addAttribute("userSession", session.getAttribute("user"));
-
-		return "blogs_list/blogs_list";
-	}
-
-	@GetMapping("/blogs-list/{pageNum}")
-	public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model) {
-		Page<Posts> postsWithPagination = iBlogService.getAllPostsWithPagination(pageNum-1);
+		System.out.println("pageNum="+page);
 
 		//Get latest blogs
 		List<PostsDTO> latestBlogs = iBlogService.getLatestPosts(2);
@@ -64,9 +65,20 @@ public class BlogsListController {
 		//Get Paginated Blogs with corresponding categories
 
 		//Add to model
-		model.addAttribute("posts", postsWithPagination);
 		model.addAttribute("lastestBlogs", latestBlogs);
 		model.addAttribute("postCategories", postCategories);
+
+		if (page == null) {
+			//Get All post with their corresponding categories (with pagination)
+			Page<Posts> postsWithPagination = iBlogService.getAllPostsWithPagination(0);
+			model.addAttribute("posts", postsWithPagination);
+			return "blogs_list/blogs_list";
+		} else {
+			Page<Posts> postsWithPagination = iBlogService.getAllPostsWithPagination(page - 1);
+			model.addAttribute("posts", postsWithPagination);
+
+		}
+
 		return "blogs_list/blogs_list";
 	}
 
@@ -76,7 +88,7 @@ public class BlogsListController {
 		System.out.println("Call searchPosts() method!!!");
 
 		if(searchTerm.isEmpty()) {
-			return "redirect:/blogs/blogs-list";
+			return "redirect:/blogs-list";
 		}
 
 		//Get all categories
@@ -106,9 +118,8 @@ public class BlogsListController {
 		for(String selectedCategory : selectedCategories) {
 
 			if(selectedCategory.equals("0")) {
-				return "redirect:/blogs/blogs-list";
-			}
-			else {
+				return "redirect:/blogs-list";
+			} else {
 				PostCategory postCategory = new PostCategory();
 				postCategory = iBlogCategoryService.findByPostCategoryId(Integer.parseInt(selectedCategory));
 				filteredCategories.add(postCategory);
