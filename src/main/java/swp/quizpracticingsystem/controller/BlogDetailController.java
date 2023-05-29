@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import swp.quizpracticingsystem.model.Posts;
 import swp.quizpracticingsystem.service.IBlogDetailService;
 
@@ -16,8 +17,8 @@ public class BlogDetailController {
     private IBlogDetailService blogDetailService;
 
 
-    @GetMapping("/blogs/blog-detail/{id}")
-    public String showBlogDetails(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/blog-detail")
+    public String showBlogDetails(@RequestParam(name = "id", required = true) Integer id, Model model) {
         Posts blogs = blogDetailService.getPostById(id);
         model.addAttribute("blogs", blogs);
         return "blog_details/blog_details";
