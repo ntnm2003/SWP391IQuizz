@@ -4,10 +4,13 @@
  */
 package swp391.quizpracticing.controller;
 
+import org.springframework.stereotype.Controller;
+
 /**
  *
  * @author Mosena
  */
+@Controller
 public class CourseContentController {
     
 }
