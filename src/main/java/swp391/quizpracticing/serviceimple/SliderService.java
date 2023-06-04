@@ -4,7 +4,11 @@
  */
 package swp391.quizpracticing.serviceimple;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import swp391.quizpracticing.dto.SliderDTO;
+import swp391.quizpracticing.model.Slider;
 import swp391.quizpracticing.service.ISliderService;
 
 /**
@@ -13,5 +17,10 @@ import swp391.quizpracticing.service.ISliderService;
  */
 @Service
 public class SliderService implements ISliderService {
+    @Autowired
+    private ModelMapper modelMapper;
     
+    private SliderDTO convertEntityToDTO(Slider entity){
+        return modelMapper.map(entity,SliderDTO.class);
+    }
 }

@@ -4,7 +4,11 @@
  */
 package swp391.quizpracticing.serviceimple;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import swp391.quizpracticing.dto.PricepackageDTO;
+import swp391.quizpracticing.model.Pricepackage;
 import swp391.quizpracticing.service.IPricepackageService;
 
 /**
@@ -13,5 +17,10 @@ import swp391.quizpracticing.service.IPricepackageService;
  */
 @Service
 public class PricepackageService implements IPricepackageService {
+    @Autowired
+    private ModelMapper modelMapper;
     
+    private PricepackageDTO convertEntityToDTO(Pricepackage entity){
+        return modelMapper.map(entity,PricepackageDTO.class);
+    }
 }

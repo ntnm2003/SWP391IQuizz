@@ -4,7 +4,11 @@
  */
 package swp391.quizpracticing.serviceimple;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import swp391.quizpracticing.dto.AnswerDTO;
+import swp391.quizpracticing.model.Answer;
 import swp391.quizpracticing.service.IAnswerService;
 
 /**
@@ -13,5 +17,10 @@ import swp391.quizpracticing.service.IAnswerService;
  */
 @Service
 public class AnswerService implements IAnswerService {
+    @Autowired
+    private ModelMapper modelMapper;
     
+    private AnswerDTO convertEntityToDTO(Answer entity){
+        return modelMapper.map(entity,AnswerDTO.class);
+    }
 }
