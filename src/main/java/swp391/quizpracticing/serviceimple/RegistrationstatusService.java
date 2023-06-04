@@ -4,7 +4,11 @@
  */
 package swp391.quizpracticing.serviceimple;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import swp391.quizpracticing.dto.RegistrationstatusDTO;
+import swp391.quizpracticing.model.Registrationstatus;
 import swp391.quizpracticing.service.IRegistrationstatusService;
 
 /**
@@ -13,5 +17,11 @@ import swp391.quizpracticing.service.IRegistrationstatusService;
  */
 @Service
 public class RegistrationstatusService implements IRegistrationstatusService {
+    @Autowired
+    private ModelMapper modelMapper;
     
+    private RegistrationstatusDTO convertEntityToDTO(Registrationstatus entity){
+        return modelMapper.map(entity,
+                RegistrationstatusDTO.class);
+    }
 }

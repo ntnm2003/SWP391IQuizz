@@ -4,7 +4,11 @@
  */
 package swp391.quizpracticing.serviceimple;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import swp391.quizpracticing.dto.SettingsDTO;
+import swp391.quizpracticing.model.Settings;
 import swp391.quizpracticing.service.ISettingsService;
 
 /**
@@ -13,5 +17,10 @@ import swp391.quizpracticing.service.ISettingsService;
  */
 @Service
 public class SettingsService implements ISettingsService {
+    @Autowired
+    private ModelMapper modelMapper;
     
+    private SettingsDTO convertEntityToDTO(Settings entity){
+        return modelMapper.map(entity,SettingsDTO.class);
+    }
 }

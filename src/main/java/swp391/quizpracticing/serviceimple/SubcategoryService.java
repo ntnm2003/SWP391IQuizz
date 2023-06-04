@@ -4,7 +4,11 @@
  */
 package swp391.quizpracticing.serviceimple;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import swp391.quizpracticing.dto.SubcategoryDTO;
+import swp391.quizpracticing.model.Subcategory;
 import swp391.quizpracticing.service.ISubcategoryService;
 
 /**
@@ -13,5 +17,10 @@ import swp391.quizpracticing.service.ISubcategoryService;
  */
 @Service
 public class SubcategoryService implements ISubcategoryService {
+    @Autowired
+    private ModelMapper modelMapper;
     
+    private SubcategoryDTO convertEntityToDTO(Subcategory entity){
+        return modelMapper.map(entity,SubcategoryDTO.class);
+    }
 }
