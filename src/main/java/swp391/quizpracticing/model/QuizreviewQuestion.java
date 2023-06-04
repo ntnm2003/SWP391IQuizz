@@ -2,11 +2,12 @@ package swp391.quizpracticing.model;
 
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,15 +21,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuizreviewQuestion {
-    @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="quizreview_id", referencedColumnName = "id")
-    private Quizreview quizReview;
-
-    @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="question_id", referencedColumnName = "id")
-    private Question question;
+    
+    @EmbeddedId
+    private QuizreviewQuestionKey id;
 
     @Column(name = "user_answer")
     private String userAnswer;
