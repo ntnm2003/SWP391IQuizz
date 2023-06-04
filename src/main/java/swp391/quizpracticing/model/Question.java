@@ -4,6 +4,8 @@ package swp391.quizpracticing.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -26,11 +28,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Question {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
     @Column(name = "content")
-    private Integer content;
+    private String content;
 
     @Column(name = "answer_options")
     private String answerOptions;
@@ -68,6 +71,6 @@ public class Question {
             inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
     private List<Subcategory> subCategories;
     
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "id.question")
     private List<QuizreviewQuestion> quizreviewQuestions;
 }
