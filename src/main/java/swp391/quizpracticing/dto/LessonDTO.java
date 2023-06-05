@@ -25,10 +25,10 @@ public class LessonDTO {
     private LevelDTO level;
     private String topic;
     private String videoLink;
-    private String htmlContent;
     private UserDTO creator;
     private SubjectDTO subject;
     private List<QuestionDTO> questions;
     private List<SubcategoryDTO> subCategories;
     private List<QuizreviewDTO> quizReviews;
+    private String htmlContent;
 }

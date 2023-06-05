@@ -38,26 +38,20 @@
             </thead>
             <tbody>
                 <tr th:each="user:${users}">
-                    <td>
-                        ${user.id}
+                    <td th:text="${user.id}">
                     </td>
-                    <td>
-                        ${user.fullName}
+                    <td th:text="${user.fullName}">
                     </td>
-                    <td>
-                        ${user.gender}
+                    <td th:text="${user.gender}">
                     </td>
-                    <td>
-                        ${user.email}
+                    <td th:text="${user.email}">
                     </td>
-                    <td>
-                        ${user.mobile}
+                    <td th:text="${user.mobile}">
                     </td>
-                    <td>
-                        ${user.role}
+                    <td th:text="${user.role.name}">
                     </td>
-                    <td>
-                        ${user.enable}
+                    <td th:text="${user.enable}">
+                        
                     </td>
                 </tr> 
            </tbody>
