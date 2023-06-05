@@ -1,11 +1,12 @@
 package swp391.quizpracticing.dto;
 
-import java.sql.Time;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.sql.Time;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,7 +17,7 @@ public class LessonDTO {
     private LessontypeDTO lessonType;
     private TesttypeDTO testType;
     private DimensionDTO dimension;
-    private Integer name;
+    private String name;
     private Integer order;
     private Boolean status;
     private Double passRate;

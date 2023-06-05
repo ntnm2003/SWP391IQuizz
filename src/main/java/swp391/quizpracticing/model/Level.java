@@ -1,17 +1,13 @@
 package swp391.quizpracticing.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import java.util.List;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "level")
@@ -29,13 +25,15 @@ public class Level {
 
     @Column(name = "status")
     private Boolean status;
-    
+
     @OneToMany(mappedBy = "level")
     private List<Lesson> lessons;
-    
+
     @OneToOne(mappedBy = "level")
     private Settings setting;
-    
+
     @OneToMany(mappedBy = "level")
     private List<Question> questions;
 }
+
+
