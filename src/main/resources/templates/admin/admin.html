@@ -42,7 +42,9 @@
                     </td>
                     <td th:text="${user.fullName}">
                     </td>
-                    <td th:text="${user.gender}">
+                    <td>
+                        <p th:if="${user.gender==true}">Male</p>
+                        <p th:if="${user.gender==false}">Female</p>
                     </td>
                     <td th:text="${user.email}">
                     </td>
@@ -50,8 +52,9 @@
                     </td>
                     <td th:text="${user.role.name}">
                     </td>
-                    <td th:text="${user.enable}">
-                        
+                    <td>
+                       <p th:if="${user.enable==true}">Active</p>
+                       <p th:if="${user.enable==false}">Inactive</p> 
                     </td>
                 </tr> 
            </tbody>
