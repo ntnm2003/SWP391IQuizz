@@ -1,12 +1,6 @@
 package swp391.quizpracticing.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,19 +14,21 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Answer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "content")
-    private String content;
 
     @Column(name = "explanation")
     private String explanation;
 
+    @Column(name="checking")
+    private Boolean check;
+
     @Column(name = "status")
     private Boolean status;
-    
-    @OneToOne(mappedBy = "answer")
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id",referencedColumnName = "id")
     private Question question;
 }
