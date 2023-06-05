@@ -66,8 +66,8 @@ public class User {
     @JoinColumn(name = "role_id",referencedColumnName = "id")
     private Role role;
     
-    @OneToOne(mappedBy = "owner")
-    private Subject subject;
+    @OneToMany(mappedBy = "owner")
+    private List<Subject> subject;
     
     @OneToMany(mappedBy = "creator")
     private List<Lesson> lessons;

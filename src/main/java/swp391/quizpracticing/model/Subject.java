@@ -51,7 +51,7 @@ public class Subject {
     @Column(name = "created_time")
     private Timestamp createdTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
     

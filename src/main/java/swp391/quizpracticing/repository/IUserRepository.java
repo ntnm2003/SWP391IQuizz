@@ -22,10 +22,16 @@ public interface IUserRepository  extends JpaRepository<User,Integer> {
     
     @Override
     public User getById(Integer id);
-//    
-//    @Query(value="select * from User where name like %?1%")
-//    public Page<User>searchByName(Pageable pageable,String name);
-//    
-//    @Query(value="select * from User where email like %?1%")
-//    public Page<User>searchByEmail(Pageable pageable, String email);
+    
+    @Query(value="select * from User where full_name like %?1%", 
+            nativeQuery = true)
+    public Page<User>searchByName(Pageable pageable,String fullName);
+    
+    @Query(value="select * from User where email like %?1%", 
+            nativeQuery = true)
+    public Page<User>searchByEmail(Pageable pageable, String email);
+    
+    @Query(value="select * from User where mobile like %?1%",
+            nativeQuery = true)
+    public Page<User>searchByPhoneNumber(Pageable pageable, String phone);
 }
