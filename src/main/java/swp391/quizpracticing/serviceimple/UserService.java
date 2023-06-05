@@ -30,7 +30,8 @@ public class UserService implements IUserService {
     private ModelMapper modelMapper;
     
     private UserDTO convertEntityToDTO(User entity){
-        return modelMapper.map(entity,UserDTO.class);
+        UserDTO user=modelMapper.map(entity, UserDTO.class);
+        return user;
     }
 
     @Override

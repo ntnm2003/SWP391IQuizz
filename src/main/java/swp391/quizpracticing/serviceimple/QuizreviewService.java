@@ -20,7 +20,5 @@ public class QuizreviewService implements IQuizreviewService {
     @Autowired
     private ModelMapper modelMapper;
     
-    private QuizreviewDTO convertEntityToDTO(Quizreview entity){
-        return modelMapper.map(entity,QuizreviewDTO.class);
-    }
+
 }
