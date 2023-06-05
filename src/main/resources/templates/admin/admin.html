@@ -8,55 +8,58 @@
     <link rel="stylesheet" href="/css/admin/admin.css">
 </head>
 <body>
-    <div th:insert="components/header"></div>
-    <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Full name
-                    </th>
-                    <th>
-                        Gender
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th>
-                        Mobile
-                    </th>
-                    <th>
-                        Role
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="user:${users}">
-                    <td th:text="${user.id}">
-                    </td>
-                    <td th:text="${user.fullName}">
-                    </td>
-                    <td th:text="${user.gender}">
-                    </td>
-                    <td th:text="${user.email}">
-                    </td>
-                    <td th:text="${user.mobile}">
-                    </td>
-                    <td th:text="${user.role.name}">
-                    </td>
-                    <td th:text="${user.enable}">
-                        
-                    </td>
-                </tr> 
-           </tbody>
-        </table>
-    </main>
-    <div th:insert="components/footer"></div>
+<div th:insert="components/header"></div>
+<main>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Full name
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Mobile
+            </th>
+            <th>
+                Role
+            </th>
+            <th>
+                Status
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user:${users}">
+            <td th:text="${user.id}">
+            </td>
+            <td th:text="${user.fullName}">
+            </td>
+            <td>
+                <p th:if="${user.gender==true}">Male</p>
+                <p th:if="${user.gender==false}">Female</p>
+            </td>
+            <td th:text="${user.email}">
+            </td>
+            <td th:text="${user.mobile}">
+            </td>
+            <td th:text="${user.role.name}">
+            </td>
+            <td>
+                <p th:if="${user.enable==true}">Active</p>
+                <p th:if="${user.enable==false}">Inactive</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<div th:insert="components/footer"></div>
 </body>
 </html>

@@ -27,8 +27,8 @@ public class Answer {
     @Column(name = "status")
     private Boolean status;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id",referencedColumnName = "id")
     private Question question;
 }
+

@@ -9,10 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnswerDTO {
-    private Integer id;
-    private String explaination;
-    private Boolean check;
-    private Boolean status;
+public class QuizreviewQuestionKeyDTO {
+    private QuizreviewDTO quizReview;
+
     private QuestionDTO question;
 }
