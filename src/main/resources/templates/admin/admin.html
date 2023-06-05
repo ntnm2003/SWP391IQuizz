@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title th:text="'Hello '+${admin}"></title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="/css/admin/admin.css">
+</head>
+<body>
+    <div th:insert="components/header"></div>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Full name
+                    </th>
+                    <th>
+                        Gender
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Mobile
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user:${users}">
+                    <td th:text="${user.id}">
+                    </td>
+                    <td th:text="${user.fullName}">
+                    </td>
+                    <td th:text="${user.gender}">
+                    </td>
+                    <td th:text="${user.email}">
+                    </td>
+                    <td th:text="${user.mobile}">
+                    </td>
+                    <td th:text="${user.role.name}">
+                    </td>
+                    <td th:text="${user.enable}">
+                        
+                    </td>
+                </tr> 
+           </tbody>
+        </table>
+    </main>
+    <div th:insert="components/footer"></div>
+</body>
+</html>

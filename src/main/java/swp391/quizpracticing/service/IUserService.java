@@ -4,10 +4,13 @@
  */
 package swp391.quizpracticing.service;
 
+import java.util.List;
+import swp391.quizpracticing.dto.UserDTO;
+
 /**
  *
  * @author Mosena
  */
 public interface IUserService {
-    
+    public List<UserDTO> getUsers(int pageNo, int pageSize);
 }
