@@ -4,7 +4,11 @@
  */
 package swp391.quizpracticing.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Session;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import swp391.quizpracticing.service.IUserService;
 
 /**
  *
@@ -13,4 +17,16 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class AdminController {
     
+    @Autowired
+    private IUserService userService;
+    
+    @GetMapping("/admin")
+    public String getAdminPage(Session session){
+        return "admin/admin";
+    }
+    
+    @GetMapping("/admin/settings")
+    public String getSettingsPage(){
+        return "admin/settings";
+    }
 }
