@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import swp.quizpracticingsystem.dto.PricePackageDTO;
 
 @Getter
 @Setter
@@ -14,7 +13,7 @@ import swp.quizpracticingsystem.dto.PricePackageDTO;
 @NoArgsConstructor
 public class SubjectDTO {
     private Integer id;
-    private List<PricePackageDTO> pricePackage;
+    private List<PricepackageDTO> pricePackage;
     private String title;
     private String briefInfo;
     private String description;
