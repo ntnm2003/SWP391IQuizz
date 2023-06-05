@@ -16,7 +16,7 @@ public class LessonDTO {
     private LessontypeDTO lessonType;
     private TesttypeDTO testType;
     private DimensionDTO dimension;
-    private Integer name;
+    private String name;
     private Integer order;
     private Boolean status;
     private Double passRate;

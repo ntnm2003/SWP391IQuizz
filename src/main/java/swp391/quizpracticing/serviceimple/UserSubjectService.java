@@ -20,7 +20,4 @@ public class UserSubjectService implements IUserSubjectService {
     @Autowired
     private ModelMapper modelMapper;
     
-    private UserSubjectDTO convertEntityToDTO(UserSubject entity){
-        return modelMapper.map(entity,UserSubjectDTO.class);
-    }
 }
