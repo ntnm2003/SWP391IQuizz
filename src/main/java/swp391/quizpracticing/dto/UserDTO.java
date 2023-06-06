@@ -28,5 +28,4 @@ public class UserDTO {
     private SubjectDTO subject;
     private List<LessonDTO>lessons;
     private List<QuizreviewDTO>quizReviews;
-    private List<UserSubjectDTO>userSubjects;
 }
