@@ -24,6 +24,18 @@ public class Settings {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "type")
+    private String type;
+    
+    @Column(name = "value")
+    private String value;
+    
+    @Column(name = "order")
+    private Integer order;
+    
+    @Column(name = "status")
+    private Boolean status;
+            
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id",referencedColumnName = "id")
     private Role role;
