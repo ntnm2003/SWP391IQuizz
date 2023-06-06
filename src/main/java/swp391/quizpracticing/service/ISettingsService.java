@@ -12,6 +12,8 @@ import swp391.quizpracticing.dto.SettingsDTO;
  * @author Mosena
  */
 public interface ISettingsService {
-    public List<SettingsDTO> getSettings(int pageNo, int pageSize);
-    public SettingsDTO addSettings();
+    public List<SettingsDTO> getSettings(int pageNo, int pageSize, 
+            String type, Boolean status, String sortBy, String order);
+    public SettingsDTO addSettings(String type, String value, 
+            Integer order, Boolean status);
 }

@@ -4,6 +4,7 @@
  */
 package swp391.quizpracticing.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Role;
@@ -14,5 +15,9 @@ import swp391.quizpracticing.model.Role;
  */
 @Repository
 public interface IRoleRepository extends JpaRepository<Role,Integer> {
+    @Override
+    public Role getReferenceById(Integer id);
     
+    @Override
+    public List<Role> findAll();
 }
