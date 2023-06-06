@@ -27,19 +27,19 @@ public interface ISettingsRepository extends JpaRepository<Settings,Integer>,
     @Override
     public Settings save(Settings s);
     
-    @Modifying
-    @Query()
-    public void settingsUpdateType();
-    
-    @Modifying
-    @Query()
-    public void settingsUpdateValue();
-    
-    @Modifying
-    @Query()
-    public void settingsUpdateOrder();
-    
-    @Modifying
-    @Query()
-    public void settingsUpdateStatus();
+//    @Modifying
+//    @Query()
+//    public void settingsUpdateType();
+//    
+//    @Modifying
+//    @Query()
+//    public void settingsUpdateValue();
+//    
+//    @Modifying
+//    @Query()
+//    public void settingsUpdateOrder();
+//    
+//    @Modifying
+//    @Query()
+//    public void settingsUpdateStatus();
 }
