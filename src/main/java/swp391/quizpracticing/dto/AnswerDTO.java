@@ -11,9 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AnswerDTO {
     private Integer id;
-    private String content;
     private String explaination;
-
+    private Boolean check;
     private Boolean status;
     private QuestionDTO question;
 }
