@@ -4,10 +4,15 @@
  */
 package swp391.quizpracticing.repository;
 
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.User;
 
@@ -16,22 +21,25 @@ import swp391.quizpracticing.model.User;
  * @author Mosena
  */
 @Repository
-public interface IUserRepository  extends JpaRepository<User,Integer> {
-    @Override
-    public Page<User> findAll(Pageable pageable);
+public interface IUserRepository  extends JpaRepository<User,Integer>
+        , JpaSpecificationExecutor<User> {
     
     @Override
-    public User getById(Integer id);
+    public Page<User> findAll(Specification spec,Pageable pageable);
     
-    @Query(value="select * from User where full_name like %?1%", 
-            nativeQuery = true)
-    public Page<User>searchByName(Pageable pageable,String fullName);
+    @Override
+    public Page<User>findAll(Pageable pageable);
+
+    @Override
+    public User save(User u);
     
-    @Query(value="select * from User where email like %?1%", 
-            nativeQuery = true)
-    public Page<User>searchByEmail(Pageable pageable, String email);
+    @Modifying
+    @Query("UPDATE User u SET u.status = :status WHERE u.id = :userId")
+    void updateUserStatus(@Param("userId") Integer userId, 
+            @Param("status") Boolean status);
     
-    @Query(value="select * from User where mobile like %?1%",
-            nativeQuery = true)
-    public Page<User>searchByPhoneNumber(Pageable pageable, String phone);
+    @Modifying
+    @Query("UPDATE User u SET u.role_id = :role WHERE u.id = :userId")
+    void updateUserRole(@Param("userId") Integer userId, 
+            @Param("roleId") Integer roleId);
 }
