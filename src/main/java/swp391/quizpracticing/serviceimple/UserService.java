@@ -18,7 +18,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.UserDTO;
+import swp391.quizpracticing.model.Role;
 import swp391.quizpracticing.model.User;
+import swp391.quizpracticing.repository.IRoleRepository;
 import swp391.quizpracticing.repository.IUserRepository;
 import swp391.quizpracticing.service.IUserService;
 
@@ -33,6 +35,8 @@ public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
     
+    @Autowired
+    private IRoleRepository roleRepository;
     @Autowired
     private ModelMapper modelMapper;
     
@@ -159,9 +163,10 @@ public class UserService implements IUserService {
 
     @Override
     public void updateUser(Integer userId, Integer roleId, Boolean status) {
-//        if(roleId!=null){
-//            userRepository.updateUserRole(userId, roleId);
-//        }
+        if(roleId!=null){
+            Role r=roleRepository.getReferenceById(roleId);
+            userRepository.updateUserRole(userId, r);
+        }
         if(status!=null){
             userRepository.updateUserStatus(userId, status);
         }
