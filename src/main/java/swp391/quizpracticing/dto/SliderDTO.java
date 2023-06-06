@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import swp391.quizpracticing.model.Slider;
 
 @Getter
 @Setter
@@ -15,4 +16,12 @@ public class SliderDTO {
     private String image;
     private String backLink;
     private Boolean status;
+
+    public void sliderHomePage(Slider slider) {
+        this.id = slider.getId();
+        this.title = slider.getTitle();
+        this.image = slider.getImage();
+        this.backLink = slider.getBackLink();
+        this.status = slider.getStatus();
+    }
 }
