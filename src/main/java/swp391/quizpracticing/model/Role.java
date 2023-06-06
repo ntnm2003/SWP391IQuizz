@@ -35,4 +35,5 @@ public class Role {
     
     @OneToOne(mappedBy = "role")
     private Settings setting;
+    
 }
