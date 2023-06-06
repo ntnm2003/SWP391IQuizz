@@ -159,9 +159,9 @@ public class UserService implements IUserService {
 
     @Override
     public void updateUser(Integer userId, Integer roleId, Boolean status) {
-        if(roleId!=null){
-            userRepository.updateUserRole(userId, roleId);
-        }
+//        if(roleId!=null){
+//            userRepository.updateUserRole(userId, roleId);
+//        }
         if(status!=null){
             userRepository.updateUserStatus(userId, status);
         }
