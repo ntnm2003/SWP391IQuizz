@@ -24,12 +24,12 @@ public class AdminController {
     @Autowired
     private IUserService userService;
     
-    @GetMapping("/admin")
-    public String getAdminPage(Session session,
+    @GetMapping("/admin/user-list")
+    public String getUserListPage(Session session,
             Model model,
             @RequestParam(name = "pageNo", defaultValue = "1") int pageNo){
         int pageSize=6;
-        List<UserDTO> users=userService.getUsers(pageNo, pageSize);
+        List<UserDTO> users=userService.getUsers(pageNo-1, pageSize);
         model.addAttribute("users", users);
         return "admin/admin";
     }
