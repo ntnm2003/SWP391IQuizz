@@ -4,6 +4,7 @@
  */
 package swp391.quizpracticing.serviceimple;
 
+import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,15 @@ public class SettingsService implements ISettingsService {
     
     private SettingsDTO convertEntityToDTO(Settings entity){
         return modelMapper.map(entity,SettingsDTO.class);
+    }
+
+    @Override
+    public List<SettingsDTO> getSettings(int pageNo, int pageSize) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public SettingsDTO addSettings() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
