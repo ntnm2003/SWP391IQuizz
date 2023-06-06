@@ -1,3 +1,6 @@
+-- drop database iquiz;
+-- create database iquiz;
+
 use iquiz;
 
 INSERT INTO `iquiz`.`role`
@@ -11,17 +14,18 @@ VALUES
 (4,'marketing',1),
 (5,'sale',1),
 (6,'customer',1);
- INSERT INTO `iquiz`.`slider`
-(`id`,
-`title`,
-`image`,
-`back_link`,
-`status`)
-VALUES
-(1 , 'Become a Full Stack Software Engineer with The Hottest Technologies Right Now', 'slider1-2.png', '/subjects/subject-detail?id=5', 1),
-(2 , 'Anyone can get 6.5 IELTS!', 'slider2.png', '/subjects/subject-detail?id=3',  1),
-(3 , 'First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2',  1),
-(4 , 'Engineering Practices for Building Quality Software', 'slider4.png', '/subjects/subject-detail?id=6',  1);
+
+--  INSERT INTO `iquiz`.`slider`
+-- (`id`,
+-- `title`,
+-- `image`,
+-- `back_link`,
+-- `status`)
+-- VALUES
+-- (1 , 'Become a Full Stack Software Engineer with The Hottest Technologies Right Now', 'slider1.png', '/subjects/subject-detail?id=5', 1),
+-- (2 , 'Anyone can get 6.5 IELTS!', 'slider2.png', '/subjects/subject-detail?id=3',  1),
+-- (3 , 'First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2',  1);
+
 INSERT INTO `iquiz`.`lessontype`
 (`id`,
 `name`,
@@ -97,7 +101,7 @@ VALUES
   (16,'Web Development with Frameworks', 'Learn how to build web applications using popular frameworks such as React, Angular, and Vue.', 'https://example.com/thumbnails/frameworks.jpg', 'Web Development with Frameworks','2023-03-20',  1, 5, 6),
   (17, 'Mobile App Development', 'Learn how to develop mobile apps for iOS and Android platforms using native languages or cross-platform tools.', 'https://example.com/thumbnails/mobile_dev.jpg', 'Mobile App Development', '2023-02-20',  1, 5, 6),
   (18,'Cybersecurity Basics', 'An introduction to cybersecurity principles, including risk assessment, threat modeling, and defense strategies.', 'https://example.com/thumbnails/cybersecurity.jpg', 'Cybersecurity', '2023-04-02',  1, 6, 7),
-(19,'An introduction to Algebra', 'This subject covers the basics of algebraic equations and their solutions.', 'https://example.com/thumbnails/algebra.jpg', 'Algebra', '2023-04-02',  1, 5, 8),
+  (19,'An introduction to Algebra', 'This subject covers the basics of algebraic equations and their solutions.', 'https://example.com/thumbnails/algebra.jpg', 'Algebra', '2023-04-02',  1, 5, 8),
   (20,'Introduction to Geometry', 'This subject covers the basics of geometric shapes, angles, and measurements.', 'https://example.com/thumbnails/geometry.jpg', 'Geometry', '2023-03-20',  1, 5, 6),
   (21,'Trigonometry for Beginners', 'This subject covers the basics of trigonometric functions and their applications in real life.', 'https://example.com/thumbnails/trigonometry.jpg', 'Trigonometry','2023-03-02',  1, 4, 6),
   (22,'World War II History', 'A comprehensive study of World War II, including key events, causes, and consequences.', 'https://example.com/thumbnails/ww2.jpg', 'World War II', '2023-05-02',  1, 4, 5),
@@ -117,6 +121,23 @@ VALUES
   (36,'Geometry in Three Dimensions', 'An introduction to three-dimensional geometry, including vectors, planes, and surfaces.', 'https://example.com/thumbnails/3d_geometry.jpg', 'Three-Dimensional Geometry', '2023-04-02',  1, 4, 8),
   (37,'Trigonometry in Real Life Applications', 'Learn how trigonometric functions are used in practical applications such as navigation, engineering, and physics.', 'https://example.com/thumbnails/trig_applications.jpg', 'Trigonometry Applications', '2023-02-22',  1, 6, 6);
 
+update iquiz.subject
+set featured = 1 where id=1; 
+update iquiz.subject
+set featured = 1 where id=2; 
+update iquiz.subject
+set featured = 1 where id=3; 
+update iquiz.subject
+set featured = 1 where id=4; 
+
+update iquiz.subject
+set thumbnail = 'subject1_img.png' where id=1;
+update iquiz.subject
+set thumbnail = 'subject2_img.png' where id=2;
+update iquiz.subject
+set thumbnail = 'subject3_img.png' where id=3;
+update iquiz.subject
+set thumbnail = 'subject6_img.png' where id=4;
 
 INSERT INTO `iquiz`.`pricepackage`
 (`id`,
@@ -750,15 +771,16 @@ INSERT INTO `iquiz`.`blogcategory`
 (`id`,`name`, `status`)
 VALUES
 (1, 'Technology', 1),
-(1, 'Travel', 1),
-(1, 'Food', 1);
+(2, 'Travel', 1),
+(3, 'Food', 1);
 
 INSERT INTO `iquiz`.`blog`
-(`id`,`brief_info`, `content`, `last_updated`, `thumbnail`, `title`, `user_id`)
+(`id`,`brief_info`, `content`, `featuring`, `last_updated`, `status`, `thumbnail`, `title`, `user_id`)
 VALUES
-(1,'Brief info about technology', 'Content about technology', '2023-06-05 14:16:24', 'https://example.com/technology-thumbnail.jpg', 'Technology Blog', 14),
-(2,'Brief info about travel', 'Content about travel', '2023-06-05 14:16:24', 'https://example.com/travel-thumbnail.jpg', 'Travel Blog', 13),
-(3,'Brief info about food', 'Content about food', '2023-06-05 14:16:24', 'https://example.com/food-thumbnail.jpg', 'Food Blog', 14);
+(1,'Brief info about technology', 'Content about technology', 1, '2023-06-05', 'uploaded', 'post4_thumbnail.png', 'Technology Blog', 14),
+(2,'Brief info about travel', 'Content about travel', 1, '2023-06-05', 'uploaded', 'post5_thumbnail.png', 'Travel Blog', 13),
+(3,'Brief info about food', 'Content about food', 1, '2023-06-05', 'uploaded', 'post3_thumbnail.png', 'Food Blog', 14),
+(4,'Brief info about education', 'Content about education', 1, '2023-06-05', 'uploaded', 'post2_thumbnail.png', 'Education Blog', 14);
 
 -- Insert data into blog_category table
 INSERT INTO `iquiz`.`blog_category`

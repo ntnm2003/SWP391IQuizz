@@ -39,9 +39,15 @@
                         </a>
                     </li>
                     <li>
-                        <a id="my-registration" th:href="@{'/users/myregistration/' + ${userSession.userId}}">
+                        <a id="my-registration" th:href="@{/users/myregistration/}">
                             <span class="navbar-item-icon"><ion-icon name="school"></ion-icon></span>
                             <span class="navbar-item-text">My Registrations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="practice-list" th:href="@{'/users/practice-list'}">
+                            <span class="navbar-item-icon"><ion-icon name="bookmarks"></ion-icon></span>
+                            <span class="navbar-item-text">Practice List</span>
                         </a>
                     </li>
                 </ul>
@@ -50,13 +56,13 @@
 
                 <div class="action">
                     <div class="profile" onclick="profileToggle()">
-                        <img src="/templates_components_assets/img/Avatar.png" alt="">
+                        <img src="/imgage/Avatar.jpg" alt="">
                     </div>
                     <div class="menu">
-                        <h3 th:text="${userSession.fullName}"></h3>
+                        <h3>User's name</h3>
                         <ul class="dropdown1">
                             <li>
-                                <a th:href="@{'/profile?userid=' + ${userSession.userId}}">
+                                <a th:href="@{'/profile?userid='}">
                                     <span><ion-icon name="person"></ion-icon></span>
                                     <span>My Profile</span> 
                                 </a>

@@ -24,11 +24,11 @@ public class HomeController {
 	@Autowired
 	private IBlogService blogService;
 
-//	@Autowired
-//	private ISubjectOverviewService subjectOverviewService;
-
 	@Autowired
 	private ISubjectService subjectService;
+
+	@Autowired
+	private IUserRepository iUserRepository;
 
 	@GetMapping("/")
 	public String redirectToHome() {
@@ -40,32 +40,30 @@ public class HomeController {
 
 		//Get sliders
 		List<SliderDTO> sliders = sliderService.getAllSlidersForHomepage();
+		System.out.println("sliders size: " + sliders.size());
+
 		//Get featured posts
 		List<BlogDTO> blogs = blogService.getFeaturedPosts(true);
-		//Get latest posts
-		List<BlogDTO> latestPosts = blogService.getFeaturedLatestPosts(true, 2);
+		System.out.println("blogs size: " + blogs.size());
 
-		//Get all subject overview by featuring
-		List<SubjectOverview> featuredSubjectOverviews = subjectOverviewService.getSObyFeaturing("1");
-		//export an array of featured subjects's ids
-		List<Integer> featuredSubjectsIds = new ArrayList<>();
-		for(SubjectOverview featuredSubjectOverview : featuredSubjectOverviews) {
-			int id = featuredSubjectOverview.getIdOverview();
-			featuredSubjectsIds.add(id);
-		}
-		//Get all subjects by id
-		List<Subject> featuredSubjects = subjectService.findByFeaturing(featuredSubjectsIds);
+		//Get latest posts
+		List<BlogDTO> latestBlogs = blogService.getFeaturedLatestPosts(true, 2);
+		System.out.println("latest blogs size: " + latestBlogs.size());
+
+		//Get all Featured Subjects
+		List<Subject> featuredSubjects = subjectService.findByFeaturing(true);
+		System.out.println("featured subjects size: " + featuredSubjects.size());
 
 		//Add to model
 		model.addAttribute("sliders", sliders);
 		model.addAttribute("blogs", blogs);
-		model.addAttribute("lastestPosts", latestPosts);
+		model.addAttribute("latestBlogs", latestBlogs);
 		model.addAttribute("featuredSubjects", featuredSubjects);
-		model.addAttribute("featuredSubjectOverviews", featuredSubjectOverviews);
 
-
+		//Testing user Session
+		User u = iUserRepository.getById(1);
+		session.setAttribute("user", u);
 		model.addAttribute("userSession", session.getAttribute("user"));
-
 
 		return "homepage/homepage";
 	}

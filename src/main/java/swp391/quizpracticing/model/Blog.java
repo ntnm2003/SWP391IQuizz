@@ -45,7 +45,14 @@ public class Blog {
 
     @Column(name = "last_updated")
     private Date lastUpdated;
-    
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "featuring")
+    private Boolean featuring;
+
+
     @ManyToMany
     @JoinTable(name="blog_category",
             joinColumns=@JoinColumn(name="blog_id"),
