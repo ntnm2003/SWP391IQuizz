@@ -747,18 +747,18 @@ VALUES
 
 
 INSERT INTO `iquiz`.`blogcategory`
-(`name`, `status`)
+(`id`,`name`, `status`)
 VALUES
-('Technology', 'active'),
-('Travel', 'active'),
-('Food', 'inactive');
+(1, 'Technology', 1),
+(1, 'Travel', 1),
+(1, 'Food', 1);
 
 INSERT INTO `iquiz`.`blog`
-(`brief_info`, `content`, `last_updated`, `thumbnail`, `title`, `user_id`)
+(`id`,`brief_info`, `content`, `last_updated`, `thumbnail`, `title`, `user_id`)
 VALUES
-('Brief info about technology', 'Content about technology', '2023-06-05 14:16:24', 'https://example.com/technology-thumbnail.jpg', 'Technology Blog', 14),
-('Brief info about travel', 'Content about travel', '2023-06-05 14:16:24', 'https://example.com/travel-thumbnail.jpg', 'Travel Blog', 15),
-('Brief info about food', 'Content about food', '2023-06-05 14:16:24', 'https://example.com/food-thumbnail.jpg', 'Food Blog', 14);
+(1,'Brief info about technology', 'Content about technology', '2023-06-05 14:16:24', 'https://example.com/technology-thumbnail.jpg', 'Technology Blog', 14),
+(2,'Brief info about travel', 'Content about travel', '2023-06-05 14:16:24', 'https://example.com/travel-thumbnail.jpg', 'Travel Blog', 13),
+(3,'Brief info about food', 'Content about food', '2023-06-05 14:16:24', 'https://example.com/food-thumbnail.jpg', 'Food Blog', 14);
 
 -- Insert data into blog_category table
 INSERT INTO `iquiz`.`blog_category`

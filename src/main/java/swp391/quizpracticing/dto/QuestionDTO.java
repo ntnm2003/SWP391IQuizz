@@ -15,7 +15,7 @@ public class QuestionDTO {
     private AnswerDTO answer;
     private DimensionDTO dimension;
     private LevelDTO questionLevelId;
-    private Integer content;
+    private String content;
     private String answerOptions;
     private Boolean status;
     private String image;

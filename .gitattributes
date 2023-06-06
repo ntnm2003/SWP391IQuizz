@@ -50,3 +50,7 @@
 /New[[:space:]]folder/PRJ301PE_SP23_530376/PaperNo_5/All/Given.rar filter=lfs diff=lfs merge=lfs -text
 /New[[:space:]]folder/PRJ301PE_SP23_530376/PaperNo_5/All/Q3_XXX/allowedlib/jakarta.servlet.jsp.jstl-2.0.0.jar filter=lfs diff=lfs merge=lfs -text
 /New[[:space:]]folder/PRJ301PE_SP23_530376/PaperNo_5/All/Q3_XXX/allowedlib/sqljdbc42.jar filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/image/Avatar.jpg filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/image/insta_logo.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/image/iquizz-logo_official.png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/image/iquizz_logo_rmbg.png filter=lfs diff=lfs merge=lfs -text
