@@ -31,5 +31,9 @@ public class Slider {
     private String backLink;
 
     @Column(name = "status")
-    private Boolean status;
+    private String status;
+
+    @Column(name = "visibility")
+    private Boolean visibility;
+
 }
