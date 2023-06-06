@@ -4,10 +4,13 @@
  */
 package swp391.quizpracticing.service;
 
+import java.util.List;
+import swp391.quizpracticing.dto.SettingsDTO;
+
 /**
  *
  * @author Mosena
  */
 public interface ISettingsService {
-    
+    public List<SettingsDTO> getSettings(int pageNo, int pageSize);
 }
