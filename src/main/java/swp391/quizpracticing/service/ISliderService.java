@@ -4,10 +4,24 @@
  */
 package swp391.quizpracticing.service;
 
+import org.springframework.data.domain.Page;
+import swp391.quizpracticing.dto.SliderDTO;
+import swp391.quizpracticing.model.Slider;
+
+import java.util.List;
 /**
  *
  * @author Mosena
  */
 public interface ISliderService {
-    
+    List<SliderDTO> getAllSlider();
+
+    List<SliderDTO> searchByTitle(String searchTerm);
+
+    List<SliderDTO> getFeaturedSlider(boolean isFeatured);
+
+    Page<Slider> getAllSlidersWithPagination(int pageNo);
+
+//    List<PostsDTO> getFilteredPosts(List<PostCategory> categories);
+
 }
