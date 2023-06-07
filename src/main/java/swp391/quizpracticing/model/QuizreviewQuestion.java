@@ -29,4 +29,7 @@ public class QuizreviewQuestion {
 
     @Column(name = "bookmark")
     private Boolean bookmark;
+
+    @Column(name = "is_correct")
+    private Boolean isCorrect;
 }
