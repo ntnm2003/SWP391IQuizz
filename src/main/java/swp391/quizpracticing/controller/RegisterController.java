@@ -19,7 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import swp.quizpracticingsystem.Utils.Utility;
+import swp391.quizpracticing.Utils.Utility;
 import swp391.quizpracticing.model.Role;
 import swp391.quizpracticing.model.User;
 import swp391.quizpracticing.service.RegisterService;
