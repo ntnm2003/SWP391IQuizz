@@ -148,8 +148,8 @@ public class SettingsService implements ISettingsService {
                 predicates.add(criteriaBuilder
                         .equal(root.get("status"),status));
             }
-            criteriaBuilder.like(root.get("value")
-                    ,searchPattern);
+            predicates.add(criteriaBuilder.like(root.get("value")
+                        ,searchPattern));
             return criteriaBuilder.and(predicates
                     .toArray(Predicate[]::new));
         };
@@ -302,5 +302,10 @@ public class SettingsService implements ISettingsService {
         dimension.setDescription(description);
         dimension.setStatus(true);
         return dimensionRepository.save(dimension);
+    }
+
+    @Override
+    public List<String> findTypes() {
+        return settingsRepository.findAllType();
     }
 }
