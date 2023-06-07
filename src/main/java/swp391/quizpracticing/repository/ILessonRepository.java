@@ -8,11 +8,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Lesson;
 
+import java.util.List;
+
 /**
  *
  * @author Mosena
  */
 @Repository
 public interface ILessonRepository extends JpaRepository<Lesson,Integer> {
+
+    public Lesson findById(int id);
     
 }

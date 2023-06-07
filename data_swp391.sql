@@ -708,6 +708,18 @@ VALUES
 (4, '2023-06-06', '00:06:03' , 1, 10),
 (5, '2023-06-06', '00:06:03' , 1, 9);
 
+update iquiz.quizreview 
+set user_id = 10 where id=5;
+
+update iquiz.quizreview 
+set user_id = 9 where id=2;
+
+update iquiz.quizreview 
+set user_id = 10 where id=1;
+
+update iquiz.quizreview 
+set user_id = 9 where id=5;
+
 INSERT INTO `iquiz`.`quizreview_question`
 (`bookmark`,
 `status`,

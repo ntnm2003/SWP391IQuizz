@@ -4,10 +4,14 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.model.Question;
+
+import java.util.List;
+
 /**
  *
  * @author Mosena
  */
 public interface IQuestionService {
-    
+    public Question getQuestionsById(Integer id);
 }
