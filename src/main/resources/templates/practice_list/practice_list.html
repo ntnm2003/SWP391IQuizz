@@ -22,7 +22,42 @@
 	<section id="body">
 		<h1>PRACTICES LIST</h1>
 		<div class="functionalities" style="display: flex; align-items: center; justify-content: space-between;">
-			<div>Search box</div>
+
+<!--			<div class="filter-by-subject">-->
+<!--				<th:block th:if="${selectedSubject == null}">-->
+<!--					<form th:action="@{/filter}" method="get">-->
+<!--						<select id="subjects2" name="subject-id" style="padding: 3px">-->
+<!--							<option value="-1">All Subjects</option>-->
+<!--							<option th:each="subject : ${accessedSubjects}"-->
+<!--									th:value="${subject.getId().getSubject().getId()}"-->
+<!--									th:text="${subject.getId().getSubject().getBriefInfo()}">-->
+<!--							</option>-->
+<!--						</select>-->
+<!--						<input class="btn btn-dark" type="submit" value="Filter By Subject" style="background-color: #484747; padding: 4px">-->
+<!--					</form>-->
+<!--				</th:block>-->
+<!--				<th:block th:unless="${selectedSubject == null}">-->
+<!--					<form th:action="@{/filter}" method="get">-->
+<!--						<select id="subjects" name="subject-id" style="padding: 3px">-->
+<!--							<option value="-1">All Subjects</option>-->
+<!--							<option th:each="subject : ${accessedSubjects}"-->
+<!--									th:value="${subject.getId().getSubject().getId()}"-->
+<!--									th:text="${subject.getId().getSubject().getBriefInfo()}"-->
+<!--									th:selected="${subject.getId().getSubject().getId() == selectedSubject.getId()}">-->
+<!--							</option>-->
+<!--						</select>-->
+<!--						<input class="btn btn-dark" type="submit" value="Filter By Subject" style="background-color: #484747;">-->
+<!--					</form>-->
+<!--				</th:block>-->
+
+
+<!--			</div>-->
+
+			<div class="search-box">
+				<form th:action="@{/searchPractice}" method="get">
+					<input type="text" name="practice-name" th:value="${practiceName}" placeholder="Search By Practice" style="border-radius: 5px; padding: 5px; border: 2px solid #333">
+				</form>
+			</div>
 			<div class="button">
 				<a class="btn btn-dark" href="/practice-detail" style="padding: 5px; font-size: 14px; margin-right: 10px; background-color: #484747;">New Practice</a>
 				<a class="btn btn-primary" href="/simulation-exam" style="padding: 5px; font-size: 14px">Simulation Exam</a>
@@ -45,19 +80,19 @@
 					th:with="takenQuizSubject=${takenQuizSubjects[takenQuizzStat.index]}, takenQuizLesson=${takenQuizLessons[takenQuizzStat.index]}">
 				<tr>
                     <td>
-						<a href="#" style="text-align: start">
+						<a th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}" style="text-align: start">
 							<span th:text="'Practice Name: ' + ${takenQuizLesson.getName()}" style="display: block; font-weight: 500;"></span>
 							<span th:text="'Subject: ' + ${takenQuizSubject.briefInfo}" style="display: block; font-size: 12px"></span>
 							<span th:text="'Practice Type: ' + ${takenQuizLesson.testType.getName()}" style="display: block; font-size: 12px"></span>
 						</a>
 					</td>
-					<td><a th:text="${takenQuizLesson.getDimension().getName()}" href="#"></a></td>
-					<td><a th:text="${takenQuizLesson.getLevel().getName()}" href="#"></a></td>
-                    <td><a th:text="${takenQuizz.getDateTaken()}" href="#"></a></td>
-                    <td><a th:text="${takenQuizz.getDuration()}" href="#"></a></td>
-                    <td><a href="#">XX Correct / YY Questions</a></td>
-                    <td><a href="#">ZZ % </a></td>
-                    <td><a href="#" class="view-detail">View Details</a></td>
+					<td><a th:text="${takenQuizLesson.getDimension().getName()}" th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}"></a></td>
+					<td><a th:text="${takenQuizLesson.getLevel().getName()}" th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:text="${takenQuizz.getDateTaken()}" th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:text="${takenQuizz.getDuration()}" th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:text="${takenQuizz.getLesson.getQuestionNumber() + ' Questions'}" th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}">ZZ % </a></td>
+                    <td><a th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}" class="view-detail">View Details</a></td>
 				</tr>
 			</tbody>
 		</table>
