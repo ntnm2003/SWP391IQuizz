@@ -11,17 +11,21 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.User;
 
+import java.util.Optional;
+
 /**
  *
  * @author Mosena
  */
 @Repository
-public interface IUserRepository  extends JpaRepository<User,Integer> {
+public interface IUserRepository extends JpaRepository<User,Integer> {
     @Override
     public Page<User> findAll(Pageable pageable);
     
     @Override
     public User getById(Integer id);
+
+    public User findById(int id);
     
     @Query(value="select * from User where full_name like %?1%", 
             nativeQuery = true)

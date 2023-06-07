@@ -54,15 +54,17 @@ public class HomeController {
 		List<Subject> featuredSubjects = subjectService.findByFeaturing(true);
 		System.out.println("featured subjects size: " + featuredSubjects.size());
 
+		//Testing user Session
+		User u = iUserRepository.findById(10);
+		System.out.println(u);
+		session.setAttribute("user", u);
+
 		//Add to model
 		model.addAttribute("sliders", sliders);
 		model.addAttribute("blogs", blogs);
 		model.addAttribute("latestBlogs", latestBlogs);
 		model.addAttribute("featuredSubjects", featuredSubjects);
 
-		//Testing user Session
-		User u = iUserRepository.getById(1);
-		session.setAttribute("user", u);
 		model.addAttribute("userSession", session.getAttribute("user"));
 
 		return "homepage/homepage";

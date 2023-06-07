@@ -74,4 +74,26 @@ public class User {
     
     @OneToMany(mappedBy = "id.user")
     private List<UserSubject> userSubjects;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", avatar='" + avatar + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", gender=" + gender +
+                ", mobile='" + mobile + '\'' +
+                ", token='" + token + '\'' +
+                ", lastUpdateDate=" + lastUpdateDate +
+                ", enable=" + enable +
+                ", blogs=" + blogs +
+                ", role=" + role +
+                ", subject=" + subject +
+                ", lessons=" + lessons +
+                ", quizReviews=" + quizReviews +
+                ", userSubjects=" + userSubjects +
+                '}';
+    }
 }
