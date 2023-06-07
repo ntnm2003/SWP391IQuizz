@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Detail</title>
+</head>
+<body>
+<h1 th:text="${post.title}"></h1>
+<img th:src="${post.thumbnail}" alt="" />
+<p th:text="${post.category}"></p>
+<p th:text="${post.briefInfo}"></p>
+<p th:text="${post.description}"></p>
+<p th:text="${post.featured ? 'Featured' : ''}"></p>
+<p th:text="${post.status}"></p>
+
+<a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
+</body>
+</html>

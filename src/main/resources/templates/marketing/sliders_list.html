@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 
 <head>
     <meta charset="UTF-8" />
@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body style="font-size:14px;">
 <!-- ================ HEADER ================ -->
 <th:block th:if="${userSession == null}">
     <div th:insert="templates/components/header"></div>
@@ -24,83 +24,97 @@
 </th:block>
 
 <!-- ========== MAIN CONTENT ============ -->
-<body class="sb-nav-fixed">
-<div id="layoutSidenav">
-    <div class="groundy" id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid rounded row" style="margin-top: 1% !important; margin-bottom: 1% !important">
-                <div class="col-md-1">
-                    <a href="AddBlog.jsp"><button type="button" class="btn btn-danger" style="">Add</button></a>
-                </div>
-                <div class="col-md-5">
-                    <select class="dropdown-font-new float-right" aria-label="Default select example" onchange="location = this.value;"> Status
-                        <option value="posts-list?${historyKey}${historyValue}${historyAuthor}${historyCategoryId}" ${status == null ? "Selected" : ""}>
-                        Status
-                        </option>
-                        <option value="posts-list?${historyKey}${historyValue}${historyAuthor}${historyCategoryId}&status=1" ${status == 1 ? "Selected" : ""}>
-                        Show
-                        </option>
-                        <option value="posts-list?${historyKey}${historyValue}${historyAuthor}${historyCategoryId}&status=0" ${status == 0 ? "Selected" : ""}>
-                        Hide
-                        </option>
-
-                    </select>
-                </div>
-                <div class="col-md-5 text-center">
-                    <form action="posts-list">
-                        <input type="text" name="key" value="${key}" placeholder="Find Slider" class="filter-search__control" >
-                        <button type="submit" class="btn btn-outline-danger" href="#" role="button">
-                            <i style='font-size:15px' class='fas'>&#xf002;</i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <div class="container rounded bg-white mt-5 mb-5" >
-                <table class="table"  style="margin-top: 4%">
-                    <thead  class="text-center">
-                    <th>Slider_ID</th>
-                    <th>Slider_Title</th>
-                    <th>Slider_Image</th>
-                    <th>Backlink</th>
-                    <th>Status</th>
-                    <th style="width: 12%">Option</th>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${listSliderList}" var="b">
-                        <tr class="text-center">
-                            <th scope="row">${b.blog_id}</th>
-                            <td>${b.title}</td>
-                            <td><img src="${b.thumbnail}" height="100px" width="100px"/></td>
-                            <td>${b.backLink}</td>
-                            <c:if test="${b.status == true}">
-                                <td><img class="circle" src="images/active.png"></td>
-                            </c:if>
-                            <c:if test="${b.status != true}">
-                                <td><img class="circle" src="images/inactive.png"></td>
-                            </c:if>
-                            <td style="width: 125px">
-                                <a class="btn btn-danger" href="post-details?blog_id=${b.blog_id}" role="button" style='font-size:10px'>
-                                    <i style='font-size:10px' class='fas'>&#xf044;</i>
-                                </a>
-                                <c:if test="${b.status == true}">
-                                    <a class="btn btn-dark" href="change-status?status=0&blogId=${b.blog_id}" role="button" style='font-size:10px'>
-                                        <i style='font-size:10px' class='fas far fa-eye-slash'>&#xf070;</i>
-                                    </a>
-                                </c:if>
-                                <c:if test="${b.status != true}">
-                                    <a class="btn btn-dark" href="change-status?status=1&blogId=${b.blog_id}" role="button" style='font-size:10px'>
-                                        <i style='font-size:10px' class='fas'>&#xf06e;</i>
-                                    </a>
-                                </c:if>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </main>
+<section class="main">
+    <div class="slider_list p-4">
+        <h1 class="text-center">Sliders List</h1>
+    </div>
+<div class="container-fluid rounded row" style="margin-top: 1% !important; margin-bottom: 1% !important">
+    <div class="col-md-1 text-center">
+        <a href="AddBlog.jsp"><button type="button" class="btn btn-danger " style="">Add</button></a>
+    </div>
+    <div class="col-md-5 text-center">
+        <select class="dropdown-font-new float-right" aria-label="Default select example" onchange="location = this.value;"> Status
+            <option value="posts-list?${historyKey}${historyValue}${historyAuthor}${historyCategoryId}" ${status == null ? "Selected" : ""}>
+            Status
+            </option>
+            <option value="posts-list?${historyKey}${historyValue}${historyAuthor}${historyCategoryId}&status=1" ${status == 1 ? "Selected" : ""}>
+            Show
+            </option>
+            <option value="posts-list?${historyKey}${historyValue}${historyAuthor}${historyCategoryId}&status=0" ${status == 0 ? "Selected" : ""}>
+            Hide
+            </option>
+        </select>
+    </div>
+    <div class="col-md-6 text-center">
+        <form action="sliders-list">
+            <input type="text" name="key" placeholder="Find slider" class="filter-search__control" >
+            <button type="submit" class="btn btn-outline-danger" href="#" role="button">
+                <i style='font-size:15px' class='fas'>&#xf002;</i>
+            </button>
+        </form>
     </div>
 </div>
+<div class="container rounded bg-white mt-5 mb-5" >
+    <table class="table"  style="margin-top: 4%">
+        <thead  class="text-center">
+        <th>ID</th>
+        <th>Title</th>
+        <th>Image</th>
+        <th>Backlink</th>
+        <th>Status</th>
+        <th style="width: 12%">Option</th>
+        </thead>
+        <tbody>
+        <div th:each="slider : ${slider}">
+            <tr>
+                <td><a href="slider-detail?sliderId=${slider.id}" th:text="${slider.id}">
+                    </a></td>
+                <td th:text="${slider.title}"></td>
+                <td> <img th:src="@{/database_images/{imageName}(imageName=${slider.image})}" width="200px"></td>
+                <td th:text="${slider.backLink}"></td>
+                <c:if th:if="${slider.status == true}">
+                    <td><img class="circle" src="image/active.png"></td>
+                </c:if>
+                <c:if th:if="${slider.status != true}">
+                    <td><img class="circle" src="image/inactive.png"></td>
+                </c:if>
+                <td style="width: 125px">
+                    <a class="btn btn-danger" href="slider-detail?sliderId=${slider.id}" role="button" style='font-size:10px'>
+                        <i style='font-size:10px' class='fas'>&#xf044;</i>
+                    </a>
+                    <c:if th:if="${slider.status == true}">
+                        <a class="btn btn-dark" href="change-status?status=0&sliderId=${slider.id}" role="button" style='font-size:10px'>
+                            <i style='font-size:10px' class='fas far fa-eye-slash'>&#xf070;</i>
+                        </a>
+                    </c:if>
+                    <c:if th:if="${slider.status != true}">
+                        <a class="btn btn-dark" href="change-status?status=1&sliderId=${slider.id}" role="button" style='font-size:10px'>
+                            <i style='font-size:10px' class='fas'>&#xf06e;</i>
+                        </a>
+                    </c:if>
+                </td>
+            </tr>
+
+        </div>
+
+        </tbody>
+
+    </table>
+</div>
+
+
+    <div class="pagination">
+        <nav aria-label="...">
+            <ul class="pagination pagination-lg">
+                <li class="page-item"><a class="page-link" th:href="@{'/sliders-list'}">1</a></li>
+                <li class="page-item"><a class="page-link" th:href="@{'/sliders-list?page=2'}">2</a></li>
+                <li class="page-item"><a class="page-link" th:href="@{'/sliders-list?page=3'}">3</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</section>
+
 <!-- =================== FOOTER =================== -->
 <div th:insert="templates/components/footer"></div>
 

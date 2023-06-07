@@ -47,17 +47,17 @@ public class SliderService implements ISliderService {
         return results;
     }
 
-    @Override
-    public List<SliderDTO> getFeaturedSlider(boolean isFeatured) {
-        List<Slider> featuredSlider = iSliderRepository.findByFeaturing(isFeatured);
-        List<SliderDTO> results = new ArrayList<>();
-        for(Slider slider : featuredSlider) {
-            SliderDTO sliderDTO = new SliderDTO();
-            sliderDTO.sliderHomePage(slider);
-            results.add(sliderDTO);
-        }
-        return results;
-    }
+//    @Override
+//    public List<SliderDTO> getFeaturedSlider(boolean isFeatured) {
+//        List<Slider> featuredSlider = iSliderRepository.findByFeaturing(isFeatured);
+//        List<SliderDTO> results = new ArrayList<>();
+//        for(Slider slider : featuredSlider) {
+//            SliderDTO sliderDTO = new SliderDTO();
+//            sliderDTO.sliderHomePage(slider);
+//            results.add(sliderDTO);
+//        }
+//        return results;
+//    }
 
     @Override
     public Page<Slider> getAllSlidersWithPagination(int pageNo) {

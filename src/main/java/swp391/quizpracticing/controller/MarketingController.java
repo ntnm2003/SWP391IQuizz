@@ -9,13 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import swp391.quizpracticing.dto.SliderDTO;
+import swp391.quizpracticing.model.Blog;
 import swp391.quizpracticing.model.Slider;
+import swp391.quizpracticing.repository.IBlogRepository;
 import swp391.quizpracticing.service.ISliderService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MarketingController {
@@ -43,9 +45,7 @@ public class MarketingController {
         } else {
             Page<Slider> sliderWithPagination = iSliderService.getAllSlidersWithPagination(page - 1);
             model.addAttribute("sliders", sliderWithPagination);
-
         }
-
         return "marketing/sliders_list";
     }
     @GetMapping("/search")
@@ -98,4 +98,49 @@ public class MarketingController {
 //        model.addAttribute("userSession", session.getAttribute("user"));
 //        return "blogs_list/blogs_list";
 //    }
+
+    @Autowired
+    private IBlogRepository iBlogRepository;
+
+    @GetMapping("/blog/{id}")
+    public String getBlogDetail(@PathVariable("id") Integer id, Model model) {
+        Optional<Blog> optionalBlog = iBlogRepository.findById(id);
+        if (optionalBlog.isPresent()) {
+            Blog blog = optionalBlog.get();
+            model.addAttribute("blog", blog);
+            return "marketing/blog_list";
+        } else {
+            return "404";
+        }
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable("id") Integer id, Model model) {
+        Optional<Blog> optionalBlog = iBlogRepository.findById(id);
+        if (optionalBlog.isPresent()) {
+            Blog blog = optionalBlog.get();
+            model.addAttribute("blog", blog);
+            return "marketing/blog_edit";
+        } else {
+            return "404";
+        }
+    }
+
+    @PostMapping("/{id}/edit")
+    public String editBlog(@PathVariable("id") Integer id, @ModelAttribute Blog updatedBlog) {
+        Optional<Blog> optionalBlog = iBlogRepository.findById(id);
+        if (optionalBlog.isPresent()) {
+            Blog blog = optionalBlog.get();
+            blog.setThumbnail(updatedBlog.getThumbnail());
+            blog.setCategories(updatedBlog.getCategories());
+            blog.setTitle(updatedBlog.getTitle());
+            blog.setBriefInfo(updatedBlog.getBriefInfo());
+            blog.setContent(updatedBlog.getContent());
+            blog.setAuthor(updatedBlog.getAuthor());
+            iBlogRepository.save(blog);
+            return "redirect:/blog/" + id;
+        } else {
+            return "404";
+        }
+    }
 }

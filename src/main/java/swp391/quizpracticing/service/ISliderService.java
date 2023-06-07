@@ -18,7 +18,7 @@ public interface ISliderService {
 
     List<SliderDTO> searchByTitle(String searchTerm);
 
-    List<SliderDTO> getFeaturedSlider(boolean isFeatured);
+ //   List<SliderDTO> getFeaturedSlider(boolean isFeatured);
 
     Page<Slider> getAllSlidersWithPagination(int pageNo);
 

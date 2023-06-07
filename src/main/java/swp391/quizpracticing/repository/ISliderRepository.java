@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Repository
 public interface ISliderRepository extends JpaRepository<Slider,Integer> {
-    List<Slider> findByFeaturing(boolean isFeatured);
+ //   List<Slider> findByFeaturing(boolean isFeatured);
 
 //
 //    @Query(value = "select * from iquiz.posts where featuring = ?1 order by updated_date desc limit ?2", nativeQuery = true)
