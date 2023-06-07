@@ -758,7 +758,7 @@ INSERT INTO `iquiz`.`blog`
 (`id`, `brief_info`, `content`, `last_updated`, `thumbnail`, `title`, `user_id`)
 VALUES
 (1, 'Brief info about technology', 'Content about technology', '2023-06-05 14:16:24', 'https://example.com/technology-thumbnail.jpg', 'Technology Blog', 14),
-(2, 'Brief info about travel', 'Content about travel', '2023-06-05 14:16:24', 'https://example.com/travel-thumbnail.jpg', 'Travel Blog', 15),
+(2, 'Brief info about travel', 'Content about travel', '2023-06-05 14:16:24', 'https://example.com/travel-thumbnail.jpg', 'Travel Blog', 13),
 (3, 'Brief info about food', 'Content about food', '2023-06-05 14:16:24', 'https://example.com/food-thumbnail.jpg', 'Food Blog', 14);
 
 -- Insert data into blog_category table
