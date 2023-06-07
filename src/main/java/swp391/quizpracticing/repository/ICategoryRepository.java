@@ -14,5 +14,6 @@ import swp391.quizpracticing.model.Category;
  */
 @Repository
 public interface ICategoryRepository extends JpaRepository<Category,Integer> {
-    
+    @Override
+    public Category save(Category c);
 }
