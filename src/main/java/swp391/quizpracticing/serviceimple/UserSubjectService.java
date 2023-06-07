@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.UserSubjectDTO;
 import swp391.quizpracticing.model.UserSubject;
+import swp391.quizpracticing.repository.IUserSubjectRepository;
 import swp391.quizpracticing.service.IUserSubjectService;
+
+import java.util.List;
 
 /**
  *
@@ -19,5 +22,12 @@ import swp391.quizpracticing.service.IUserSubjectService;
 public class UserSubjectService implements IUserSubjectService {
     @Autowired
     private ModelMapper modelMapper;
-    
+
+    @Autowired
+    private IUserSubjectRepository iUserSubjectRepository;
+
+    @Override
+    public List<UserSubject> getAllByUserId(Integer id) {
+        return iUserSubjectRepository.getAllByUserIdAndRegistrationStatus(id, 1);
+    }
 }

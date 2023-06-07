@@ -4,10 +4,15 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.model.UserSubject;
+
+import java.util.List;
+
 /**
  *
  * @author Mosena
  */
 public interface IUserSubjectService {
-    
+
+    public List<UserSubject> getAllByUserId(Integer id);
 }

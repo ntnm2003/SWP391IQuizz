@@ -47,7 +47,14 @@ div.functionalities {
     font-size: 1.4rem;
 }
 
-.practice-list-table {
+select {
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem
+    margin-right: 0.5rem;
+}
+
+.simulation-exam-table {
     margin-top: 1rem;
     background-color: #ffffff;
     border-radius: 10px;
@@ -56,24 +63,23 @@ div.functionalities {
     text-align: center;
 }
 
-.practice-list-table thead {
+.simulation-exam-table thead {
     font-size: 1.6rem;
 }
 
-.practice-list-table tr {
+.simulation-exam-table tr {
     height: 4rem;
 }
 
-.practice-list-table th, .practice-list-table td {
+.simulation-exam-table th, .simulation-exam-table td {
     padding-top: 1rem;
 }
 
-.practice-list-table td a {
+.simulation-exam-table td a {
     color: #333;
 }
 
-.practice-list-table .view-detail {
+.simulation-exam-table .view-detail {
     color: #1368ce;
     font-weight: 500;
 }
-
