@@ -39,6 +39,9 @@ public class Settings {
     @Column(name = "status")
     private Boolean status;
     
+    @Column(name="descripttion")
+    private String description;
+    
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subcategory_id",referencedColumnName = "id")
     private Subcategory subcategory;
