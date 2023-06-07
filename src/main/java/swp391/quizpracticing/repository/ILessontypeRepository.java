@@ -15,5 +15,6 @@ import swp391.quizpracticing.model.Lessontype;
 @Repository
 public interface ILessontypeRepository 
         extends JpaRepository<Lessontype,Integer> {
-    
+    @Override
+    public Lessontype save(Lessontype lt);
 }

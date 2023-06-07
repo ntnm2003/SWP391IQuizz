@@ -4,10 +4,13 @@
  */
 package swp391.quizpracticing.service;
 
+import java.util.List;
+import swp391.quizpracticing.dto.RoleDTO;
+
 /**
  *
  * @author Mosena
  */
 public interface IRoleService {
-    
+    public List<RoleDTO> findRoles();
 }
