@@ -4,14 +4,19 @@
  */
 package swp391.quizpracticing.serviceimple;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -39,13 +44,13 @@ public class UserService implements IUserService {
     private IRoleRepository roleRepository;
     @Autowired
     private ModelMapper modelMapper;
-    
+        
     private UserDTO convertEntityToDTO(User entity){
         return modelMapper.map(entity, UserDTO.class);
     }
 
     @Override
-    public List<UserDTO> getUsers(int pageNo, int pageSize, 
+    public Page<UserDTO> getUsers(int pageNo, int pageSize, 
             Boolean gender, Boolean status, Integer roleId, String sortBy, String order) {
         Pageable page;
         if(order.equals("asc")){
@@ -56,45 +61,49 @@ public class UserService implements IUserService {
             page = PageRequest.of(pageNo - 1, pageSize, 
                     Sort.by(sortBy).descending());
         }
-        Specification<User> specification=null;
-        if(gender!=null && status!=null && roleId!=null){
-            specification=(Root<User> root, 
-                CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) 
-                -> criteriaBuilder
-                .and(criteriaBuilder
-                        .equal(root.get("gender"),gender),
-                    criteriaBuilder
-                            .equal(root.get("enable"),status),
-                    criteriaBuilder.equal(root.get("role.id"),
-                            roleId));
-        }
-        else if(gender==null && status !=null && roleId==null){
-            specification=(Root<User> root,CriteriaQuery<?> query, 
-                    CriteriaBuilder criteriaBuilder)-> criteriaBuilder
-                            .equal(root.get("enable"), status);
-        }
-        else if(gender!=null && status ==null && roleId==null){
-            specification=(Root<User> root,CriteriaQuery<?> query, 
-                    CriteriaBuilder criteriaBuilder)-> criteriaBuilder
-                            .equal(root.get("gender"), gender);
-        }
-        else if(gender==null && status ==null && roleId!=null){
-            specification=(Root<User> root,CriteriaQuery<?> query, 
-                    CriteriaBuilder criteriaBuilder)-> criteriaBuilder
-                            .equal(root.get("role.id"), roleId);
-        }
-        return userRepository.findAll(specification,page)
+        Specification<User> specification = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (gender != null) {
+                predicates.add(criteriaBuilder.equal(root
+                        .get("gender"), gender));
+            }
+            if (status != null) {
+                predicates.add(criteriaBuilder.equal(root
+                        .get("enable"), status));
+            }
+            if (roleId != null) {
+                predicates.add(criteriaBuilder.equal(root
+                        .get("role").get("id"), roleId));
+            }
+
+            return criteriaBuilder.and(predicates.toArray(Predicate[]::new));
+        };
+        Page<User> pageList=userRepository.findAll(specification,page);
+        List<UserDTO> list = pageList
                 .stream()
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(list, page,
+                pageList.getTotalElements());
     }
 
     @Override
-    public List<UserDTO> searchUserBy(int pageNo, int pageSize, String searchBy,
+    public Page<UserDTO> searchUserBy(int pageNo, int pageSize, 
             String searchValue, Boolean gender, Boolean status, Integer roleId, 
             String sortBy, String order) {
         Pageable page;
         String searchPattern = "%" + searchValue + "%";
+        String searchBy;
+        if(searchValue.contains("@")){
+            searchBy="email";
+        }
+        else if(searchValue.matches("\\d+")){
+            searchBy="mobile";
+        }
+        else{
+            searchBy="fullName";
+        }
         if(order.equals("asc")){
             page = PageRequest.of(pageNo - 1, pageSize, 
                     Sort.by(sortBy).ascending());
@@ -103,53 +112,31 @@ public class UserService implements IUserService {
             page = PageRequest.of(pageNo - 1, pageSize, 
                     Sort.by(sortBy).descending());
         }
-        Specification<User> specification=null;
-        if(gender!=null && status!=null){
-            specification=(Root<User> root, 
-                CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) 
-                -> criteriaBuilder
-                    .and(criteriaBuilder
-                        .like(root.get(searchBy), searchPattern),
-                        criteriaBuilder
-                        .equal(root.get("gender"),gender),
-                    criteriaBuilder
-                            .equal(root.get("enable"),status),
-                    criteriaBuilder.equal(root.get("role.id"),
-                            roleId));
-        }
-        else if(gender==null && status !=null && roleId==null){
-            specification=(Root<User> root,CriteriaQuery<?> query, 
-                    CriteriaBuilder criteriaBuilder)-> criteriaBuilder
-                        .and(criteriaBuilder
-                        .like(root.get(searchBy), searchPattern),
-                                criteriaBuilder
-                        .equal(root.get("enable"), status));
-        }
-        else if(gender!=null && status ==null && roleId==null){
-            specification=(Root<User> root,CriteriaQuery<?> query, 
-                    CriteriaBuilder criteriaBuilder)-> criteriaBuilder
-                        .and(criteriaBuilder
-                        .like(root.get(searchBy), searchPattern),
-                                criteriaBuilder
-                        .equal(root.get("gender"), gender));
-        }
-        else if(gender==null && status ==null && roleId!=null){
-            specification=(Root<User> root,CriteriaQuery<?> query, 
-                    CriteriaBuilder criteriaBuilder)-> criteriaBuilder
-                        .and(criteriaBuilder
-                        .like(root.get(searchBy), searchPattern),
-                                criteriaBuilder
-                        .equal(root.get("role.id"), roleId));
-        }
-        else if(gender==null && status==null && roleId==null){
-            specification=(Root<User> root,CriteriaQuery<?> query, 
-                    CriteriaBuilder criteriaBuilder)-> criteriaBuilder
-                        .like(root.get(searchBy), searchPattern);
-        }
-        return userRepository.findAll(specification,page)
+        Specification<User> specification=(root, query, criteriaBuilder) -> {
+            List<Predicate> predicates=new ArrayList<>();
+            if(gender!=null){
+                predicates.add(criteriaBuilder.equal(root
+                        .get("gender"), gender));
+            }
+            if(status!=null){
+                predicates.add(criteriaBuilder.equal(root
+                        .get("enable"), status));
+            }
+            if (roleId != null) {
+                predicates.add(criteriaBuilder.equal(root
+                        .get("role").get("id"), roleId));
+            }
+            predicates.add(criteriaBuilder.like(root
+                    .get(searchBy), searchPattern));
+            return criteriaBuilder.and(predicates.toArray(Predicate[]::new));
+        };
+        Page<User> pageList=userRepository.findAll(specification,page);
+        List<UserDTO> list = pageList
                 .stream()
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(list, page,
+                pageList.getTotalElements());
     }
 
     @Override

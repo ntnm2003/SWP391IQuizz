@@ -14,5 +14,6 @@ import swp391.quizpracticing.model.Dimension;
  */
 @Repository
 public interface IDimensionRepository extends JpaRepository<Dimension,Integer> {
-    
+    @Override
+    public Dimension save(Dimension d);
 }
