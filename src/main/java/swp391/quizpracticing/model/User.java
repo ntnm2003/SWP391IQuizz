@@ -50,6 +50,9 @@ public class User {
 
     @Column(name = "mobile")
     private String mobile;
+    
+    @Column(name="address")
+    private String address;
 
     @Column(name = "token")
     private String token;
