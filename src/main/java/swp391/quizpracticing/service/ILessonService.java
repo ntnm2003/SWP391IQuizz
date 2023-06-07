@@ -6,6 +6,8 @@ package swp391.quizpracticing.service;
 
 import swp391.quizpracticing.dto.LessonDTO;
 
+import java.util.List;
+
 /**
  *
  * @author Mosena
@@ -13,4 +15,8 @@ import swp391.quizpracticing.dto.LessonDTO;
 public interface ILessonService {
 
     public LessonDTO findById(int id);
+
+    public List<LessonDTO> findAllSimulationExamsBySubjectId(Integer id);
+
+    public List<LessonDTO> searchByExamName(String examName);
 }

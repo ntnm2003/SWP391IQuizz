@@ -23,15 +23,14 @@ VALUES
 VALUES
 ('Become a Full Stack Software Engineer with The Hottest Technologies Right Now', 'slider1.png', '/subjects/subject-detail?id=5', 1),
 ('Anyone can get 6.5 IELTS!', 'slider2.png', '/subjects/subject-detail?id=3', 1),
-('First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2', 1),
+('First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2', 1);
 
 INSERT INTO `iquiz`.`lessontype`
-(
-`name`,
+(`name`,
 `status`)
 VALUES
 ('quiz', 1),
-('lession',1);
+('lession', 1);
 
 INSERT INTO `iquiz`.`dimension`
 
@@ -137,6 +136,22 @@ update iquiz.subject
 set thumbnail = 'subject3_img.png' where id=3;
 update iquiz.subject
 set thumbnail = 'subject6_img.png' where id=4;
+
+update iquiz.subject
+set brief_info = 'Chemistry Fundamentals'
+where id = 8;
+
+update iquiz.subject
+set brief_info = 'Exploring the Human Mind'
+where id = 13;
+
+update iquiz.subject
+set brief_info = 'Understanding Environmental Biology'
+where id = 15;
+
+update iquiz.subject
+set brief_info = 'Mastering Communication Skills'
+where id = 17;
 
 INSERT INTO `iquiz`.`pricepackage`
 (

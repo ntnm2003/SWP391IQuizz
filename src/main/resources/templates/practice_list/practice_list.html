@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8" />
@@ -21,7 +21,14 @@
 	<!--  BODY  -->
 	<section id="body">
 		<h1>PRACTICES LIST</h1>
-		<table class="table table-hover table-bordered practice-list-table">
+		<div class="functionalities" style="display: flex; align-items: center; justify-content: space-between;">
+			<div>Search box</div>
+			<div class="button">
+				<a class="btn btn-dark" href="/practice-detail" style="padding: 5px; font-size: 14px; margin-right: 10px; background-color: #484747;">New Practice</a>
+				<a class="btn btn-primary" href="/simulation-exam" style="padding: 5px; font-size: 14px">Simulation Exam</a>
+			</div>
+		</div>
+		<table class="table table-hover table-bordered practice-list-table" style="margin-top: 15px">
 			<thead>
 				<tr>
 					<th scope="col">Practices Taken</th>
