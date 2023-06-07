@@ -15,5 +15,6 @@ import swp391.quizpracticing.model.Systemsettings;
 @Repository
 public interface ISystemsettingsRepository 
         extends JpaRepository<Systemsettings,Integer> {
-    
+    @Override
+    public Systemsettings save(Systemsettings s);
 }

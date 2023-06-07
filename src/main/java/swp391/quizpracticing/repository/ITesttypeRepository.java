@@ -14,5 +14,6 @@ import swp391.quizpracticing.model.Testtype;
  */
 @Repository
 public interface ITesttypeRepository  extends JpaRepository<Testtype,Integer> {
-    
+    @Override
+    public Testtype save(Testtype tt);
 }

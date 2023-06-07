@@ -4,7 +4,7 @@
  */
 package swp391.quizpracticing.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
 import swp391.quizpracticing.dto.UserDTO;
 
 /**
@@ -12,10 +12,10 @@ import swp391.quizpracticing.dto.UserDTO;
  * @author Mosena
  */
 public interface IUserService {
-    public List<UserDTO> getUsers(int pageNo, int pageSize, 
+    public Page<UserDTO> getUsers(int pageNo, int pageSize, 
             Boolean gender, Boolean status, Integer roleId, 
             String sortBy, String order);
-    public List<UserDTO> searchUserBy(int pageNo, int pageSize, String searchBy,
+    public Page<UserDTO> searchUserBy(int pageNo, int pageSize,
             String searchValue, Boolean gender, Boolean status, Integer roleId, 
             String sortBy, String order);
     public UserDTO addUser(String fullName,String email, String password);
