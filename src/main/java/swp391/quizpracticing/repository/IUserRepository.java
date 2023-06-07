@@ -35,11 +35,11 @@ public interface IUserRepository  extends JpaRepository<User,Integer>
     
     @Modifying
     @Query("UPDATE User u SET u.enable = :status WHERE u.id = :userId")
-    void updateUserStatus(@Param("userId") Integer userId, 
+    public void updateUserStatus(@Param("userId") Integer userId, 
             @Param("status") Boolean status);
     
     @Modifying
     @Query("UPDATE User u SET u.role = :role WHERE id = :userId")
-    void updateUserRole(@Param("userId") Integer userId, 
+    public void updateUserRole(@Param("userId") Integer userId, 
             @Param("role") Role role);
 }

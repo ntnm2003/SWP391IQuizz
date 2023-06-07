@@ -38,12 +38,16 @@ public class Settings {
     
     @Column(name = "status")
     private Boolean status;
-            
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subcategory_id",referencedColumnName = "id")
+    private Subcategory subcategory;
+    
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id",referencedColumnName = "id")
     private Role role;
 
-   @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "systemsetting_id",referencedColumnName = "id")
     private Systemsettings systemSetting;
 

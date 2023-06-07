@@ -15,5 +15,6 @@ import swp391.quizpracticing.model.Blogcategory;
 @Repository
 public interface IBlogcategoryRepository 
         extends JpaRepository<Blogcategory,Integer> {
-    
+    @Override
+    public Blogcategory save(Blogcategory b);
 }

@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Settings;
 
@@ -27,19 +28,23 @@ public interface ISettingsRepository extends JpaRepository<Settings,Integer>,
     @Override
     public Settings save(Settings s);
     
-//    @Modifying
-//    @Query()
-//    public void settingsUpdateType();
-//    
-//    @Modifying
-//    @Query()
-//    public void settingsUpdateValue();
-//    
-//    @Modifying
-//    @Query()
-//    public void settingsUpdateOrder();
-//    
-//    @Modifying
-//    @Query()
-//    public void settingsUpdateStatus();
+    @Modifying
+    @Query("UPDATE Settings s SET s.type = :type WHERE s.id = :settingsId")
+    public void settingsUpdateType(@Param("settingsId") Integer settingsId,
+            @Param("type") String type);
+    
+    @Modifying
+    @Query("UPDATE Settings s SET s.value = :value WHERE s.id = :settingsId")
+    public void settingsUpdateValue(@Param("settingsId") Integer settingsId,
+            @Param("value") String value);
+    
+    @Modifying
+    @Query("UPDATE Settings s SET s.order = :order WHERE s.id = :settingsId")
+    public void settingsUpdateOrder(@Param("settingsId") Integer settingsId,
+            @Param("order") Integer order);
+    
+    @Modifying
+    @Query("UPDATE Settings s SET s.type = :status WHERE s.id = :settingsId")
+    public void settingsUpdateStatus(@Param("settingsId") Integer settingsId,
+            @Param("status") Boolean status);
 }
