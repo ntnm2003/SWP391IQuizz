@@ -73,4 +73,10 @@ public class Subject {
     
     @OneToMany(mappedBy = "subject")
     private List<Lesson> lessons;
+
+    @Column(name = "featured")
+    private Boolean featured;
+
+    @Column(name = "tagline")
+    private String tagLine;
 }
