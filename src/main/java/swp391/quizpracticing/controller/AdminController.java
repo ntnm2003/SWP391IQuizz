@@ -92,8 +92,7 @@ public class AdminController {
                 users.getTotalPages());
         model.addAttribute("users", users);
         model.addAttribute("session", session);
-        model.addAttribute("searchValue", searchValue);
-        return "admin/userlist";
+        return "admin/userlistsearch";
     }
     
     @GetMapping("/settings")
@@ -107,17 +106,13 @@ public class AdminController {
         int pageSize=6;
         Page<SettingsDTO>settings=settingsService.getSettings(pageNo, pageSize, 
                 type, status, sortBy, order);
-        List<RoleDTO> roles=roleService.findRoles();
-        model.addAttribute("roles", roles);
+        List<String> types=settingsService.findTypes();
+        model.addAttribute("types", types);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages", 
                 settings.getTotalPages());
         model.addAttribute("settings", settings);
         model.addAttribute("session", session);
-        model.addAttribute("type", type);
-        model.addAttribute("status", status);
-        model.addAttribute("sortBy", sortBy);
-        model.addAttribute("order", order);
         return "admin/settings";
     }
     
@@ -132,7 +127,7 @@ public class AdminController {
             @RequestParam(name = "order",defaultValue = "asc") String order){
         int pageSize=6;
         Page<SettingsDTO>settings;
-        if(value!=null){
+        if(value==null){
             settings=settingsService.getSettings(pageNo, pageSize, type, 
                     status, sortBy, order);
         }
@@ -140,18 +135,13 @@ public class AdminController {
             settings=settingsService.searchSettings(pageNo, pageSize,
                     type, status, sortBy, order, value);
         }
-        List<RoleDTO> roles=roleService.findRoles();
-        model.addAttribute("roles", roles);
+        List<String> types=settingsService.findTypes();
+        model.addAttribute("types", types);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages", 
                 settings.getTotalPages());
         model.addAttribute("settings", settings);
         model.addAttribute("session", session);
-        model.addAttribute("type", type);
-        model.addAttribute("status", status);
-        model.addAttribute("sortBy", sortBy);
-        model.addAttribute("order", order);
-        model.addAttribute("value", value);
-        return "admin/settings";
+        return "admin/settingssearch";
     }
 }

@@ -16,7 +16,7 @@
 			<div class="row">
                 <div class="col">
                     <div class="d-flex">
-                        <select class="form-select" id="genderSelect" onchange="navigateToFilterAndSort()">
+                        <select class="form-select" id="genderSelect" onchange="navigateToInteract()">
                             <option value="">Filter by gender</option>
                             <option value="true">Male</option>
                             <option value="false">Female</option>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="col">
                     <div class="d-flex">
-                        <select class="form-select" id="roleSelect" onchange="navigateToFilterAndSort()">
+                        <select class="form-select" id="roleSelect" onchange="navigateToInteract()">
                             <option value="">Filter by role</option>
                             <option th:each="role:${roles}" th:value="${role.id}" th:text="${role.name}"></option>
                         </select>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="col">
                     <div class="d-flex">
-                        <select class="form-select" id="statusSelect" onchange="navigateToFilterAndSort()">
+                        <select class="form-select" id="statusSelect" onchange="navigateToInteract()">
                             <option value="">Filter by status</option>
                             <option value="true">Active</option>
                             <option value="false">Inactive</option>
@@ -42,7 +42,7 @@
                 </div>
                 <form class="col" method="get" action="/admin/search-user">
                     <div class="d-flex justify-content-center mb-3">
-                        <input type="search" name="searchValue" placeholder="Search for user" class="form-control search-box" style="width: 80%" />
+                        <input type="search" name="searchValue" placeholder="Search for user" id="search" class="form-control search-box" style="width: 80%" />
                         <button class="btn btn-primary" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
@@ -100,29 +100,29 @@
             </table>
         </div>
         <div class="row">
-            <div class="col">
-                <a id="left-button" class="d-flex justify-content-end" href="/admin/user-list?pageNo" th:class="${pageNo > 1} ? '' : 'd-flex justify-content-end disabled'" onclick="return !this.classList.contains('disabled');">
+            <div class="col d-flex justify-content-end">
+                <button class="btn" th:attr="onclick=|moveBack('${pageNo}')|" th:if="${pageNo>1}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
                         <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
                     </svg>
-                </a>
+                </button>
             </div>
             <div class="col">
                 <h4 class="text-center" th:text="'Page ' + ${pageNo} + '/' + ${totalPages}"></h4>
             </div>
-            <div class="col">
-                <a id="right-button" class="d-flex justify-content-start" href="/admin/user-list?pageNo" th:class="${pageNo < totalPages} ? '' : 'd-flex justify-content-start disabled'" onclick="return !this.classList.contains('disabled');">
+            <div class="col d-flex justify-content-start">
+                <button class="btn" th:attr="onclick=|moveOn('${pageNo}')|" th:if="${pageNo<totalPages}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
                         <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
                     </svg>
-                </a>
+                </button>
             </div>
         </div>
-        <div class="container">
+        <div class="container" style="margin-top: 50px;">
             <div class="row">
                 <div class="col">
                     <div class="d-flex">
-                        <select class="form-select" id="sortBySelect" onchange="navigateToFilterAndSort()">
+                        <select class="form-select" id="sortBySelect" onchange="navigateToInteract()">
                             <option value="id" selected>Sort by ID</option>
                             <option value="fullName">Sort by Full Name</option>
                             <option value="gender">Sort by Gender</option>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="col">
                     <div class="d-flex">
-                        <select class="form-select" id="orderSelect" onchange="navigateToFilterAndSort()">
+                        <select class="form-select" id="orderSelect" onchange="navigateToInteract()">
                             <option value="asc" selected>Ascending</option>
                             <option value="desc">Descending</option>
                         </select>

@@ -4,6 +4,7 @@
  */
 package swp391.quizpracticing.repository;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -27,6 +28,9 @@ public interface ISettingsRepository extends JpaRepository<Settings,Integer>,
     
     @Override
     public Settings save(Settings s);
+    
+    @Query(value = "select distinct type from settings;", nativeQuery = true)
+    public List<String> findAllType();
     
     @Modifying
     @Query("UPDATE Settings s SET s.type = :type WHERE s.id = :settingsId")

@@ -1,16 +1,12 @@
 function setPageFilters() {
     const urlParams = new URLSearchParams(window.location.search);
-    const gender = urlParams.get("gender");
+    const type = urlParams.get("type");
     const status_ = urlParams.get("status");
-    const role = urlParams.get("role");
     const sortBy = urlParams.get("sortBy");
     const order = urlParams.get("order");
   
-    if (gender) {
-      document.getElementById("genderSelect").value = gender;
-    }
-    if (role) {
-      document.getElementById("roleSelect").value = role;
+    if (type) {
+      document.getElementById("typeSelect").value = type;
     }
     if (status_) {
       document.getElementById("statusSelect").value = status_;
@@ -21,27 +17,23 @@ function setPageFilters() {
     if (order) {
       document.getElementById("orderSelect").value = order;
     }
-  }
+}
   
 window.addEventListener("load", setPageFilters);
 function navigateToInteract() {
-    var gender = document.getElementById("genderSelect").value;
+    var type = document.getElementById("typeSelect").value;
     var status = document.getElementById("statusSelect").value;
-    var role = document.getElementById("roleSelect").value;
     var sortBy=document.getElementById("sortBySelect").value;
     var order=document.getElementById("orderSelect").value;
 
-    var url = "/admin/user-list?";
+    var url = "/admin/settings?";
     var filters = [];
 
-    if (gender) {
-        filters.push("gender=" + gender);
+    if (type) {
+        filters.push("type=" + type);
     }
     if (status) {
         filters.push("status=" + status);
-    }
-    if (role) {
-        filters.push("role=" + role);
     }
     if(sortBy) {
         filters.push("sortBy="+sortBy);
@@ -51,29 +43,23 @@ function navigateToInteract() {
     }
     url += filters.join("&");
     
-
-    // Navigate to the filtered URL
     window.location.href = url;
 }
 
 function moveOn(pageNo){
-    var gender = document.getElementById("genderSelect").value;
+    var type = document.getElementById("typeSelect").value;
     var status = document.getElementById("statusSelect").value;
-    var role = document.getElementById("roleSelect").value;
     var sortBy=document.getElementById("sortBySelect").value;
     var order=document.getElementById("orderSelect").value;
     
-    var url = "/admin/user-list?pageNo=" + (parseInt(pageNo) + 1) + "&";
+    var url = "/admin/settings?pageNo=" + (parseInt(pageNo) + 1) + "&";
     var filters = [];
 
-    if (gender) {
-        filters.push("gender=" + gender);
+    if (type) {
+        filters.push("type=" + type);
     }
     if (status) {
         filters.push("status=" + status);
-    }
-    if (role) {
-        filters.push("role=" + role);
     }
     if(sortBy) {
         filters.push("sortBy="+sortBy);
@@ -87,23 +73,19 @@ function moveOn(pageNo){
 }
 
 function moveBack(pageNo){
-    var gender = document.getElementById("genderSelect").value;
+    var type = document.getElementById("typeSelect").value;
     var status = document.getElementById("statusSelect").value;
-    var role = document.getElementById("roleSelect").value;
-    var sortBy=document.getElementById("sortBySelect").value;
-    var order=document.getElementById("orderSelect").value;
+    var sortBy = document.getElementById("sortBySelect").value;
+    var order = document.getElementById("orderSelect").value;
 
-    var url = "/admin/user-list?pageNo=" + (parseInt(pageNo) - 1) + "&";
+    var url = "/admin/settings?pageNo=" + (parseInt(pageNo) - 1) + "&";
     var filters = [];
 
-    if (gender) {
-        filters.push("gender=" + gender);
+    if (type) {
+        filters.push("type=" + gender);
     }
     if (status) {
         filters.push("status=" + status);
-    }
-    if (role) {
-        filters.push("role=" + role);
     }
     if(sortBy) {
         filters.push("sortBy="+sortBy);
