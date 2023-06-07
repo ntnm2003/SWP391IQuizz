@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import swp391.quizpracticing.dto.LessonDTO;
 import swp391.quizpracticing.dto.QuizreviewDTO;
 import swp391.quizpracticing.dto.SubjectDTO;
@@ -106,6 +107,22 @@ public class PracticeListController {
         model.addAttribute("takenQuizzes", takenQuizzes);
         model.addAttribute("takenQuizSubjects", takenQuizSubjects);
         model.addAttribute("takenQuizLessons", lessons);
+
+        return "practice_list/practice_list";
+    }
+
+    @GetMapping("/searchPractice")
+    public String searchByPracticeName(@RequestParam(name = "practice-name") String practiceName, Model model, HttpSession session) {
+
+        User loggedinUser = (User)session.getAttribute("user");
+
+        if(practiceName.isEmpty()) {
+            model.addAttribute("examName", practiceName);
+            return "redirect:/practice-list";
+        } else {
+
+        }
+
 
         return "practice_list/practice_list";
     }
