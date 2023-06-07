@@ -77,22 +77,28 @@
 				</tr>
 			</thead>
 			<tbody  th:each="takenQuizz : ${takenQuizzes}"
-					th:with="takenQuizSubject=${takenQuizSubjects[takenQuizzStat.index]}, takenQuizLesson=${takenQuizLessons[takenQuizzStat.index]}">
+					th:with="takenQuizSubject=${takenQuizSubjects[takenQuizzStat.index]},
+							 takenQuizLesson=${takenQuizLessons[takenQuizzStat.index]},
+							 percent=${percentCorrect[takenQuizzStat.index]}">
 				<tr>
                     <td>
-						<a th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}" style="text-align: start">
+						<a th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}" style="text-align: start">
 							<span th:text="'Practice Name: ' + ${takenQuizLesson.getName()}" style="display: block; font-weight: 500;"></span>
 							<span th:text="'Subject: ' + ${takenQuizSubject.briefInfo}" style="display: block; font-size: 12px"></span>
 							<span th:text="'Practice Type: ' + ${takenQuizLesson.testType.getName()}" style="display: block; font-size: 12px"></span>
 						</a>
 					</td>
-					<td><a th:text="${takenQuizLesson.getDimension().getName()}" th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}"></a></td>
-					<td><a th:text="${takenQuizLesson.getLevel().getName()}" th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}"></a></td>
-                    <td><a th:text="${takenQuizz.getDateTaken()}" th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}"></a></td>
-                    <td><a th:text="${takenQuizz.getDuration()}" th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}"></a></td>
-                    <td><a th:text="${takenQuizz.getLesson.getQuestionNumber() + ' Questions'}" th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}"></a></td>
-                    <td><a th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}">ZZ % </a></td>
-                    <td><a th:href="@{/quiz-review?id={id}(id = ${takenQuizz.getId()})}" class="view-detail">View Details</a></td>
+					<td><a th:text="${takenQuizLesson.getDimension().getName()}" th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}"></a></td>
+					<td><a th:text="${takenQuizLesson.getLevel().getName()}" th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:text="${takenQuizz.getDateTaken()}" th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:text="${takenQuizz.getDuration()}" th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}">
+							<span th:text="${hashmaps[takenQuizz.getId()] + ' Corrects / '}"></span>
+							<span th:text="${takenQuizz.getLesson.getQuestionNumber() + ' Questions'}"></span>
+						</a>
+					</td>
+                    <td><a th:text="${percent} + ' %'"  th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}" class="view-detail">View Details</a></td>
 				</tr>
 			</tbody>
 		</table>
