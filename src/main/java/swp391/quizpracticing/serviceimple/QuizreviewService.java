@@ -7,9 +7,15 @@ package swp391.quizpracticing.serviceimple;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import swp391.quizpracticing.dto.BlogDTO;
 import swp391.quizpracticing.dto.QuizreviewDTO;
+import swp391.quizpracticing.model.Blog;
 import swp391.quizpracticing.model.Quizreview;
+import swp391.quizpracticing.repository.IQuizreviewRepository;
 import swp391.quizpracticing.service.IQuizreviewService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,6 +25,24 @@ import swp391.quizpracticing.service.IQuizreviewService;
 public class QuizreviewService implements IQuizreviewService {
     @Autowired
     private ModelMapper modelMapper;
-    
 
+    @Autowired
+    private IQuizreviewRepository iQuizreviewRepository;
+
+    private QuizreviewDTO convertEntityToDTO(Quizreview entity){
+        return modelMapper.map(entity,QuizreviewDTO.class);
+    }
+
+    @Override
+    public List<QuizreviewDTO> getAllQuizreviewsByUserId(Integer userId) {
+        List<Quizreview> quizreviewList = iQuizreviewRepository.findAllByUserId(userId);
+        List<QuizreviewDTO> results = new ArrayList<>();
+
+        for(Quizreview quiz : quizreviewList) {
+            QuizreviewDTO quizreviewDTO = convertEntityToDTO(quiz);
+            results.add(quizreviewDTO);
+        }
+
+        return results;
+    }
 }
