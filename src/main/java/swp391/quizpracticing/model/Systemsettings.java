@@ -26,10 +26,10 @@ public class Systemsettings {
     private Integer id;
 
     @Column(name = "name")
-    private Integer name;
+    private String name;
 
     @Column(name = "status")
-    private Integer status;
+    private Boolean status;
     
     @OneToOne(mappedBy = "systemSetting")
     private Settings setting;

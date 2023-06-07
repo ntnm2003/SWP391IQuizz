@@ -14,5 +14,6 @@ import swp391.quizpracticing.model.Level;
  */
 @Repository
 public interface ILevelRepository extends JpaRepository<Level,Integer> {
-    
+    @Override
+    public Level save(Level l);
 }
