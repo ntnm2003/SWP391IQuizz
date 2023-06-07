@@ -1,6 +1,5 @@
 package swp391.quizpracticing.model;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,9 +26,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+
     private Integer id;
 
     @Column(name = "avatar")
@@ -58,23 +59,45 @@ public class User {
 
     @Column(name = "enable")
     private Boolean enable;
-    
-    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Blog> blogs;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id",referencedColumnName = "id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
-    
+
     @OneToMany(mappedBy = "owner")
     private List<Subject> subject;
-    
+
     @OneToMany(mappedBy = "creator")
     private List<Lesson> lessons;
-    
+
     @OneToMany(mappedBy = "user")
     private List<Quizreview> quizReviews;
-    
+
     @OneToMany(mappedBy = "id.user")
     private List<UserSubject> userSubjects;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", avatar='" + avatar + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", gender=" + gender +
+                ", mobile='" + mobile + '\'' +
+                ", token='" + token + '\'' +
+                ", lastUpdateDate=" + lastUpdateDate +
+                ", enable=" + enable +
+                ", blogs=" + blogs +
+                ", role=" + role +
+                ", subject=" + subject +
+                ", lessons=" + lessons +
+                ", quizReviews=" + quizReviews +
+                ", userSubjects=" + userSubjects +
+                '}';
+    }
 }

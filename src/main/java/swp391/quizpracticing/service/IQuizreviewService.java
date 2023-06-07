@@ -4,10 +4,16 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.dto.QuizreviewDTO;
+
+import java.util.List;
+
 /**
  *
  * @author Mosena
  */
 public interface IQuizreviewService {
+
+    public List<QuizreviewDTO> getAllQuizreviewsByUserId(Integer userId);
     
 }

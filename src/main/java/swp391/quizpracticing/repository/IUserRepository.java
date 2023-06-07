@@ -16,30 +16,48 @@ import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Role;
 import swp391.quizpracticing.model.User;
 
+import java.util.Optional;
+
 /**
  *
  * @author Mosena
  */
 @Repository
-public interface IUserRepository  extends JpaRepository<User,Integer>
-        , JpaSpecificationExecutor<User> {
-    
+public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecificationExecutor<User> {
+
     @Override
     public Page<User> findAll(Specification spec,Pageable pageable);
-    
+
     @Override
-    public Page<User>findAll(Pageable pageable);
+    public Page<User> findAll(Pageable pageable);
 
     @Override
     public User save(User u);
-    
+
+    @Override
+    public User getById(Integer id);
+
+    public User findById(int id);
+
     @Modifying
     @Query("UPDATE User u SET u.enable = :status WHERE u.id = :userId")
-    public void updateUserStatus(@Param("userId") Integer userId, 
+    public void updateUserStatus(@Param("userId") Integer userId,
             @Param("status") Boolean status);
     
     @Modifying
     @Query("UPDATE User u SET u.role = :role WHERE id = :userId")
-    public void updateUserRole(@Param("userId") Integer userId, 
+    public void updateUserRole(@Param("userId") Integer userId,
             @Param("role") Role role);
+
+    @Query(value="select * from User where full_name like %?1%",
+            nativeQuery = true)
+    public Page<User>searchByName(Pageable pageable,String fullName);
+
+    @Query(value="select * from User where email like %?1%",
+            nativeQuery = true)
+    public Page<User>searchByEmail(Pageable pageable, String email);
+
+    @Query(value="select * from User where mobile like %?1%",
+            nativeQuery = true)
+    public Page<User>searchByPhoneNumber(Pageable pageable, String phone);
 }

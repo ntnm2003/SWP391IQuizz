@@ -4,10 +4,14 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.dto.SliderDTO;
+
+import java.util.List;
+
 /**
  *
  * @author Mosena
  */
 public interface ISliderService {
-    
+    List<SliderDTO> getAllSlidersForHomepage();
 }

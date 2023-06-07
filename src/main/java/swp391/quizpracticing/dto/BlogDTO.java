@@ -19,6 +19,8 @@ public class BlogDTO {
     private String thumbnail;
     private String briefInfo;
     private Date lastUpdated;
+    private String status;
+    private Boolean featuring;
     private List<CategoryDTO>categories;
     private UserDTO author;
 }
