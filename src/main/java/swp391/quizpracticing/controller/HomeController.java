@@ -18,7 +18,6 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-	@Autowired HttpSession session;
 	@Autowired
 	private ISliderService sliderService;
 
@@ -37,7 +36,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/home")
-	public String getToHomePage(Model model) {
+	public String getToHomePage(Model model, HttpSession session) {
 
 		//Get sliders
 		List<SliderDTO> sliders = sliderService.getAllSlidersForHomepage();
@@ -62,12 +61,12 @@ public class HomeController {
 		model.addAttribute("featuredSubjects", featuredSubjects);
 
 		model.addAttribute("userSession", session.getAttribute("user"));
-		System.out.println(session.getAttribute("user"));
+
 		return "homepage/homepage";
 	}
 
 	@GetMapping("/logout")
-	public String logout(@Autowired HttpSession session) {
+	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/home";
 	}

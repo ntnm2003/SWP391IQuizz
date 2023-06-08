@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.context.request.WebRequest;
 import swp391.quizpracticing.model.User;
 import swp391.quizpracticing.service.LoginService;
 
@@ -17,21 +16,26 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @GetMapping("/loginn")
-        public String signinPage(WebRequest request, Model model) {
+    @GetMapping("/login")
+    public String login(HttpSession session) {
+        if (session.getAttribute("user") != null) {
+            return "redirect:/home";
+        } else {
             return "common/login";
         }
+    }
 
-    @PostMapping("/loginn")
+    @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpSession session, Model model) {
         User account = loginService.login(user);
         if (account == null) {
             model.addAttribute("message", "Invalid password or email");
             return "common/login";
-        } else if(!account.getEnable()){
+        } else if(account.getEnable() == false){
             model.addAttribute("message", "Account is not verify!");
             return "common/login";
         } else {
+            session.setAttribute("user", account);
             return "redirect:/home";
         }
     }

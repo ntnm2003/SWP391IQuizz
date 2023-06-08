@@ -25,6 +25,8 @@ import java.util.Optional;
 @Repository
 public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecificationExecutor<User> {
 
+    @Override
+    public Page<User> findAll(Specification spec,Pageable pageable);
 
     @Override
     public Page<User> findAll(Pageable pageable);
@@ -50,6 +52,7 @@ public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecifi
     User findByEmail(String email);
     @Query(value = "select count(*) from user_roles where role_id in (select id from roles where `name` = ?1)", nativeQuery = true)
     int countUsersByRolesLike(String role);
+
 
     @Query(value="select * from User where full_name like %?1%",
             nativeQuery = true)
