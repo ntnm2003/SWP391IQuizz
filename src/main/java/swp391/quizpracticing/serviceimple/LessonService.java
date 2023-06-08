@@ -12,6 +12,9 @@ import swp391.quizpracticing.model.Lesson;
 import swp391.quizpracticing.repository.ILessonRepository;
 import swp391.quizpracticing.service.ILessonService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Mosena
@@ -32,6 +35,28 @@ public class LessonService implements ILessonService {
     public LessonDTO findById(int id) {
         Lesson lesson = iLessonRepository.findById(id);
         LessonDTO result = convertEntityToDTO(lesson);
+        return result;
+    }
+
+    @Override
+    public List<LessonDTO> findAllSimulationExamsBySubjectId(Integer id) {
+        List<Lesson> lessonsBySubjectId = iLessonRepository.findAllBySubjectId(id, 1);
+        List<LessonDTO> result = new ArrayList<>();
+        for(Lesson lesson : lessonsBySubjectId) {
+            LessonDTO lessonDTO = convertEntityToDTO(lesson);
+            result.add(lessonDTO);
+        }
+        return result;
+    }
+
+    @Override
+    public List<LessonDTO> searchByExamName(String examName) {
+        List<Lesson> foundLessons = iLessonRepository.findByNameContainingIgnoreCase(examName);
+        List<LessonDTO> result = new ArrayList<>();
+        for(Lesson lesson : foundLessons) {
+            LessonDTO lessonDTO = convertEntityToDTO(lesson);
+            result.add(lessonDTO);
+        }
         return result;
     }
 }
