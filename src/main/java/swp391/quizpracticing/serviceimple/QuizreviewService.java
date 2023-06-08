@@ -45,4 +45,18 @@ public class QuizreviewService implements IQuizreviewService {
 
         return results;
     }
+
+    @Override
+    public List<QuizreviewDTO> findByLessonId(Integer lessonId) {
+        List<Quizreview> findByLessonId = iQuizreviewRepository.findAllByLessonId(lessonId);
+        List<QuizreviewDTO> results = new ArrayList<>();
+
+        for(Quizreview quiz : findByLessonId) {
+            QuizreviewDTO quizreviewDTO = convertEntityToDTO(quiz);
+            results.add(quizreviewDTO);
+        }
+
+        return results;
+    }
+
 }

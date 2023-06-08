@@ -4,6 +4,7 @@
  */
 package swp391.quizpracticing.service;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import swp391.quizpracticing.dto.SettingsDTO;
 
@@ -12,10 +13,11 @@ import swp391.quizpracticing.dto.SettingsDTO;
  * @author Mosena
  */
 public interface ISettingsService {
-    public Page<SettingsDTO> getSettings(int pageNo, int pageSize, 
-            String type, Boolean status, String sortBy, String order);
-    public void addSetting(String type, Integer order, Object o);
-    public Page<SettingsDTO> searchSettings(int pageNo, int pageSize,
+    public void addSetting(String type,Integer order, String value,  String description);
+    public Page<SettingsDTO> getSettings(int pageNo, int pageSize,
             String type,Boolean status, 
             String sortBy, String order, String value);
+    public List<String> findTypes();
+    public SettingsDTO findById(Integer id);
+    public void updateSettings(Integer id, String value, Integer order, Boolean status, String description);
 }

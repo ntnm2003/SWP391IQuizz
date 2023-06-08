@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.CategoryDTO;
 import swp391.quizpracticing.model.Category;
+import swp391.quizpracticing.repository.ICategoryRepository;
+import swp391.quizpracticing.service.ICategoryService;
+
+import java.util.List;
+
 import swp391.quizpracticing.service.ICategoryService;
 
 /**
@@ -19,8 +24,15 @@ import swp391.quizpracticing.service.ICategoryService;
 public class CategoryService implements ICategoryService {
     @Autowired
     private ModelMapper modelMapper;
-    
+    @Autowired
+    private ICategoryRepository categoryRepository;
     private CategoryDTO convertEntityToDTO(Category entity){
         return modelMapper.map(entity,CategoryDTO.class);
     }
+
+    @Override
+    public List<Category> listAll() {
+        return categoryRepository.findAll();
+    }
+
 }
