@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import swp391.quizpracticing.model.User;
 
 import java.sql.Date;
 import java.util.List;
@@ -29,6 +30,10 @@ public class UserDTO {
     private SubjectDTO subject;
     private List<LessonDTO>lessons;
     private List<QuizreviewDTO>quizReviews;
+    public void entityToDTO(User user) {
+        this.id = user.getId();
+        this.fullName = user.getFullName();
+    }
 }
 
 

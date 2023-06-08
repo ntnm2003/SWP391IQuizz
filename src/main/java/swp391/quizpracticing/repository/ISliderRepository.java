@@ -26,6 +26,13 @@ public interface ISliderRepository extends JpaRepository<Slider,Integer> {
 //    List<Posts> findByUpdatedDate(int limit);
 
     List<Slider> findByTitleContainingIgnoreCase(String searchTerm);
+    @Override
+    List<Slider> findAll();
 
+    @Override
+    Slider getById(Integer integer);
+
+    @Override
+    List<Slider> findAllById(Iterable<Integer> integers);
 
 }

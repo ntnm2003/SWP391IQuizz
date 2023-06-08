@@ -1,12 +1,14 @@
 package swp391.quizpracticing.dto;
 
 
-import java.sql.Date;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import swp391.quizpracticing.model.Blog;
+
+import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +23,21 @@ public class BlogDTO {
     private Date lastUpdated;
     private List<CategoryDTO>categories;
     private UserDTO author;
+    private Boolean status;
+
+    public void blogHomePage(Blog blog) {
+        this.id = blog.getId();
+        this.title = blog.getTitle();
+        this.content = blog.getContent();
+        this.thumbnail = blog.getThumbnail();
+        this.briefInfo = blog.getBriefInfo();
+        this.lastUpdated = blog.getLastUpdated();
+//        BlogcategoryDTO blogCategoryDTO = new BlogcategoryDTO();
+//        blogCategoryDTO.entityToDTO((Blogcategory) blog.getCategories());
+//        this.categories = (List<CategoryDTO>) blogCategoryDTO;
+        UserDTO userDTO = new UserDTO();
+        userDTO.entityToDTO(blog.getAuthor());
+        this.author = userDTO;
+        this.status = blog.getStatus();
+    }
 }

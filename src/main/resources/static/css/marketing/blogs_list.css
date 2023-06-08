@@ -151,7 +151,7 @@ body {
 }
 
 /* ============== SLIDERS LIST ===========*/
-.slider_edit {
+.blog_list {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -163,7 +163,7 @@ body {
     overflow: hidden;
     margin-top: 2rem;
 }
-.slider_edit h1 {
+.blog_list h1 {
     color: #1368ce;
     font-weight: 1000;
 }
@@ -251,13 +251,6 @@ body {
 .copyrightText {
     width: 100%;
     padding: 8px 40px;
-}
-.contact-form .form-control {
-    margin-top: 12px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    width: 100%;
-    outline: 1px solid blue;
 }
 
 

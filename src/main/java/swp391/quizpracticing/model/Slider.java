@@ -32,4 +32,5 @@ public class Slider {
 
     @Column(name = "status")
     private Boolean status;
+
 }
