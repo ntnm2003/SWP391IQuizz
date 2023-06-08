@@ -14,6 +14,8 @@ import swp391.quizpracticing.service.ICategoryService;
 
 import java.util.List;
 
+import swp391.quizpracticing.service.ICategoryService;
+
 /**
  *
  * @author Mosena
@@ -32,4 +34,5 @@ public class CategoryService implements ICategoryService {
     public List<Category> listAll() {
         return categoryRepository.findAll();
     }
+
 }

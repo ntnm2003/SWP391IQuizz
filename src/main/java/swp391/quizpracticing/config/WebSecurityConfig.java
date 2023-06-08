@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,11 +33,11 @@ public class WebSecurityConfig {
         private IUserService userService;
 
 
-//        public WebSecurityConfig(@Lazy IUserService userService, @Lazy SimpleAuthenticationSuccessHandler successHandler) {
-//            super();
-//            this.successHandler = successHandler;
-//            this.userService = userService;
-//        }
+        public WebSecurityConfig(@Lazy IUserService userService, @Lazy SimpleAuthenticationSuccessHandler successHandler) {
+            super();
+            this.successHandler = successHandler;
+            this.userService = userService;
+        }
 
         @Bean
         public BCryptPasswordEncoder passwordEncoder() {
@@ -63,7 +64,7 @@ public class WebSecurityConfig {
                 )
                 .formLogin(
                         login -> login
-                                .defaultSuccessUrl("/home").successHandler(successHandler)
+                                .defaultSuccessUrl("/home")
                 )
                 .build();
     }
