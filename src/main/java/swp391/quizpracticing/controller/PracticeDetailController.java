@@ -17,4 +17,9 @@ public class PracticeDetailController {
         model.addAttribute("id", id);
         return "practice_detail/practice_detail";
     }
+
+    @GetMapping("/new-practice-detail")
+    public String getToNewPracticeDetail() {
+        return "practice_detail/practice_detail";
+    }
 }
