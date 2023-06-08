@@ -7,13 +7,13 @@ package swp391.quizpracticing.controller;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Session;
 import org.springframework.data.domain.Page;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -53,7 +53,7 @@ public class AdminController {
     private JavaMailSenderImpl mailSender;
     
     @GetMapping("/user-list")
-    public String searchUser(Session session,
+    public String searchUser(HttpSession session,
             Model model,
             @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(name="searchValue", required = false) String searchValue,
@@ -74,16 +74,18 @@ public class AdminController {
             model.addAttribute("msg", "Not found");
             return "admin/error";
         }
+        UserDTO user = userService.findUser(10);
+        session.setAttribute("user", user);
         model.addAttribute("roles", roles);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages",totalPages);
         model.addAttribute("users", users);
-        model.addAttribute("session", session);
+        model.addAttribute("userSession", session.getAttribute("user"));
         return "admin/userlist";
     }
     
     @GetMapping("/settings")
-    public String searchSetting(Session session,
+    public String searchSetting(HttpSession session,
             Model model,
             @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(name="value", required = false) String value,
@@ -101,40 +103,52 @@ public class AdminController {
             model.addAttribute("msg", "Not found");
             return "admin/error";
         }
+        UserDTO user = userService.findUser(10);
+        session.setAttribute("user", user);
         model.addAttribute("types", types);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages",totalPages);
         model.addAttribute("settings", settings);
-        model.addAttribute("session", session);
+        model.addAttribute("userSession", session.getAttribute("user"));
         return "admin/settings";
     }
     
     @GetMapping("/user-detail")
-    public String getUser(@RequestParam("userId") Integer userId, Model model){
+    public String getUser(HttpSession session, @RequestParam("userId") Integer userId, Model model){
         UserDTO u=userService.findUser(userId);
         List<RoleDTO> roles=roleService.findRoles();
+        UserDTO user = userService.findUser(10);
+        session.setAttribute("user", user);
+        model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("roles", roles);
         model.addAttribute("user", u);
         return "/admin/userdetail";
     }
     @GetMapping("/setting-detail")
-    public String getSetting(@RequestParam("settingId") Integer settingId, Model model){
+    public String getSetting(HttpSession session,@RequestParam("settingId") Integer settingId, Model model){
         SettingsDTO s=settingsService.findById(settingId);
         List<String> types=settingsService.findTypes();
+        UserDTO user = userService.findUser(10);
+        session.setAttribute("user", user);
+        model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("types", types);
         model.addAttribute("setting",s);
         return "/admin/settingdetail";
     }
     @PostMapping("/user-detail/change")
-    public String updateUser(@RequestParam("id") Integer id, 
+    public String updateUser(HttpSession session,@RequestParam("id") Integer id, 
             @RequestParam("role") Integer roleId,
-            @RequestParam("status") Boolean status){
+            @RequestParam("status") Boolean status,
+            Model model){
+        UserDTO user = userService.findUser(10);
+        session.setAttribute("user", user);
+        model.addAttribute("userSession", session.getAttribute("user"));
         userService.updateUser(id, roleId, status);
         return "redirect:/admin/user-detail?userId="+id;
     }
     
     @PostMapping("/add-user")
-    public String addUser(@RequestParam("fullName") String fullName,
+    public String addUser(HttpSession session,@RequestParam("fullName") String fullName,
             @RequestParam("role") Integer roleId,
             @RequestParam("email") String email,
             HttpServletRequest request, Model model){
@@ -147,6 +161,9 @@ public class AdminController {
         String randomCode = RandomString.make(64);
         String randomPass=RandomString.make(12);
         RoleDTO r=roleService.fileRole(roleId);
+        UserDTO user = userService.findUser(10);
+        session.setAttribute("user", user);
+        model.addAttribute("userSession", session.getAttribute("user"));
         u.setToken(randomCode);
         u.setRole(r);
         u.setFullName(fullName);
@@ -159,21 +176,29 @@ public class AdminController {
         return "redirect:/admin/user-list";
     }
     @PostMapping("/setting-detail/change")
-    public String updateSetting(@RequestParam("id") Integer id, 
+    public String updateSetting(HttpSession session, Model model,@RequestParam("id") Integer id, 
             @RequestParam("value") String value,
             @RequestParam("order") Integer order,
             @RequestParam("description") String description,
             @RequestParam("status") Boolean status){
+        UserDTO user = userService.findUser(10);
+        session.setAttribute("user", user);
+        model.addAttribute("userSession", session.getAttribute("user"));
         settingsService.updateSettings(id, value, order, status, description);
         return "redirect:/admin/setting-detail?settingId="+id;
     }
     
     @PostMapping("/add-setting")
     public String addSetting(
+            HttpSession session,
+            Model model,
             @RequestParam("type") String type,
             @RequestParam("value") String value,
             @RequestParam("order") Integer order,
             @RequestParam("description") String description){
+        UserDTO user = userService.findUser(10);
+        session.setAttribute("user", user);
+        model.addAttribute("userSession", session.getAttribute("user"));
         settingsService.addSetting(type, order, value, description);
         return "redirect:/admin/settings";
     }
