@@ -5,16 +5,23 @@
 package swp391.quizpracticing.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.QuizreviewQuestion;
 import swp391.quizpracticing.model.QuizreviewQuestionKey;
+
+import java.util.List;
 
 /**
  *
  * @author Mosena
  */
 @Repository
-public interface IQuizreviewQuestionRepository 
-        extends JpaRepository<QuizreviewQuestion,QuizreviewQuestionKey> {
-    
+public interface IQuizreviewQuestionRepository extends JpaRepository<QuizreviewQuestion,QuizreviewQuestionKey> {
+
+    @Query(value = "select * from iquiz.quizreview_question where quizreview_id = :quizreview_id", nativeQuery = true)
+    public List<QuizreviewQuestion> getAllByQuizreviewId(@Param("quizreview_id") Integer quizreviewId);
+
+
 }

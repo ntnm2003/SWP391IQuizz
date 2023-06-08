@@ -4,10 +4,13 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.dto.LessonDTO;
+
 /**
  *
  * @author Mosena
  */
 public interface ILessonService {
-    
+
+    public LessonDTO findById(int id);
 }

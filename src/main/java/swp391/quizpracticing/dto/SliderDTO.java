@@ -14,5 +14,6 @@ public class SliderDTO {
     private String title;
     private String image;
     private String backLink;
-    private Boolean status;
+    private String status;
+    private Boolean visibility;
 }
