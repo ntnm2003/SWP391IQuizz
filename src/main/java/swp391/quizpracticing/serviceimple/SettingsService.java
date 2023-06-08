@@ -4,10 +4,8 @@
  */
 package swp391.quizpracticing.serviceimple;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,6 +46,7 @@ import swp391.quizpracticing.service.ISettingsService;
  * @author Mosena
  */
 @Service
+@Transactional
 public class SettingsService implements ISettingsService {
     
     @Autowired
@@ -89,47 +88,12 @@ public class SettingsService implements ISettingsService {
         return modelMapper.map(entity,SettingsDTO.class);
     }
 
-    @Override
-    public Page<SettingsDTO> getSettings(int pageNo, int pageSize, 
-            String type, Boolean status, String sortBy,String order) {
-        Pageable page;
-        if(order.equals("asc")){
-            page = PageRequest.of(pageNo - 1, pageSize, 
-                    Sort.by(sortBy).ascending());
-        }
-        else{
-            page = PageRequest.of(pageNo - 1, pageSize, 
-                    Sort.by(sortBy).descending());
-        }
-        Specification<Settings> specification=(root,query,criteriaBuilder)->{
-            List<Predicate>predicates=new ArrayList<>();
-            if(type!=null){
-                predicates.add(criteriaBuilder
-                        .equal(root.get("type"), type));
-            }
-            if(status!=null){
-                predicates.add(criteriaBuilder
-                        .equal(root.get("status"),status));
-            }
-            return criteriaBuilder.and(predicates
-                    .toArray(Predicate[]::new));
-        };
-        Page<Settings>pageList=settingsRepository.findAll(specification, 
-                page);
-        List<SettingsDTO>list=pageList
-                .stream()
-                .map(this::convertEntityToDTO)
-                .collect(Collectors.toList());
-        return new PageImpl<>(list,page,
-                pageList.getTotalElements());
-    }
     
     @Override
-    public Page<SettingsDTO> searchSettings(int pageNo, int pageSize, 
+    public Page<SettingsDTO> getSettings(int pageNo, int pageSize, 
             String type, Boolean status, String sortBy,String order, 
             String value) {
         Pageable page;
-        String searchPattern="%"+value+"%";
         if(order.equals("asc")){
             page = PageRequest.of(pageNo - 1, pageSize, 
                     Sort.by(sortBy).ascending());
@@ -148,8 +112,11 @@ public class SettingsService implements ISettingsService {
                 predicates.add(criteriaBuilder
                         .equal(root.get("status"),status));
             }
-            criteriaBuilder.like(root.get("value")
-                    ,searchPattern);
+            if(value!=null){
+                String searchPattern="%"+value+"%";
+                predicates.add(criteriaBuilder.like(root.get("value")
+                        ,searchPattern));
+            }
             return criteriaBuilder.and(predicates
                     .toArray(Predicate[]::new));
         };
@@ -164,69 +131,64 @@ public class SettingsService implements ISettingsService {
     }
     
     @Override
-    public void addSetting(String type, Integer order, Object o) {
+    public void addSetting(String type, Integer order, String value, 
+                                        String description) {
         Settings s=new Settings();
         s.setType(type);
         s.setOrder(order);
+        s.setDescription(description);
         switch(type){
             case "User Roles" ->{
-                Role r=(Role)o;
+                Role r=addRole(value);
                 s.setRole(r);
                 s.setValue(r.getName());
                 s.setStatus(r.getStatus());
                 break;
             }
             case "System Settings" ->{
-                Systemsettings ss=(Systemsettings)o;
+                Systemsettings ss=addSystemsetting(value);
                 s.setSystemSetting(ss);
                 s.setValue(ss.getName());
                 s.setStatus(ss.getStatus());
                 break;
             }
             case "Post Categories" ->{
-                Blogcategory bc=(Blogcategory)o;
+                Blogcategory bc=addBlogCategory(value);
                 s.setBlogcategory(bc);
                 s.setValue(bc.getName());
                 s.setStatus(bc.getStatus());
                 break;
             }
             case "Subject Categories" ->{
-                Category category = (Category)o;
+                Category category = addSubjectCategory(value);
                 s.setCategory(category);
                 s.setValue(category.getName());
                 s.setStatus(category.getStatus());
                 break;
             }
-            case "Subject Subcategories"->{
-                Subcategory sc=(Subcategory)o;
-                s.setSubcategory(sc);
-                s.setValue(sc.getName());
-                s.setStatus(sc.getStatus());
-                break;
-            }
             case "Test Types" ->{
-                Testtype tt=(Testtype)o;
+                Testtype tt=addTestType(value);
                 s.setTestType(tt);
                 s.setValue(tt.getName());
                 s.setStatus(tt.getStatus());
                 break;
             }
             case "Question Levels" ->{
-                Level level=(Level)o;
+                Level level=addLevel(value);
                 s.setLevel(level);
                 s.setValue(level.getName());
                 s.setStatus(level.getStatus());
                 break;
             }
             case "Lesson Types" ->{
-                Lessontype lt=(Lessontype)o;
+                Lessontype lt=addLessonType(value);
                 s.setLessonType(lt);
                 s.setValue(lt.getName());
                 s.setStatus(lt.getStatus());
                 break;
             }
             case "Subject Dimension" ->{
-                Dimension d=(Dimension)o;
+                Dimension d=addDimension(value, type, description);
                 s.setDimension(d);
                 s.setValue(d.getType());
                 s.setStatus(d.getStatus());
@@ -302,5 +264,22 @@ public class SettingsService implements ISettingsService {
         dimension.setDescription(description);
         dimension.setStatus(true);
         return dimensionRepository.save(dimension);
+    }
+
+    @Override
+    public List<String> findTypes() {
+        return settingsRepository.findAllType();
+    }
+
+    @Override
+    public SettingsDTO findById(Integer id) {
+        return convertEntityToDTO(settingsRepository.getReferenceById(id));
+    }
+
+    @Override
+    public void updateSettings(Integer id, String value, Integer order,
+            Boolean status, String description) {
+        System.out.println(settingsRepository
+                .settingsUpdate(id, value,order, status, description));
     }
 }
