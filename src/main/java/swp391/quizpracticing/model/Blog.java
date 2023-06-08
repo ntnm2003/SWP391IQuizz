@@ -1,6 +1,5 @@
 package swp391.quizpracticing.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +35,9 @@ public class Blog {
     @Column(name = "last_updated")
     private Date lastUpdated;
 
+    @Column(name = "status")
+    private Boolean status;
+
     @ManyToMany
     @JoinTable(name="blog_category",
             joinColumns=@JoinColumn(name="blog_id"),
@@ -45,4 +47,20 @@ public class Blog {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",referencedColumnName = "id")
     private User author;
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+//    public List<Blogcategory> getCategories() {
+//        return categories;
+//    }
+//
+//    public void setCategories(List<Blogcategory> categories) {
+//        this.categories = categories;
+//    }
 }

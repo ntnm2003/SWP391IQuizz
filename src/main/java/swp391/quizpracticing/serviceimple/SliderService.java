@@ -33,12 +33,12 @@ public class SliderService implements ISliderService {
 //    }
 
     @Autowired
-    private ISliderRepository iSliderRepository;
+    private ISliderRepository sliderRepository;
 
     @Override
         public List<SliderDTO> getAllSlider() {
         List<SliderDTO> results = new ArrayList<>();
-        List<Slider> sliders = iSliderRepository.findAll();
+        List<Slider> sliders = sliderRepository.findAll();
         for(Slider slider : sliders) {
             SliderDTO sliderDTO = new SliderDTO();
             sliderDTO.sliderHomePage(slider);
@@ -62,15 +62,15 @@ public class SliderService implements ISliderService {
     @Override
     public Page<Slider> getAllSlidersWithPagination(int pageNo) {
 //		Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<Slider> sliders = iSliderRepository.findAll(PageRequest.of(pageNo, POSTS_PER_PAGE));
+        Page<Slider> sliders = sliderRepository.findAll(PageRequest.of(pageNo, POSTS_PER_PAGE));
 
         return sliders;
     }
 
     @Override
-    public List<SliderDTO> searchByTitle(String searchTerm) {
+    public List<SliderDTO> searchSliderByTitle(String searchTerm) {
         List<SliderDTO> results = new ArrayList<>();
-        List<Slider> searchedSlider = iSliderRepository.findByTitleContainingIgnoreCase(searchTerm);
+        List<Slider> searchedSlider = sliderRepository.findByTitleContainingIgnoreCase(searchTerm);
         for(Slider slider : searchedSlider) {
             SliderDTO sliderDTO = new SliderDTO();
             sliderDTO.sliderHomePage(slider);
@@ -91,4 +91,9 @@ public class SliderService implements ISliderService {
 //
 //        return results;
 //    }
+    @Override
+    public Slider getSliderById(Integer id) {
+        return sliderRepository.findById(id).get();
+    }
+
 }

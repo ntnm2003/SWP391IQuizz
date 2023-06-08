@@ -45,3 +45,10 @@ textarea {
     font-size: inherit;
     line-height: inherit;
 }
+.contact-form .form-control {
+    margin-top: 12px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    outline: 1px solid blue;
+}

@@ -16,12 +16,13 @@ import java.util.List;
 public interface ISliderService {
     List<SliderDTO> getAllSlider();
 
-    List<SliderDTO> searchByTitle(String searchTerm);
+    List<SliderDTO> searchSliderByTitle(String searchTerm);
 
  //   List<SliderDTO> getFeaturedSlider(boolean isFeatured);
 
     Page<Slider> getAllSlidersWithPagination(int pageNo);
 
 //    List<PostsDTO> getFilteredPosts(List<PostCategory> categories);
+    Slider getSliderById(Integer id);
 
 }
