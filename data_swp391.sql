@@ -1,3 +1,5 @@
+-- drop database iquiz;
+-- create database iquiz;
 
 use iquiz;
 
@@ -19,20 +21,18 @@ VALUES
 `back_link`,
 `status`)
 VALUES
-('Become a Full Stack Software Engineer with The Hottest Technologies Right Now', 'slider1-2.png', '/subjects/subject-detail?id=5', 1),
-('Anyone can get 6.5 IELTS!', 'slider2.png', '/subjects/subject-detail?id=3',  1),
-('First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2',  1),
-('Engineering Practices for Building Quality Software', 'slider4.png', '/subjects/subject-detail?id=6',  1);
+('Become a Full Stack Software Engineer with The Hottest Technologies Right Now', 'slider1.png', '/subjects/subject-detail?id=5', 1),
+('Anyone can get 6.5 IELTS!', 'slider2.png', '/subjects/subject-detail?id=3', 1),
+('First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2', 1);
+
 INSERT INTO `iquiz`.`lessontype`
-(
-`name`,
+(`name`,
 `status`)
 VALUES
 ('quiz', 1),
-('lession',1);
+('lession', 1);
 
 INSERT INTO `iquiz`.`dimension`
-
 (
 `description`,
 `name`,
@@ -57,19 +57,19 @@ INSERT INTO `iquiz`.`user`
 `enable`,`avatar`, `last_update_date`, `token` )
 VALUES
 ('Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', 'deptrai', 1,1, 'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Nguyen Van A', 'duongmai.hoamkt76@gmail.com', 1, '012345678', 'ahaha', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
-('Nguyen Thi B', 'dungnpn28@gmail.com', 1, '0987654321', 'bebebe', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
-('Mr. Expert1', 'quannahe176660@gmail.com', 0, '068686868', 'hocgioi', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
-('Mr. Expert2', 'maintnhe176347@gmail.com', 0, '0973600757', 'xinhgai', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
-('Mr. Expert3', 'expert3@gmail.com', 0, '0978779519', 'numberone', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
-('Lung Thi Linh', 'lunglinh2003@gmail.com', 0, '0982712755', 'yeudoi', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
-('Mr.Expert4', 'ntnm222003@gmail.com', 0, '0978779519', 'numberone', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
-('Khanh Ly', 'ntnm2003@gmail.com', 1, '0978279519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
-('Phuong Anh', 'jsclub.bannd@gmail.com', 1, '0978379519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
-('Hoang Ha', 'iamntnm@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Nguyen Van A', 'duongmai.hoamkt76@gmail.com', 1, '012345678', 'ahaha', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Nguyen Thi B', 'dungnpn28@gmail.com', 1, '0987654321', 'bebebe', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Mr. Expert1', 'quannahe176660@gmail.com', 0, '068686868', 'hocgioi', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Mr. Expert2', 'maintnhe176347@gmail.com', 0, '0973600757', 'xinhgai', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Mr. Expert3', 'expert3@gmail.com', 0, '0978779519', 'numberone', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Lung Thi Linh', 'lunglinh2003@gmail.com', 0, '0982712755', 'yeudoi', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Mr.Expert4', 'ntnm222003@gmail.com', 0, '0978779519', 'numberone', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Khanh Ly', 'ntnm2003@gmail.com', 1, '0978279519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Phuong Anh', 'jsclub.bannd@gmail.com', 1, '0978379519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Hoang Ha', 'iamntnm@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Mai Linh', 'laitrang143@gmail.com', 1, '0868459509', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Anh Hong', 'lopchungminh@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
-('Tran Thi Anh', 'maiaiai@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''); 
+('Anh Hong', 'lopchungminh@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Tran Thi Anh', 'maiaiai@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02','');
 
 INSERT INTO `iquiz`.`subject`
 (
@@ -98,7 +98,7 @@ VALUES
   ('Web Development with Frameworks', 'Learn how to build web applications using popular frameworks such as React, Angular, and Vue.', 'https://example.com/thumbnails/frameworks.jpg', 'Web Development with Frameworks','2023-03-20',  1, 5, 6),
   ('Mobile App Development', 'Learn how to develop mobile apps for iOS and Android platforms using native languages or cross-platform tools.', 'https://example.com/thumbnails/mobile_dev.jpg', 'Mobile App Development', '2023-02-20',  1, 5, 6),
   ('Cybersecurity Basics', 'An introduction to cybersecurity principles, including risk assessment, threat modeling, and defense strategies.', 'https://example.com/thumbnails/cybersecurity.jpg', 'Cybersecurity', '2023-04-02',  1, 6, 7),
-('An introduction to Algebra', 'This subject covers the basics of algebraic equations and their solutions.', 'https://example.com/thumbnails/algebra.jpg', 'Algebra', '2023-04-02',  1, 5, 8),
+  ('An introduction to Algebra', 'This subject covers the basics of algebraic equations and their solutions.', 'https://example.com/thumbnails/algebra.jpg', 'Algebra', '2023-04-02',  1, 5, 8),
   ('Introduction to Geometry', 'This subject covers the basics of geometric shapes, angles, and measurements.', 'https://example.com/thumbnails/geometry.jpg', 'Geometry', '2023-03-20',  1, 5, 6),
   ('Trigonometry for Beginners', 'This subject covers the basics of trigonometric functions and their applications in real life.', 'https://example.com/thumbnails/trigonometry.jpg', 'Trigonometry','2023-03-02',  1, 4, 6),
   ('World War II History', 'A comprehensive study of World War II, including key events, causes, and consequences.', 'https://example.com/thumbnails/ww2.jpg', 'World War II', '2023-05-02',  1, 4, 5),
@@ -118,6 +118,39 @@ VALUES
   ('Geometry in Three Dimensions', 'An introduction to three-dimensional geometry, including vectors, planes, and surfaces.', 'https://example.com/thumbnails/3d_geometry.jpg', 'Three-Dimensional Geometry', '2023-04-02',  1, 4, 8),
   ('Trigonometry in Real Life Applications', 'Learn how trigonometric functions are used in practical applications such as navigation, engineering, and physics.', 'https://example.com/thumbnails/trig_applications.jpg', 'Trigonometry Applications', '2023-02-22',  1, 6, 6);
 
+update iquiz.subject
+set featured = 1 where id=1;
+update iquiz.subject
+set featured = 1 where id=2;
+update iquiz.subject
+set featured = 1 where id=3;
+update iquiz.subject
+set featured = 1 where id=4;
+
+update iquiz.subject
+set thumbnail = 'subject1_img.png' where id=1;
+update iquiz.subject
+set thumbnail = 'subject2_img.png' where id=2;
+update iquiz.subject
+set thumbnail = 'subject3_img.png' where id=3;
+update iquiz.subject
+set thumbnail = 'subject6_img.png' where id=4;
+
+update iquiz.subject
+set brief_info = 'Chemistry Fundamentals'
+where id = 8;
+
+update iquiz.subject
+set brief_info = 'Exploring the Human Mind'
+where id = 13;
+
+update iquiz.subject
+set brief_info = 'Understanding Environmental Biology'
+where id = 15;
+
+update iquiz.subject
+set brief_info = 'Mastering Communication Skills'
+where id = 17;
 
 INSERT INTO `iquiz`.`pricepackage`
 (
@@ -245,7 +278,7 @@ INSERT INTO `iquiz`.`level`
 `name`,
 `status`)
 VALUES
-('easy', 1), 
+('easy', 1),
 ('medium', 1),
 ('difficult', 1),
 ('challenging', 1);
@@ -326,10 +359,8 @@ INSERT INTO `iquiz`.`testtype`
 `name`,
 `status`)
 VALUES
-(
-'Simulation Tests', 1),
-(
-'Lesson-Quiz Tests', 1);
+('Simulation Tests', 1),
+('Lesson-Quiz Tests', 1);
 
 
 INSERT INTO `iquiz`.`lesson`
@@ -337,7 +368,6 @@ INSERT INTO `iquiz`.`lesson`
 `duration`,`pass_rate`,
 `question_number`,
 `test_type_id`,`level_id`,
-
 `video_link`
 )
 VALUES
@@ -432,14 +462,16 @@ VALUES
 (1, 36, 3, 'Climate Change Quiz', 2, 1, '', 8, '', '01:30:00', 0.8, 35, 1, 4, ''),
 (1, 37, 3, 'Intro to Linguistics Quiz', 1, 1, '', 6, '', '00:45:00', 0.6, 15, 1, 2, ''),
 (1, 37, 3, 'Semantics and Pragmatics Quiz', 2, 1, '', 6, '', '01:15:00', 0.7, 25, 1, 3, '');
+
+update iquiz.lesson
+set question_number = 10 where id = 1;
+
 INSERT INTO `iquiz`.`registrationstatus`
 (
 `name`)
 VALUES
 ('active'),
-(
-'inactive')
-;
+('inactive');
 
 
 INSERT INTO `iquiz`.`user_subject`
@@ -688,64 +720,78 @@ VALUES
 (4, '2023-06-06', '00:06:03' , 1, 10),
 (5, '2023-06-06', '00:06:03' , 1, 9);
 
+update iquiz.quizreview
+set user_id = 10 where id=5;
+
+update iquiz.quizreview
+set user_id = 9 where id=2;
+
+update iquiz.quizreview
+set user_id = 10 where id=1;
+
+update iquiz.quizreview
+set user_id = 9 where id=5;
+
 INSERT INTO `iquiz`.`quizreview_question`
 (`bookmark`,
 `status`,
 `user_answer`,
 `quizreview_id`,
-`question_id`)
+`question_id`, 
+`is_correct`)
 VALUES
-(0, 1, '6', 5, 1),
-(1, 1, '12x^2 - 10x + 2', 5, 2),
-(0, 1,'x^2 + x + C' , 5, 3),
-(1, 1, '6x' , 5, 4),
-(1, 1,'3' , 5, 5),
-(0, 1, 'x = -1, x = 1/2', 5, 6),
-(1, 1,'-sin(x)' , 5, 7),
-(0, 1, '(2x)/(x^2 + 1)' , 5, 8),
-(0, 1, 'e^x + C', 5, 9),
-(0, 1, '-1/6', 5, 10),
-(0, 1,'Income Statement' , 1, 11),
-(0, 1, 'To show a companys assets, liabilities, and equity at a specific point in time', 1, 12),
-(0, 1, 'Cash Flow Statement', 1, 13),
-(0, 1, 'Assets - Liabilities = Net Income' , 1, 14),
-(1, 1, 'Income Statement' , 1, 15),
-(0, 1, 'Total Revenue - Cost of Goods Sold', 1, 16),
-(0, 1, 'Cash Flow Statement', 1, 17),
-(0, 1, 'Total Revenue - Cost of Goods Sold', 1, 18),
-(1, 1,'Income Statement' , 1, 19),
-(0, 1, 'Current Assets / Current Liabilities' , 1, 20),
-(1, 1, 'Balance Sheet', 1, 21),
-(0, 1, 'Net Income / Total Equity', 1, 22),
-(0, 1, 'Cash Flow Statement', 1, 23),
-(1, 1,'Total Liabilities / Total Equity' , 1, 24),
-(0, 1, 'Retained Earnings Statement', 1, 25),
-(0, 1, '6', 4, 1),
-(1, 1, '12x^2 - 10x + 2', 4, 2),
-(0, 1,'x^2 + x + C' , 4, 3),
-(1, 1, '6x' , 4, 4),
-(0, 1,'3' , 4, 5),
-(0, 1, 'x = -1, x = 1/2', 4, 6),
-(1, 1,'-sin(x)' , 4, 7),
-(0, 1, '(2x)/(x^2 + 1)' , 4, 8),
-(1, 1, 'e^x + C', 4, 9),
-(0, 1, '-1/6', 4, 10),
-(0, 1,'Income Statement' , 4, 11),
-(0, 1, 'To show a companys assets, liabilities, and equity at a specific point in time', 4, 12),
-(0, 1, 'Cash Flow Statement', 4, 13),
-(0, 1, 'Assets - Liabilities = Net Income' , 4, 14),
-(1, 1, 'Income Statement' , 4, 15),
-(0, 1, 'Total Revenue - Cost of Goods Sold', 4, 16),
-(0, 1, 'Cash Flow Statement', 4, 17),
-(0, 1, 'Total Revenue - Cost of Goods Sold', 4, 18),
-(1, 1,'Income Statement' , 4, 19),
-(0, 1, 'Current Assets / Current Liabilities' , 4, 20),
-(1, 1, 'Balance Sheet', 4, 21),
-(0, 1, 'Net Income / Total Equity', 4, 22),
-(0, 1, 'Cash Flow Statement', 4, 23),
-(1, 1,'Total Liabilities / Total Equity' , 4, 24),
-(0, 1, 'Retained Earnings Statement', 4, 25);
+(0, 1, '6', 5, 1, 1),
+(1, 1, '12x^2 - 10x + 2', 5, 2, 1),
+(0, 1,'x^2 + x + C' , 5, 3, 0),
+(1, 1, '6x' , 5, 4, 0),
+(1, 1, '3', 5, 5, 1),
+(0, 1, 'x = -1, x = 1/2', 5, 6, 1),
+(1, 1,'-sin(x)' , 5, 7, 0),
+(0, 1, '(2x)/(x^2 + 1)' , 5, 8, 1),
+(0, 1, 'e^x + C', 5, 9, 1),
+(0, 1, '-1/6', 5, 10, 1),
+(0, 1,'Income Statement' , 1, 11, 1),
+(0, 1, 'To show a companys assets, liabilities, and equity at a specific point in time', 1, 12, 1),
+(0, 1, 'Cash Flow Statement', 1, 13, 1),
+(0, 1, 'Assets - Liabilities = Net Income' , 1, 14, 0),
+(1, 1, 'Income Statement' , 1, 15, 0),
+(0, 1, 'Total Revenue - Cost of Goods Sold', 1, 16, 1),
+(0, 1, 'Cash Flow Statement', 1, 17, 1),
+(0, 1, 'Total Revenue - Cost of Goods Sold', 1, 18, 1),
+(1, 1,'Income Statement' , 1, 19, 1),
+(0, 1, 'Current Assets / Current Liabilities' , 1, 20, 1),
+(1, 1, 'Balance Sheet', 1, 21, 1),
+(0, 1, 'Net Income / Total Equity', 1, 22, 0),
+(0, 1, 'Cash Flow Statement', 1, 23, 1),
+(1, 1,'Total Liabilities / Total Equity' , 1, 24, 1),
+(0, 1, 'Retained Earnings Statement', 1, 25, 1),
+(0, 1, '6', 4, 1, 1),
+(1, 1, '12x^2 - 10x + 2', 4, 2, 1),
+(0, 1,'x^2 + x + C' , 4, 3, 0),
+(1, 1, '6x' , 4, 4, 0),
+(0, 1,'3' , 4, 5, 1),
+(0, 1, 'x = -1, x = 1/2', 4, 6, 1),
+(1, 1,'-sin(x)' , 4, 7, 0),
+(0, 1, '(2x)/(x^2 + 1)' , 4, 8, 1),
+(1, 1, 'e^x + C', 4, 9, 1),
+(0, 1, '-1/6', 4, 10, 1);
+-- (0, 1,'Income Statement' , 4, 11, 1),
+-- (0, 1, 'To show a companys assets, liabilities, and equity at a specific point in time', 4, 12, 1),
+-- (0, 1, 'Cash Flow Statement', 4, 13, 1),
+-- (0, 1, 'Assets - Liabilities = Net Income' , 4, 14, 0),
+-- (1, 1, 'Income Statement' , 4, 15, 0),
+-- (0, 1, 'Total Revenue - Cost of Goods Sold', 4, 16, 1),
+-- (0, 1, 'Cash Flow Statement', 4, 17, 1),
+-- (0, 1, 'Total Revenue - Cost of Goods Sold', 4, 18, 1),
+-- (1, 1, 'Income Statement' , 4, 19, 1),
+-- (0, 1, 'Current Assets / Current Liabilities' , 4, 20, 1),
+-- (1, 1, 'Balance Sheet', 4, 21, 1),
+-- (0, 1, 'Net Income / Total Equity', 4, 22, 0),
+-- (0, 1, 'Cash Flow Statement', 4, 23, 1),
+-- (1, 1,'Total Liabilities / Total Equity' , 4, 24, 1),
+-- (0, 1, 'Retained Earnings Statement', 4, 25, 1);
 
+-- drop table iquiz.quizreview_question;
 
 INSERT INTO `iquiz`.`blogcategory`
 (`name`, `status`)
@@ -755,11 +801,12 @@ VALUES
 ('Food', false);
 
 INSERT INTO `iquiz`.`blog`
-(`brief_info`, `content`, `last_updated`, `status`, `thumbnail`, `title`, `user_id`)
+(`brief_info`, `content`, `last_updated`, `thumbnail`, `title`, `user_id`)
 VALUES
-('Brief info about technology', 'Content about technology', '2023-06-05', 'active', 'https://example.com/technology-thumbnail.jpg', 'Technology Blog', 1),
-('Brief info about travel', 'Content about travel', '2023-06-05', 'active','https://example.com/travel-thumbnail.jpg', 'Travel Blog', 2),
-('Brief info about food', 'Content about food', '2023-06-05', 'active','https://example.com/food-thumbnail.jpg', 'Food Blog', 3);
+('Brief info about technology', 'Content about technology', 1, '2023-06-05', 'uploaded', 'post4_thumbnail.png', 'Technology Blog', 14),
+('Brief info about travel', 'Content about travel', 1, '2023-06-05', 'uploaded', 'post5_thumbnail.png', 'Travel Blog', 13),
+('Brief info about food', 'Content about food', 1, '2023-06-05', 'uploaded', 'post3_thumbnail.png', 'Food Blog', 14),
+('Brief info about education', 'Content about education', 1, '2023-06-05', 'uploaded', 'post2_thumbnail.png', 'Education Blog', 14);
 
 -- Insert data into blog_category table
 INSERT INTO `iquiz`.`blog_category`
@@ -771,6 +818,7 @@ VALUES
 (1, 2),
 (2, 1),
 (3, 3);
+
 
 INSERT INTO `iquiz`.`settings`
 (
@@ -862,4 +910,6 @@ VALUES
 (4,true,'Subject Dimension','Initiating',4),
 (5,true,'Subject Dimension','Planning',5),
 (6,true,'Subject Dimension','Executing',6);
+
+-- drop table iquiz.settings;
 

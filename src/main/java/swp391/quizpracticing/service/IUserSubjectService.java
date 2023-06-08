@@ -4,10 +4,27 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.dto.SubjectDTO;
+import swp391.quizpracticing.dto.UserSubjectDTO;
+import swp391.quizpracticing.model.Subject;
+import swp391.quizpracticing.model.UserSubject;
+
+import java.util.List;
+
+import swp391.quizpracticing.model.UserSubject;
+
+import java.util.List;
+
 /**
  *
  * @author Mosena
  */
 public interface IUserSubjectService {
-    
+    public List<UserSubject> listAll();
+    public void save(UserSubject usercourse) ;
+    public UserSubject getId(UserSubject uk);
+    public List<Subject> courseById(Integer id);
+
+
+    public List<UserSubject> getAllByUserId(Integer id);
 }
