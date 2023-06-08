@@ -36,25 +36,32 @@ public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecifi
 
     @Override
     public User getById(Integer id);
-    
+
     @Query(value = "Select * from User where token = ?1",nativeQuery = true)
     public User getByToken(String token);
-    
-    @Query(value = "Select * from User where email = ?1",nativeQuery = true)
-    public User findByEmail(String email);
+
     @Transactional
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query("UPDATE User u SET u.role = :role, u.enable=:status WHERE u.id = :userId")
     public void updateUser(@Param("userId") Integer userId,
             @Param("role") Role role, @Param("status") Boolean status);
-    
+
     @Transactional
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query("UPDATE User u SET u.enable=:status, u.token=null WHERE u.id = :userId")
-    public void updateUserStatus(@Param("userId") Integer userId, 
+    public void updateUserStatus(@Param("userId") Integer userId,
             @Param("status") Boolean status);
-
     
+    @Modifying
+    @Query("UPDATE User u SET u.role = :role WHERE u.id = :userId")
+    public void updateUserRole(@Param("userId") Integer userId,
+            @Param("role") Role role);
+
+    User findByEmail(String email);
+    @Query(value = "select count(*) from user_roles where role_id in (select id from roles where `name` = ?1)", nativeQuery = true)
+    int countUsersByRolesLike(String role);
+
+
     @Query(value="select * from User where full_name like %?1%",
             nativeQuery = true)
     public Page<User>searchByName(Pageable pageable,String fullName);

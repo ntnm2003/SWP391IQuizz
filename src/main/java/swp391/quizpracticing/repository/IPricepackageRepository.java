@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Pricepackage;
 
+import java.util.List;
+
 /**
  *
  * @author Mosena
@@ -15,5 +17,6 @@ import swp391.quizpracticing.model.Pricepackage;
 @Repository
 public interface IPricepackageRepository 
         extends JpaRepository<Pricepackage,Integer> {
+    List<Pricepackage> getPricepackageBySubjects(Integer id);
     
 }
