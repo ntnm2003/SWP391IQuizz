@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
  *
  * @author Mosena
  */
-@Controller
 public class PublicController {
-    @GetMapping("")
-    public String getHome(){
-        return "index.html";
-    }
+
 }

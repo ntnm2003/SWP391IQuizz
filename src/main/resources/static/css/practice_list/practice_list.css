@@ -40,8 +40,15 @@ body {
     color: #1368ce;
 }
 
+div.functionalities {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.4rem;
+}
+
 .practice-list-table {
-    margin-top: 2rem;
+    margin-top: 1rem;
     background-color: #ffffff;
     border-radius: 10px;
     overflow: hidden;
@@ -69,3 +76,4 @@ body {
     color: #1368ce;
     font-weight: 500;
 }
+
