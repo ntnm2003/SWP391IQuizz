@@ -19,7 +19,7 @@ public interface IBlogService {
 
 //    List<BlogDTO> getFeaturedBlog(boolean isFeatured);
 
-    Page<Blog> getAllBlogWithPagination(int pageNo);
+    Page<Blog> getAllBlogsWithPagination(int pageNo);
 
     List<BlogDTO> searchBlogByTitle(String searchTerm);
 

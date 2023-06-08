@@ -15,7 +15,6 @@ import swp391.quizpracticing.dto.BlogDTO;
 import swp391.quizpracticing.dto.SliderDTO;
 import swp391.quizpracticing.model.Blog;
 import swp391.quizpracticing.model.Slider;
-import swp391.quizpracticing.repository.IBlogRepository;
 import swp391.quizpracticing.service.IBlogService;
 import swp391.quizpracticing.service.ISliderService;
 
@@ -25,12 +24,6 @@ import java.util.List;
 public class MarketingController {
     @Autowired
     private ISliderService sliderService;
-
-    @Autowired
-    private IBlogService blogService;
-
-    @Autowired
-    private IBlogRepository blogRepository;
 
     @GetMapping("/slider/sliders-list")
     public String getToSliderListPage(Model model) {
@@ -109,50 +102,9 @@ public class MarketingController {
 //        return "blogs_list/blogs_list";
 //    }
 
-//    @Autowired
-//    private IBlogRepository iBlogRepository;
-//
-//    @GetMapping("/blog/{id}")
-//    public String getBlogDetail(@PathVariable("id") Integer id, Model model) {
-//        Optional<Blog> optionalBlog = iBlogRepository.findById(id);
-//        if (optionalBlog.isPresent()) {
-//            Blog blog = optionalBlog.get();
-//            model.addAttribute("blog", blog);
-//            return "blogs_list";
-//        } else {
-//            return "404";
-//        }
-//    }
+    @Autowired
+    private IBlogService blogService;
 
-//    @GetMapping("/{id}/edit")
-//    public String showEditForm(@PathVariable("id") Integer id, Model model) {
-//        Optional<Blog> optionalBlog = iBlogRepository.findById(id);
-//        if (optionalBlog.isPresent()) {
-//            Blog blog = optionalBlog.get();
-//            model.addAttribute("blog", blog);
-//            return "marketing/blog_edit";
-//        } else {
-//            return "404";
-//        }
-//    }
-//
-//    @PostMapping("/{id}/edit")
-//    public String editBlog(@PathVariable("id") Integer id, @ModelAttribute Blog updatedBlog) {
-//        Optional<Blog> optionalBlog = iBlogRepository.findById(id);
-//        if (optionalBlog.isPresent()) {
-//            Blog blog = optionalBlog.get();
-//            blog.setThumbnail(updatedBlog.getThumbnail());
-//            blog.setCategories(updatedBlog.getCategories());
-//            blog.setTitle(updatedBlog.getTitle());
-//            blog.setBriefInfo(updatedBlog.getBriefInfo());
-//            blog.setContent(updatedBlog.getContent());
-//            blog.setAuthor(updatedBlog.getAuthor());
-//            iBlogRepository.save(blog);
-//            return "redirect:/blog/" + id;
-//        } else {
-//            return "404";
-//        }
-//    }
     @GetMapping("/blog/blogs-list")
     public String getToBlogListPage(Model model) {
         List<BlogDTO> blog = (List<BlogDTO>) blogService.getAllBlog();
@@ -166,11 +118,11 @@ public class MarketingController {
 
         if (page == null) {
             //Get all blogs with their corresponding categories (with pagination)
-            Page<Blog> blogWithPagination = blogService.getAllBlogWithPagination(0);
+            Page<Blog> blogWithPagination = blogService.getAllBlogsWithPagination(0);
             model.addAttribute("blogs", blogWithPagination);
             return "marketing/blogs_list";
         } else {
-            Page<Blog> blogWithPagination = blogService.getAllBlogWithPagination(page - 1);
+            Page<Blog> blogWithPagination = blogService.getAllBlogsWithPagination(page - 1);
             model.addAttribute("blogs", blogWithPagination);
         }
         return "marketing/blogs_list";

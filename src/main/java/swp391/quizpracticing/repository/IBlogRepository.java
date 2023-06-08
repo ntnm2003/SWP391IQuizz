@@ -21,7 +21,7 @@ public interface IBlogRepository extends JpaRepository<Blog,Integer> {
 //    @Query(value = "select * from iquiz.posts where featuring = ?1 order by updated_date desc limit ?2", nativeQuery = true)
 //    List<Posts> findByFeaturingOrderByUpdatedDate(boolean isFeatured, int limit);
 //
-//    @Query(value = "select * from iquiz.posts order by updated_date desc limit ?1", nativeQuery = true)
+//    @Query(value = "select * from iquiz.blog order by updated_date desc limit ?1", nativeQuery = true)
 //    List<Posts> findByUpdatedDate(int limit);
 
     List<Blog> findByTitleContainingIgnoreCase(String searchTerm);
@@ -35,5 +35,5 @@ public interface IBlogRepository extends JpaRepository<Blog,Integer> {
 
     @Override
     List<Blog> findAllById(Iterable<Integer> integers);
-    List<Blog> findByStatus(Boolean status);
+//    List<Blog> findByStatus(Boolean status);
 }

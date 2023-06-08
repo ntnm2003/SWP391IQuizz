@@ -52,11 +52,11 @@ public class BlogService implements IBlogService {
 
 
     @Override
-    public Page<Blog> getAllBlogWithPagination(int pageNo) {
+    public Page<Blog> getAllBlogsWithPagination(int pageNo) {
 //		Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<Blog> blog = blogRepository.findAll(PageRequest.of(pageNo, POSTS_PER_PAGE));
+        Page<Blog> blogs = blogRepository.findAll(PageRequest.of(pageNo, POSTS_PER_PAGE));
 
-        return blog;
+        return blogs;
     }
 
     @Override
