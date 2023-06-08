@@ -55,7 +55,7 @@ public class HomeController {
 		System.out.println("featured subjects size: " + featuredSubjects.size());
 
 		//Testing user Session
-		User u = iUserRepository.findById(10);
+		User u = iUserRepository.getById(10);
 		System.out.println(u);
 		session.setAttribute("user", u);
 

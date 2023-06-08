@@ -4,6 +4,7 @@
  */
 package swp391.quizpracticing.repository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Role;
 import swp391.quizpracticing.model.User;
 
-import java.util.Optional;
 
 /**
  *
@@ -36,19 +36,25 @@ public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecifi
 
     @Override
     public User getById(Integer id);
-
-    public User findById(int id);
-
-    @Modifying
-    @Query("UPDATE User u SET u.enable = :status WHERE u.id = :userId")
-    public void updateUserStatus(@Param("userId") Integer userId,
-            @Param("status") Boolean status);
     
-    @Modifying
-    @Query("UPDATE User u SET u.role = :role WHERE id = :userId")
-    public void updateUserRole(@Param("userId") Integer userId,
-            @Param("role") Role role);
+    @Query(value = "Select * from User where token = ?1",nativeQuery = true)
+    public User getByToken(String token);
+    
+    @Query(value = "Select * from User where email = ?1",nativeQuery = true)
+    public User findByEmail(String email);
+    @Transactional
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query("UPDATE User u SET u.role = :role, u.enable=:status WHERE u.id = :userId")
+    public void updateUser(@Param("userId") Integer userId,
+            @Param("role") Role role, @Param("status") Boolean status);
+    
+    @Transactional
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query("UPDATE User u SET u.enable=:status, u.token=null WHERE u.id = :userId")
+    public void updateUserStatus(@Param("userId") Integer userId, 
+            @Param("status") Boolean status);
 
+    
     @Query(value="select * from User where full_name like %?1%",
             nativeQuery = true)
     public Page<User>searchByName(Pageable pageable,String fullName);
@@ -60,4 +66,6 @@ public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecifi
     @Query(value="select * from User where mobile like %?1%",
             nativeQuery = true)
     public Page<User>searchByPhoneNumber(Pageable pageable, String phone);
+    @Override
+    public void delete(User u);
 }
