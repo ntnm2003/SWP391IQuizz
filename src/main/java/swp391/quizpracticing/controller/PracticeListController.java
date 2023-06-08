@@ -20,6 +20,7 @@ import swp391.quizpracticing.service.IQuizreviewService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class PracticeListController {
@@ -82,6 +83,8 @@ public class PracticeListController {
         model.addAttribute("hashmaps", quizreviewQuestionHashMap);
         model.addAttribute("percentCorrect", percentCorrect);
 
+        model.addAttribute("userSession", session.getAttribute("user"));
+
         return "practice_list/practice_list";
     }
 
@@ -92,8 +95,75 @@ public class PracticeListController {
 
         if(practiceName.isEmpty()) {
             model.addAttribute("examName", practiceName);
+            model.addAttribute("userSession", session.getAttribute("user"));
             return "redirect:/practice-list";
         } else {
+
+            //find by practice-name
+            List<LessonDTO> findByPracticeName = iLessonService.searchByExamName(practiceName);
+            System.out.println(findByPracticeName.size());
+
+            List<QuizreviewDTO> takenQuizzes1 = iQuizreviewService.getAllQuizreviewsByUserId(loggedinUser.getId());
+            List<QuizreviewDTO> takenQuizzes = new ArrayList<>();
+            List<QuizreviewDTO> foundQuizzes = new ArrayList<>();
+
+            for(LessonDTO lesson : findByPracticeName) {
+                List<QuizreviewDTO> found = iQuizreviewService.findByLessonId(lesson.getId());
+                foundQuizzes.addAll(found);
+            }
+
+            for(QuizreviewDTO quiz : takenQuizzes1) {
+                for(QuizreviewDTO found : foundQuizzes) {
+                    if(Objects.equals(quiz.getId(), found.getId())) {
+                        takenQuizzes.add(found);
+                    }
+                }
+            }
+
+            System.out.println(takenQuizzes.size());
+
+         //copy from /practice-list
+
+            //Get the respective subject of the Taken Quizzes
+            List<SubjectDTO> takenQuizSubjects = new ArrayList<>();
+            List<LessonDTO> lessons = new ArrayList<>();  //lessons respective to the quizreview
+            for(QuizreviewDTO takenQuiz : takenQuizzes) {
+                LessonDTO lesson = iLessonService.findById(takenQuiz.getLesson().getId());
+                lessons.add(lesson);
+            }
+            for(LessonDTO lesson2 : lessons) {
+                SubjectDTO subject = lesson2.getSubject();
+                takenQuizSubjects.add(subject);
+            }
+
+            //Get the test_type of the Taken Quizzes (Practice Test or Simulation Exam)
+            //Get the level, dimension of the Taken Quizzes
+
+            //Using HashMap to store quizreviewId and numberOfCorrect (quizreviewQuestion)
+            HashMap<Integer, Integer> quizreviewQuestionHashMap = new HashMap<>();
+
+            for(QuizreviewDTO takenQuiz : takenQuizzes) {
+                Integer correct = iQuizreviewQuestionService.getNumberOfCorrectAnswerByQuizreviewId(takenQuiz.getId(), true);
+                System.out.println("takenQuiz id: " + takenQuiz.getId() + ", correct: " + correct);
+                quizreviewQuestionHashMap.put(takenQuiz.getId(), correct);
+            }
+
+            //Get the correctness in percent
+            List<Double> percentCorrect = new ArrayList<>();
+            for(QuizreviewDTO takeQUiz : takenQuizzes) {
+                double percent = (double) quizreviewQuestionHashMap.get(takeQUiz.getId()) / takeQUiz.getLesson().getQuestionNumber();
+                System.out.println(percent);
+                percentCorrect.add(percent*100);
+            }
+
+            model.addAttribute("takenQuizzes", takenQuizzes);
+            model.addAttribute("takenQuizSubjects", takenQuizSubjects);
+            model.addAttribute("takenQuizLessons", lessons);
+            model.addAttribute("hashmaps", quizreviewQuestionHashMap);
+            model.addAttribute("percentCorrect", percentCorrect);
+
+            model.addAttribute("userSession", session.getAttribute("user"));
+
 
         }
 
