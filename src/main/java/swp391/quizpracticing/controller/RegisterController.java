@@ -24,6 +24,7 @@ import swp391.quizpracticing.service.RegisterService;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import swp391.quizpracticing.Utils.Utility;
 
 /**
  *
@@ -69,7 +70,7 @@ public class RegisterController {
         service.register(user);
         try {
 
-            sendVerificationEmail(user, swp.quizpracticingsystem.Utils.Utility.getSiteURL(request));
+            sendVerificationEmail(user, Utility.getSiteURL(request));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
