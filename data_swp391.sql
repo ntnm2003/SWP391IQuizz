@@ -911,4 +911,5 @@ VALUES
 (5,true,'Subject Dimension','Planning',5),
 (6,true,'Subject Dimension','Executing',6);
 
+-- drop table iquiz.settings;
 
