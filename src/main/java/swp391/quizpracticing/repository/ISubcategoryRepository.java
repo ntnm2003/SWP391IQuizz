@@ -15,5 +15,6 @@ import swp391.quizpracticing.model.Subcategory;
 @Repository
 public interface ISubcategoryRepository 
         extends JpaRepository<Subcategory,Integer> {
-    
+    @Override
+    public Subcategory save(Subcategory sc);
 }

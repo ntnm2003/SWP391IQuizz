@@ -20,4 +20,7 @@ public interface IRoleRepository extends JpaRepository<Role,Integer> {
     
     @Override
     public List<Role> findAll();
+    
+    @Override
+    public Role save(Role r);
 }

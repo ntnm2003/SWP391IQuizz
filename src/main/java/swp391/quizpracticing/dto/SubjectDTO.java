@@ -13,16 +13,19 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SubjectDTO {
     private Integer id;
-    private List<PricepackageDTO> pricePackage;
     private String title;
     private String briefInfo;
     private String description;
     private String thumbnail;
-    private DimensionDTO dimension;
     private Boolean status;
     private Timestamp createdTime;
     private UserDTO owner;
-    private List<LessonDTO>lessons;
+    private DimensionDTO dimension;
+    private List<PricepackageDTO> pricePackage;
     private List<UserSubjectDTO>userSubjects;
     private List<SubcategoryDTO>subCategories;
+    private List<LessonDTO>lessons;
+    private Boolean featured;
+    private String tagLine;
+
 }
