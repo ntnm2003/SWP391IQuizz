@@ -38,4 +38,9 @@ public class RoleService implements IRoleService {
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public RoleDTO fileRole(Integer id) {
+        return convertEntityToDTO(roleRepository.getReferenceById(id));
+    }
 }

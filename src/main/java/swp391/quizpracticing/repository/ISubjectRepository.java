@@ -27,6 +27,8 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
     @Override
     public List<Subject> findAll();
 
+    public Subject findById(int id);
+
     @Query(value="Select * from `subject` s "
             + "join category c "
             + "on s.idCategory=c.id "

@@ -19,6 +19,7 @@ public class SettingsDTO {
     private Integer questionlevelId;
     private Integer lessontypeId;
     private Integer dimensionId;
+    private String description;
     private String type;
     private String value;
     private Integer order;

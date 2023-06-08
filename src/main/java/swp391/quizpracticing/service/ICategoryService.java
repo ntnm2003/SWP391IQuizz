@@ -4,10 +4,14 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.model.Category;
+
+import java.util.List;
+
 /**
  *
  * @author Mosena
  */
 public interface ICategoryService {
-    
+    List<Category> listAll();
 }

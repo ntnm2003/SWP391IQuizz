@@ -15,5 +15,7 @@ import java.util.List;
 public interface IQuizreviewService {
 
     public List<QuizreviewDTO> getAllQuizreviewsByUserId(Integer userId);
+
+    public List<QuizreviewDTO> findByLessonId(Integer lessonId);
     
 }

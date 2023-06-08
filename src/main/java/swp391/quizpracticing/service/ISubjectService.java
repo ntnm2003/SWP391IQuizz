@@ -46,6 +46,6 @@ public interface ISubjectService {
 
     public void save(Subject subject);
 
-    public Subject getById(Integer id);
+    public Subject getById(int id);
 
 }
