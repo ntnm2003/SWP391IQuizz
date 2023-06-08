@@ -59,7 +59,7 @@
 				</form>
 			</div>
 			<div class="button">
-				<a class="btn btn-dark" href="/practice-detail" style="padding: 5px; font-size: 14px; margin-right: 10px; background-color: #484747;">New Practice</a>
+				<a class="btn btn-dark" href="/new-practice-detail" style="padding: 5px; font-size: 14px; margin-right: 10px; background-color: #484747;">New Practice</a>
 				<a class="btn btn-primary" href="/simulation-exam" style="padding: 5px; font-size: 14px">Simulation Exam</a>
 			</div>
 		</div>
@@ -88,17 +88,17 @@
 							<span th:text="'Practice Type: ' + ${takenQuizLesson.testType.getName()}" style="display: block; font-size: 12px"></span>
 						</a>
 					</td>
-					<td><a th:text="${takenQuizLesson.getDimension().getName()}" th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}"></a></td>
-					<td><a th:text="${takenQuizLesson.getLevel().getName()}" th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}"></a></td>
-                    <td><a th:text="${takenQuizz.getDateTaken()}" th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}"></a></td>
-                    <td><a th:text="${takenQuizz.getDuration()}" th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}"></a></td>
-                    <td><a th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}">
+					<td><a th:text="${takenQuizLesson.getDimension().getName()}" th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}"></a></td>
+					<td><a th:text="${takenQuizLesson.getLevel().getName()}" th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:text="${takenQuizz.getDateTaken()}" th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:text="${takenQuizz.getDuration()}" th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}">
 							<span th:text="${hashmaps[takenQuizz.getId()] + ' Corrects / '}"></span>
 							<span th:text="${takenQuizz.getLesson.getQuestionNumber() + ' Questions'}"></span>
 						</a>
 					</td>
-                    <td><a th:text="${percent} + ' %'"  th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}"></a></td>
-                    <td><a th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}" class="view-detail">View Details</a></td>
+                    <td><a th:text="${percent} + ' %'"  th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}"></a></td>
+                    <td><a th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}" class="view-detail">View Details</a></td>
 				</tr>
 			</tbody>
 		</table>

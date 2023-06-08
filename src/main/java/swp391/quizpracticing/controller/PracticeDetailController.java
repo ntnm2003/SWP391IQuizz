@@ -12,8 +12,14 @@ import java.net.http.HttpRequest;
 public class PracticeDetailController {
 
     @GetMapping("/practice-detail")
-    public String getToPracticeDetail(@RequestParam(name = "id") Integer id, Model model, HttpSession session) {
+    public String getToPracticeDetail(@RequestParam(name = "id") Integer id, @RequestParam(name = "qr") String qr, Model model, HttpSession session) {
+        model.addAttribute("qr", qr);
         model.addAttribute("id", id);
+        return "practice_detail/practice_detail";
+    }
+
+    @GetMapping("/new-practice-detail")
+    public String getToNewPracticeDetail() {
         return "practice_detail/practice_detail";
     }
 }
