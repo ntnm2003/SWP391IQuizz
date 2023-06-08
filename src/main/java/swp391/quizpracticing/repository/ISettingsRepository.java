@@ -4,6 +4,8 @@
  */
 package swp391.quizpracticing.repository;
 
+import jakarta.transaction.Transactional;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -28,23 +30,16 @@ public interface ISettingsRepository extends JpaRepository<Settings,Integer>,
     @Override
     public Settings save(Settings s);
     
-    @Modifying
-    @Query("UPDATE Settings s SET s.type = :type WHERE s.id = :settingsId")
-    public void settingsUpdateType(@Param("settingsId") Integer settingsId,
-            @Param("type") String type);
+    @Query(value = "select distinct type from settings;", nativeQuery = true)
+    public List<String> findAllType();
     
-    @Modifying
-    @Query("UPDATE Settings s SET s.value = :value WHERE s.id = :settingsId")
-    public void settingsUpdateValue(@Param("settingsId") Integer settingsId,
-            @Param("value") String value);
+    @Modifying(clearAutomatically = true,flushAutomatically = true)
+    @Transactional
+    @Query("UPDATE Settings s SET s.value = :value, s.order = :order,"
+            + " s.status = :status, s.description = :description "
+            + "WHERE s.id = :settingsId")
+    public int settingsUpdate(@Param("settingsId") Integer settingsId,
+            @Param("value") String value, @Param("order") Integer order, 
+            @Param("status") Boolean status, @Param("description") String description);
     
-    @Modifying
-    @Query("UPDATE Settings s SET s.order = :order WHERE s.id = :settingsId")
-    public void settingsUpdateOrder(@Param("settingsId") Integer settingsId,
-            @Param("order") Integer order);
-    
-    @Modifying
-    @Query("UPDATE Settings s SET s.type = :status WHERE s.id = :settingsId")
-    public void settingsUpdateStatus(@Param("settingsId") Integer settingsId,
-            @Param("status") Boolean status);
 }
