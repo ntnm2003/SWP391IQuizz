@@ -17,13 +17,14 @@ import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Sess
 import org.springframework.data.domain.Page;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import swp391.quizpracticing.Utils.Utility;
+import swp391.quizpracticing.Utility.Utility;
 import swp391.quizpracticing.dto.RoleDTO;
 import swp391.quizpracticing.dto.SettingsDTO;
 import swp391.quizpracticing.dto.UserDTO;
@@ -52,6 +53,7 @@ public class AdminController {
     @Autowired
     private JavaMailSenderImpl mailSender;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/user-list")
     public String searchUser(Session session,
                              Model model,
@@ -117,6 +119,7 @@ public class AdminController {
         model.addAttribute("user", u);
         return "/admin/userdetail";
     }
+
     @GetMapping("/setting-detail")
     public String getSetting(@RequestParam("settingId") Integer settingId, Model model){
         SettingsDTO s=settingsService.findById(settingId);
@@ -125,6 +128,7 @@ public class AdminController {
         model.addAttribute("setting",s);
         return "/admin/settingdetail";
     }
+
     @PostMapping("/user-detail/change")
     public String updateUser(@RequestParam("id") Integer id,
                              @RequestParam("role") Integer roleId,
@@ -158,6 +162,7 @@ public class AdminController {
                 randomCode,randomPass, request);
         return "redirect:/admin/user-list";
     }
+
     @PostMapping("/setting-detail/change")
     public String updateSetting(@RequestParam("id") Integer id,
                                 @RequestParam("value") String value,
@@ -177,6 +182,7 @@ public class AdminController {
         settingsService.addSetting(type, order, value, description);
         return "redirect:/admin/settings";
     }
+
     @GetMapping("/verify")
     public String verify(@RequestParam("code") String code, Model model){
         UserDTO u=userService.findUserByToken(code);
@@ -187,6 +193,7 @@ public class AdminController {
         model.addAttribute("msg", "Get lost?");
         return "/admin/error";
     }
+
     @GetMapping("/discard")
     public String discard(@RequestParam("code") String code, Model model){
         UserDTO u=userService.findUserByToken(code);
@@ -200,7 +207,7 @@ public class AdminController {
 
     public void sendVerification(String name, String email, String token
             ,String password,HttpServletRequest request){
-        String siteURL=Utility.getSiteURL(request);
+        String siteURL= Utility.getSiteURL(request);
         String toAddress = email;
         String fromAddress = "gmail@sss";
         String senderName = "IQuizz";

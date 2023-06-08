@@ -74,7 +74,6 @@ public class MyRegistrationController {
                 date = new Date(calendar.getTimeInMillis());
             } else {
                 date = null;
-
             }
             r.setValidTo(date);
             r.setValidfrom(date1);
@@ -103,7 +102,6 @@ public class MyRegistrationController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
     @GetMapping("/users/myregistration/{cid}")
     public String regisCourse(@PathVariable("cid") Integer cid, @RequestParam(value = "uid",required = false) String id, Model model) {
         try {

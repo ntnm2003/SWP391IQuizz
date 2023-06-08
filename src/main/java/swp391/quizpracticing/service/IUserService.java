@@ -24,12 +24,11 @@ public interface IUserService extends UserDetailsService {
     User findByEmail(String email);
     int countUsersByRolesLike(String role);
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
-    Page<UserDTO> getUsers(int pageNo, int pageSize,
-            Boolean gender, Boolean status, Integer roleId,
-            String sortBy, String order);
-    public Page<UserDTO> searchUserBy(int pageNo, int pageSize,
-            String searchValue, Boolean gender, Boolean status, Integer roleId, 
-            String sortBy, String order);
+    public Page<UserDTO> getUsers(int pageNo, int pageSize,
+                                 String searchValue, Boolean gender, Boolean status, Integer roleId,
+                                 String sortBy, String order);
+
+
     public void addUser(UserDTO u);
     public void updateUser(Integer userId,Integer roleId, Boolean status);
     public UserDTO findUser(Integer id);

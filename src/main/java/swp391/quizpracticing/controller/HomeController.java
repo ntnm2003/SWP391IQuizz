@@ -36,7 +36,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/home")
-	public String getToHomePage(Model model, HttpSession session) {
+	public String getToHomePage(Model model, @Autowired HttpSession session) {
 
 		//Get sliders
 		List<SliderDTO> sliders = sliderService.getAllSlidersForHomepage();
