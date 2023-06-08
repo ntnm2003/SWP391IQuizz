@@ -7,6 +7,7 @@ package swp391.quizpracticing.serviceImple;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import swp391.quizpracticing.model.User;
 import swp391.quizpracticing.repository.LoginRepository;
 import swp391.quizpracticing.service.LoginService;
@@ -15,7 +16,7 @@ import swp391.quizpracticing.service.LoginService;
  *
  * @author Lenovo
  */
-@Component
+@Service
 public class LoginServiceImpl implements LoginService{
     @Autowired
     LoginRepository userRepository;

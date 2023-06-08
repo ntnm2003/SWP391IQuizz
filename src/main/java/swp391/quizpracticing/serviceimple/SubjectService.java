@@ -97,7 +97,8 @@ public class SubjectService implements ISubjectService {
 
 
     @Override
-    public Subject getById(Integer id) {
-        return subjectRepository.getById(id);
+    public Subject getById(int id) {
+        return iSubjectRepository.findById(id);
     }
+
 }
