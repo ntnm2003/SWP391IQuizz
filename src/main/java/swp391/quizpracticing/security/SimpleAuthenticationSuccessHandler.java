@@ -43,10 +43,10 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         User user = userService.findByEmail(email);
-        UserDTO userDTO = convertEntityToDTO(user);
+
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         authorities.forEach(authority -> {
-                session.setAttribute("user", userDTO);
+                session.setAttribute("user", user);
                     throw new IllegalStateException();
 
             });
