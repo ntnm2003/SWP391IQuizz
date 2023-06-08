@@ -4,19 +4,23 @@
  */
 package swp391.quizpracticing.serviceimple;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.io.UnsupportedEncodingException;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +28,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -56,61 +62,15 @@ public class UserService implements IUserService {
         return modelMapper.map(entity, UserDTO.class);
     }
 
-    @Override
-    public Page<UserDTO> getUsers(int pageNo, int pageSize,
-            Boolean gender, Boolean status, Integer roleId, String sortBy, String order) {
-        Pageable page;
-        if(order.equals("asc")){
-            page = PageRequest.of(pageNo - 1, pageSize, 
-                    Sort.by(sortBy).ascending());
-        }
-        else{
-            page = PageRequest.of(pageNo - 1, pageSize, 
-                    Sort.by(sortBy).descending());
-        }
-        Specification<User> specification = (root, query, criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-
-            if (gender != null) {
-                predicates.add(criteriaBuilder.equal(root
-                        .get("gender"), gender));
-            }
-            if (status != null) {
-                predicates.add(criteriaBuilder.equal(root
-                        .get("enable"), status));
-            }
-            if (roleId != null) {
-                predicates.add(criteriaBuilder.equal(root
-                        .get("role").get("id"), roleId));
-            }
-
-            return criteriaBuilder.and(predicates.toArray(Predicate[]::new));
-        };
-        Page<User> pageList=userRepository.findAll(specification,page);
-        List<UserDTO> list = pageList
-                .stream()
-                .map(this::convertEntityToDTO)
-                .collect(Collectors.toList());
-        return new PageImpl<>(list, page,
-                pageList.getTotalElements());
+    private User convertDTOToEntity(UserDTO entity){
+        return modelMapper.map(entity, User.class);
     }
 
     @Override
-    public Page<UserDTO> searchUserBy(int pageNo, int pageSize,
-            String searchValue, Boolean gender, Boolean status, Integer roleId, 
+    public Page<UserDTO> getUsers(int pageNo, int pageSize, 
+            String searchValue, Boolean gender, Boolean status, Integer roleId,
             String sortBy, String order) {
         Pageable page;
-        String searchPattern = "%" + searchValue + "%";
-        String searchBy;
-        if(searchValue.contains("@")){
-            searchBy="email";
-        }
-        else if(searchValue.matches("\\d+")){
-            searchBy="mobile";
-        }
-        else{
-            searchBy="fullName";
-        }
         if(order.equals("asc")){
             page = PageRequest.of(pageNo - 1, pageSize, 
                     Sort.by(sortBy).ascending());
@@ -133,8 +93,21 @@ public class UserService implements IUserService {
                 predicates.add(criteriaBuilder.equal(root
                         .get("role").get("id"), roleId));
             }
-            predicates.add(criteriaBuilder.like(root
-                    .get(searchBy), searchPattern));
+            if(searchValue!=null){
+                String searchPattern = "%" + searchValue + "%";
+                String searchBy;
+                if(searchValue.contains("@")){
+                    searchBy="email";
+                }
+                else if(searchValue.matches("\\d+")){
+                    searchBy="mobile";
+                }
+                else{
+                    searchBy="fullName";
+                }
+                predicates.add(criteriaBuilder.like(root
+                        .get(searchBy), searchPattern));
+            }
             return criteriaBuilder.and(predicates.toArray(Predicate[]::new));
         };
         Page<User> pageList=userRepository.findAll(specification,page);
@@ -173,22 +146,41 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDTO addUser(String fullName, String email, String password) {
-        User u=new User();
-        u.setFullName(fullName);
-        u.setEmail(email);
-        u.setPassword(password);
-        return convertEntityToDTO(userRepository.save(u));
+    public void addUser(UserDTO u) {
+        userRepository.save(convertDTOToEntity(u));
     }
 
     @Override
     public void updateUser(Integer userId, Integer roleId, Boolean status) {
-        if(roleId!=null){
-            Role r=roleRepository.getReferenceById(roleId);
-            userRepository.updateUserRole(userId, r);
-        }
-        if(status!=null){
-            userRepository.updateUserStatus(userId, status);
-        }
+        Role r=roleRepository.getReferenceById(roleId);
+        userRepository.updateUser(userId, r,status);
     }
+
+    @Override
+    public UserDTO findUser(Integer id) {
+        return convertEntityToDTO(userRepository.getById(id));
+    }
+
+
+    @Override
+    public UserDTO findUserByToken(String token) {
+        User u=userRepository.getByToken(token);
+        return u!=null?convertEntityToDTO(u):null;
+    }
+
+    @Override
+    public void updateUserStatusAndToken(Integer userId, Boolean status) {
+        userRepository.updateUserStatus(userId, status);
+    }
+
+    @Override
+    public void remove(UserDTO u) {
+        userRepository.delete(convertDTOToEntity(u));
+    }
+
+    @Override
+    public boolean findUserByEmail(String email) {
+        return userRepository.findByEmail(email)!=null;
+    }
+
 }
