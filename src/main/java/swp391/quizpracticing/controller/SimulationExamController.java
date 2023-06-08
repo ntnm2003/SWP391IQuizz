@@ -48,6 +48,8 @@ public class SimulationExamController {
         model.addAttribute("accessedLessons", accessedLessons);
         model.addAttribute("accessedSubjects", accessedSubjects);
 
+        model.addAttribute("userSession", session.getAttribute("user"));
+
         return "simulation_exam/simulation_exam";
     }
 
@@ -79,13 +81,11 @@ public class SimulationExamController {
                 }
             }
 
-            System.out.println(accessedLessons.size());
-            System.out.println(foundedLessons.size());
-            System.out.println(result_foundLessons.size());
-
             model.addAttribute("examName", examName);
             model.addAttribute("accessedLessons", result_foundLessons);
             model.addAttribute("accessedSubjects", accessedSubjects);
+
+            model.addAttribute("userSession", session.getAttribute("user"));
 
             return "simulation_exam/simulation_exam";
         }
@@ -113,6 +113,7 @@ public class SimulationExamController {
             model.addAttribute("accessedLessons", filteredLessons);
             model.addAttribute("accessedSubjects", accessedSubjects);
             model.addAttribute("selectedSubject", selectedSubject);
+            model.addAttribute("userSession", session.getAttribute("user"));
             return "simulation_exam/simulation_exam";
         }
 

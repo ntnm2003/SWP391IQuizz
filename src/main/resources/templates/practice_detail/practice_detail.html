@@ -9,9 +9,13 @@
 <body>
     <h1>Practice Detail Page</h1>
     <h2 style="color: red;">Under Construction! We are so apologize because of the bad experience T.T</h2>
-    <a th:href="@{/quiz-review?id={id}(id = ${id})}" class="btn btn-primary">Quiz Review</a>
-    <a th:href="@{/quiz-handle?id={id}(id = ${id})}" class="btn btn-primary">Quiz Handle</a>
-
+    <th:block th:if="${qr != 'true'}">
+        <a th:href="@{/quiz-handle?id={id}(id = ${id})}" class="btn btn-primary">Quiz Handle</a>
+    </th:block>
+    <th:block th:unless="${qr != 'true'}">
+        <a th:href="@{/quiz-review?id={id}(id = ${id})}" class="btn btn-primary">Quiz Review</a>
+        <a th:href="@{/quiz-handle?id={id}(id = ${id})}" class="btn btn-primary">Quiz Handle</a>
+    </th:block>
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>

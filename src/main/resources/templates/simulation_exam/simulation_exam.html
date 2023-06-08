@@ -76,14 +76,14 @@
             </thead>
             <tbody th:each="accessedLesson : ${accessedLessons}">
                 <tr>
-                    <td><a th:text="${accessedLesson.getId()}" th:href="@{/practice-detail?id={id}(id=${accessedLesson.getId()})}"></a></td>
-                    <td><a th:text="${accessedLesson.getSubject().getBriefInfo()}" th:href="@{/practice-detail?id={id}(id=${accessedLesson.getId()})}"></a></td>
-                    <td><a th:text="${accessedLesson.getName()}" th:href="@{/practice-detail?id={id}(id=${accessedLesson.getId()})}"></a></td>
-                    <td><a th:text="${accessedLesson.getLevel().getName()}" th:href="@{/practice-detail?id={id}(id=${accessedLesson.getId()})}"></a></td>
-                    <td><a th:text="${accessedLesson.getQuestionNumber() + ' Questions'}" th:href="@{/practice-detail?id={id}(id=${accessedLesson.getId()})}"></a></td>
-                    <td><a th:text="${accessedLesson.getDuration()}" th:href="@{/practice-detail?id={id}(id=${accessedLesson.getId()})}">Duration Time</a></td>
-                    <td><a th:text="${accessedLesson.getPassRate() * 100} + '%'" th:href="@{/practice-detail?id={id}(id=${accessedLesson.getId()})}">Pass rate</a></td>
-                    <td><a th:href="@{/practice-detail?id={id}(id=${accessedLesson.getId()})}" class="view-detail">Take Exam</a></td>
+                    <td><a th:text="${accessedLesson.getId()}" th:href="@{/practice-detail?qr=false&id={id}(id=${accessedLesson.getId()})}"></a></td>
+                    <td><a th:text="${accessedLesson.getSubject().getBriefInfo()}" th:href="@{/practice-detail?qr=false&id={id}(id=${accessedLesson.getId()})}"></a></td>
+                    <td><a th:text="${accessedLesson.getName()}" th:href="@{/practice-detail?qr=false&id={id}(id=${accessedLesson.getId()})}"></a></td>
+                    <td><a th:text="${accessedLesson.getLevel().getName()}" th:href="@{/practice-detail?qr=false&id={id}(id=${accessedLesson.getId()})}"></a></td>
+                    <td><a th:text="${accessedLesson.getQuestionNumber() + ' Questions'}" th:href="@{/practice-detail?qr=false&id={id}(id=${accessedLesson.getId()})}"></a></td>
+                    <td><a th:text="${accessedLesson.getDuration()}" th:href="@{/practice-detail?qr=false&id={id}(id=${accessedLesson.getId()})}">Duration Time</a></td>
+                    <td><a th:text="${accessedLesson.getPassRate() * 100} + '%'" th:href="@{/practice-detail?qr=false&id={id}(id=${accessedLesson.getId()})}">Pass rate</a></td>
+                    <td><a th:href="@{/practice-detail?qr=false&id={id}(id=${accessedLesson.getId()})}" class="view-detail">Take Exam</a></td>
                 </tr>
             </tbody>
         </table>
