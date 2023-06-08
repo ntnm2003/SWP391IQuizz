@@ -2,6 +2,7 @@ package swp391.quizpracticing.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class PracticeListController {
     @Autowired
     private IQuestionService iQuestionService;
 
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @GetMapping("/practice-list")
     public String getToPracticeList(Model model, HttpSession session) {
         //Logged in User (using Session)

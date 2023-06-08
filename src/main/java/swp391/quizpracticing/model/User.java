@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -81,14 +82,15 @@ public class User {
 
     @OneToMany(mappedBy = "id.user")
     private List<UserSubject> userSubjects;
-    
+
     public User token(String token) {
         setToken(token);
         return this;
     }
-    
+
     public User lastupdatedate(Timestamp lastUpdateDate) {
         setLastUpdateDate(lastUpdateDate);
-        return this;
-    }
+        return this;}
+
+
 }
