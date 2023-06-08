@@ -2,3 +2,9 @@ main{
     margin-top: 100px;
     margin-bottom: 100px;
 }
+a{
+    text-decoration: none;
+}
+.disabled{
+    cursor: default;
+}

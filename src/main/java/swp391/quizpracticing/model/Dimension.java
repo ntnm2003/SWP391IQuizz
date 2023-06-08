@@ -1,13 +1,20 @@
 package swp391.quizpracticing.model;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Table(name = "dimension")
@@ -18,6 +25,7 @@ import java.util.List;
 public class Dimension {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name")
@@ -31,17 +39,16 @@ public class Dimension {
 
     @Column(name = "status")
     private Boolean status;
-
+    
     @OneToMany(mappedBy="dimension")
     private List<Lesson> lessons;
-
+    
     @OneToMany(mappedBy="dimension")
     private List<Subject> subjects;
-
+    
     @OneToMany(mappedBy="dimension")
     private List<Question> questions;
-
+    
     @OneToOne(mappedBy="dimension")
-    private Settings setting;
+    private Settings setting; 
 }
-
