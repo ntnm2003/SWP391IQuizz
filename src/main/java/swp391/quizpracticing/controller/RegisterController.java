@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import swp391.quizpracticing.Utils.Utility;
 import swp391.quizpracticing.model.Role;
 import swp391.quizpracticing.model.User;
 import swp391.quizpracticing.service.RegisterService;
@@ -70,7 +69,7 @@ public class RegisterController {
         service.register(user);
         try {
 
-            sendVerificationEmail(user, Utility.getSiteURL(request));
+            sendVerificationEmail(user, swp.quizpracticingsystem.Utils.Utility.getSiteURL(request));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

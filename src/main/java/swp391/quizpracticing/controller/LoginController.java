@@ -14,7 +14,7 @@ import swp391.quizpracticing.service.LoginService;
 public class LoginController {
 
     @Autowired
-    LoginService userService;
+    LoginService loginService;
 
     @GetMapping("/login")
     public String login(HttpSession session) {
@@ -27,7 +27,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpSession session, Model model) {
-        User account = userService.login(user);
+        User account = loginService.login(user);
         if (account == null) {
             model.addAttribute("message", "Invalid password or email");
             return "common/login";
