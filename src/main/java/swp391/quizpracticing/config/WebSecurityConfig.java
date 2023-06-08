@@ -62,13 +62,8 @@ public class WebSecurityConfig {
                                 .requestMatchers("/admin/**").authenticated()
                 )
                 .formLogin(
-                        login -> login.successHandler(new AuthenticationSuccessHandler() {
-                                    @Override
-                                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                                        System.out.println("ogee");
-                                    }
-                                })
-                                .defaultSuccessUrl("/home")
+                        login -> login
+                                .defaultSuccessUrl("/home").successHandler(successHandler)
                 )
                 .build();
     }
