@@ -35,20 +35,20 @@
         </div>
         <div class="col-md-5 text-center">
             <select class="dropdown-font-new float-right" aria-label="Default select example" onchange="location = this.value;"> Status
-                <option value="blogs-list?${historyKey}${historyValue}${historyAuthor}${historyCategoryId}" ${status == null ? "Selected" : ""}>
+                <option value="blogs-list?" ${status == null ? "Selected" : ""}>
                 Status
                 </option>
-                <option value="blogs-list?${historyKey}${historyValue}${historyAuthor}${historyCategoryId}&status=1" ${status == 1 ? "Selected" : ""}>
+                <option value="blogs-list?&status=1" ${status == 1 ? "Selected" : ""}>
                 Show
                 </option>
-                <option value="blogs-list?${historyKey}${historyValue}${historyAuthor}${historyCategoryId}&status=0" ${status == 0 ? "Selected" : ""}>
+                <option value="blogs-list?&status=0" ${status == 0 ? "Selected" : ""}>
                 Hide
                 </option>
             </select>
         </div>
         <div class="col-md-6 text-center">
-            <form action="blogs-list">
-                <input type="text" name="key" placeholder="Find blog" class="filter-search__control" >
+            <form action="blogs-list" th:action="@{/blog/search}" method="get">
+                <input type="text" name="searchTerm" th:value="${searchTerm}" placeholder="Find slider" class="filter-search__control" >
                 <button type="submit" class="btn btn-outline-danger" href="#" role="button">
                     <i style='font-size:15px' class='fas'>&#xf002;</i>
                 </button>
@@ -59,7 +59,6 @@
         <table class="table"  style="margin-top: 4%">
             <thead  class="text-center">
             <th>ID</th>
-            <th>Category</th>
             <th>Title</th>
             <th>Thumbnail</th>
             <th>Brief Information</th>
@@ -71,17 +70,11 @@
             <div th:each="blog : ${blog}">
                 <tr>
                     <td th:text="${blog.id}"></td>
-                    <td th:text="${blog.category}"></td>
                     <td th:text="${blog.title}"></td>
                     <td> <img th:src="@{/database_images/{imageName}(imageName=${blog.thumbnail})}" width="200px"></td>
                     <td th:text="${blog.briefInfo}"></td>
                     <td th:text="${blog.content}"></td>
-                    <c:if th:if="${blog.status == true}">
-                        <td><img class = "circle" th:src="@{../..//image/active.png}"></td>
-                    </c:if>
-                    <c:if th:if="${blog.status != true}">
-                        <td><img class = "circle" th:src="@{../..//image/inactive.png}"></td>
-                    </c:if>
+                    <td th:text="${blog.status}"></td>
                     <td style="width: 125px">
                         <a class="btn btn-danger" th:href="@{'blog-detail?id='+${blog.id}}" role="button" style='font-size:10px'>
                             <i style='font-size:10px' class='fas'>&#xf044;</i>
@@ -110,9 +103,9 @@
     <div class="pagination">
         <nav aria-label="...">
             <ul class="pagination pagination-lg">
-                <li class="page-item"><a class="page-link" th:href="@{'/blogs-list'}">1</a></li>
-                <li class="page-item"><a class="page-link" th:href="@{'/blogs-list?page=2'}">2</a></li>
-                <li class="page-item"><a class="page-link" th:href="@{'/blogs-list?page=3'}">3</a></li>
+                <li class="page-item"><a class="page-link" th:href="@{'/blog/blogs-list'}">1</a></li>
+                <li class="page-item"><a class="page-link" th:href="@{'/blog/blogs-list?page=2'}">2</a></li>
+                <li class="page-item"><a class="page-link" th:href="@{'/blog/blogs-list?page=3'}">3</a></li>
             </ul>
         </nav>
     </div>

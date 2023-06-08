@@ -1,5 +1,3 @@
--- drop database iquiz;
--- create database iquiz;
 
 use iquiz;
 
@@ -21,10 +19,10 @@ VALUES
 `back_link`,
 `status`)
 VALUES
-('Become a Full Stack Software Engineer with The Hottest Technologies Right Now', 'slider1.png', '/subjects/subject-detail?id=5', 1),
-('Anyone can get 6.5 IELTS!', 'slider2.png', '/subjects/subject-detail?id=3', 1),
-('First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2', 1),
-
+('Become a Full Stack Software Engineer with The Hottest Technologies Right Now', 'slider1-2.png', '/subjects/subject-detail?id=5', 1),
+('Anyone can get 6.5 IELTS!', 'slider2.png', '/subjects/subject-detail?id=3',  1),
+('First Step to become a BA - Statistics and Probability', 'slider3.png', '/subjects/subject-detail?id=2',  1),
+('Engineering Practices for Building Quality Software', 'slider4.png', '/subjects/subject-detail?id=6',  1);
 INSERT INTO `iquiz`.`lessontype`
 (
 `name`,
@@ -59,19 +57,19 @@ INSERT INTO `iquiz`.`user`
 `enable`,`avatar`, `last_update_date`, `token` )
 VALUES
 ('Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', 'deptrai', 1,1, 'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Nguyen Van A', 'duongmai.hoamkt76@gmail.com', 1, '012345678', 'ahaha', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Nguyen Thi B', 'dungnpn28@gmail.com', 1, '0987654321', 'bebebe', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Mr. Expert1', 'quannahe176660@gmail.com', 0, '068686868', 'hocgioi', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Mr. Expert2', 'maintnhe176347@gmail.com', 0, '0973600757', 'xinhgai', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Mr. Expert3', 'expert3@gmail.com', 0, '0978779519', 'numberone', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Lung Thi Linh', 'lunglinh2003@gmail.com', 0, '0982712755', 'yeudoi', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Mr.Expert4', 'ntnm222003@gmail.com', 0, '0978779519', 'numberone', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Khanh Ly', 'ntnm2003@gmail.com', 1, '0978279519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Phuong Anh', 'jsclub.bannd@gmail.com', 1, '0978379519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Hoang Ha', 'iamntnm@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Nguyen Van A', 'duongmai.hoamkt76@gmail.com', 1, '012345678', 'ahaha', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Nguyen Thi B', 'dungnpn28@gmail.com', 1, '0987654321', 'bebebe', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Mr. Expert1', 'quannahe176660@gmail.com', 0, '068686868', 'hocgioi', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Mr. Expert2', 'maintnhe176347@gmail.com', 0, '0973600757', 'xinhgai', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Mr. Expert3', 'expert3@gmail.com', 0, '0978779519', 'numberone', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Lung Thi Linh', 'lunglinh2003@gmail.com', 0, '0982712755', 'yeudoi', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Mr.Expert4', 'ntnm222003@gmail.com', 0, '0978779519', 'numberone', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Khanh Ly', 'ntnm2003@gmail.com', 1, '0978279519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Phuong Anh', 'jsclub.bannd@gmail.com', 1, '0978379519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Hoang Ha', 'iamntnm@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
 ('Mai Linh', 'laitrang143@gmail.com', 1, '0868459509', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Anh Hong', 'lopchungminh@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Tran Thi Anh', 'maiaiai@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02','');
+('Anh Hong', 'lopchungminh@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''), 
+('Tran Thi Anh', 'maiaiai@gmail.com', 1, '0978775519', 'numberone', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''); 
 
 INSERT INTO `iquiz`.`subject`
 (
@@ -100,7 +98,7 @@ VALUES
   ('Web Development with Frameworks', 'Learn how to build web applications using popular frameworks such as React, Angular, and Vue.', 'https://example.com/thumbnails/frameworks.jpg', 'Web Development with Frameworks','2023-03-20',  1, 5, 6),
   ('Mobile App Development', 'Learn how to develop mobile apps for iOS and Android platforms using native languages or cross-platform tools.', 'https://example.com/thumbnails/mobile_dev.jpg', 'Mobile App Development', '2023-02-20',  1, 5, 6),
   ('Cybersecurity Basics', 'An introduction to cybersecurity principles, including risk assessment, threat modeling, and defense strategies.', 'https://example.com/thumbnails/cybersecurity.jpg', 'Cybersecurity', '2023-04-02',  1, 6, 7),
-  ('An introduction to Algebra', 'This subject covers the basics of algebraic equations and their solutions.', 'https://example.com/thumbnails/algebra.jpg', 'Algebra', '2023-04-02',  1, 5, 8),
+('An introduction to Algebra', 'This subject covers the basics of algebraic equations and their solutions.', 'https://example.com/thumbnails/algebra.jpg', 'Algebra', '2023-04-02',  1, 5, 8),
   ('Introduction to Geometry', 'This subject covers the basics of geometric shapes, angles, and measurements.', 'https://example.com/thumbnails/geometry.jpg', 'Geometry', '2023-03-20',  1, 5, 6),
   ('Trigonometry for Beginners', 'This subject covers the basics of trigonometric functions and their applications in real life.', 'https://example.com/thumbnails/trigonometry.jpg', 'Trigonometry','2023-03-02',  1, 4, 6),
   ('World War II History', 'A comprehensive study of World War II, including key events, causes, and consequences.', 'https://example.com/thumbnails/ww2.jpg', 'World War II', '2023-05-02',  1, 4, 5),
@@ -120,23 +118,6 @@ VALUES
   ('Geometry in Three Dimensions', 'An introduction to three-dimensional geometry, including vectors, planes, and surfaces.', 'https://example.com/thumbnails/3d_geometry.jpg', 'Three-Dimensional Geometry', '2023-04-02',  1, 4, 8),
   ('Trigonometry in Real Life Applications', 'Learn how trigonometric functions are used in practical applications such as navigation, engineering, and physics.', 'https://example.com/thumbnails/trig_applications.jpg', 'Trigonometry Applications', '2023-02-22',  1, 6, 6);
 
-update iquiz.subject
-set featured = 1 where id=1;
-update iquiz.subject
-set featured = 1 where id=2;
-update iquiz.subject
-set featured = 1 where id=3;
-update iquiz.subject
-set featured = 1 where id=4;
-
-update iquiz.subject
-set thumbnail = 'subject1_img.png' where id=1;
-update iquiz.subject
-set thumbnail = 'subject2_img.png' where id=2;
-update iquiz.subject
-set thumbnail = 'subject3_img.png' where id=3;
-update iquiz.subject
-set thumbnail = 'subject6_img.png' where id=4;
 
 INSERT INTO `iquiz`.`pricepackage`
 (
@@ -264,7 +245,7 @@ INSERT INTO `iquiz`.`level`
 `name`,
 `status`)
 VALUES
-('easy', 1),
+('easy', 1), 
 ('medium', 1),
 ('difficult', 1),
 ('challenging', 1);
@@ -345,8 +326,10 @@ INSERT INTO `iquiz`.`testtype`
 `name`,
 `status`)
 VALUES
-('Simulation Tests', 1),
-('Lesson-Quiz Tests', 1);
+(
+'Simulation Tests', 1),
+(
+'Lesson-Quiz Tests', 1);
 
 
 INSERT INTO `iquiz`.`lesson`
@@ -454,7 +437,9 @@ INSERT INTO `iquiz`.`registrationstatus`
 `name`)
 VALUES
 ('active'),
-('inactive');
+(
+'inactive')
+;
 
 
 INSERT INTO `iquiz`.`user_subject`
@@ -703,18 +688,6 @@ VALUES
 (4, '2023-06-06', '00:06:03' , 1, 10),
 (5, '2023-06-06', '00:06:03' , 1, 9);
 
-update iquiz.quizreview
-set user_id = 10 where id=5;
-
-update iquiz.quizreview
-set user_id = 9 where id=2;
-
-update iquiz.quizreview
-set user_id = 10 where id=1;
-
-update iquiz.quizreview
-set user_id = 9 where id=5;
-
 INSERT INTO `iquiz`.`quizreview_question`
 (`bookmark`,
 `status`,
@@ -782,12 +755,11 @@ VALUES
 ('Food', false);
 
 INSERT INTO `iquiz`.`blog`
-(`brief_info`, `content`, `last_updated`, `thumbnail`, `title`, `user_id`)
+(`brief_info`, `content`, `last_updated`, `status`, `thumbnail`, `title`, `user_id`)
 VALUES
-('Brief info about technology', 'Content about technology', 1, '2023-06-05', 'uploaded', 'post4_thumbnail.png', 'Technology Blog', 14),
-('Brief info about travel', 'Content about travel', 1, '2023-06-05', 'uploaded', 'post5_thumbnail.png', 'Travel Blog', 13),
-('Brief info about food', 'Content about food', 1, '2023-06-05', 'uploaded', 'post3_thumbnail.png', 'Food Blog', 14),
-('Brief info about education', 'Content about education', 1, '2023-06-05', 'uploaded', 'post2_thumbnail.png', 'Education Blog', 14);
+('Brief info about technology', 'Content about technology', '2023-06-05', 'active', 'https://example.com/technology-thumbnail.jpg', 'Technology Blog', 1),
+('Brief info about travel', 'Content about travel', '2023-06-05', 'active','https://example.com/travel-thumbnail.jpg', 'Travel Blog', 2),
+('Brief info about food', 'Content about food', '2023-06-05', 'active','https://example.com/food-thumbnail.jpg', 'Food Blog', 3);
 
 -- Insert data into blog_category table
 INSERT INTO `iquiz`.`blog_category`
@@ -800,23 +772,94 @@ VALUES
 (2, 1),
 (3, 3);
 
--- INSERT INTO `iquiz`.`settings`
--- (`id`,
--- `blogcategory_id`,
--- `category_id`,
--- `dimension_id`,
--- `lessontype_id`,
--- `level_id`,
--- `role_id`,
--- `systemsetting_id`,
--- `testtype_id`)
--- VALUES
--- (1, 1,
--- <{category_id: }>,
--- <{dimension_id: }>,
--- <{lessontype_id: }>,
--- <{level_id: }>,
--- <{role_id: }>,
--- <{systemsetting_id: }>,
--- <{testtype_id: }>);
+INSERT INTO `iquiz`.`settings`
+(
+`order`,
+`status`,
+`type`,
+`value`,
+`role_id`)
+VALUES
+(1,true,'User Roles','admin',1),
+(2,true,'User Roles','expert',2),
+(3,true,'User Roles','sale',3),
+(4,true,'User Roles','marketing',4),
+(5,true,'User Roles','sale',5),
+(6,true,'User Roles','customer',6);
+
+INSERT INTO `iquiz`.`settings`
+(
+`order`,
+`status`,
+`type`,
+`value`,
+`blogcategory_id`)
+VALUES
+(1,true,'Post Categories','Technology',1),
+(2,true,'Post Categories','Travel',2),
+(3,false,'Post Categories','Food',3);
+
+INSERT INTO `iquiz`.`settings`
+(
+`order`,
+`status`,
+`type`,
+`value`,
+`category_id`)
+VALUES
+(1,true,'Subject Categories','Mathematics',1),
+(2,true,'Subject Categories','History',2),
+(3,true,'Subject Categories','Time Management',3),
+(4,true,'Subject Categories','Biology',4),
+(5,true,'Subject Categories','Computer Science',5);
+INSERT INTO `iquiz`.`settings`
+(
+`order`,
+`status`,
+`type`,
+`value`,
+`testtype_id`)
+VALUES
+(1,true,'Test Types','Simulation Tests',1),
+(2,true,'Test Types','Lesson-Quiz Tests',2);
+
+
+INSERT INTO `iquiz`.`settings`
+(
+`order`,
+`status`,
+`type`,
+`value`,
+`level_id`)
+VALUES
+(1,true,'Question Levels','easy',1),
+(2,true,'Question Levels','medium',2),
+(3,true,'Question Levels','difficult',3),
+(4,true,'Question Levels','challenging',4);
+
+INSERT INTO `iquiz`.`settings`
+(
+`order`,
+`status`,
+`type`,
+`value`,
+`lessontype_id`)
+VALUES
+(1,true,'Lesson Types','quiz',1),
+(2,true,'Lesson Types','lession',2);
+
+INSERT INTO `iquiz`.`settings`
+(
+`order`,
+`status`,
+`type`,
+`value`,
+`dimension_id`)
+VALUES
+(1,true,'Subject Dimension','Business',1),
+(2,true,'Subject Dimension','Process',2),
+(3,true,'Subject Dimensions','People',3),
+(4,true,'Subject Dimension','Initiating',4),
+(5,true,'Subject Dimension','Planning',5),
+(6,true,'Subject Dimension','Executing',6);
 

@@ -31,22 +31,22 @@ public class MarketingController {
         model.addAttribute("slider", slider);
         return "marketing/sliders_list";
     }
-    @GetMapping("/sliders-list")
-    public String listByPage(@RequestParam(name = "page", required = false) Integer page, Model model, HttpSession session) {
-
-        System.out.println("pageNum="+page);
-
-        if (page == null) {
-            //Get all sliders with pagination
-                Page<Slider> sliderWithPagination = sliderService.getAllSlidersWithPagination(0);
-            model.addAttribute("sliders", sliderWithPagination);
-            return "marketing/sliders_list";
-        } else {
-            Page<Slider> sliderWithPagination = sliderService.getAllSlidersWithPagination(page - 1);
-            model.addAttribute("sliders", sliderWithPagination);
-        }
-        return "marketing/sliders_list";
-    }
+//    @GetMapping("/sliders-list")
+//    public String listByPage(@RequestParam(name = "page", required = false) Integer page, Model model, HttpSession session) {
+//
+//        System.out.println("pageNum="+page);
+//
+//        if (page == null) {
+//            //Get all sliders with pagination
+//                Page<Slider> sliderWithPagination = sliderService.getAllSlidersWithPagination(0);
+//            model.addAttribute("sliders", sliderWithPagination);
+//            return "marketing/sliders_list";
+//        } else {
+//            Page<Slider> sliderWithPagination = sliderService.getAllSlidersWithPagination(page - 1);
+//            model.addAttribute("sliders", sliderWithPagination);
+//        }
+//        return "marketing/sliders_list";
+//    }
     @GetMapping("/slider/search")
     public String searchSlider(@RequestParam("searchTerm") String searchTerm, Model model, HttpSession session) {
 
@@ -82,9 +82,7 @@ public class MarketingController {
 //                postCategory = iBlogCategoryService.findByPostCategoryId(Integer.parseInt(selectedCategory));
 //                filteredCategories.add(postCategory);
 //            }
-//
 //        }
-//
 //        //Get Filtered Posts by Selected Post Categories
 //        List<PostsDTO> filteredPosts = iBlogService.getFilteredPosts(filteredCategories);
 //
@@ -104,25 +102,22 @@ public class MarketingController {
 
     @Autowired
     private IBlogService blogService;
-
     @GetMapping("/blog/blogs-list")
     public String getToBlogListPage(Model model) {
         List<BlogDTO> blog = (List<BlogDTO>) blogService.getAllBlog();
         model.addAttribute("blog", blog);
         return "marketing/blogs_list";
     }
+
     @GetMapping("/blogs-list")
     public String listBlogByPage(@RequestParam(name = "page", required = false) Integer page, Model model, HttpSession session) {
-
         System.out.println("pageNum="+page);
-
-        if (page == null) {
-            //Get all blogs with their corresponding categories (with pagination)
-            Page<Blog> blogWithPagination = blogService.getAllBlogsWithPagination(0);
+        if (page != null) {
+            Page<Blog> blogWithPagination = blogService.getAllBlogsWithPagination(page - 1);
             model.addAttribute("blogs", blogWithPagination);
             return "marketing/blogs_list";
         } else {
-            Page<Blog> blogWithPagination = blogService.getAllBlogsWithPagination(page - 1);
+            Page<Blog> blogWithPagination = blogService.getAllBlogsWithPagination(0);
             model.addAttribute("blogs", blogWithPagination);
         }
         return "marketing/blogs_list";

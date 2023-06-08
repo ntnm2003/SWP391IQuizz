@@ -25,4 +25,5 @@ public interface ISliderService {
 //    List<PostsDTO> getFilteredPosts(List<PostCategory> categories);
     Slider getSliderById(Integer id);
 
+    List<SliderDTO> getAllSlidersForHomepage();
 }
