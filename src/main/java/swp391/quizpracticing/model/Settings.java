@@ -39,7 +39,7 @@ public class Settings {
     @Column(name = "status")
     private Boolean status;
     
-    @Column(name="descripttion")
+    @Column(name="description")
     private String description;
     
     @OneToOne(fetch = FetchType.LAZY)

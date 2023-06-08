@@ -4,18 +4,22 @@ function setPageFilters() {
     const status_ = urlParams.get("status");
     const sortBy = urlParams.get("sortBy");
     const order = urlParams.get("order");
+    const value=urlParams.get("value");
   
     if (type) {
-      document.getElementById("typeSelect").value = type;
+        document.getElementById("typeSelect").value = type;
     }
     if (status_) {
-      document.getElementById("statusSelect").value = status_;
+        document.getElementById("statusSelect").value = status_;
     }
     if (sortBy) {
-      document.getElementById("sortBySelect").value = sortBy;
+        document.getElementById("sortBySelect").value = sortBy;
     }
     if (order) {
-      document.getElementById("orderSelect").value = order;
+        document.getElementById("orderSelect").value = order;
+    }
+    if(value){
+        document.getElementById("search").value = value;
     }
 }
   
@@ -25,10 +29,13 @@ function navigateToInteract() {
     var status = document.getElementById("statusSelect").value;
     var sortBy=document.getElementById("sortBySelect").value;
     var order=document.getElementById("orderSelect").value;
-
+    var value=document.getElementById("search").value;
     var url = "/admin/settings?";
     var filters = [];
 
+    if(value){
+        filters.push("value="+value);
+    }
     if (type) {
         filters.push("type=" + type);
     }
@@ -51,10 +58,14 @@ function moveOn(pageNo){
     var status = document.getElementById("statusSelect").value;
     var sortBy=document.getElementById("sortBySelect").value;
     var order=document.getElementById("orderSelect").value;
+    var value=document.getElementById("search").value;
     
-    var url = "/admin/settings?pageNo=" + (parseInt(pageNo) + 1) + "&";
+    var url = "/admin/settings?&pageNo=" + (parseInt(pageNo) + 1)+"&";
     var filters = [];
 
+    if(value){
+        filters.push("value="+value);
+    }
     if (type) {
         filters.push("type=" + type);
     }
@@ -77,10 +88,14 @@ function moveBack(pageNo){
     var status = document.getElementById("statusSelect").value;
     var sortBy = document.getElementById("sortBySelect").value;
     var order = document.getElementById("orderSelect").value;
+    var value=document.getElementById("search").value;
 
-    var url = "/admin/settings?pageNo=" + (parseInt(pageNo) - 1) + "&";
+    var url = "/admin/settings?pageNo=" + (parseInt(pageNo) - 1)+"&";
     var filters = [];
 
+    if(value){
+        filters.push("value="+value);
+    }
     if (type) {
         filters.push("type=" + gender);
     }
@@ -96,4 +111,11 @@ function moveBack(pageNo){
     url += filters.join("&");
     
     window.location.href = url;
+}
+function showPopup() {
+    document.getElementById("popupForm").style.display = "block";
+}
+  
+function hidePopup() {
+    document.getElementById("popupForm").style.display = "none";
 }
