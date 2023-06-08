@@ -4,12 +4,10 @@
  */
 package swp391.quizpracticing.serviceimple;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
+
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +19,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.model.Role;
@@ -44,66 +46,21 @@ public class UserService implements IUserService {
     private IRoleRepository roleRepository;
     @Autowired
     private ModelMapper modelMapper;
-        
+
+
     private UserDTO convertEntityToDTO(User entity){
         return modelMapper.map(entity, UserDTO.class);
     }
 
-    @Override
-    public Page<UserDTO> getUsers(int pageNo, int pageSize, 
-            Boolean gender, Boolean status, Integer roleId, String sortBy, String order) {
-        Pageable page;
-        if(order.equals("asc")){
-            page = PageRequest.of(pageNo - 1, pageSize, 
-                    Sort.by(sortBy).ascending());
-        }
-        else{
-            page = PageRequest.of(pageNo - 1, pageSize, 
-                    Sort.by(sortBy).descending());
-        }
-        Specification<User> specification = (root, query, criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-
-            if (gender != null) {
-                predicates.add(criteriaBuilder.equal(root
-                        .get("gender"), gender));
-            }
-            if (status != null) {
-                predicates.add(criteriaBuilder.equal(root
-                        .get("enable"), status));
-            }
-            if (roleId != null) {
-                predicates.add(criteriaBuilder.equal(root
-                        .get("role").get("id"), roleId));
-            }
-
-            return criteriaBuilder.and(predicates.toArray(Predicate[]::new));
-        };
-        Page<User> pageList=userRepository.findAll(specification,page);
-        List<UserDTO> list = pageList
-                .stream()
-                .map(this::convertEntityToDTO)
-                .collect(Collectors.toList());
-        return new PageImpl<>(list, page,
-                pageList.getTotalElements());
+    private User convertDTOToEntity(UserDTO entity){
+        return modelMapper.map(entity, User.class);
     }
 
     @Override
-    public Page<UserDTO> searchUserBy(int pageNo, int pageSize, 
-            String searchValue, Boolean gender, Boolean status, Integer roleId, 
+    public Page<UserDTO> getUsers(int pageNo, int pageSize, 
+            String searchValue, Boolean gender, Boolean status, Integer roleId,
             String sortBy, String order) {
         Pageable page;
-        String searchPattern = "%" + searchValue + "%";
-        String searchBy;
-        if(searchValue.contains("@")){
-            searchBy="email";
-        }
-        else if(searchValue.matches("\\d+")){
-            searchBy="mobile";
-        }
-        else{
-            searchBy="fullName";
-        }
         if(order.equals("asc")){
             page = PageRequest.of(pageNo - 1, pageSize, 
                     Sort.by(sortBy).ascending());
@@ -126,8 +83,21 @@ public class UserService implements IUserService {
                 predicates.add(criteriaBuilder.equal(root
                         .get("role").get("id"), roleId));
             }
-            predicates.add(criteriaBuilder.like(root
-                    .get(searchBy), searchPattern));
+            if(searchValue!=null){
+                String searchPattern = "%" + searchValue + "%";
+                String searchBy;
+                if(searchValue.contains("@")){
+                    searchBy="email";
+                }
+                else if(searchValue.matches("\\d+")){
+                    searchBy="mobile";
+                }
+                else{
+                    searchBy="fullName";
+                }
+                predicates.add(criteriaBuilder.like(root
+                        .get(searchBy), searchPattern));
+            }
             return criteriaBuilder.and(predicates.toArray(Predicate[]::new));
         };
         Page<User> pageList=userRepository.findAll(specification,page);
@@ -139,23 +109,69 @@ public class UserService implements IUserService {
                 pageList.getTotalElements());
     }
 
+
     @Override
-    public UserDTO addUser(String fullName, String email, String password) {
-        User u=new User();
-        u.setFullName(fullName);
-        u.setEmail(email);
-        u.setPassword(password);
-        return convertEntityToDTO(userRepository.save(u));
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public int countUsersByRolesLike(String role) {
+        return userRepository.countUsersByRolesLike(role);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Email does not exist in system. Please re-enter another email!");
+        }
+        return new org.springframework.security.core.userdetails.User(
+
+                user.getEmail(),
+                user.getPassword(),
+                Arrays.stream(user.getRole().getName().split(","))
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList())
+        );
+    }
+
+    @Override
+    public void addUser(UserDTO u) {
+        userRepository.save(convertDTOToEntity(u));
     }
 
     @Override
     public void updateUser(Integer userId, Integer roleId, Boolean status) {
-        if(roleId!=null){
-            Role r=roleRepository.getReferenceById(roleId);
-            userRepository.updateUserRole(userId, r);
-        }
-        if(status!=null){
-            userRepository.updateUserStatus(userId, status);
-        }
+        Role r=roleRepository.getReferenceById(roleId);
+        userRepository.updateUser(userId, r,status);
     }
+
+    @Override
+    public UserDTO findUser(Integer id) {
+        return convertEntityToDTO(userRepository.getById(id));
+    }
+
+
+    @Override
+    public UserDTO findUserByToken(String token) {
+        User u=userRepository.getByToken(token);
+        return u!=null?convertEntityToDTO(u):null;
+    }
+
+    @Override
+    public void updateUserStatusAndToken(Integer userId, Boolean status) {
+        userRepository.updateUserStatus(userId, status);
+    }
+
+    @Override
+    public void remove(UserDTO u) {
+        userRepository.delete(convertDTOToEntity(u));
+    }
+
+    @Override
+    public boolean findUserByEmail(String email) {
+        return userRepository.findByEmail(email)!=null;
+    }
+
 }

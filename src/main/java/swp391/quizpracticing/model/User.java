@@ -13,6 +13,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,12 +51,15 @@ public class User {
 
     @Column(name = "mobile")
     private String mobile;
+    
+    @Column(name="address")
+    private String address;
 
     @Column(name = "token")
     private String token;
 
-    @Column(name = "last_update_date")
-    private Date lastUpdateDate;
+    @Column(name = "last_update_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp lastUpdateDate;
 
     @Column(name = "enable")
     private Boolean enable;
@@ -79,25 +83,14 @@ public class User {
     @OneToMany(mappedBy = "id.user")
     private List<UserSubject> userSubjects;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", avatar='" + avatar + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", gender=" + gender +
-                ", mobile='" + mobile + '\'' +
-                ", token='" + token + '\'' +
-                ", lastUpdateDate=" + lastUpdateDate +
-                ", enable=" + enable +
-                ", blogs=" + blogs +
-                ", role=" + role +
-                ", subject=" + subject +
-                ", lessons=" + lessons +
-                ", quizReviews=" + quizReviews +
-                ", userSubjects=" + userSubjects +
-                '}';
+    public User token(String token) {
+        setToken(token);
+        return this;
     }
+
+    public User lastupdatedate(Timestamp lastUpdateDate) {
+        setLastUpdateDate(lastUpdateDate);
+        return this;}
+
+
 }
