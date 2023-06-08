@@ -59,10 +59,10 @@
                         <img src="/image/Avatar.jpg" alt="">
                     </div>
                     <div class="menu">
-                        <h3>User's name</h3>
+                        <h3 th:text="${userSession.fullName}"></h3>
                         <ul class="dropdown1">
                             <li>
-                                <a th:href="@{'/profile?userid='}">
+                                <a th:href="@{'/profile?userid=' + ${userSession.id}}">
                                     <span><ion-icon name="person"></ion-icon></span>
                                     <span>My Profile</span> 
                                 </a>
@@ -90,7 +90,7 @@
 
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script src="/templates_components_assets/js/header_logged_in.js"></script>
+<script src="js/components/header_logged_in.js"></script>
 </body>
 
 </html>
