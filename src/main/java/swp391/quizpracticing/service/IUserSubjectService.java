@@ -11,6 +11,10 @@ import swp391.quizpracticing.model.UserSubject;
 
 import java.util.List;
 
+import swp391.quizpracticing.model.UserSubject;
+
+import java.util.List;
+
 /**
  *
  * @author Mosena
@@ -20,5 +24,7 @@ public interface IUserSubjectService {
     public void save(UserSubject usercourse) ;
     public UserSubject getId(UserSubject uk);
     public List<Subject> courseById(Integer id);
-    
+
+
+    public List<UserSubject> getAllByUserId(Integer id);
 }

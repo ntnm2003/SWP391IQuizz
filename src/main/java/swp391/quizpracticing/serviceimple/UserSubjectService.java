@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.SubjectDTO;
 import swp391.quizpracticing.dto.UserSubjectDTO;
 import swp391.quizpracticing.model.Subject;
+import swp391.quizpracticing.model.Subject;
 import swp391.quizpracticing.model.UserSubject;
 import swp391.quizpracticing.repository.ISubjectRepository;
 import swp391.quizpracticing.repository.IUserSubjectRepository;
@@ -18,12 +19,24 @@ import swp391.quizpracticing.service.IUserSubjectService;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.List;
+
 /**
  *
  * @author Mosena
  */
 @Service
 public class UserSubjectService implements IUserSubjectService {
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private IUserSubjectRepository iUserSubjectRepository;
+
+    @Override
+    public List<UserSubject> getAllByUserId(Integer id) {
+        return iUserSubjectRepository.getAllByUserIdAndRegistrationStatus(id, 1);
+    }
     private final IUserSubjectRepository userCourseRepo;
     private final ISubjectRepository subjectRepository;
 
@@ -31,7 +44,7 @@ public class UserSubjectService implements IUserSubjectService {
         this.userCourseRepo = userCourseRepo;
         this.subjectRepository = subjectRepository;
     }
-    private ModelMapper modelMapper =new ModelMapper();
+
     @Override
     public List<UserSubject> listAll() {
 

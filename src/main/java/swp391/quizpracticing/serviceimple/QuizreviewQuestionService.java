@@ -18,4 +18,9 @@ public class QuizreviewQuestionService implements IQuizreviewQuestionService {
     public List<QuizreviewQuestion> getAllByQuizreviewId(Integer id) {
         return iQuizreviewQuestionRepository.getAllByQuizreviewId(id);
     }
+
+    @Override
+    public Integer getNumberOfCorrectAnswerByQuizreviewId(Integer quizreviewId, Boolean isCorrect) {
+        return iQuizreviewQuestionRepository.getNumberOfCorrectAnswer(quizreviewId, isCorrect);
+    }
 }

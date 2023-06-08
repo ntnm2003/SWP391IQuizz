@@ -58,4 +58,5 @@ public class Question {
     
     @OneToMany(mappedBy = "id.question")
     private List<QuizreviewQuestion> quizreviewQuestions;
+
 }
