@@ -36,7 +36,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/home")
-	public String getToHomePage(Model model, HttpSession session) {
+	public String getToHomePage(Model model, @Autowired HttpSession session) {
 
 		//Get sliders
 		List<SliderDTO> sliders = sliderService.getAllSlidersForHomepage();
@@ -54,11 +54,6 @@ public class HomeController {
 		List<Subject> featuredSubjects = subjectService.findByFeaturing(true);
 		System.out.println("featured subjects size: " + featuredSubjects.size());
 
-		//Testing user Session
-		User u = iUserRepository.getById(10);
-		System.out.println(u);
-		session.setAttribute("user", u);
-
 		//Add to model
 		model.addAttribute("sliders", sliders);
 		model.addAttribute("blogs", blogs);
@@ -71,9 +66,11 @@ public class HomeController {
 	}
 
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(Model model, HttpSession session) {
+
 		session.invalidate();
 		return "redirect:/home";
+
 	}
 
 }

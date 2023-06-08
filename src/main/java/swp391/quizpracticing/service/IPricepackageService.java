@@ -4,10 +4,15 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.model.Pricepackage;
+
+import java.util.List;
+
 /**
  *
  * @author Mosena
  */
 public interface IPricepackageService {
-    
+    Pricepackage getById(Integer id);
+    List<Pricepackage> getBySubjectId(Integer id);
 }
