@@ -8,17 +8,17 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class QuizpracticingApplication {
-
+    
     @Bean
     public ModelMapper modelMapper(){
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STRICT);
+        .setMatchingStrategy(MatchingStrategies.STRICT);
         return modelMapper;
     }
-
+    
     public static void main(String[] args) {
-        SpringApplication.run(QuizpracticingApplication.class, args);
+            SpringApplication.run(QuizpracticingApplication.class, args);
     }
 
 }
