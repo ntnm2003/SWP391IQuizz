@@ -1,4 +1,4 @@
-package swp391.quizpracticing.Utils;
+package swp.quizpracticingsystem.Utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 

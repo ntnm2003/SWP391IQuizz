@@ -4,20 +4,14 @@
  */
 package swp391.quizpracticing.serviceimple;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
-import java.io.UnsupportedEncodingException;
-import java.net.http.HttpRequest;
+
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,10 +19,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import swp391.quizpracticing.Utils.Utility;
 import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.model.Role;
 import swp391.quizpracticing.model.User;
@@ -51,18 +46,19 @@ public class UserService implements IUserService {
     private IRoleRepository roleRepository;
     @Autowired
     private ModelMapper modelMapper;
-        
+
+
     private UserDTO convertEntityToDTO(User entity){
         return modelMapper.map(entity, UserDTO.class);
     }
-    
+
     private User convertDTOToEntity(UserDTO entity){
         return modelMapper.map(entity, User.class);
     }
 
     @Override
     public Page<UserDTO> getUsers(int pageNo, int pageSize, 
-            String searchValue, Boolean gender, Boolean status, Integer roleId, 
+            String searchValue, Boolean gender, Boolean status, Integer roleId,
             String sortBy, String order) {
         Pageable page;
         if(order.equals("asc")){
@@ -113,6 +109,33 @@ public class UserService implements IUserService {
                 pageList.getTotalElements());
     }
 
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public int countUsersByRolesLike(String role) {
+        return userRepository.countUsersByRolesLike(role);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Email does not exist in system. Please re-enter another email!");
+        }
+        return new org.springframework.security.core.userdetails.User(
+
+                user.getEmail(),
+                user.getPassword(),
+                Arrays.stream(user.getRole().getName().split(","))
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList())
+        );
+    }
+
     @Override
     public void addUser(UserDTO u) {
         userRepository.save(convertDTOToEntity(u));
@@ -128,7 +151,7 @@ public class UserService implements IUserService {
     public UserDTO findUser(Integer id) {
         return convertEntityToDTO(userRepository.getById(id));
     }
-    
+
 
     @Override
     public UserDTO findUserByToken(String token) {
@@ -150,5 +173,5 @@ public class UserService implements IUserService {
     public boolean findUserByEmail(String email) {
         return userRepository.findByEmail(email)!=null;
     }
-    
+
 }
