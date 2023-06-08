@@ -7,6 +7,7 @@ package swp391.quizpracticing.service;
 import org.springframework.data.domain.Page;
 import swp391.quizpracticing.dto.BlogDTO;
 import swp391.quizpracticing.model.Blog;
+import swp391.quizpracticing.model.Blogcategory;
 
 import java.util.List;
 
@@ -17,12 +18,18 @@ import java.util.List;
 public interface IBlogService {
     List<BlogDTO> getAllBlog();
 
-//    List<BlogDTO> getFeaturedBlog(boolean isFeatured);
-
     Page<Blog> getAllBlogsWithPagination(int pageNo);
 
     List<BlogDTO> searchBlogByTitle(String searchTerm);
 
-//    List<BlogDTO> getFilteredBlog(List<Blogcategory> categories);
     Blog getBlogById(Integer id);
+
+    List<BlogDTO> getFeaturedBlog(boolean isFeatured);
+
+    List<BlogDTO> getFeaturedLatestBlog(boolean isFeatured, int limit);
+
+    List<BlogDTO> getLatestBlog(int limit);
+
+    List<BlogDTO> getFilteredBlog(List<Blogcategory> categories);
+
 }

@@ -5,6 +5,7 @@
 package swp391.quizpracticing.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Blog;
 
@@ -35,5 +36,13 @@ public interface IBlogRepository extends JpaRepository<Blog,Integer> {
 
     @Override
     List<Blog> findAllById(Iterable<Integer> integers);
-//    List<Blog> findByStatus(Boolean status);
+
+    List<Blog> findByFeaturing(boolean isFeatured);
+
+    @Query(value = "select * from iquiz.blog where featuring = ?1 order by last_updated desc limit ?2", nativeQuery = true)
+    List<Blog> findByFeaturingOrderByUpdatedDate(boolean isFeatured, int limit);
+
+    @Query(value = "select * from iquiz.blog order by last_updated desc limit ?1", nativeQuery = true)
+    List<Blog> findByUpdatedDate(int limit);
+
 }
