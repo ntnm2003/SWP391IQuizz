@@ -4,6 +4,15 @@
  */
 package swp391.quizpracticing.service;
 
+import java.util.List;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.data.domain.Page;
+import swp391.quizpracticing.dto.UserDTO;
+import swp391.quizpracticing.model.Role;
+import swp391.quizpracticing.model.User;
 import org.springframework.data.domain.Page;
 import swp391.quizpracticing.dto.UserDTO;
 
@@ -11,10 +20,15 @@ import swp391.quizpracticing.dto.UserDTO;
  *
  * @author Mosena
  */
-public interface IUserService {
+public interface IUserService extends UserDetailsService {
+    User findByEmail(String email);
+    int countUsersByRolesLike(String role);
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
     public Page<UserDTO> getUsers(int pageNo, int pageSize,
-            String searchValue, Boolean gender, Boolean status, Integer roleId, 
-            String sortBy, String order);
+                                 String searchValue, Boolean gender, Boolean status, Integer roleId,
+                                 String sortBy, String order);
+
+
     public void addUser(UserDTO u);
     public void updateUser(Integer userId,Integer roleId, Boolean status);
     public UserDTO findUser(Integer id);
