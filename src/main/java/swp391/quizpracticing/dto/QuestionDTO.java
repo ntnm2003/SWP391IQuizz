@@ -12,11 +12,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class QuestionDTO {
     private Integer id;
-    private AnswerDTO answer;
+    private List<AnswerDTO> answer;
     private DimensionDTO dimension;
     private LevelDTO questionLevelId;
     private String content;
-    private String answerOptions;
     private Boolean status;
     private String image;
     private String audio;
