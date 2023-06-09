@@ -10,9 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -32,56 +30,56 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
 
-    private Integer id;
+    protected Integer id;
 
     @Column(name = "avatar")
-    private String avatar;
+    protected String avatar;
 
     @Column(name = "full_name")
-    private String fullName;
+    protected String fullName;
 
     @Column(name = "password")
-    private String password;
+    protected String password;
 
     @Column(name = "email")
-    private String email;
+    protected String email;
 
     @Column(name = "gender")
-    private Boolean gender;
+    protected Boolean gender;
 
     @Column(name = "mobile")
-    private String mobile;
+    protected String mobile;
     
     @Column(name="address")
-    private String address;
+    protected String address;
 
     @Column(name = "token")
-    private String token;
+    protected String token;
 
     @Column(name = "last_update_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp lastUpdateDate;
+    protected Timestamp lastUpdateDate;
 
     @Column(name = "enable")
-    private Boolean enable;
+    protected Boolean enable;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    private List<Blog> blogs;
+    protected List<Blog> blogs;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
-    private Role role;
+    protected Role role;
 
     @OneToMany(mappedBy = "owner")
-    private List<Subject> subject;
+    protected List<Subject> subject;
 
     @OneToMany(mappedBy = "creator")
-    private List<Lesson> lessons;
+    protected List<Lesson> lessons;
 
     @OneToMany(mappedBy = "user")
-    private List<Quizreview> quizReviews;
+    protected List<Quizreview> quizReviews;
 
     @OneToMany(mappedBy = "id.user")
-    private List<UserSubject> userSubjects;
+    protected List<UserSubject> userSubjects;
 
     public User token(String token) {
         setToken(token);

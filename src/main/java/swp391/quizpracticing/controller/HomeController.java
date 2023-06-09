@@ -11,10 +11,9 @@ import swp391.quizpracticing.model.Subject;
 import swp391.quizpracticing.model.*;
 import swp391.quizpracticing.repository.*;
 import swp391.quizpracticing.service.*;
-import swp391.quizpracticing.serviceimple.*;
-
-import java.util.ArrayList;
 import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
@@ -29,6 +28,9 @@ public class HomeController {
 
 	@Autowired
 	private IUserRepository iUserRepository;
+        
+        @Autowired
+        private PasswordEncoder passwordEncoder;
 
 	@GetMapping("/")
 	public String redirectToHome() {
@@ -61,7 +63,6 @@ public class HomeController {
 		model.addAttribute("featuredSubjects", featuredSubjects);
 
 		model.addAttribute("userSession", session.getAttribute("user"));
-
 		return "homepage/homepage";
 	}
 
@@ -72,5 +73,4 @@ public class HomeController {
 		return "redirect:/home";
 
 	}
-
 }
