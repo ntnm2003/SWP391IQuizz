@@ -27,7 +27,6 @@ import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.model.Role;
 import swp391.quizpracticing.model.User;
-import swp391.quizpracticing.model.UserInfo;
 import swp391.quizpracticing.repository.IRoleRepository;
 import swp391.quizpracticing.repository.IUserRepository;
 import swp391.quizpracticing.service.IUserService;
@@ -127,7 +126,7 @@ public class UserService implements IUserService {
         if (user == null) {
             throw new UsernameNotFoundException("Email does not exist in system. Please re-enter another email!");
         }
-        return new UserInfo(user);
+        return user;
     }
 
     @Override

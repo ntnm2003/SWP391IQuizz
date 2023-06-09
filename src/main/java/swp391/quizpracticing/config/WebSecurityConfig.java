@@ -14,7 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import swp391.quizpracticing.serviceimple.UserService;
+import swp391.quizpracticing.security.SimpleAuthenticationSuccessHandler;
+import swp391.quizpracticing.service.IUserService;
 
 
 @Configuration
@@ -23,7 +24,7 @@ import swp391.quizpracticing.serviceimple.UserService;
 public class WebSecurityConfig {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
     
     @Bean
     public SecurityFilterChain security(HttpSecurity http) throws Exception{
@@ -33,7 +34,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .anyRequest().permitAll()
-                .and().formLogin().loginPage("/login")
+                .and().formLogin().loginPage("/login").successHandler(new SimpleAuthenticationSuccessHandler())
                 .usernameParameter("email")
                 .passwordParameter("password").permitAll()
                 .and().build();
