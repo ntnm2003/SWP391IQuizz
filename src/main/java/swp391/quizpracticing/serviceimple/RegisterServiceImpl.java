@@ -6,9 +6,11 @@ package swp391.quizpracticing.serviceimple;
 
 
 import java.util.List;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.model.Role;
 import swp391.quizpracticing.model.User;
 import swp391.quizpracticing.repository.RegisterRepository;
@@ -24,7 +26,13 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     RegisterRepository repository;
-
+    
+    @Autowired
+    private ModelMapper modelMapper;
+    
+    private User convertDTOToEntity(UserDTO entity){
+        return modelMapper.map(entity, User.class);
+    }
     @Override
     public boolean verify(String verificationCode) {
         User user = repository.findByToken(verificationCode);
@@ -41,10 +49,10 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public void register(User user) {
-        repository.save(user);
+    public void register(UserDTO user) {
+        repository.save(convertDTOToEntity(user));
     }
-
+    
     @Override
     public List<User> getAllAccount() {
         List<User> accountList = repository.findAll();

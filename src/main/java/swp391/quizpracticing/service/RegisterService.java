@@ -6,7 +6,7 @@ package swp391.quizpracticing.service;
 
 
 import java.util.List;
-import org.springframework.stereotype.Service;
+import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.model.User;
 
 /**
@@ -15,7 +15,7 @@ import swp391.quizpracticing.model.User;
  */
 public interface RegisterService {
 
-    public void register(User user);
+    public void register(UserDTO user);
     boolean verify(String verificationCode);
 
     public List<User> getAllAccount();

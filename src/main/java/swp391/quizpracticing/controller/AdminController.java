@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.service.IRoleService;
 import swp391.quizpracticing.service.ISettingsService;
 import swp391.quizpracticing.service.IUserService;
+import swp391.quizpracticing.service.RegisterService;
 import swp391.quizpracticing.serviceimple.UserService;
 
 /**
@@ -39,6 +41,7 @@ import swp391.quizpracticing.serviceimple.UserService;
  */
 @Controller
 @RequestMapping("/admin")
+@PreAuthorize("hasAuthority('admin')")
 public class AdminController {
     
     @Autowired
@@ -49,6 +52,9 @@ public class AdminController {
     
     @Autowired
     private IRoleService roleService;
+    
+    @Autowired
+    private RegisterService registerService;
     
     @Autowired
     private JavaMailSenderImpl mailSender;
@@ -75,8 +81,6 @@ public class AdminController {
             model.addAttribute("msg", "Not found");
             return "/admin/error";
         }
-        UserDTO user = userService.findUser(10);
-        session.setAttribute("user", user);
         model.addAttribute("roles", roles);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages",totalPages);
@@ -104,8 +108,6 @@ public class AdminController {
             model.addAttribute("msg", "Not found");
             return "/admin/error";
         }
-        UserDTO user = userService.findUser(10);
-        session.setAttribute("user", user);
         model.addAttribute("types", types);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages",totalPages);
@@ -118,8 +120,6 @@ public class AdminController {
     public String getUser(HttpSession session, @RequestParam("userId") Integer userId, Model model){
         UserDTO u=userService.findUser(userId);
         List<RoleDTO> roles=roleService.findRoles();
-        UserDTO user = userService.findUser(10);
-        session.setAttribute("user", user);
         model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("roles", roles);
         model.addAttribute("user", u);
@@ -129,8 +129,6 @@ public class AdminController {
     public String getSetting(HttpSession session,@RequestParam("settingId") Integer settingId, Model model){
         SettingsDTO s=settingsService.findById(settingId);
         List<String> types=settingsService.findTypes();
-        UserDTO user = userService.findUser(10);
-        session.setAttribute("user", user);
         model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("types", types);
         model.addAttribute("setting",s);
@@ -141,8 +139,6 @@ public class AdminController {
             @RequestParam("role") Integer roleId,
             @RequestParam("enable") Boolean status,
             Model model){
-        UserDTO user = userService.findUser(10);
-        session.setAttribute("user", user);
         model.addAttribute("userSession", session.getAttribute("user"));
         userService.updateUser(id, roleId, status);
         return "redirect:/admin/user-detail?userId="+id;
@@ -161,9 +157,7 @@ public class AdminController {
         UserDTO u=new UserDTO();
         String randomCode = RandomString.make(64);
         String randomPass=RandomString.make(12);
-        RoleDTO r=roleService.fileRole(roleId);
-        UserDTO user = userService.findUser(10);
-        session.setAttribute("user", user);
+        RoleDTO r=roleService.findRole(roleId);
         model.addAttribute("userSession", session.getAttribute("user"));
         u.setToken(randomCode);
         u.setRole(r);
@@ -171,7 +165,7 @@ public class AdminController {
         u.setEmail(email);
         u.setPassword(randomPass);
         u.setEnable(false);
-        userService.addUser(u);
+        registerService.register(u);
         sendVerification(fullName, email, 
                 randomCode,randomPass, request);
         return "redirect:/admin/user-list";
@@ -182,8 +176,6 @@ public class AdminController {
             @RequestParam("order") Integer order,
             @RequestParam("description") String description,
             @RequestParam("status") Boolean status){
-        UserDTO user = userService.findUser(10);
-        session.setAttribute("user", user);
         model.addAttribute("userSession", session.getAttribute("user"));
         settingsService.updateSettings(id, value, order, status, description);
         return "redirect:/admin/setting-detail?settingId="+id;
@@ -197,8 +189,6 @@ public class AdminController {
             @RequestParam("value") String value,
             @RequestParam("order") Integer order,
             @RequestParam("description") String description){
-        UserDTO user = userService.findUser(10);
-        session.setAttribute("user", user);
         model.addAttribute("userSession", session.getAttribute("user"));
         settingsService.addSetting(type, order, value, description);
         return "redirect:/admin/settings";

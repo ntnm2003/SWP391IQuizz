@@ -5,6 +5,7 @@
 package swp391.quizpracticing.repository;
 
 import jakarta.transaction.Transactional;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -56,12 +57,17 @@ public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecifi
     @Query("UPDATE User u SET u.role = :role WHERE u.id = :userId")
     public void updateUserRole(@Param("userId") Integer userId,
             @Param("role") Role role);
-
-    User findByEmail(String email);
+    
+    @Query("select u from User u where u.email = :email")
+    public User findByEmail(@Param("email")String email);
     @Query(value = "select count(*) from user_roles where role_id in (select id from roles where `name` = ?1)", nativeQuery = true)
     int countUsersByRolesLike(String role);
 
-
+    @Transactional
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query("Update User u set u.password = :password where u.id = :userId")
+    public void updateUserPassword(@Param("userId") Integer id,@Param("password") String password);
+    
     @Query(value="select * from User where full_name like %?1%",
             nativeQuery = true)
     public Page<User>searchByName(Pageable pageable,String fullName);
@@ -75,4 +81,5 @@ public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecifi
     public Page<User>searchByPhoneNumber(Pageable pageable, String phone);
     @Override
     public void delete(User u);
+
 }
