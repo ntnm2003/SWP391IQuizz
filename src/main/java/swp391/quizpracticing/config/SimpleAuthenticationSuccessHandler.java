@@ -1,4 +1,4 @@
-package swp391.quizpracticing.security;
+package swp391.quizpracticing.config;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +25,6 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         User user=(User)authentication.getPrincipal();
         session=request.getSession();
         session.setAttribute("user", user);
-        redirectStrategy.sendRedirect(request, response, "/home");
+        redirectStrategy.sendRedirect(request, response, request.getContextPath());
     }
 }
