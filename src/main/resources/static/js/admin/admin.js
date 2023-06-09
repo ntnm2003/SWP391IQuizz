@@ -1,7 +1,7 @@
 function setPageFilters() {
     const urlParams = new URLSearchParams(window.location.search);
     const gender = urlParams.get("gender");
-    const status_ = urlParams.get("status");
+    const status_ = urlParams.get("enable");
     const role = urlParams.get("role");
     const sortBy = urlParams.get("sortBy");
     const order = urlParams.get("order");
@@ -45,7 +45,7 @@ function navigateToInteract() {
         filters.push("gender=" + gender);
     }
     if (status) {
-        filters.push("status=" + status);
+        filters.push("enable=" + status);
     }
     if (role) {
         filters.push("role=" + role);
@@ -80,7 +80,7 @@ function moveOn(pageNo){
         filters.push("gender=" + gender);
     }
     if (status) {
-        filters.push("status=" + status);
+        filters.push("enable=" + status);
     }
     if (role) {
         filters.push("role=" + role);
@@ -115,7 +115,7 @@ function moveBack(pageNo){
         filters.push("gender=" + gender);
     }
     if (status) {
-        filters.push("status=" + status);
+        filters.push("enable=" + status);
     }
     if (role) {
         filters.push("role=" + role);
