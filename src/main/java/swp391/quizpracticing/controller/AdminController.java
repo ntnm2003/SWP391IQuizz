@@ -81,6 +81,7 @@ public class AdminController {
             model.addAttribute("msg", "Not found");
             return "/admin/error";
         }
+        model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("roles", roles);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages",totalPages);
@@ -108,6 +109,7 @@ public class AdminController {
             model.addAttribute("msg", "Not found");
             return "/admin/error";
         }
+        model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("types", types);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages",totalPages);
