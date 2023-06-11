@@ -40,7 +40,7 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public RoleDTO fileRole(Integer id) {
+    public RoleDTO findRole(Integer id) {
         return convertEntityToDTO(roleRepository.getReferenceById(id));
     }
 }

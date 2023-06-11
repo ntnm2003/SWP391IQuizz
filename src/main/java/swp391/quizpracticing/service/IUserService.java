@@ -23,13 +23,13 @@ import swp391.quizpracticing.dto.UserDTO;
 public interface IUserService extends UserDetailsService {
     User findByEmail(String email);
     int countUsersByRolesLike(String role);
+    @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
     public Page<UserDTO> getUsers(int pageNo, int pageSize,
                                  String searchValue, Boolean gender, Boolean status, Integer roleId,
                                  String sortBy, String order);
 
 
-    public void addUser(UserDTO u);
     public void updateUser(Integer userId,Integer roleId, Boolean status);
     public UserDTO findUser(Integer id);
     public UserDTO findUserByToken(String token);

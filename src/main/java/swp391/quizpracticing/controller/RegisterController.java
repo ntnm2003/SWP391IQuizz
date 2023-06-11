@@ -24,6 +24,11 @@ import swp391.quizpracticing.service.RegisterService;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import swp391.quizpracticing.Utils.Utility;
+import swp391.quizpracticing.dto.RoleDTO;
+import swp391.quizpracticing.dto.UserDTO;
+import swp391.quizpracticing.serviceimple.RoleService;
 
 /**
  *
@@ -34,9 +39,15 @@ public class RegisterController {
 
     @Autowired
     private RegisterService service;
+    
+    @Autowired
+    private RoleService roleService;
 
     @Autowired
     private JavaMailSenderImpl mailSender;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/register")
     public String register(HttpSession session) {
@@ -48,8 +59,9 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user, HttpServletRequest request, Model model) {
+    public String register(@ModelAttribute UserDTO user, HttpServletRequest request, Model model) {
         List<User> getAllAccount = service.getAllAccount();
+        String password=user.getPassword();
         boolean isExist = false;
         for (User user1 : getAllAccount) {
             if(user1.getEmail().equals(user.getEmail())) {
@@ -63,13 +75,13 @@ public class RegisterController {
         String randomCode = RandomString.make(64);
         user.setToken(randomCode);
         user.setEnable(false);
-        //Role role = service.getRoleById();
-        Role role = new Role(6, "customer", null, null, null);
+        user.setPassword(passwordEncoder.encode(password));
+        RoleDTO role=roleService.findRole(6);
         user.setRole(role);
         service.register(user);
         try {
 
-            sendVerificationEmail(user, swp.quizpracticingsystem.Utils.Utility.getSiteURL(request));
+            sendVerificationEmail(user, Utility.getSiteURL(request));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -86,7 +98,7 @@ public class RegisterController {
         }
     }
 
-    public void sendVerificationEmail(User user, String siteURL)
+    public void sendVerificationEmail(UserDTO user, String siteURL)
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
         String fromAddress = "gmail@sss";
@@ -100,12 +112,11 @@ public class RegisterController {
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-
+        
         helper.setFrom(fromAddress, senderName);
         helper.setTo(toAddress);
         helper.setSubject(subject);
 
-        System.out.println(user.getFullName());
         content = content.replace("[[name]]", user.getFullName());
         String verifyURL = siteURL + "/verify?code=" + user.getToken();
 
