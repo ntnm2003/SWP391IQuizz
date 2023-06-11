@@ -17,6 +17,7 @@ import swp391.quizpracticing.service.IBlogService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -36,25 +37,19 @@ public class BlogService implements IBlogService {
 
     @Override
     public List<BlogDTO> getAllBlog() {
-        List<BlogDTO> results = new ArrayList<>();
         List<Blog> blogs = iBlogRepository.findAll();
-        for(Blog blog : blogs) {
-            BlogDTO blogDTO = new BlogDTO();
-            blogDTO.blogHomePage(blog);
-            results.add(blogDTO);
-        }
-        return results;
+        return blogs
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
     }
     @Override
     public List<BlogDTO> getFeaturedBlog(boolean isFeatured) {
         List<Blog> featuredBlog = iBlogRepository.findByFeaturing(isFeatured);
-        List<BlogDTO> results = new ArrayList<>();
-        for(Blog blog : featuredBlog) {
-            BlogDTO blogDTO = new BlogDTO();
-            blogDTO.blogHomePage(blog);
-            results.add(blogDTO);
-        }
-        return results;
+        return featuredBlog
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
     }
 
 
@@ -66,14 +61,11 @@ public class BlogService implements IBlogService {
 
     @Override
     public List<BlogDTO> searchBlogByTitle(String searchTerm) {
-        List<BlogDTO> results = new ArrayList<>();
         List<Blog> searchedBlog = iBlogRepository.findByTitleContainingIgnoreCase(searchTerm);
-        for(Blog blog : searchedBlog) {
-            BlogDTO blogDTO = new BlogDTO();
-            blogDTO.blogHomePage(blog);
-            results.add(blogDTO);
-        }
-        return results;
+        return searchedBlog
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -84,27 +76,21 @@ public class BlogService implements IBlogService {
 
     @Override
     public List<BlogDTO> getFeaturedLatestBlog(boolean isFeatured, int limit) {
-        List<Blog> lastestBlog = iBlogRepository.findByFeaturingOrderByUpdatedDate(isFeatured, limit);
-        List<BlogDTO> results = new ArrayList<>();
-        for(Blog blog : lastestBlog) {
-            BlogDTO blogDTO = new BlogDTO();
-            blogDTO = convertEntityToDTO(blog);
-            results.add(blogDTO);
-        }
-        return results;
+        List<Blog> latestBlog = iBlogRepository.findByFeaturingOrderByUpdatedDate(isFeatured, limit);
+        return latestBlog
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
 
     }
 
     @Override
     public List<BlogDTO> getLatestBlog(int limit) {
-        List<Blog> lastestBlog = iBlogRepository.findByUpdatedDate(limit);
-        List<BlogDTO> results = new ArrayList<>();
-        for(Blog blog : lastestBlog) {
-            BlogDTO blogDTO = new BlogDTO();
-            blogDTO = convertEntityToDTO(blog);
-            results.add(blogDTO);
-        }
-        return results;
+        List<Blog> latestBlog = iBlogRepository.findByUpdatedDate(limit);
+        return latestBlog
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
