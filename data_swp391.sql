@@ -470,8 +470,10 @@ INSERT INTO `iquiz`.`registrationstatus`
 (
 `name`)
 VALUES
-('active'),
-('inactive');
+('paid'),
+('unpaid'),
+('pending'),
+('cancelled');
 
 
 INSERT INTO `iquiz`.`user_subject`
