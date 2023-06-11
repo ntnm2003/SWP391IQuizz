@@ -35,11 +35,5 @@ public class BlogDTO {
         this.lastUpdated = blog.getLastUpdated();
         this.status = blog.getStatus();
         this.featuring = blog.getFeaturing();
-//        BlogcategoryDTO blogCategoryDTO = new BlogcategoryDTO();
-//        blogCategoryDTO.entityToDTO((Blogcategory) blog.getCategories());
-//        this.categories = (List<CategoryDTO>) blogCategoryDTO;
-        UserDTO userDTO = new UserDTO();
-        userDTO.entityToDTO(blog.getAuthor());
-        this.author = userDTO;
     }
 }
