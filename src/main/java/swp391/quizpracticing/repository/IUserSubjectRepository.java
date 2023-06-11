@@ -35,5 +35,4 @@ public interface IUserSubjectRepository
     @Override
     public UserSubject save(UserSubject us);
     
-    public void update
 }
