@@ -13,5 +13,5 @@ import swp391.quizpracticing.dto.RoleDTO;
  */
 public interface IRoleService {
     public List<RoleDTO> findRoles();
-    public RoleDTO fileRole(Integer id);
+    public RoleDTO findRole(Integer id);
 }

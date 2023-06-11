@@ -44,10 +44,10 @@ public class UserService implements IUserService {
     
     @Autowired
     private IRoleRepository roleRepository;
+    
     @Autowired
     private ModelMapper modelMapper;
-
-
+    
     private UserDTO convertEntityToDTO(User entity){
         return modelMapper.map(entity, UserDTO.class);
     }
@@ -126,19 +126,7 @@ public class UserService implements IUserService {
         if (user == null) {
             throw new UsernameNotFoundException("Email does not exist in system. Please re-enter another email!");
         }
-        return new org.springframework.security.core.userdetails.User(
-
-                user.getEmail(),
-                user.getPassword(),
-                Arrays.stream(user.getRole().getName().split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList())
-        );
-    }
-
-    @Override
-    public void addUser(UserDTO u) {
-        userRepository.save(convertDTOToEntity(u));
+        return user;
     }
 
     @Override

@@ -1,20 +1,23 @@
 package swp391.quizpracticing.dto;
 
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import swp391.quizpracticing.model.User;
-
-import java.sql.Date;
-import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import swp391.quizpracticing.model.Role;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class UserDTO implements UserDetails {
     private Integer id;
     private RoleDTO role;
     private String avatar;
@@ -31,9 +34,37 @@ public class UserDTO {
     private SubjectDTO subject;
     private List<LessonDTO>lessons;
     private List<QuizreviewDTO>quizReviews;
-    public void entityToDTO(User user) {
-        this.id = user.getId();
-        this.fullName = user.getFullName();
+
+    @Override
+    public Collection<RoleDTO> getAuthorities() {
+        Collection<RoleDTO> roles=new ArrayList<>();
+        roles.add(role);
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return enable;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return enable;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return enable;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enable;
     }
 }
 
