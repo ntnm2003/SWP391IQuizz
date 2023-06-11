@@ -25,15 +25,4 @@ public class BlogDTO {
     private Boolean featuring;
     private List<CategoryDTO>categories;
     private UserDTO author;
-
-    public void blogHomePage(Blog blog) {
-        this.id = blog.getId();
-        this.title = blog.getTitle();
-        this.content = blog.getContent();
-        this.thumbnail = blog.getThumbnail();
-        this.briefInfo = blog.getBriefInfo();
-        this.lastUpdated = blog.getLastUpdated();
-        this.status = blog.getStatus();
-        this.featuring = blog.getFeaturing();
-    }
 }
