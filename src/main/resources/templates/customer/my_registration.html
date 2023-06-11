@@ -14,7 +14,7 @@
   <link rel="stylesheet" th:href="@{/css/components/footer.css}">
 </head>
 <body class="bg-neutral-50 text-teal-700">
-<!--<div th:insert="/components/header_logged_in"></div>-->
+<div th:insert="components/header_logged_in"></div>
 <main>
   <div style="margin-top: 12px" class="flex items-center justify-center border-b border-b-black/10 fixed top-50 left-0 right-0 w-full z-20 bg-neutral-50">
     <div class="flex items-center justify-between px-8 py-1 w-full">
@@ -103,7 +103,7 @@
   </div>
 </main>
 
-<div th:insert="/components/footer"></div>
+<div th:insert="components/footer"></div>
 <script>
   const categoriesBtn = document.getElementById('categories-btn');
   const categoriesIcon = categoriesBtn.querySelector('span');
