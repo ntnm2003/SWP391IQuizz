@@ -7,9 +7,6 @@ package swp391.quizpracticing.serviceimple;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import swp391.quizpracticing.dto.SubjectDTO;
-import swp391.quizpracticing.dto.UserSubjectDTO;
-import swp391.quizpracticing.model.Subject;
 import swp391.quizpracticing.model.Subject;
 import swp391.quizpracticing.model.UserSubject;
 import swp391.quizpracticing.repository.ISubjectRepository;
@@ -17,7 +14,6 @@ import swp391.quizpracticing.repository.IUserSubjectRepository;
 import swp391.quizpracticing.service.IUserSubjectService;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import java.util.List;
 
