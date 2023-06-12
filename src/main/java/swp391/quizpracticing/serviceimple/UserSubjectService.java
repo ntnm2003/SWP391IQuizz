@@ -31,29 +31,25 @@ public class UserSubjectService implements IUserSubjectService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private IUserSubjectRepository iUserSubjectRepository;
-
+    private IUserSubjectRepository userSubjectRepository;
+    
+    @Autowired
+    private ISubjectRepository subjectRepository;
+    
     @Override
     public List<UserSubject> getAllByUserId(Integer id) {
-        return iUserSubjectRepository.getAllByUserIdAndRegistrationStatus(id, 1);
-    }
-    private final IUserSubjectRepository userCourseRepo;
-    private final ISubjectRepository subjectRepository;
-
-    public UserSubjectService(IUserSubjectRepository userCourseRepo, ISubjectRepository subjectRepository) {
-        this.userCourseRepo = userCourseRepo;
-        this.subjectRepository = subjectRepository;
+        return userSubjectRepository.getAllByUserIdAndRegistrationStatus(id, 1);
     }
 
     @Override
     public List<UserSubject> listAll() {
 
-        return (List<UserSubject>) userCourseRepo.findAll();
+        return (List<UserSubject>) userSubjectRepository.findAll();
     }
     @Override
     public void save(UserSubject userSubject) {
 
-        userCourseRepo.save(userSubject);
+        userSubjectRepository.save(userSubject);
     }
 
     @Override
@@ -81,6 +77,4 @@ public class UserSubjectService implements IUserSubjectService {
 
         return subjects;
     }
-
-
 }

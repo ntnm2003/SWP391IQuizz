@@ -33,7 +33,13 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         session=request.getSession();
         session.setAttribute("user", user);
         SavedRequest savedRequest = requestCache.getRequest(request, response);
-        redirectStrategy.sendRedirect(request, response, savedRequest.getRedirectUrl());
+        if(savedRequest==null){
+            redirectStrategy.sendRedirect(request, response, "/");
+        }
+        else{
+            redirectStrategy.sendRedirect(request, response, 
+                savedRequest.getRedirectUrl());
+        }
     }
     public void setRequestCache(RequestCache requestCache) {
         this.requestCache = requestCache;

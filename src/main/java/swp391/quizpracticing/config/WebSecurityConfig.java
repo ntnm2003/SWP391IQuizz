@@ -33,7 +33,9 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .anyRequest().permitAll()
-                .and().formLogin().loginPage("/login").successHandler(new SimpleAuthenticationSuccessHandler())
+                .and().formLogin().loginPage("/login")
+                .successHandler(new SimpleAuthenticationSuccessHandler())
+                .failureHandler(new SimpleAuthenticationFailureHandler())
                 .usernameParameter("email")
                 .passwordParameter("password").permitAll()
                 .and().build();
