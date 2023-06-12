@@ -41,6 +41,9 @@ public class HomeController {
 	@GetMapping("/home")
 	public String getToHomePage(Model model, @Autowired HttpSession session) {
 
+		User loggedinUser = (User)session.getAttribute("user");
+		System.out.println(loggedinUser);
+
 		//Get sliders
 		List<SliderDTO> sliders = sliderService.getAllSlidersForHomepage();
 		System.out.println("sliders size: " + sliders.size());
@@ -69,9 +72,7 @@ public class HomeController {
 
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
-
 		session.invalidate();
 		return "redirect:/home";
-
 	}
 }
