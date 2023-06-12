@@ -7,6 +7,8 @@ package swp391.quizpracticing.serviceimple;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.SubjectDTO;
 import swp391.quizpracticing.model.Subject;
@@ -76,8 +78,7 @@ public class SubjectService implements ISubjectService {
 
     @Override
     public List<Subject> findByFeaturing(Boolean isFeatured) {
-        List<Subject> featuringSubjects= iSubjectRepository.findAllByFeatured(isFeatured);
-        return featuringSubjects;
+        return iSubjectRepository.findAllByFeatured(isFeatured);
     }
 
     @Override
@@ -99,6 +100,21 @@ public class SubjectService implements ISubjectService {
     @Override
     public Subject getById(int id) {
         return iSubjectRepository.findById(id);
+    }
+
+    @Override
+    public List<Subject> findSubjectsWithSorting(String field) {
+        return iSubjectRepository.findAll(Sort.by(Sort.Direction.ASC, field));
+    }
+
+    @Override
+    public Page<Subject> findSubjectsWithPagination(int pageNum, int itemPerPage) {
+        return iSubjectRepository.findAll(PageRequest.of(pageNum, itemPerPage));
+    }
+
+    @Override
+    public Page<Subject> findSubjectsWithPaginationAndSorting(int pageNum, int itemPerPage, String field) {
+        return iSubjectRepository.findAll(PageRequest.of(pageNum, itemPerPage).withSort(Sort.by(Sort.Direction.ASC, field)));
     }
 
 }

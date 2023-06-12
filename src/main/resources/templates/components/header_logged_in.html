@@ -62,12 +62,25 @@
                     <div class="menu">
                         <h3 th:text="${userSession.fullName}"></h3>
                         <ul class="dropdown1">
+                            <th:block th:if="${userSession.role.id != 6}">
+                                <li style="width: 100%; text-align: center; padding-bottom: 0; font-weight: 500;">
+                                    <span style="width: 100%; text-align: center;" th:text="'Role: ' + ${userSession.role.name}"></span>
+                                </li>
+                            </th:block>
                             <li>
                                 <a th:href="@{'/profile?userid=' + ${userSession.id}}">
                                     <span><ion-icon name="person"></ion-icon></span>
                                     <span>My Profile</span> 
                                 </a>
                             </li>
+                            <th:block th:if="${userSession.role.id == 2}">
+                                <li>
+                                    <a th:href="@{/expert/subjects-list}">
+                                        <span><ion-icon name="layers-outline"></ion-icon></span>
+                                        <span>Manage Subjects</span>
+                                    </a>
+                                </li>
+                            </th:block>
                             <th:block th:if="${userSession.role.id == 1 || userSession.role.id == 4 || userSession.role.id == 3}">
                                 <li>
                                     <a th:href="@{/{role}/dashboard(role = ${userSession.role.name})}">

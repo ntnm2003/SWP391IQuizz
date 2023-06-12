@@ -48,4 +48,10 @@ public interface ISubjectService {
 
     public Subject getById(int id);
 
+    public List<Subject> findSubjectsWithSorting(String field);
+
+    public Page<Subject> findSubjectsWithPagination(int pageNum, int itemPerPage);
+
+    public Page<Subject> findSubjectsWithPaginationAndSorting(int pageNum, int itemPerPage, String field);
+
 }
