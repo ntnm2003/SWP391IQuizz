@@ -38,7 +38,9 @@ public class WebSecurityConfig {
                 .failureHandler(new SimpleAuthenticationFailureHandler())
                 .usernameParameter("email")
                 .passwordParameter("password").permitAll()
-                .and().build();
+                .and().logout().addLogoutHandler(new SimpleLogoutHandler())
+                .and()
+                .build();
     }
     
     @Bean
