@@ -18,4 +18,5 @@ public class UserSubjectDTO {
     private Timestamp registrationTime;
     private RegistrationstatusDTO registrationStatusId;
     private Timestamp validFrom;
+    private String notes;
 }
