@@ -28,6 +28,9 @@ public class UserSubject {
     @Column(name = "valid_to")
     private Timestamp validTo;
     
+    @Column(name="notes")
+    private String notes;
+    
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "registration_status_id", referencedColumnName = "id")
     private Registrationstatus registrationStatus;

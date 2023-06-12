@@ -16,6 +16,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import swp391.quizpracticing.model.Pricepackage;
+import swp391.quizpracticing.model.Registrationstatus;
+import swp391.quizpracticing.model.Subject;
 
 /**
  *
@@ -35,4 +38,9 @@ public interface IUserSubjectRepository
     @Override
     public UserSubject save(UserSubject us);
     
+    @Override
+    public UserSubject getReferenceById(UserSubjectKey usk);
+    
+    public void updateUserSubject(UserSubjectKey usk, Subject s, 
+            Pricepackage pricePackage, Registrationstatus status);
 }
