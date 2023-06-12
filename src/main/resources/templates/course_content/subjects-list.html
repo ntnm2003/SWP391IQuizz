@@ -26,13 +26,13 @@
 
         <div class="functionalities" style="display: flex; align-items: center; justify-content: space-between;">
 
-            <div class="button">
-                <a class="btn btn-dark" th:href="@{admin/new-subject}" style="padding: 5px; font-size: 14px; margin-right: 10px; background-color: #484747;">New Subject</a>
+            <div class="button" id="new-subject-btn">
+                <a class="btn btn-primary" href="/admin/new-subject" style="padding: 5px; font-size: 14px; margin-right: 10px; background-color: #484747;">New Subject</a>
             </div>
         </div>
 
         <table class="table table-hover table-bordered practice-list-table" style="margin-top: 15px">
-            <thead>
+            <thead style="background-color: #1368ce; color: white;">
                 <tr>
                     <th scope="col">Subject ID</th>
                     <th scope="col">Subject Name</th>
@@ -43,32 +43,41 @@
                     <th scope="col">View Detail</th>
                 </tr>
             </thead>
-<!--            <tbody  th:each="takenQuizz : ${takenQuizzes}"-->
-<!--                    th:with="takenQuizSubject=${takenQuizSubjects[takenQuizzStat.index]},-->
-<!--							 takenQuizLesson=${takenQuizLessons[takenQuizzStat.index]},-->
-<!--							 percent=${percentCorrect[takenQuizzStat.index]}">-->
-<!--                <tr>-->
-<!--                    <td>-->
-<!--                        <a th:href="@{/practice-detail?id={id}(id = ${takenQuizz.getId()})}" style="text-align: start">-->
-<!--                            <span th:text="'Practice Name: ' + ${takenQuizLesson.getName()}" style="display: block; font-weight: 500;"></span>-->
-<!--                            <span th:text="'Subject: ' + ${takenQuizSubject.briefInfo}" style="display: block; font-size: 12px"></span>-->
-<!--                            <span th:text="'Practice Type: ' + ${takenQuizLesson.testType.getName()}" style="display: block; font-size: 12px"></span>-->
-<!--                        </a>-->
-<!--                    </td>-->
-<!--                    <td><a th:text="${takenQuizLesson.getDimension().getName()}" th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}"></a></td>-->
-<!--                    <td><a th:text="${takenQuizLesson.getLevel().getName()}" th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}"></a></td>-->
-<!--                    <td><a th:text="${takenQuizz.getDateTaken()}" th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}"></a></td>-->
-<!--                    <td><a th:text="${takenQuizz.getDuration()}" th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}"></a></td>-->
-<!--                    <td><a th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}">-->
-<!--                        <span th:text="${hashmaps[takenQuizz.getId()] + ' Corrects / '}"></span>-->
-<!--                        <span th:text="${takenQuizz.getLesson.getQuestionNumber() + ' Questions'}"></span>-->
-<!--                    </a>-->
-<!--                    </td>-->
-<!--                    <td><a th:text="${percent} + ' %'"  th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}"></a></td>-->
-<!--                    <td><a th:href="@{/practice-detail?qr=true&id={id}(id = ${takenQuizz.getId()})}" class="view-detail">View Details</a></td>-->
-<!--                </tr>-->
-<!--            </tbody>-->
+            <tbody  th:each="subject : ${subjects}">
+            <tr>
+                <td><a th:text="${subject.getId()}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                <td><a th:text="${subject.briefInfo}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                <td><a th:text="${subjects.getTotalPages()}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                <td><a th:text="${subject.getLessons().getSize()}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                <td><a th:text="${subject.owner.fullName}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                <td><a th:text="${subject.status}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}" class="view-detail"></a></td>
+            </tr>
+            </tbody>
         </table>
+
+        <nav aria-label="Page navigation example" style="margin-top: 20px; display: flex; justify-content: flex-end;">
+            <form th:action="@{/admin/subjects-list}" method="get" class="form">
+                Items per page:
+                <select name="itemPerPage" class="form-items">
+                    <option value="5" th:selected="${selectedItemPerPage == 5}">5</option>
+                    <option value="10" th:selected="${selectedItemPerPage == 10}">10</option>
+                    <option value="15" th:selected="${selectedItemPerPage == 15}">15</option>
+                    <option value="20" th:selected="${selectedItemPerPage == 20}">20</option>
+                </select>
+
+<!--                <input type="hidden" name="pageNum" th:value="${currentPage}">-->
+            </form>
+            <ul class="pagination pagination-links">
+                <li class="page-item"><a class="page-link" th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}(pageNum = ${currentPage - 1}, itemPerPage = ${selectedItemPerPage})}" th:classappend="${currentPage == 0 ? 'disabled' : ''}">&laquo;</a></li>
+                <th:block th:each="i : ${#numbers.sequence(0, subjects.getTotalPages() - 1)}">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{?pageNum={i}&itemPerPage={itemPerPage}(i = ${i}, itemPerPage = ${selectedItemPerPage})}" th:classappend="${subjects.number == i ? 'active' : ''}" th:text="${i + 1}"></a>
+                    </li>
+                </th:block>
+                <li class="page-item"><a class="page-link" th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}(pageNum = ${currentPage + 1}, itemPerPage = ${selectedItemPerPage})}" th:classappend="${currentPage == (subjects.totalPages - 1) ? 'disabled' : ''}">&raquo;</a></li>
+            </ul>
+        </nav>
 
     </section>
 
@@ -76,7 +85,14 @@
     <div th:insert="/components/footer"></div>
 
 
-
+<script>
+    const mySelect = document.querySelectorAll('.form-items');
+    mySelect.forEach(select => {
+        select.addEventListener('change', function() {
+            document.querySelector('.form').submit();
+        });
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

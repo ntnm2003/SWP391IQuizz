@@ -66,7 +66,31 @@ div.functionalities {
     color: #333;
 }
 
+form {
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+select {
+    border-radius: 5px;
+}
+
 .practice-list-table .view-detail {
     color: #1368ce;
     font-weight: 500;
+}
+
+.disabled {
+    pointer-event: none;
+    cursor: default;
+}
+
+.active {
+    background-color: #1368ce;
+    color: #ffffff;
+}
+
+.pagination-links a {
+    font-size: 13px;
 }

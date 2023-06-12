@@ -12,7 +12,6 @@ VALUES
 ('expert',1),
 ('sale',1),
 ('marketing',1),
-('sale',1),
 ('customer',1);
  INSERT INTO `iquiz`.`slider`
 (
