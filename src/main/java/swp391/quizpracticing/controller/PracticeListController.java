@@ -38,7 +38,6 @@ public class PracticeListController {
     @Autowired
     private IQuestionService iQuestionService;
 
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @GetMapping("/practice-list")
     public String getToPracticeList(Model model, HttpSession session) {
         //Logged in User (using Session)
