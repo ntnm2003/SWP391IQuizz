@@ -22,9 +22,15 @@
     <!--  BODY  -->
     <section id="body">
 
-        <h1>SUBJECTS LIST</h1>
+        <h1 style="margin-bottom: 5px; font-size: 22px;"><a th:href="@{/{role}/subjects-list(role = ${userSession.role.name})}">SUBJECTS LIST</a></h1>
 
         <div class="functionalities" style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="search-box">
+                <form th:action="@{/subjects-list/search}" method="get">
+                    <input type="text" name="subject-name" th:value="${subjectName}" placeholder="Search By Subject Name" style="border-radius: 5px; padding: 5px; border: 2px solid #1368ce; width: 187px;">
+                    <input type="submit" value="Search" style="background: #1368ce; padding: 6px; border-radius: 5px; color: #ffffff; font-weight: 500">
+                </form>
+            </div>
 
             <div class="button" id="new-subject-btn">
                 <a class="btn btn-primary" href="/admin/new-subject" style="padding: 5px; font-size: 14px; margin-right: 10px; background-color: #484747;">New Subject</a>
@@ -47,37 +53,51 @@
             <tr>
                 <td><a th:text="${subject.getId()}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
                 <td><a th:text="${subject.briefInfo}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
-                <td><a th:text="${subjects.getTotalPages()}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                <td><a th:text="${subject.subCategories.get(0).category.name}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
                 <td><a th:text="${subject.getLessons().getSize()}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
                 <td><a th:text="${subject.owner.fullName}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
-                <td><a th:text="${subject.status}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
-                <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}" class="view-detail"></a></td>
+                <th:block th:if="${subject.status == true}">
+                    <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}">Active</a></td>
+                </th:block>
+                <th:block th:unless="${subject.status == true}">
+                    <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}">Inactive</a></td>
+                </th:block>
+                <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}" class="view-detail">View Detail</a></td>
             </tr>
             </tbody>
         </table>
+        <th:block th:if="${!subjects.hasContent()}">
+            <h3 style="margin-left: 10px; font-weight: 500; font-size: 18px;">No Item Exist</h3>
+        </th:block>
 
-        <nav aria-label="Page navigation example" style="margin-top: 20px; display: flex; justify-content: flex-end;">
-            <form th:action="@{/admin/subjects-list}" method="get" class="form">
-                Items per page:
-                <select name="itemPerPage" class="form-items">
-                    <option value="5" th:selected="${selectedItemPerPage == 5}">5</option>
-                    <option value="10" th:selected="${selectedItemPerPage == 10}">10</option>
-                    <option value="15" th:selected="${selectedItemPerPage == 15}">15</option>
-                    <option value="20" th:selected="${selectedItemPerPage == 20}">20</option>
-                </select>
+        <th:block th:if="${subjects.hasContent()}">
+            <nav aria-label="Page navigation example" style="margin-top: 20px; display: flex; justify-content: flex-end;">
+                <form th:action="@{/{role}/subjects-list(role = ${userSession.role.name})}" method="get" class="form">
+                    Items per page:
+                    <select name="itemPerPage" class="form-items">
+                        <option value="5" th:selected="${selectedItemPerPage == 5}">5</option>
+                        <option value="10" th:selected="${selectedItemPerPage == 10}">10</option>
+                        <option value="15" th:selected="${selectedItemPerPage == 15}">15</option>
+                        <option value="20" th:selected="${selectedItemPerPage == 20}">20</option>
+                    </select>
 
-<!--                <input type="hidden" name="pageNum" th:value="${currentPage}">-->
-            </form>
-            <ul class="pagination pagination-links">
-                <li class="page-item"><a class="page-link" th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}(pageNum = ${currentPage - 1}, itemPerPage = ${selectedItemPerPage})}" th:classappend="${currentPage == 0 ? 'disabled' : ''}">&laquo;</a></li>
-                <th:block th:each="i : ${#numbers.sequence(0, subjects.getTotalPages() - 1)}">
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{?pageNum={i}&itemPerPage={itemPerPage}(i = ${i}, itemPerPage = ${selectedItemPerPage})}" th:classappend="${subjects.number == i ? 'active' : ''}" th:text="${i + 1}"></a>
-                    </li>
-                </th:block>
-                <li class="page-item"><a class="page-link" th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}(pageNum = ${currentPage + 1}, itemPerPage = ${selectedItemPerPage})}" th:classappend="${currentPage == (subjects.totalPages - 1) ? 'disabled' : ''}">&raquo;</a></li>
-            </ul>
-        </nav>
+                    <input type="hidden" name="pageNum" th:value="${currentPage}">
+                </form>
+
+                <ul class="pagination pagination-links">
+                    <li class="page-item"><a class="page-link" th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}(pageNum = ${currentPage - 1}, itemPerPage = ${selectedItemPerPage})}"
+                                             th:classappend="${currentPage == 0 ? 'disabled' : ''}">&laquo;</a></li>
+                    <th:block th:each="i : ${#numbers.sequence(0, subjects.getTotalPages() - 1)}">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{?pageNum={i}&itemPerPage={itemPerPage}(i = ${i}, itemPerPage = ${selectedItemPerPage})}"
+                               th:classappend="${subjects.number == i ? 'active' : ''}" th:text="${i + 1}"></a>
+                        </li>
+                    </th:block>
+                    <li class="page-item"><a class="page-link" th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}(pageNum = ${currentPage + 1}, itemPerPage = ${selectedItemPerPage})}"
+                                             th:classappend="${currentPage == (subjects.totalPages - 1) ? 'disabled' : ''}">&raquo;</a></li>
+                </ul>
+            </nav>
+        </th:block>
 
     </section>
 

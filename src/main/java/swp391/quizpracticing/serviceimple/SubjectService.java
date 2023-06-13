@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.SubjectDTO;
@@ -113,8 +114,19 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
+    public Page<Subject> findSubjectsWithPaginationByExpertId(Integer id, int pageNum, int itemPerPage) {
+        Pageable pageRequest = PageRequest.of(pageNum, itemPerPage);
+        return iSubjectRepository.findByOwnerId(id, pageRequest);
+    }
+
+    @Override
     public Page<Subject> findSubjectsWithPaginationAndSorting(int pageNum, int itemPerPage, String field) {
         return iSubjectRepository.findAll(PageRequest.of(pageNum, itemPerPage).withSort(Sort.by(Sort.Direction.ASC, field)));
+    }
+
+    @Override
+    public Page<Subject> searchForSubjectsByName(int pageNum, int itemPerPage, String searchTerm) {
+        return iSubjectRepository.findByBriefInfoContainingIgnoreCase(searchTerm, PageRequest.of(pageNum, itemPerPage));
     }
 
 }

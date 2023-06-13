@@ -26,16 +26,17 @@ public class CourseContentController {
     private ISubjectService iSubjectService;
 
     @GetMapping("admin/subjects-list")
-    public String AdminGetToSubjectsList(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum, @RequestParam(name = "itemPerPage", defaultValue = "10") Integer itemPerPage, Model model, HttpSession session) {
-
-        System.out.println("itemPerPage: " + itemPerPage);
+    public String AdminGetToSubjectsList(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
+                                         @RequestParam(name = "itemPerPage", defaultValue = "10") Integer itemPerPage,
+                                         Model model, HttpSession session) {
 
         User loggedinUser = (User)session.getAttribute("user");
 
         Page<Subject> subjectsWithPagination = iSubjectService.findSubjectsWithPagination(pageNum, itemPerPage);
-        System.out.println(subjectsWithPagination.getSize());
-        System.out.println("totalPages: " + subjectsWithPagination.getTotalPages());
-        System.out.println("hasPrevious: " + subjectsWithPagination.hasPrevious());
+
+        if(!subjectsWithPagination.hasContent()) {
+            subjectsWithPagination = iSubjectService.findSubjectsWithPagination(0, itemPerPage);
+        }
 
         model.addAttribute("userSession", session.getAttribute("user"));
         model.addAttribute("subjects", subjectsWithPagination);
@@ -46,14 +47,49 @@ public class CourseContentController {
     }
 
     @GetMapping("expert/subjects-list")
-    public String ExpertGetToSubjectsList(Model model, HttpSession session) {
+    public String ExpertGetToSubjectsList(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
+                                          @RequestParam(name = "itemPerPage", defaultValue = "10") Integer itemPerPage,
+                                          Model model, HttpSession session) {
 
         User loggedinUser = (User)session.getAttribute("user");
 
+        Page<Subject> subjectsWithPaginationByExpertId = iSubjectService.findSubjectsWithPaginationByExpertId(loggedinUser.getId(), pageNum, itemPerPage);
+
+        if(!subjectsWithPaginationByExpertId.hasContent()) {
+            subjectsWithPaginationByExpertId = iSubjectService.findSubjectsWithPaginationByExpertId(loggedinUser.getId(), 0, itemPerPage);
+        }
+
         model.addAttribute("userSession", session.getAttribute("user"));
+        model.addAttribute("subjects", subjectsWithPaginationByExpertId);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("selectedItemPerPage", itemPerPage);
 
         return "course_content/subjects-list";
 
     }
-    
+
+    @GetMapping("/subjects-list/search")
+    public String searchforSubjectByName(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
+                                         @RequestParam(name = "itemPerPage", defaultValue = "10") Integer itemPerPage,
+                                         @RequestParam(name = "subject-name") String searchTerm,
+                                         Model model, HttpSession session) {
+
+
+
+        User loggedinUser = (User)session.getAttribute("user");
+
+        String redirect = "redirect:/" + loggedinUser.getRole().getName() + "/subjects-list";
+        if(searchTerm.isEmpty()) {
+            return redirect;
+        }
+
+        Page<Subject> subjectsWithPagination = iSubjectService.searchForSubjectsByName(pageNum, itemPerPage, searchTerm);
+
+        model.addAttribute("userSession", session.getAttribute("user"));
+        model.addAttribute("subjects", subjectsWithPagination);
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("selectedItemPerPage", itemPerPage);
+
+        return "course_content/subjects-list";
+    }
 }
