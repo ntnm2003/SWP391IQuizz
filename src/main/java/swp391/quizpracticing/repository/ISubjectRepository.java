@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Subject;
 
@@ -29,6 +30,9 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
 
     public Subject findById(int id);
 
+    @Query(value = "select * from iquiz.subject where owner_id = :owner_id", nativeQuery = true)
+    public Page<Subject> findByOwnerId(@Param("owner_id") Integer id, Pageable pageable);
+
     @Query(value="Select * from `subject` s "
             + "join category c "
             + "on s.idCategory=c.id "
@@ -44,8 +48,11 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
             + "join category c "
             + "on s.idCategory=c.id "
             + "where s.course_name like %?1% && c.id = ?2", nativeQuery = true)
-    public Page<Subject>searchSubjectNameAndCategory(Pageable pageable,
+    public Page<Subject> searchSubjectNameAndCategory(Pageable pageable,
                                                      String subjectName, int categoryId);
+
+    public Page<Subject> findByBriefInfoContainingIgnoreCase(String searchTerm,
+                                                             Pageable pageable);
 
     //Subject findByIdCourse(int id);
     //Subject findByIdCourse(Integer id);

@@ -46,19 +46,15 @@ public class HomeController {
 
 		//Get sliders
 		List<SliderDTO> sliders = sliderService.getAllSlidersForHomepage();
-		System.out.println("sliders size: " + sliders.size());
 
 		//Get featured posts
 		List<BlogDTO> blogs = blogService.getFeaturedBlog(true);
-		System.out.println("blogs size: " + blogs.size());
 
 		//Get latest posts
 		List<BlogDTO> latestBlogs = blogService.getFeaturedLatestBlog(true, 2);
-		System.out.println("latest blogs size: " + latestBlogs.size());
 
 		//Get all Featured Subjects
 		List<Subject> featuredSubjects = subjectService.findByFeaturing(true);
-		System.out.println("featured subjects size: " + featuredSubjects.size());
 
 		//Add to model
 		model.addAttribute("sliders", sliders);
