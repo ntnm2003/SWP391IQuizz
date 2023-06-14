@@ -4,6 +4,7 @@
  */
 package swp391.quizpracticing.serviceimple;
 
+import jakarta.persistence.criteria.Predicate;
 import java.sql.Timestamp;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,16 @@ import swp391.quizpracticing.service.IUserSubjectService;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import swp391.quizpracticing.dto.RegistrationstatusDTO;
 import swp391.quizpracticing.dto.UserSubjectDTO;
+import swp391.quizpracticing.model.User;
+import swp391.quizpracticing.repository.IUserRepository;
+import swp391.quizpracticing.service.IVerificationService;
 
 /**
  *
@@ -34,6 +43,12 @@ public class UserSubjectService implements IUserSubjectService {
     
     @Autowired
     private ISubjectRepository subjectRepository;
+    
+    @Autowired
+    private IUserRepository userRepository;
+    
+    @Autowired
+    private IVerificationService verificationService;
     
     @Override
     public List<UserSubject> getAllByUserId(Integer id) {
@@ -77,15 +92,82 @@ public class UserSubjectService implements IUserSubjectService {
         return subjects;
     }
 
+    //Nam's code using DTO instead of entity
     @Override
     public List<UserSubjectDTO> listAll(int pageNo, int pageSize, String sortBy, 
-            String order, String subjectName, Integer subjectId, String email, 
-            Timestamp validFrom, Timestamp validTo, RegistrationstatusDTO status) {
+            String order, String searchCriteria, 
+            Timestamp validFrom, Timestamp validTo,RegistrationstatusDTO status) {
+        Pageable page;
+        if(order.equals("asc")){
+            page=PageRequest.of(pageNo - 1, pageSize,
+                    Sort.by(sortBy).ascending());
+        }
+        else{
+            page=PageRequest.of(pageNo - 1, pageSize,
+                    Sort.by(sortBy).descending());
+        }
+        Specification<UserSubject> specification=(root,query,criteriaBuilder)
+                ->{
+            List<Predicate> predicates=new ArrayList<>();
+            if(searchCriteria!=null){
+                String searchPattern="%"+searchCriteria+"%";
+                if(searchCriteria.contains("@")){
+                    predicates.add(criteriaBuilder.like(
+                        root.get("user").get("email"), 
+                        searchPattern));
+                }
+                else{
+                    predicates.add(criteriaBuilder.like(
+                        root.get("subject").get("title"), 
+                        searchPattern));
+                }
+            }
+            if(validFrom!=null){
+                predicates.add(criteriaBuilder.equal(
+                        root.get("validFrom"), 
+                        root));
+            }
+            if(validTo!=null){
+                predicates.add(criteriaBuilder.equal(
+                        root.get("validTo"), 
+                        root));
+            }
+            if(status!=null){
+                predicates.add(criteriaBuilder.equal(
+                        root.get("registrationStatus")
+                                        .get("name"), 
+                        root));
+            }
+            return criteriaBuilder.and(predicates
+                    .stream()
+                    .toArray(Predicate[]::new));
+        };
+        return userSubjectRepository
+                .findAll(specification,page)
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public UserSubjectDTO saveRegistration(Integer userUpdate, Integer registrationId,
+            String email, Timestamp registrationTime, Timestamp validFrom, 
+            Integer subjectId, Integer pricePackageId, String notes, 
+            Integer registrationStatusId) {
+        User u=userRepository.findByEmail(email);
+        if(u==null){
+            verificationService.sendVerification(notes, email, notes, 
+                    notes);
+        }
         return null;
     }
 
     @Override
-    public void save(UserSubjectDTO userSubject) {
+    public UserSubjectDTO addRegistration(Integer userUpdate, String email, Timestamp registrationTime, Timestamp validFrom, Integer subjectId, Integer pricePackageId, String notes, Integer registrationStatusId) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    private UserSubjectDTO convertEntityToDTO(UserSubject entity){
+        return modelMapper.map(entity, UserSubjectDTO.class);
     }
 }

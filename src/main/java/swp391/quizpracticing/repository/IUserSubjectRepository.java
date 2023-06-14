@@ -36,7 +36,7 @@ public interface IUserSubjectRepository
 
     //Nam's code
     @Override
-    public Page<UserSubject> findAll(Specification specifiation,Pageable page);
+    public Page<UserSubject> findAll(Specification specification,Pageable page);
     
     @Override
     public UserSubject save(UserSubject us);
@@ -47,8 +47,8 @@ public interface IUserSubjectRepository
     
     @Transactional
     @Modifying(clearAutomatically = true, flushAutomatically = true)
-    @Query("Update UserSubject us set us.registrationStatus= :status, us.notes = :notes "
-            + "where us.id = :id")
+    @Query("Update UserSubject us set us.registrationStatus= :status, "
+            + "us.notes = :notes where us.id = :id")
     public void updateUserSubject(@Param("id")Integer id, 
             @Param("status")Registrationstatus status,
             @Param("notes")String notes);
