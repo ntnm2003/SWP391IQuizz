@@ -1,13 +1,15 @@
 package swp391.quizpracticing.Utils;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 public class Utility {
     public static String getSiteURL() {
-        String siteUrl = ServletUriComponentsBuilder
-                .fromCurrentRequest().build().toString();
-        String domain=siteUrl.substring(0, siteUrl
-                                .indexOf("/", 8));
-        return domain;
+        UriComponents components=ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .build();
+        String siteUrl = components.toUriString();
+        String path=components.getPath();
+        return siteUrl.replace(path, "");
     }
 }
