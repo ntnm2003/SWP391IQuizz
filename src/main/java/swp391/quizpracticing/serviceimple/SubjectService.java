@@ -84,7 +84,7 @@ public class SubjectService implements ISubjectService {
 
     @Override
     public List<Subject> listAll() {
-        return null;
+        return iSubjectRepository.findAll();
     }
 
     @Override

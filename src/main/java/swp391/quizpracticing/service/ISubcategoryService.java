@@ -4,10 +4,19 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.model.Subcategory;
+import swp391.quizpracticing.model.Subject;
+
+import java.util.List;
+
 /**
  *
  * @author Mosena
  */
 public interface ISubcategoryService {
+
+//    public List<Subcategory> getAllBySubjects(List<Subject> subjectList);
+
+    public List<Subcategory> getAll();
     
 }

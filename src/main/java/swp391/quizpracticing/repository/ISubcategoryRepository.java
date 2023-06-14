@@ -5,8 +5,12 @@
 package swp391.quizpracticing.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Subcategory;
+import swp391.quizpracticing.model.Subject;
+
+import java.util.List;
 
 /**
  *
@@ -17,4 +21,7 @@ public interface ISubcategoryRepository
         extends JpaRepository<Subcategory,Integer> {
     @Override
     public Subcategory save(Subcategory sc);
+
+    @Query(value = "select * from iquiz.subcategory where ", nativeQuery = true)
+    public Subcategory findBySubjects(Subject subject);
 }
