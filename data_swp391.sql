@@ -56,7 +56,7 @@ INSERT INTO `iquiz`.`user`
 `role_id`,
 `enable`,`avatar`, `last_update_date`, `token` )
 VALUES
-('Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', '$2a$10$YEtoD9PfO4Gw6FOxOrQTjefgMtWLQA496a0Jv6Cf.Z0RsGhTACH8', 1,1, 'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', '$2a$10$Y4FuCb/0u/nBk3aoF8vlLuVRMQ9h2d0oJSeQQZUtKCMr.sTSsQ5xm', 1,1, 'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Nguyen Van A', 'duongmai.hoamkt76@gmail.com', 1, '012345678', '$2a$10$vvipoMflT5Wdj0JyoX4J/eeuYiGr8yRTXuGjmDTi5mr6CwDfa7Iwu', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Nguyen Thi B', 'dungnpn28@gmail.com', 1, '0987654321', '$2a$10$w4LDTQp5Ipa1BXIPBwKBU.GdSX2THJzQZI4tCsDxWQ1gt06CaJHl.', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Mr. Expert1', 'quannahe176660@gmail.com', 0, '068686868', '$2a$10$awkejTMdluxHD7cAMbLgZecxu3aIRz.ZaG/WQ/qST4sstd4Kpomj6', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),

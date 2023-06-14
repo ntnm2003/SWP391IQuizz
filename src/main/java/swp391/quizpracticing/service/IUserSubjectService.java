@@ -26,7 +26,14 @@ public interface IUserSubjectService {
     
     //Nam's code using DTO instead of entity
     public List<UserSubjectDTO> listAll(int pageNo, int pageSize, String sortBy, 
-            String order, String subjectName, Integer subjectId, String email, 
-            Timestamp validFrom, Timestamp validTo, RegistrationstatusDTO status);
-    public void save(UserSubjectDTO userSubject);
+            String order, String searchCriteria, Timestamp validFrom, 
+            Timestamp validTo, RegistrationstatusDTO status);
+    public UserSubjectDTO saveRegistration(Integer userUpdate, Integer registrationId, 
+            String email, Timestamp registrationTime, Timestamp validFrom, 
+            Integer subjectId, Integer pricePackageId, String notes, 
+            Integer registrationStatusId);
+    public UserSubjectDTO addRegistration(Integer userUpdate,String email, 
+            Timestamp registrationTime, Timestamp validFrom, 
+            Integer subjectId, Integer pricePackageId, String notes, 
+            Integer registrationStatusId);
 }
