@@ -43,6 +43,6 @@ public class Pricepackage {
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
     private Subject subjects;
     
-    @OneToMany(mappedBy = "pricePackage")
+    @OneToMany(mappedBy = "id.pricePackage")
     private List<UserSubject> userSubjects;
 }
