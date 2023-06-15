@@ -41,7 +41,7 @@ import swp391.quizpracticing.serviceimple.UserService;
  */
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasAuthority('admin')")
+
 public class AdminController {
     
     @Autowired
