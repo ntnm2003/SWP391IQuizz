@@ -33,6 +33,9 @@ public class HomeController {
         @Autowired
         private PasswordEncoder passwordEncoder;
 
+	public HomeController() {
+	}
+
 	@GetMapping("/")
 	public String redirectToHome() {
 		return "redirect:/home";

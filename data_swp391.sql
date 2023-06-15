@@ -100,22 +100,22 @@ VALUES
   ('An introduction to Algebra', 'This subject covers the basics of algebraic equations and their solutions.', 'https://example.com/thumbnails/algebra.jpg', 'Algebra', '2023-04-02',  1, 5, 8),
   ('Introduction to Geometry', 'This subject covers the basics of geometric shapes, angles, and measurements.', 'https://example.com/thumbnails/geometry.jpg', 'Geometry', '2023-03-20',  1, 5, 6),
   ('Trigonometry for Beginners', 'This subject covers the basics of trigonometric functions and their applications in real life.', 'https://example.com/thumbnails/trigonometry.jpg', 'Trigonometry','2023-03-02',  1, 4, 6),
-  ('World War II History', 'A comprehensive study of World War II, including key events, causes, and consequences.', 'https://example.com/thumbnails/ww2.jpg', 'World War II', '2023-05-02',  1, 4, 5),
+  ('World War II History', 'A comprehensive study of World War II, including key events, causes, and consequences.', 'https://example.com/thumbnails/ww2.jpg', 'World War II', '2023-05-02',  0, 4, 5),
   ('American Revolution', 'A comprehensive study of the American revolution, including key events, causes, and consequences.', 'https://example.com/thumbnails/amrev.jpg', 'American Revolution', '2023-01-02',  1, 3, 5),
   ('Ancient Civilizations: Egypt and Mesopotamia', 'A study of the ancient civilizations of Egypt and Mesopotamia, including their culture, religion, and achievements.', 'https://example.com/thumbnails/ancient_civ.jpg', 'Ancient Civilizations', '2023-05-02',  1, 3, 5),
   ('Goal Setting for Success', 'Learn how to set achievable goals and develop a plan to achieve them.', 'https://example.com/thumbnails/goal_setting.jpg', 'Goal Setting',  '2022-12-02',  1, 4, 5),
   ('Planning Techniques for Better Time Management', 'Learn effective planning techniques to manage your time more efficiently.', 'https://example.com/thumbnails/planning.jpg', 'Planning',  '2022-12-02',  1, 4, 5),
-  ('Prioritization Strategies', 'Learn how to prioritize tasks and make informed decisions about how to allocate your time and resources.', 'https://example.com/thumbnails/prioritization.jpg', 'Prioritization', '2023-03-02',  1, 4, 6),
+  ('Prioritization Strategies', 'Learn how to prioritize tasks and make informed decisions about how to allocate your time and resources.', 'https://example.com/thumbnails/prioritization.jpg', 'Prioritization', '2023-03-02',  0, 4, 6),
   ('Improving Productivity', 'Learn techniques and strategies to improve your productivity and get more done in less time.', 'https://example.com/thumbnails/productivity.jpg', 'Productivity','2023-03-20',  1, 4, 8),
   ('Human Anatomy Basics', 'Learn the basic anatomy of the human body, including its organs, systems, and functions.', 'https://example.com/thumbnails/human_anatomy.jpg', 'Human Anatomy','2023-04-20',  1, 3, 8),
   ('Introduction to Genetics', 'Learn the basics of genetics, including DNA structure, inheritance patterns, and mutations.', 'https://example.com/thumbnails/genetics.jpg', 'Genetics','2023-02-20',  1, 6, 8),
   ('Ecology and Environmental Science', 'Study the relationship between living organisms and their environment, and learn about topics such as climate change, conservation, and sustainability.', 'https://example.com/thumbnails/ecology.jpg', 'Ecology','2023-04-10',  1, 2, 7),
-  ('Artificial Intelligence Fundamentals', 'Learn the basics of artificial intelligence, including machine learning, neural networks, and natural language processing.', 'https://example.com/thumbnails/ai.jpg', 'Artificial Intelligence', '2023-05-03',  1, 5, 7),
+  ('Artificial Intelligence Fundamentals', 'Learn the basics of artificial intelligence, including machine learning, neural networks, and natural language processing.', 'https://example.com/thumbnails/ai.jpg', 'Artificial Intelligence', '2023-05-03',  0, 5, 7),
   ('Introduction to Database Management', 'Learn the basics of database design, management, and querying using SQL.', 'https://example.com/thumbnails/dbms.jpg', 'Database Management', '2023-02-28',  1, 5, 8),
   ('Web Development Fundamentals', 'Learn the basics of web development, including HTML, CSS, and JavaScript.', 'https://example.com/thumbnails/webdev.jpg', 'Web Development','2023-04-02',  1, 3, 7),
   ('Advanced Algebra', 'A more advanced study of algebraic equations, including higher-degree polynomials and complex numbers.', 'https://example.com/thumbnails/adv_algebra.jpg', 'Advanced Algebra', '2023-01-22',  1, 6, 7),
-  ('Geometry in Three Dimensions', 'An introduction to three-dimensional geometry, including vectors, planes, and surfaces.', 'https://example.com/thumbnails/3d_geometry.jpg', 'Three-Dimensional Geometry', '2023-04-02',  1, 4, 8),
-  ('Trigonometry in Real Life Applications', 'Learn how trigonometric functions are used in practical applications such as navigation, engineering, and physics.', 'https://example.com/thumbnails/trig_applications.jpg', 'Trigonometry Applications', '2023-02-22',  1, 6, 6);
+  ('Geometry in Three Dimensions', 'An introduction to three-dimensional geometry, including vectors, planes, and surfaces.', 'https://example.com/thumbnails/3d_geometry.jpg', 'Three-Dimensional Geometry', '2023-04-02',  0, 4, 8),
+  ('Trigonometry in Real Life Applications', 'Learn how trigonometric functions are used in practical applications such as navigation, engineering, and physics.', 'https://example.com/thumbnails/trig_applications.jpg', 'Trigonometry Applications', '2023-02-22',  0, 6, 6);
 
 update iquiz.subject
 set featured = 1 where id=1;

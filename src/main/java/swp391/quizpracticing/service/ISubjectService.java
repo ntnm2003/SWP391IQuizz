@@ -58,4 +58,6 @@ public interface ISubjectService {
 
     public Page<Subject> searchForSubjectsByName(int pageNum, int itemPerPage, String searchTerm);
 
+    public Page<Subject> findSubjectsByStatus(Boolean status, int pageNum, int itemPerPage);
+
 }
