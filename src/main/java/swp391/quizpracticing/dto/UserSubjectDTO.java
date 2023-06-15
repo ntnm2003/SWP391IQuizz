@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import swp391.quizpracticing.model.User;
 
 @Getter
 @Setter
@@ -18,4 +19,6 @@ public class UserSubjectDTO {
     private Timestamp registrationTime;
     private RegistrationstatusDTO registrationStatusId;
     private Timestamp validFrom;
+    private String notes;
+    private User userUpdate;
 }
