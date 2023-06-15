@@ -37,7 +37,7 @@ public class WebSecurityConfig {
     @Autowired
     private IRoleRepository roleRepository;
 
-    private static final String[] WHILE_LIST = {"/login", "/register", "/home"};
+    private static final String[] WHILE_LIST = {"/login", "/register", "/home", "/"};
     private static final String[] RESOURCE_PATTERN = {"/js/**", "/image/**", "/homepage_assets/**", "/database_images/**", "/css/**", "/templates/**"};
 
     @Autowired
