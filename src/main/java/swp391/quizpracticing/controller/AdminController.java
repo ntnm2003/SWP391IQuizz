@@ -242,8 +242,8 @@ public class AdminController {
             helper.setSubject(subject);
             content = content.replace("[[name]]", name);
             content = content.replace("[[password]]", password);
-            String verifyURL = siteURL + "/admin/verify?code=" + token;
-            String discardURL = siteURL + "/admin/discard?code="+token;
+            String verifyURL = siteURL + "/user-created/verify?code=" + token;
+            String discardURL = siteURL + "/user-created/discard?code="+token;
             content = content.replace("[[URL]]", verifyURL);
             content=content.replace("[[URL_discard]]", discardURL);
             helper.setText(content, true);
