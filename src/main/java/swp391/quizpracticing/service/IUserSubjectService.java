@@ -28,10 +28,10 @@ public interface IUserSubjectService {
     public List<UserSubjectDTO> listAll(int pageNo, int pageSize, String sortBy, 
             String order, String searchCriteria, Timestamp validFrom, 
             Timestamp validTo, RegistrationstatusDTO status);
-    public UserSubjectDTO saveRegistration(Integer userUpdate, Integer registrationId, 
-            String email, Timestamp registrationTime, Timestamp validFrom, 
-            Integer subjectId, Integer pricePackageId, String notes, 
-            Integer registrationStatusId);
+//    public UserSubjectDTO saveRegistration(Integer userUpdate, Integer registrationId, 
+//            String email, Timestamp registrationTime, Timestamp validFrom, 
+//            Integer subjectId, Integer pricePackageId, String notes, 
+//            Integer registrationStatusId);
     public UserSubjectDTO addRegistration(Integer userUpdate,String email, 
             Timestamp registrationTime, Timestamp validFrom, 
             Integer subjectId, Integer pricePackageId, String notes, 

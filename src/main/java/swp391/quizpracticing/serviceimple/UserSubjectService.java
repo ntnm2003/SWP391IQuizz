@@ -24,10 +24,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import swp391.quizpracticing.dto.RegistrationstatusDTO;
+import swp391.quizpracticing.dto.SubjectDTO;
+import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.dto.UserSubjectDTO;
-import swp391.quizpracticing.model.User;
 import swp391.quizpracticing.repository.IUserRepository;
-import swp391.quizpracticing.service.IVerificationService;
 
 /**
  *
@@ -46,9 +46,6 @@ public class UserSubjectService implements IUserSubjectService {
     
     @Autowired
     private IUserRepository userRepository;
-    
-    @Autowired
-    private IVerificationService verificationService;
     
     @Override
     public List<UserSubject> getAllByUserId(Integer id) {
@@ -149,18 +146,14 @@ public class UserSubjectService implements IUserSubjectService {
                 .collect(Collectors.toList());
     }
     
-    @Override
-    public UserSubjectDTO saveRegistration(Integer userUpdate, Integer registrationId,
-            String email, Timestamp registrationTime, Timestamp validFrom, 
-            Integer subjectId, Integer pricePackageId, String notes, 
-            Integer registrationStatusId) {
-        User u=userRepository.findByEmail(email);
-        if(u==null){
-            verificationService.sendVerification(notes, email, notes, 
-                    notes);
-        }
-        return null;
-    }
+//    @Override
+//    public UserSubjectDTO saveRegistration(UserDTO userUpdate, Integer registrationId,
+//            UserDTO user, Timestamp registrationTime, Timestamp validFrom, 
+//            SubjectDTO subject, Integer pricePackageId, String notes, 
+//            RegistrationstatusDTO registrationStatusId) {
+//        
+//        return null;
+//    }
 
     @Override
     public UserSubjectDTO addRegistration(Integer userUpdate, String email, Timestamp registrationTime, Timestamp validFrom, Integer subjectId, Integer pricePackageId, String notes, Integer registrationStatusId) {
