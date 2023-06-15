@@ -25,6 +25,8 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
 
     public List<Subject> findAllByFeatured(Boolean isFeatured);
 
+    public Page<Subject> findByStatus(Boolean status, Pageable pageable);
+
     @Override
     public List<Subject> findAll();
 

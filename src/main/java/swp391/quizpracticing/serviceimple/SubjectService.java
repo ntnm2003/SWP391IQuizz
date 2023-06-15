@@ -129,4 +129,10 @@ public class SubjectService implements ISubjectService {
         return iSubjectRepository.findByBriefInfoContainingIgnoreCase(searchTerm, PageRequest.of(pageNum, itemPerPage));
     }
 
+    @Override
+    public Page<Subject> findSubjectsByStatus(Boolean status, int pageNum, int itemPerPage) {
+        return iSubjectRepository.findByStatus(status, PageRequest.of(pageNum, itemPerPage));
+    }
+
+
 }

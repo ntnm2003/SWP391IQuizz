@@ -67,8 +67,8 @@ public class UserSubjectService implements IUserSubjectService {
         List<Subject> subjects = new ArrayList<>();
         System.out.println(filteredUserCourses.size());
         for (UserSubject userCourse : filteredUserCourses) { // iterate over the filtered list
-            Subject sub = subjectRepository.getById(userCourse.getId().getSubject().getId());
-            subjects.add(sub);
+//            Subject sub = subjectRepository.getById(userCourse.getId().getSubject().getId());
+//            subjects.add(sub);
         }
 
         return subjects;
