@@ -11,9 +11,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import swp391.quizpracticing.model.Category;
 import swp391.quizpracticing.model.Subcategory;
 import swp391.quizpracticing.model.Subject;
@@ -23,6 +25,10 @@ import swp391.quizpracticing.service.ISubcategoryService;
 import swp391.quizpracticing.service.ISubjectService;
 import swp391.quizpracticing.service.IUserService;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -43,6 +49,8 @@ public class CourseContentController {
 
     @Autowired
     private IUserService iUserService;
+
+    private final String FOLDER_PATH = "C:/Users/DELL/Documents/2_CodingZone/2_InSchool_(FPTUni)/5_SWP391/SWP391GitProject/summer2023-swp391.se1714-g5/src/main/resources/static/database_images";
 
     @GetMapping("admin/subjects-list")
     public String AdminGetToSubjectsList(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
@@ -307,7 +315,8 @@ public class CourseContentController {
                                 @RequestParam(name = "featured") Boolean featured,
                                 @RequestParam(name = "status") Boolean status,
                                 @RequestParam(name = "description") String description,
-                                Model model, HttpSession session) {
+                                @RequestParam(name = "thumbnail") MultipartFile multipartFile,
+                                Model model, HttpSession session) throws IOException {
 
         Boolean check = true;
         String ms1, ms2;
@@ -339,6 +348,17 @@ public class CourseContentController {
         }
 
         System.out.println(check);
+
+        //Take the file name user has uploaded
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        System.out.println("fileName: " + fileName);
+        //Store the fileName into the database with the respective subject
+
+        //Store the actual file to the file directory
+        Path fileNameAndPath = Paths.get(FOLDER_PATH, multipartFile.getOriginalFilename());
+        String uploadDir = FOLDER_PATH;
+        Files.write(fileNameAndPath, multipartFile.getBytes());
+
 
         if(check) {
             //Save new subject

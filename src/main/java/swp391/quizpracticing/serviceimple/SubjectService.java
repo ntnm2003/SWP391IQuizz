@@ -11,11 +11,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import swp391.quizpracticing.dto.SubjectDTO;
 import swp391.quizpracticing.model.Subject;
 import swp391.quizpracticing.repository.ISubjectRepository;
 import swp391.quizpracticing.service.ISubjectService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,6 +149,11 @@ public class SubjectService implements ISubjectService {
     @Override
     public Boolean checkIfSubjectExistByBriefInfo(String briefInfo) {
         return iSubjectRepository.existsSubjectByBriefInfo(briefInfo);
+    }
+
+    @Override
+    public String uploadImage(MultipartFile file) throws IOException {
+        return null;
     }
 
 
