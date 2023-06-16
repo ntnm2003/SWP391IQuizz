@@ -18,5 +18,7 @@ public interface ISubcategoryService {
 //    public List<Subcategory> getAllBySubjects(List<Subject> subjectList);
 
     public List<Subcategory> getAll();
+
+    public Subcategory getById(int id);
     
 }

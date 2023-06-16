@@ -162,4 +162,9 @@ public class UserService implements IUserService {
         return userRepository.findByEmail(email)!=null;
     }
 
+    @Override
+    public List<User> getAllExpert() {
+        return userRepository.findAllExpert();
+    }
+
 }

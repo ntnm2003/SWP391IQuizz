@@ -36,8 +36,9 @@
                     </select>
                     <select id="status" name="status" style="padding: 5px; border: 2px solid #1368ce; margin: 0 3px;">
                         <option value="-1" selected>All Status</option>
-                        <option th:each="status_each : ${allStatus}" th:selected="${selectedStatus.equals(status_each.toString())}"
-                                th:value="${status_each}" th:text="${status_each ? 'Active' : 'Inactive'}">
+                        <option th:each="status_each : ${allStatus}"
+                            th:selected="${selectedStatus.equals(status_each.toString())}" th:value="${status_each}"
+                            th:text="${status_each ? 'Active' : 'Inactive'}">
                         </option>
                     </select>
 
@@ -45,7 +46,7 @@
                     <input type="hidden" name="itemPerPage" th:value="${itemPerPage}">
 
                     <input type="submit" value="Filter"
-                           style="background-color: #1368ce; padding: 6px; border-radius: 5px; color: #ffffff; font-weight: 500">
+                        style="background-color: #1368ce; padding: 6px; border-radius: 5px; color: #ffffff; font-weight: 500">
 
                 </form>
 
@@ -65,11 +66,14 @@
                 </form>
             </div>
 
-            <div class="button" id="new-subject-btn">
-                <a class="btn btn-primary" href="/admin/new-subject"
-                    style="padding: 5px; font-size: 14px; margin-right: 10px; background-color: #1368ce; font-weight: 500">New
-                    Subject</a>
-            </div>
+            <th:block th:if="${userSession.getRole().getId() == 1}">
+                <div class="button" id="new-subject-btn">
+                    <a class="btn btn-primary" href="/admin/new-subject"
+                        style="padding: 5px; font-size: 14px; margin-right: 10px; background-color: #1368ce; font-weight: 500">New
+                        Subject</a>
+                </div>
+            </th:block>
+
         </div>
 
         <table class="table table-hover table-bordered practice-list-table" style="margin-top: 15px">
@@ -188,34 +192,62 @@
             </nav>
         </th:block>
 
+        <!-- Result of the form submission -->
+        <div id="myDiv" th:text="${check}" style="display: none;"></div>
+
+        <!-- Popup -->
+        <div class="popup">
+            <h2>🎉🎊 Congratulations for Successfully Add a New Subject 😍💚 </h2>
+            <b class="close">x</b>
+        </div>
+
     </section>
 
     <!--  FOOTER -->
     <div th:insert="/components/footer"></div>
 
 
-    <script>
-        const mySelect = document.querySelectorAll('.form-items');
-        mySelect.forEach(select => {
-            select.addEventListener('change', function () {
-                document.querySelector('.form').submit();
+    <script th:inline="javascript">
+        const mySelect = document.querySelectorAll(".form-items");
+        mySelect.forEach((select) => {
+            select.addEventListener("change", function () {
+                document.querySelector(".form").submit();
             });
         });
 
-
-        let navigation = document.querySelector('.navbar__content');
-        let menuToggle = document.querySelector('.menuToggle');
-        let header = document.querySelector('header');
+        let navigation = document.querySelector(".navbar__content");
+        let menuToggle = document.querySelector(".menuToggle");
+        let header = document.querySelector("header");
 
         menuToggle.onclick = function () {
-            header.classList.toggle('open');
-        }
+            header.classList.toggle("open");
+        };
 
         function profileToggle() {
-            const toggleMenu = document.querySelector('.menu');
-            toggleMenu.classList.toggle('active');
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active");
         }
+
+        let popup = document.querySelector(".popup");
+        let close1 = document.querySelector(".close");
+
+        function testOnLoad() {
+            let myValue = document.getElementById("myDiv").textContent;
+            console.log('testing onLoad');
+            console.log(myValue);
+            if (myValue !== null && myValue === "true") {
+                popup.classList.add("active");
+                close1.addEventListener("click", function() {
+                    popup.classList.remove("active");
+                });
+            }
+        }
+
+        window.addEventListener("load", testOnLoad());
+
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
@@ -225,6 +257,7 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" th:src="@{js/components/header_logged_in.js}"></script>
+    <script src="../../static/js/couse_content/subjects-list.js"></script>
 </body>
 
 </html>

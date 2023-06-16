@@ -36,4 +36,6 @@ public interface IUserService extends UserDetailsService {
     public void updateUserStatusAndToken(Integer userId, Boolean status);
     public void remove(UserDTO u);
     public boolean findUserByEmail(String email);
+
+    public List<User> getAllExpert();
 }

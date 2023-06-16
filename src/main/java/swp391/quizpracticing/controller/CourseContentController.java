@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import swp391.quizpracticing.model.Category;
 import swp391.quizpracticing.model.Subcategory;
@@ -20,6 +21,7 @@ import swp391.quizpracticing.model.User;
 import swp391.quizpracticing.service.ICategoryService;
 import swp391.quizpracticing.service.ISubcategoryService;
 import swp391.quizpracticing.service.ISubjectService;
+import swp391.quizpracticing.service.IUserService;
 
 import java.util.*;
 
@@ -39,13 +41,23 @@ public class CourseContentController {
     @Autowired
     private ICategoryService iCategoryService;
 
+    @Autowired
+    private IUserService iUserService;
+
     @GetMapping("admin/subjects-list")
     public String AdminGetToSubjectsList(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
                                          @RequestParam(name = "itemPerPage", defaultValue = "10") Integer itemPerPage,
                                          @RequestParam(name = "subject-name", defaultValue = "") String searchTerm,
                                          @RequestParam(name = "category-id", defaultValue = "-1") Integer categoryId,
                                          @RequestParam(name = "status", defaultValue = "-1") String status,
+                                         @RequestParam(name = "check", defaultValue = "false") Boolean check,
                                          Model model, HttpSession session) {
+
+        System.out.println("check: " + check);
+        if(check != null) {
+            model.addAttribute("check", check);
+        }
+
 
         User loggedinUser = (User)session.getAttribute("user");
 
@@ -151,6 +163,7 @@ public class CourseContentController {
                                           @RequestParam(name = "subject-name", defaultValue = "") String searchTerm,
                                           @RequestParam(name = "category-id", defaultValue = "-1") Integer categoryId,
                                           @RequestParam(name = "status", defaultValue = "-1") String status,
+                                          @RequestParam(name = "check") Boolean check,
                                           Model model, HttpSession session) {
 
         User loggedinUser = (User)session.getAttribute("user");
@@ -270,9 +283,71 @@ public class CourseContentController {
 
         User loggedinUser = (User)session.getAttribute("user");
 
+        List<Category> allCategories = iCategoryService.listAll();
+        List<User> allExperts = iUserService.getAllExpert();
+        List<Boolean> isFeatured = new ArrayList<>(Arrays.asList(true, false));
+        List<Boolean> status = new ArrayList<>(Arrays.asList(true, false));
+        List<Subcategory> allSubcategories = iSubcategoryService.getAll();
+
         model.addAttribute("userSession", session.getAttribute("user"));
+        model.addAttribute("categories", allCategories);
+        model.addAttribute("subcategories", allSubcategories);
+        model.addAttribute("experts", allExperts);
+        model.addAttribute("featured", isFeatured);
+        model.addAttribute("status", status);
 
         return "course_content/subject_form";
     }
 
+    @PostMapping("/admin/new-subject-submit")
+    public String addNewSubject(@RequestParam(name = "name") String subjectName,
+                                @RequestParam(name = "category") Integer categoryId,
+                                @RequestParam(name = "subcategory") Integer subcategoryId,
+                                @RequestParam(name = "owner") Integer ownerId,
+                                @RequestParam(name = "featured") Boolean featured,
+                                @RequestParam(name = "status") Boolean status,
+                                @RequestParam(name = "description") String description,
+                                Model model, HttpSession session) {
+
+        Boolean check = true;
+        String ms1, ms2;
+
+        //check if subject name is existed
+        if(iSubjectService.checkIfSubjectExistByBriefInfo(subjectName)) {
+            check = false;
+            ms1 = "This Subject Name is Existed!";
+            System.out.println("condition 1 fail");
+
+            model.addAttribute("ms1", ms1);
+        } else {
+            //check if the selected subcategory match the selected category
+            Subcategory selectedSubcategory = iSubcategoryService.getById(subcategoryId);
+            Category selectedCategory = iCategoryService.getById(categoryId);
+            List<Subcategory> selectedCategory_subcategories = selectedCategory.getSubCategories();
+            for(Subcategory subcategory : selectedCategory_subcategories) {
+                if (!subcategory.getCategory().getName().equals(selectedSubcategory.getCategory().getName())) {
+                    check = false;
+                    ms2 = "Selected Subcategory DOES NOT MATCH Selected Category!";
+                    System.out.println("condition 2 fail");
+
+                    model.addAttribute("ms2", ms2);
+                } else {
+                    check = true;
+                    break;
+                }
+            }
+        }
+
+        System.out.println(check);
+
+        if(check) {
+            //Save new subject
+            model.addAttribute("check", check);
+            return "redirect:../admin/subjects-list?check=" + check;
+        } else {
+            model.addAttribute("check", check);
+            return "redirect:../admin/new-subject";
+        }
+
+    }
 }

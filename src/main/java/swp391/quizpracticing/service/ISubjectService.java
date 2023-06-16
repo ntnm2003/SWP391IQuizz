@@ -64,4 +64,6 @@ public interface ISubjectService {
 
     public Page<Subject> findSubjectsByStatus(Boolean status, int pageNum, int itemPerPage);
 
+    public Boolean checkIfSubjectExistByBriefInfo(String briefInfo);
+
 }
