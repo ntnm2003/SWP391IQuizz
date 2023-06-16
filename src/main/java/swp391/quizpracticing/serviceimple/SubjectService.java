@@ -120,6 +120,16 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
+    public Page<Subject> findSubjectsWithPaginationByExpertIdAndByName(Integer id, String searchTerm, int pageNum, int itemPerPage) {
+        return iSubjectRepository.findByOwnerIdAndName(id, searchTerm, PageRequest.of(pageNum, itemPerPage));
+    }
+
+    @Override
+    public Page<Subject> findSubjectsWithPaginationByExpertIdAndByStatus(Integer id, Integer status, int pageNum, int itemPerPage) {
+        return iSubjectRepository.findByOwnerIdAndStatus(id, status, PageRequest.of(pageNum,itemPerPage));
+    }
+
+    @Override
     public Page<Subject> findSubjectsWithPaginationAndSorting(int pageNum, int itemPerPage, String field) {
         return iSubjectRepository.findAll(PageRequest.of(pageNum, itemPerPage).withSort(Sort.by(Sort.Direction.ASC, field)));
     }

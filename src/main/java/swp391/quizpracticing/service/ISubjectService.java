@@ -54,6 +54,10 @@ public interface ISubjectService {
 
     public Page<Subject> findSubjectsWithPaginationByExpertId(Integer id, int pageNum, int itemPerPage);
 
+    public Page<Subject> findSubjectsWithPaginationByExpertIdAndByName(Integer id, String searchTerm, int pageNum, int itemPerPage);
+
+    public Page<Subject> findSubjectsWithPaginationByExpertIdAndByStatus(Integer id, Integer status, int pageNum, int itemPerPage);
+
     public Page<Subject> findSubjectsWithPaginationAndSorting(int pageNum, int itemPerPage, String field);
 
     public Page<Subject> searchForSubjectsByName(int pageNum, int itemPerPage, String searchTerm);
