@@ -38,4 +38,6 @@ public interface IUserService extends UserDetailsService {
     public boolean findUserByEmail(String email);
 
     public List<User> getAllExpert();
+
+    public User getByUserId(int id);
 }
