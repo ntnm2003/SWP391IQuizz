@@ -35,6 +35,12 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
     @Query(value = "select * from iquiz.subject where owner_id = :owner_id", nativeQuery = true)
     public Page<Subject> findByOwnerId(@Param("owner_id") Integer id, Pageable pageable);
 
+    @Query(value = "select * from iquiz.subject where owner_id = :owner_id and brief_info like %:searchTerm%", nativeQuery = true)
+    public Page<Subject> findByOwnerIdAndName(@Param("owner_id") Integer id, @Param("searchTerm") String searchTerm, Pageable pageable);
+
+    @Query(value = "select * from iquiz.subject where owner_id = :owner_id and status = :status", nativeQuery = true)
+    public Page<Subject> findByOwnerIdAndStatus(@Param("owner_id") Integer id, @Param("status") Integer status, Pageable pageable);
+
     @Query(value="Select * from `subject` s "
             + "join category c "
             + "on s.idCategory=c.id "

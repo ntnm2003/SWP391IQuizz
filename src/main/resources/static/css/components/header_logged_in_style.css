@@ -213,6 +213,7 @@ header a:focus:not(#login) {
     visibility: visible;
     opacity: 1;
     top: 6.5rem;
+    z-index: 1000;
 }
 
 .action .menu::before {
