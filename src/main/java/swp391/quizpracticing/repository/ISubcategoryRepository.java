@@ -24,4 +24,6 @@ public interface ISubcategoryRepository
 
     @Query(value = "select * from iquiz.subcategory where ", nativeQuery = true)
     public Subcategory findBySubjects(Subject subject);
+
+    Subcategory findById(int id);
 }

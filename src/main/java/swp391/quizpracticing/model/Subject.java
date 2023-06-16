@@ -79,4 +79,5 @@ public class Subject {
 
     @Column(name = "tagline")
     private String tagLine;
+
 }

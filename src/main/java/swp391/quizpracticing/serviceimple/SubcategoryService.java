@@ -36,6 +36,11 @@ public class SubcategoryService implements ISubcategoryService {
         return iSubcategoryRepository.findAll();
     }
 
+    @Override
+    public Subcategory getById(int id) {
+        return iSubcategoryRepository.findById(id);
+    }
+
 //    @Override
 //    public List<Subcategory> getAllBySubjects(List<Subject> subjectList) {
 //        return iSubcategoryRepository.findAllBySubjects(subjectList);

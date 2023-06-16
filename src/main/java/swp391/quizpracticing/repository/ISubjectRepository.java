@@ -62,9 +62,7 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
     public Page<Subject> findByBriefInfoContainingIgnoreCase(String searchTerm,
                                                              Pageable pageable);
 
-    //Subject findByIdCourse(int id);
-    //Subject findByIdCourse(Integer id);
+    boolean existsSubjectByBriefInfo(String briefInfo);
 
-    //List<Subject> findByCourseNameContaining(String s);
 
 }

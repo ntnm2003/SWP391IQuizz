@@ -144,5 +144,10 @@ public class SubjectService implements ISubjectService {
         return iSubjectRepository.findByStatus(status, PageRequest.of(pageNum, itemPerPage));
     }
 
+    @Override
+    public Boolean checkIfSubjectExistByBriefInfo(String briefInfo) {
+        return iSubjectRepository.existsSubjectByBriefInfo(briefInfo);
+    }
+
 
 }
