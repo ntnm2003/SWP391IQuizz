@@ -20,6 +20,8 @@ import swp391.quizpracticing.model.Category;
 import swp391.quizpracticing.model.Subcategory;
 import swp391.quizpracticing.model.Subject;
 import swp391.quizpracticing.model.User;
+import swp391.quizpracticing.repository.ISubjectRepository;
+import swp391.quizpracticing.repository.IUserRepository;
 import swp391.quizpracticing.service.ICategoryService;
 import swp391.quizpracticing.service.ISubcategoryService;
 import swp391.quizpracticing.service.ISubjectService;
@@ -49,6 +51,9 @@ public class CourseContentController {
 
     @Autowired
     private IUserService iUserService;
+
+    @Autowired
+    private ISubjectRepository iSubjectRepository;
 
     private final String FOLDER_PATH = "C:/Users/DELL/Documents/2_CodingZone/2_InSchool_(FPTUni)/5_SWP391/SWP391GitProject/summer2023-swp391.se1714-g5/src/main/resources/static/database_images";
 
@@ -319,7 +324,7 @@ public class CourseContentController {
                                 Model model, HttpSession session) throws IOException {
 
         Boolean check = true;
-        String ms1, ms2;
+        String ms1 = "", ms2 = "";
 
         //check if subject name is existed
         if(iSubjectService.checkIfSubjectExistByBriefInfo(subjectName)) {
@@ -349,22 +354,35 @@ public class CourseContentController {
 
         System.out.println(check);
 
-        //Take the file name user has uploaded
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        System.out.println("fileName: " + fileName);
-        //Store the fileName into the database with the respective subject
+        if(check) {  //save new subject
 
-        //Store the actual file to the file directory
-        Path fileNameAndPath = Paths.get(FOLDER_PATH, multipartFile.getOriginalFilename());
-        String uploadDir = FOLDER_PATH;
-        Files.write(fileNameAndPath, multipartFile.getBytes());
+            //Take the file name user has uploaded
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            System.out.println("fileName: " + fileName);
+            //Store the fileName into the database with the respective subject
 
+            //Store the actual file to the file directory
+            Path fileNameAndPath = Paths.get(FOLDER_PATH, multipartFile.getOriginalFilename());
+            String uploadDir = FOLDER_PATH;
+            Files.write(fileNameAndPath, multipartFile.getBytes());
 
-        if(check) {
-            //Save new subject
+            List<Subcategory> subcategories = new ArrayList<>();
+            subcategories.add(iSubcategoryService.getById(subcategoryId));
+
+            Subject newSubject = new Subject();
+            newSubject.setBriefInfo(subjectName);
+            newSubject.setDescription(description);
+            newSubject.setFeatured(featured);
+            newSubject.setStatus(status);
+            newSubject.setOwner(iUserService.getByUserId(ownerId));
+            newSubject.setSubCategories(subcategories);
+            newSubject.setThumbnail(fileName);
+
+            newSubject = iSubjectRepository.save(newSubject);
+
             model.addAttribute("check", check);
             return "redirect:../admin/subjects-list?check=" + check;
-        } else {
+        } else {  //errors
             model.addAttribute("check", check);
             return "redirect:../admin/new-subject";
         }

@@ -73,3 +73,17 @@ body {
 .form-select {
     font-size: 14px;
 }
+
+.img-thumbnail {
+    padding-top: 30px;
+    border: none !important;
+}
+
+#display_image {
+    width: 250px;
+    height: 200px;
+    border: 1px solid rgb(109, 108, 108);
+    border-radius: 5px;
+    background-position: center;
+    background-size: cover;
+}

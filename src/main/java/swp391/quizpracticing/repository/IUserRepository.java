@@ -40,6 +40,8 @@ public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecifi
     @Override
     public User getById(Integer id);
 
+    public User findById(int id);
+
     @Query(value = "Select * from User where token = ?1",nativeQuery = true)
     public User getByToken(String token);
 

@@ -167,4 +167,9 @@ public class UserService implements IUserService {
         return userRepository.findAllExpert();
     }
 
+    @Override
+    public User getByUserId(int id) {
+        return userRepository.findById(id);
+    }
+
 }
