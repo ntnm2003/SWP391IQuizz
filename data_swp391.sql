@@ -8,12 +8,11 @@ INSERT INTO `iquiz`.`role`
 `name`,
 `status`)
 VALUES
-('admin',1),
-('expert',1),
-('sale',1),
-('marketing',1),
-('sale',1),
-('customer',1);
+('ROLE_ADMIN',1),
+('ROLE_EXPERT',1),
+('ROLE_SALE',1),
+('ROLE_MARKETING',1),
+('ROLE_CUSTOMER',1);
  INSERT INTO `iquiz`.`slider`
 (
 `title`,
@@ -64,12 +63,12 @@ VALUES
 ('Mr. Expert3', 'expert3@gmail.com', 0, '0978779519', '$2a$10$Uzk3RS/EzofVGptWv.J56e86sZyyknsX8V9fCyKfAuswCzFG6/pzy', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Lung Thi Linh', 'lunglinh2003@gmail.com', 0, '0982712755', '$2a$10$lgsnmItDSSUGHSqmgSNrxu43.l2VX4btPVDzC8mipIhMamdpL/uKi', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Mr.Expert4', 'ntnm222003@gmail.com', 0, '0978779519', '$2a$10$IfeQU2m6ZnVlmPtBPkvSQe/LO60yGx/Ns87feVP2BhxfPLRMWAIdC', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Khanh Ly', 'ntnm2003@gmail.com', 1, '0978279519', '$2a$10$fClf8Ai6tSdGBps4Qg/T/O0Vf3ZmD7T0o6Ublsr8Qh1t2FtNb6A0m', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Phuong Anh', 'jsclub.bannd@gmail.com', 1, '0978379519', '$2a$10$U0QdIeEgZW1uiaKJTudIAOkLk8zHsGlpEzjepkKsvGs.PuBUhFsmq', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Hoang Ha', 'iamntnm@gmail.com', 1, '0978775519', '$2a$10$X8h5vBAFQlYM87eo9KGn/u6eKM78Hj9osWmw5ebuZKDo/GUDhcELG', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Mai Linh', 'laitrang143@gmail.com', 1, '0868459509', '$2a$10$m5VhkfqM1KRv7KY.NMDnte3Fz8WnYnLFiqpayJjAvsfKnSgIg1jHK', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Anh Hong', 'lopchungminh@gmail.com', 1, '0978775519', '$2a$10$0GNydfb8QuvQsPLbIo2HeO/BXILworYeL0ox5QcUD5WcJmEASZ8qK', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Tran Thi Anh', 'maiaiai@gmail.com', 1, '0978775519', '$2a$10$AeYGCoDfuRQbAA2/Fh400e/jEng7glVlTJRudIBzG4Hrx7MKDCMLi', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02','');
+('Khanh Ly', 'ntnm2003@gmail.com', 1, '0978279519', '$2a$10$fClf8Ai6tSdGBps4Qg/T/O0Vf3ZmD7T0o6Ublsr8Qh1t2FtNb6A0m', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Phuong Anh', 'jsclub.bannd@gmail.com', 1, '0978379519', '$2a$10$U0QdIeEgZW1uiaKJTudIAOkLk8zHsGlpEzjepkKsvGs.PuBUhFsmq', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Hoang Ha', 'iamntnm@gmail.com', 1, '0978775519', '$2a$10$X8h5vBAFQlYM87eo9KGn/u6eKM78Hj9osWmw5ebuZKDo/GUDhcELG', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Mai Linh', 'laitrang143@gmail.com', 1, '0868459509', '$2a$10$m5VhkfqM1KRv7KY.NMDnte3Fz8WnYnLFiqpayJjAvsfKnSgIg1jHK', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Anh Hong', 'lopchungminh@gmail.com', 1, '0978775519', '$2a$10$0GNydfb8QuvQsPLbIo2HeO/BXILworYeL0ox5QcUD5WcJmEASZ8qK', 4,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Tran Thi Anh', 'maiaiai@gmail.com', 1, '0978775519', '$2a$10$AeYGCoDfuRQbAA2/Fh400e/jEng7glVlTJRudIBzG4Hrx7MKDCMLi', 4,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02','');
 
 INSERT INTO `iquiz`.`subject`
 (
@@ -805,10 +804,10 @@ VALUES
 INSERT INTO `iquiz`.`blog`
 (`brief_info`, `content`, `last_updated`, `thumbnail`, `title`, `user_id`)
 VALUES
-('Brief info about technology', 'Content about technology', '2023-06-05', 'post4_thumbnail.png', 'Technology Blog', 14),
-('Brief info about travel', 'Content about travel', '2023-06-05', 'post5_thumbnail.png', 'Travel Blog', 13),
-('Brief info about food', 'Content about food', '2023-06-05', 'post3_thumbnail.png', 'Food Blog', 14),
-('Brief info about education', 'Content about education', '2023-06-05', 'post2_thumbnail.png', 'Education Blog', 14);
+('Brief info about technology', 'Content about technology', 1, '2023-06-05', 'uploaded', 'post4_thumbnail.png', 'Technology Blog', 14),
+('Brief info about travel', 'Content about travel', 1, '2023-06-05', 'uploaded', 'post5_thumbnail.png', 'Travel Blog', 13),
+('Brief info about food', 'Content about food', 1, '2023-06-05', 'uploaded', 'post3_thumbnail.png', 'Food Blog', 14),
+('Brief info about education', 'Content about education', 1, '2023-06-05', 'uploaded', 'post2_thumbnail.png', 'Education Blog', 14);
 
 -- Insert data into blog_category table
 INSERT INTO `iquiz`.`blog_category`

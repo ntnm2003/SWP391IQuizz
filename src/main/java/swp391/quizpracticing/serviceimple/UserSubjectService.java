@@ -23,10 +23,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import swp391.quizpracticing.dto.PricepackageDTO;
 import swp391.quizpracticing.dto.RegistrationstatusDTO;
 import swp391.quizpracticing.dto.SubjectDTO;
-import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.dto.UserSubjectDTO;
+import swp391.quizpracticing.model.Pricepackage;
 import swp391.quizpracticing.repository.IUserRepository;
 
 /**
@@ -40,12 +41,9 @@ public class UserSubjectService implements IUserSubjectService {
 
     @Autowired
     private IUserSubjectRepository userSubjectRepository;
-    
+
     @Autowired
     private ISubjectRepository subjectRepository;
-    
-    @Autowired
-    private IUserRepository userRepository;
     
     @Override
     public List<UserSubject> getAllByUserId(Integer id) {
@@ -146,21 +144,24 @@ public class UserSubjectService implements IUserSubjectService {
                 .collect(Collectors.toList());
     }
     
-//    @Override
-//    public UserSubjectDTO saveRegistration(UserDTO userUpdate, Integer registrationId,
-//            UserDTO user, Timestamp registrationTime, Timestamp validFrom, 
-//            SubjectDTO subject, Integer pricePackageId, String notes, 
-//            RegistrationstatusDTO registrationStatusId) {
-//        
-//        return null;
-//    }
+    @Override
+    public UserSubjectDTO saveRegistration(UserSubjectDTO registrationDTO) {
+        UserSubject registration=convertDTOToEntity(registrationDTO);
+        return convertEntityToDTO(userSubjectRepository
+                .saveAndFlush(registration));
+    }
 
     @Override
-    public UserSubjectDTO addRegistration(Integer userUpdate, String email, Timestamp registrationTime, Timestamp validFrom, Integer subjectId, Integer pricePackageId, String notes, Integer registrationStatusId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public UserSubjectDTO addRegistration(UserSubjectDTO registrationDTO) {
+        UserSubject registration=convertDTOToEntity(registrationDTO);
+        return convertEntityToDTO(userSubjectRepository
+                .save(registration));
     }
     
     private UserSubjectDTO convertEntityToDTO(UserSubject entity){
         return modelMapper.map(entity, UserSubjectDTO.class);
+    }
+    private UserSubject convertDTOToEntity(UserSubjectDTO dto){
+        return modelMapper.map(dto, UserSubject.class);
     }
 }
