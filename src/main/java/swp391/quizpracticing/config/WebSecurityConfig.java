@@ -37,7 +37,6 @@ public class WebSecurityConfig {
     @Autowired
     private IRoleRepository roleRepository;
 
-    private static final String[] WHILE_LIST = {"/login", "/register", "/home"};
     private static final String[] RESOURCE_PATTERN = {"/js/**", "/image/**", "/homepage_assets/**", "/database_images/**", "/css/**", "/templates/**"};
 
     @Autowired
@@ -87,7 +86,6 @@ public class WebSecurityConfig {
 //                })
 
                 .requestMatchers(RESOURCE_PATTERN).permitAll()
-                .requestMatchers(WHILE_LIST).permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasRole("CUSTOMER")
                 .requestMatchers("/marketing/**").hasRole("MARKETING")
@@ -95,7 +93,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/expert/**").hasRole("EXPERT")
                 .and()
                 .authorizeHttpRequests()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and().formLogin().loginPage("/login")
                 .successHandler(new SimpleAuthenticationSuccessHandler())
                 .failureHandler(new SimpleAuthenticationFailureHandler())
