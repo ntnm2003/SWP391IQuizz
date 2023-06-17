@@ -81,17 +81,18 @@ public class MyRegistrationController {
         }
         return regis;
     }
-    @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
-    @GetMapping("/users/myregistration")
-    public String showRegistration( Model model, @RequestParam(value = "id",required = false) String id) {
-        try {
-            Integer uid = Integer.parseInt(id);
-            Object sessionInfo = UserSession.getAttribute("user");
-            UserDTO u = (UserDTO) sessionInfo;
 
+    @GetMapping("/user/myregistration")
+    public String showRegistration( Model model) {
+        try {
+
+            Object sessionInfo = UserSession.getAttribute("user");
+            User u = (User) sessionInfo;
+            Integer uid = u.getId();
             List<MyRegistration> regis = reg(uid);
             List<Subject> subjects = userCourseService.courseById(uid);
             List<Category> cat = categoryService.listAll();
+            model.addAttribute("userSession", sessionInfo);
             model.addAttribute("sub", subjects);
             model.addAttribute("cat", cat);
             model.addAttribute("regis", regis);
@@ -102,7 +103,7 @@ public class MyRegistrationController {
         }
     }
 
-    @GetMapping("/users/myregistration/{cid}")
+    @GetMapping("/user/myregistration/{cid}")
     public String regisCourse(@PathVariable("cid") Integer cid, @RequestParam(value = "uid",required = false) String id, Model model) {
         try {
             Integer uid = Integer.parseInt(id);
