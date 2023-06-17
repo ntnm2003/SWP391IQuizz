@@ -23,23 +23,23 @@
         <form th:action="@{/admin/new-subject-submit}" method="post" class="row g-3" id="myForm" enctype="multipart/form-data">
             <div class="col-md-6">
                 <label for="name" class="form-label">Subject Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-                <th:block th:if="${(ms1 != null) && (!ms1.isEmpty())}">
-                    <div th:text="${ms1}" style="color: red;"></div>
+                <input type="text" class="form-control" id="name" name="name" th:value="${name}" required>
+                <th:block th:if="${ms1 != null && !ms1.isEmpty()}">
+                    <p th:text="${ms1}" style="color: red;"></p>
                 </th:block>
-
             </div>
             <div class="col-md-6">
                 <label for="owner" class="form-label">Owner</label>
                 <select id="owner" class="form-select" name="owner">
-                    <option th:each="expert : ${experts}" th:text="${expert.fullName}" th:value="${expert.id}"></option>
+                    <option th:each="expert : ${experts}" th:text="${expert.fullName}" th:value="${expert.id}" th:selected="${selectedOwner != null && selectedOwner.id == expert.id}"></option>
                 </select>
             </div>
 
             <div class="col-md-6">
                 <label for="category" class="form-label">Category</label>
                 <select id="category" class="form-select" name="category">
-                    <option th:each="category : ${categories}" th:text="${category.getName()}" th:value="${category.id}"></option>
+                    <option th:each="category : ${categories}" th:text="${category.getName()}"
+                            th:value="${category.id}" th:selected="${selectedCategory != null && category.id == selectedCategory.id}"></option>
                 </select>
             </div>
             <div class="col-md-6">
@@ -49,18 +49,22 @@
                         <optgroup th:label="${category.name}">
                             <option th:each="subcategory : ${category.subCategories}"
                                     th:value="${subcategory.id}"
-                                    th:text="${subcategory.name}">
+                                    th:text="${subcategory.name}"
+                                    th:selected="${selectedSubcategory != null && subcategory.id == selectedSubcategory.id}">
                             </option>
                         </optgroup>
                     </th:block>
                 </select>
+                <th:block th:if="${ms2 != null && !ms2.isEmpty()}">
+                    <p th:text="${ms2}" style="color: red;"></p>
+                </th:block>
             </div>
             <div class="col-md-6">
                 <label for="featured" class="form-label">Featured</label>
                 <select id="featured" class="form-select" name="featured">
                     <th:block th:each="feature : ${featured}">
-                        <option th:if="${feature}" th:value="${feature}" th:text="Featured"></option>
-                        <option th:if="${!feature}" th:value="${feature}" th:text="Non-featured"></option>
+                        <option th:if="${feature}" th:value="${feature}" th:text="Featured" th:selected="${selectedFeatured != null && selectedFeatured.equals('true')}"></option>
+                        <option th:if="${!feature}" th:value="${feature}" th:text="Non-featured" th:selected="${selectedFeatured != null && !selectedFeatured.equals('true')}"></option>
                     </th:block>
                 </select>
             </div>
@@ -68,8 +72,8 @@
                 <label for="status" class="form-label">Status</label>
                 <select id="status" class="form-select" name="status">
                     <th:block th:each="status : ${status}">
-                        <option th:if="${status}" th:value="${status}" th:text="Active"></option>
-                        <option th:if="${!status}" th:value="${status}" th:text="Inactive"></option>
+                        <option th:if="${status}" th:value="${status}" th:text="Active" th:selected="${selectedStatus != null && selectedStatus.equals('true')}"></option>
+                        <option th:if="${!status}" th:value="${status}" th:text="Inactive" th:selected="${selectedStatus != null && !selectedStatus.equals('true')}"></option>
                     </th:block>
                 </select>
             </div>
@@ -84,7 +88,7 @@
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" required></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" th:text="${description != null && !description.isEmpty() ? description : ''}" required></textarea>
             </div>
 
             <div class="buttons" style="display: flex; justify-content: spaced-between">

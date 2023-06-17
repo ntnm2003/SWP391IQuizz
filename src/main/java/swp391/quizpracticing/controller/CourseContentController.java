@@ -13,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.quizpracticing.model.Category;
 import swp391.quizpracticing.model.Subcategory;
 import swp391.quizpracticing.model.Subject;
@@ -292,7 +294,16 @@ public class CourseContentController {
     }
 
     @GetMapping("/admin/new-subject")
-    public String getToNewSubjectForm(Model model, HttpSession session) {
+    public String getToNewSubjectForm(@ModelAttribute(name = "name") String subjectName,
+                                      @ModelAttribute(name = "owner") User owner,
+                                      @ModelAttribute(name = "selectedCategory") Category selectedCategory,
+                                      @ModelAttribute(name = "selectedSubcategory") Subcategory selectedSubcategory,
+                                      @ModelAttribute(name = "selectedFeatured") String selectedFeatured,
+                                      @ModelAttribute(name = "selectedStatus") String selectedStatus,
+                                      @ModelAttribute(name = "description") String description,
+                                      @ModelAttribute(name = "ms1") String ms1,
+                                      @ModelAttribute(name = "ms2") String ms2,
+                                      Model model, HttpSession session) {
 
         User loggedinUser = (User)session.getAttribute("user");
 
@@ -309,6 +320,18 @@ public class CourseContentController {
         model.addAttribute("featured", isFeatured);
         model.addAttribute("status", status);
 
+        if(ms1 != null || ms2 != null) {
+            model.addAttribute("name", subjectName);
+            model.addAttribute("selectedOwner", owner);
+            model.addAttribute("selectedCategory", selectedCategory);
+            model.addAttribute("selectedSubcategory", selectedSubcategory);
+            model.addAttribute("selectedFeatured", selectedFeatured);
+            model.addAttribute("selectedStatus", selectedStatus);
+            model.addAttribute("description", description);
+            model.addAttribute("ms1", ms1);
+            model.addAttribute("ms2", ms2);
+        }
+
         return "course_content/subject_form";
     }
 
@@ -321,6 +344,7 @@ public class CourseContentController {
                                 @RequestParam(name = "status") Boolean status,
                                 @RequestParam(name = "description") String description,
                                 @RequestParam(name = "thumbnail") MultipartFile multipartFile,
+                                RedirectAttributes redirectAttribute,
                                 Model model, HttpSession session) throws IOException {
 
         Boolean check = true;
@@ -329,28 +353,25 @@ public class CourseContentController {
         //check if subject name is existed
         if(iSubjectService.checkIfSubjectExistByBriefInfo(subjectName)) {
             check = false;
-            ms1 = "This Subject Name is Existed!";
+            ms1 = "Subject Name Existed!";
             System.out.println("condition 1 fail");
+        }
 
-            model.addAttribute("ms1", ms1);
-        } else {
-            //check if the selected subcategory match the selected category
-            Subcategory selectedSubcategory = iSubcategoryService.getById(subcategoryId);
-            Category selectedCategory = iCategoryService.getById(categoryId);
-            List<Subcategory> selectedCategory_subcategories = selectedCategory.getSubCategories();
-            for(Subcategory subcategory : selectedCategory_subcategories) {
-                if (!subcategory.getCategory().getName().equals(selectedSubcategory.getCategory().getName())) {
-                    check = false;
-                    ms2 = "Selected Subcategory DOES NOT MATCH Selected Category!";
-                    System.out.println("condition 2 fail");
-
-                    model.addAttribute("ms2", ms2);
-                } else {
-                    check = true;
-                    break;
-                }
+        //check if the selected subcategory match the selected category
+        Subcategory selectedSubcategory = iSubcategoryService.getById(subcategoryId);
+        Category selectedCategory = iCategoryService.getById(categoryId);
+        List<Subcategory> selectedCategory_subcategories = selectedCategory.getSubCategories();
+        for(Subcategory subcategory : selectedCategory_subcategories) {
+            if (!subcategory.getCategory().getName().equals(selectedSubcategory.getCategory().getName())) {
+                check = false;
+                ms2 = "Selected Subcategory DOES NOT MATCH Selected Category!";
+                System.out.println("condition 2 fail");
+            } else {
+                check = true;
+                break;
             }
         }
+
 
         System.out.println(check);
 
@@ -383,7 +404,19 @@ public class CourseContentController {
             model.addAttribute("check", check);
             return "redirect:../admin/subjects-list?check=" + check;
         } else {  //errors
-            model.addAttribute("check", check);
+
+            System.out.println("ms1: " + ms1);
+            System.out.println("ms2: " + ms2);
+
+            redirectAttribute.addFlashAttribute("name", subjectName);
+            redirectAttribute.addFlashAttribute("owner", iUserService.getByUserId(ownerId));
+            redirectAttribute.addFlashAttribute("selectedCategory", iCategoryService.getById(categoryId));
+            redirectAttribute.addFlashAttribute("selectedSubcategory", iSubcategoryService.getById(subcategoryId));
+            redirectAttribute.addFlashAttribute("selectedFeatured", featured.toString());
+            redirectAttribute.addFlashAttribute("selectedStatus", status.toString());
+            redirectAttribute.addFlashAttribute("description", description);
+            redirectAttribute.addFlashAttribute("ms1", ms1);
+            redirectAttribute.addFlashAttribute("ms2", ms2);
             return "redirect:../admin/new-subject";
         }
 
