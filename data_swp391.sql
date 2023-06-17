@@ -30,6 +30,11 @@ INSERT INTO `iquiz`.`lessontype`
 VALUES
 ('quiz', 1),
 ('lession', 1);
+INSERT INTO `iquiz`.`lessontype`
+(`name`,
+`status`)
+VALUES
+('Subject Topic', 1);
 
 INSERT INTO `iquiz`.`dimension`
 (
