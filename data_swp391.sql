@@ -60,7 +60,7 @@ INSERT INTO `iquiz`.`user`
 `role_id`,
 `enable`,`avatar`, `last_update_date`, `token` )
 VALUES
-('Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', '$2a$10$YEtoD9PfO4Gw6FOxOrQTjefgMtWLQA496a0Jv6Cf.Z0RsGhTACH8', 1,1, 'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', '$2a$10$Y4FuCb/0u/nBk3aoF8vlLuVRMQ9h2d0oJSeQQZUtKCMr.sTSsQ5xm', 1,1, 'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Nguyen Van A', 'duongmai.hoamkt76@gmail.com', 1, '012345678', '$2a$10$vvipoMflT5Wdj0JyoX4J/eeuYiGr8yRTXuGjmDTi5mr6CwDfa7Iwu', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Nguyen Thi B', 'dungnpn28@gmail.com', 1, '0987654321', '$2a$10$w4LDTQp5Ipa1BXIPBwKBU.GdSX2THJzQZI4tCsDxWQ1gt06CaJHl.', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Mr. Expert1', 'quannahe176660@gmail.com', 0, '068686868', '$2a$10$awkejTMdluxHD7cAMbLgZecxu3aIRz.ZaG/WQ/qST4sstd4Kpomj6', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
@@ -809,10 +809,10 @@ VALUES
 INSERT INTO `iquiz`.`blog`
 (`brief_info`, `content`, `last_updated`, `thumbnail`, `title`, `user_id`)
 VALUES
-('Brief info about technology', 'Content about technology', 1, '2023-06-05', 'uploaded', 'post4_thumbnail.png', 'Technology Blog', 14),
-('Brief info about travel', 'Content about travel', 1, '2023-06-05', 'uploaded', 'post5_thumbnail.png', 'Travel Blog', 13),
-('Brief info about food', 'Content about food', 1, '2023-06-05', 'uploaded', 'post3_thumbnail.png', 'Food Blog', 14),
-('Brief info about education', 'Content about education', 1, '2023-06-05', 'uploaded', 'post2_thumbnail.png', 'Education Blog', 14);
+('Brief info about technology', 'Content about technology', '2023-06-05', 'post4_thumbnail.png', 'Technology Blog', 14),
+('Brief info about travel', 'Content about travel', '2023-06-05', 'post5_thumbnail.png', 'Travel Blog', 13),
+('Brief info about food', 'Content about food', '2023-06-05', 'post3_thumbnail.png', 'Food Blog', 14),
+('Brief info about education', 'Content about education', '2023-06-05', 'post2_thumbnail.png', 'Education Blog', 14);
 
 -- Insert data into blog_category table
 INSERT INTO `iquiz`.`blog_category`
@@ -838,8 +838,7 @@ VALUES
 (2,true,'User Roles','expert',2),
 (3,true,'User Roles','sale',3),
 (4,true,'User Roles','marketing',4),
-(5,true,'User Roles','sale',5),
-(6,true,'User Roles','customer',6);
+(5,true,'User Roles','customer',5);
 
 INSERT INTO `iquiz`.`settings`
 (
