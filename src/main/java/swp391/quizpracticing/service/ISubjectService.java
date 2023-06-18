@@ -14,6 +14,7 @@ import java.util.List;
  * @author Mosena
  */
 public interface ISubjectService {
+    
     public Page<SubjectDTO> findPaginatedAllSubjects(int pageNo, int pageSize);
 
     public Page<SubjectDTO> filterSubjectByCategory(int pageNo,
@@ -38,6 +39,8 @@ public interface ISubjectService {
                                                           int pageSize, int category, String subjectName,
                                                           String sortBy, String order);
 
+   List<SubjectDTO> findAll();
+    
     List<Subject> findByFeaturing(Boolean isFeatured);
 
     public List<Subject> listAll();
