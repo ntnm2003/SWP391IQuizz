@@ -76,7 +76,6 @@ public class AdminController {
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages",totalPages);
         model.addAttribute("users", users);
-        model.addAttribute("userSession", session.getAttribute("user"));
         return "/admin/userlist";
     }
     
@@ -104,7 +103,6 @@ public class AdminController {
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages",totalPages);
         model.addAttribute("settings", settings);
-        model.addAttribute("userSession", session.getAttribute("user"));
         return "/admin/settings";
     }
     

@@ -19,16 +19,13 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import swp391.quizpracticing.dto.PricepackageDTO;
-import swp391.quizpracticing.dto.RegistrationstatusDTO;
-import swp391.quizpracticing.dto.SubjectDTO;
 import swp391.quizpracticing.dto.UserSubjectDTO;
-import swp391.quizpracticing.model.Pricepackage;
-import swp391.quizpracticing.repository.IUserRepository;
 
 /**
  *
@@ -89,9 +86,9 @@ public class UserSubjectService implements IUserSubjectService {
 
     //Nam's code using DTO instead of entity
     @Override
-    public List<UserSubjectDTO> listAll(int pageNo, int pageSize, String sortBy, 
+    public Page<UserSubjectDTO> listAll(int pageNo, int pageSize, String sortBy, 
             String order, String searchCriteria, 
-            Timestamp validFrom, Timestamp validTo,RegistrationstatusDTO status) {
+            Timestamp validFrom, Timestamp validTo,String status) {
         Pageable page;
         if(order.equals("asc")){
             page=PageRequest.of(pageNo - 1, pageSize,
@@ -120,28 +117,30 @@ public class UserSubjectService implements IUserSubjectService {
             if(validFrom!=null){
                 predicates.add(criteriaBuilder.equal(
                         root.get("validFrom"), 
-                        root));
+                        validFrom));
             }
             if(validTo!=null){
                 predicates.add(criteriaBuilder.equal(
                         root.get("validTo"), 
-                        root));
+                        validTo));
             }
             if(status!=null){
                 predicates.add(criteriaBuilder.equal(
                         root.get("registrationStatus")
                                         .get("name"), 
-                        root));
+                        status));
             }
             return criteriaBuilder.and(predicates
                     .stream()
                     .toArray(Predicate[]::new));
         };
-        return userSubjectRepository
-                .findAll(specification,page)
+        Page<UserSubject> pageList=userSubjectRepository.findAll(specification,page);
+        List<UserSubjectDTO> list=pageList
                 .stream()
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(list,page,
+                pageList.getTotalElements());
     }
     
     @Override
@@ -156,6 +155,42 @@ public class UserSubjectService implements IUserSubjectService {
         UserSubject registration=convertDTOToEntity(registrationDTO);
         return convertEntityToDTO(userSubjectRepository
                 .save(registration));
+    }
+    
+    @Override
+    public List<String> getRegistrationStatusList(Page<UserSubjectDTO> page) {
+        List<String> list=new ArrayList<>();
+        for(UserSubjectDTO item:page){
+            String status=item.getRegistrationStatus().getName();
+            if(list.contains(status)){
+                list.add(status);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<Timestamp> getValidFromList(Page<UserSubjectDTO> page) {
+        List<Timestamp> list=new ArrayList<>();
+        for(UserSubjectDTO item:page){
+            Timestamp validFrom=item.getValidFrom();
+            if(list.contains(validFrom)){
+                list.add(validFrom);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<Timestamp> getValidToList(Page<UserSubjectDTO> page) {
+        List<Timestamp> list=new ArrayList<>();
+        for(UserSubjectDTO item:page){
+            Timestamp validTo=item.getValidTo();
+            if(list.contains(validTo)){
+                list.add(validTo);
+            }
+        }
+        return list;
     }
     
     private UserSubjectDTO convertEntityToDTO(UserSubject entity){
