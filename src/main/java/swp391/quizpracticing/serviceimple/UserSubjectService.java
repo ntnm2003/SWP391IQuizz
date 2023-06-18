@@ -162,7 +162,7 @@ public class UserSubjectService implements IUserSubjectService {
         List<String> list=new ArrayList<>();
         for(UserSubjectDTO item:page){
             String status=item.getRegistrationStatus().getName();
-            if(list.contains(status)){
+            if(!list.contains(status)){
                 list.add(status);
             }
         }
@@ -174,7 +174,7 @@ public class UserSubjectService implements IUserSubjectService {
         List<Timestamp> list=new ArrayList<>();
         for(UserSubjectDTO item:page){
             Timestamp validFrom=item.getValidFrom();
-            if(list.contains(validFrom)){
+            if(!list.contains(validFrom)){
                 list.add(validFrom);
             }
         }
@@ -186,11 +186,17 @@ public class UserSubjectService implements IUserSubjectService {
         List<Timestamp> list=new ArrayList<>();
         for(UserSubjectDTO item:page){
             Timestamp validTo=item.getValidTo();
-            if(list.contains(validTo)){
+            if(!list.contains(validTo)){
                 list.add(validTo);
             }
         }
         return list;
+    }
+    
+    @Override
+    public UserSubjectDTO getRegistration(Integer id){
+        return convertEntityToDTO(userSubjectRepository
+                .getReferenceById(id));
     }
     
     private UserSubjectDTO convertEntityToDTO(UserSubject entity){
