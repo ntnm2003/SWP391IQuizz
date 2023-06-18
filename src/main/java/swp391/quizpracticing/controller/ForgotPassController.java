@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -25,7 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import swp391.quizpracticing.Utility.Utility;
+import swp391.quizpracticing.Utils.Utility;
 
 import swp391.quizpracticing.model.User;
 import swp391.quizpracticing.serviceimple.AccountService;
@@ -50,7 +49,7 @@ public class ForgotPassController {
         String token = RandomString.make(30);
         try {
             accountService.updateResetPasswordToken(token, email);
-            String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
+            String resetPasswordLink = Utility.getSiteURL() + "/reset_password?token=" + token;
             sendEmail(email, resetPasswordLink);
             model.addAttribute("message", "Email has been sent, Please check your inbox !");
         } catch (Exception ex) {

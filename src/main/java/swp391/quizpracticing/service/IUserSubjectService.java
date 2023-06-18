@@ -11,6 +11,7 @@ import swp391.quizpracticing.model.Subject;
 import swp391.quizpracticing.model.UserSubject;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
 import swp391.quizpracticing.dto.RegistrationstatusDTO;
 
 /**
@@ -25,8 +26,13 @@ public interface IUserSubjectService {
     public List<UserSubject> getAllByUserId(Integer id);
 
     //Nam's code using DTO instead of entity
-    public List<UserSubjectDTO> listAll(int pageNo, int pageSize, String sortBy,
-                                        String order, String subjectName, Integer subjectId, String email,
-                                        Timestamp validFrom, Timestamp validTo, RegistrationstatusDTO status);
-    public void save(UserSubjectDTO userSubject);
+    public Page<UserSubjectDTO> listAll(int pageNo, int pageSize, String sortBy, 
+            String order, String searchCriteria, Timestamp validFrom, 
+            Timestamp validTo, String status);
+    public UserSubjectDTO saveRegistration(UserSubjectDTO registration);
+    public UserSubjectDTO addRegistration(UserSubjectDTO registration);
+    public List<String> getRegistrationStatusList(Page<UserSubjectDTO> page);
+    public List<Timestamp> getValidFromList(Page<UserSubjectDTO> page);
+    public List<Timestamp> getValidToList(Page<UserSubjectDTO> page);
+    
 }
