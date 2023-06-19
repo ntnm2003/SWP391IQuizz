@@ -120,7 +120,8 @@ public class UserService implements IUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
+        UserDTO user = convertEntityToDTO(userRepository
+                .findByEmail(username));
         if (user == null) {
             throw new UsernameNotFoundException("Email does not exist in system. Please re-enter another email!");
         }

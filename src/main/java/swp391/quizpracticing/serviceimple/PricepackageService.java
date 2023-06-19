@@ -44,4 +44,12 @@ public class PricepackageService implements IPricepackageService {
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<PricepackageDTO> getAll() {
+        return pricepackageRepository.findAll()
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
 }

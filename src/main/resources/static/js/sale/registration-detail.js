@@ -36,3 +36,20 @@ function cancel(){
 function backToParents(){
     window.location.href="/sale/registrations-list";
 }
+function getPricePackage() {
+    var subjectId = $("#inputSubject").val();
+    $.get("/sale/get-pricepackages?subjectId=" + subjectId, function(data) {
+        $("#inputPricePackage").empty();
+        data.forEach(function(item) {
+            var option = "<option value=" + item.id + ">" + item.name + "</option>";
+            $("#inputPricePackage").append(option);
+        });
+    });
+}
+function changePrice(){
+    var packageId=$("#inputPricePackage").val();
+    $.get("/sale/get-pricepackage?pricePackageId="+packageId,function(data){
+        $("#listPrice").text(data.listPrice);
+        $("#salePrice").text(data.salePrice);
+    });
+}
