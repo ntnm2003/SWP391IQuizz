@@ -59,7 +59,7 @@ public class Subject {
     @JoinColumn(name = "dimension_id", referencedColumnName = "id")
     private Dimension dimension;
 
-    @OneToMany(mappedBy = "subjects")
+    @OneToMany(mappedBy = "subject")
     private List<Pricepackage> pricepackages;
 
     @OneToMany(mappedBy = "subject")
