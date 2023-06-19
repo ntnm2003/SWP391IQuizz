@@ -26,6 +26,7 @@ public interface IUserSubjectService {
     public List<UserSubject> getAllByUserId(Integer id);
 
     //Nam's code using DTO instead of entity
+    public UserSubjectDTO getRegistration(Integer id);
     public Page<UserSubjectDTO> listAll(int pageNo, int pageSize, String sortBy, 
             String order, String searchCriteria, Timestamp validFrom, 
             Timestamp validTo, String status);

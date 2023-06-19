@@ -12,10 +12,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import swp391.quizpracticing.dto.PricepackageDTO;
 import swp391.quizpracticing.dto.RegistrationstatusDTO;
+import swp391.quizpracticing.dto.SubjectDTO;
 import swp391.quizpracticing.dto.UserSubjectDTO;
+import swp391.quizpracticing.model.User;
+import swp391.quizpracticing.service.IPricepackageService;
+import swp391.quizpracticing.service.IRegistrationstatusService;
+import swp391.quizpracticing.service.ISubjectService;
 import swp391.quizpracticing.service.IUserSubjectService;
 
 /**
@@ -28,6 +35,15 @@ public class SaleController {
     
     @Autowired
     private IUserSubjectService userSubjectService;
+    
+    @Autowired
+    private ISubjectService subjectService;
+    
+    @Autowired
+    private IPricepackageService pricePackageService;
+    
+    @Autowired
+    private IRegistrationstatusService statusService;
     
     @GetMapping("/registrations-list")
     public String getRegistrations(HttpSession session, 
@@ -63,5 +79,39 @@ public class SaleController {
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("totalPages",totalPages);
         return "/sale/registrations";
+    }
+    
+    @GetMapping("/registration-detail")
+    public String getRegistrationDetail(HttpSession session, 
+            @RequestParam(name="registrationId") Integer id, 
+            @RequestParam(name="subjectId", required = false) Integer subjectId, 
+            Model model){
+        UserSubjectDTO registration=userSubjectService.getRegistration(id);
+        User u=(User) session.getAttribute("user");
+        if(u.getId().equals(registration.getUserCreated().getId())){
+            model.addAttribute("isYours", true);
+        }
+        else{
+            model.addAttribute("isYours", false);
+        }
+        List<SubjectDTO> subjectList=subjectService.findAll();
+        List<PricepackageDTO> pricePackageList=
+                pricePackageService.getBySubjectId(id);
+        List<RegistrationstatusDTO> statusList=statusService.findAll();
+        model.addAttribute("userSession", 
+                session.getAttribute("user"));
+        model.addAttribute("registration", registration);
+        model.addAttribute("pricePackageList", 
+                pricePackageList);
+        model.addAttribute("subjectList", subjectList);
+        model.addAttribute("statusList", statusList);
+        return "/sale/registration-detail";
+    }
+    
+    @PostMapping("/registration-detail/change")
+    public String updateRegistration(@RequestParam("registrationId") Integer id
+            ){
+        
+        return "redirect:/sale/registration-detail?registrationId="+id;
     }
 }

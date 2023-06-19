@@ -22,4 +22,5 @@ public class UserSubjectDTO {
     private Timestamp validTo;
     private UserDTO userUpdate;
     private String notes;
+    private UserDTO userCreated;
 }

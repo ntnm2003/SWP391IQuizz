@@ -4,10 +4,13 @@
  */
 package swp391.quizpracticing.service;
 
+import java.util.List;
+import swp391.quizpracticing.dto.RegistrationstatusDTO;
+
 /**
  *
  * @author Mosena
  */
 public interface IRegistrationstatusService {
-    
+    public List<RegistrationstatusDTO> findAll();
 }
