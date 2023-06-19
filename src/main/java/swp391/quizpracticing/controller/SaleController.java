@@ -6,7 +6,11 @@ package swp391.quizpracticing.controller;
 
 import jakarta.servlet.http.HttpSession;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
+import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -15,15 +19,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import swp391.quizpracticing.dto.PricepackageDTO;
 import swp391.quizpracticing.dto.RegistrationstatusDTO;
 import swp391.quizpracticing.dto.SubjectDTO;
+import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.dto.UserSubjectDTO;
-import swp391.quizpracticing.model.User;
 import swp391.quizpracticing.service.IPricepackageService;
 import swp391.quizpracticing.service.IRegistrationstatusService;
 import swp391.quizpracticing.service.ISubjectService;
+import swp391.quizpracticing.service.IUserService;
 import swp391.quizpracticing.service.IUserSubjectService;
+import swp391.quizpracticing.service.IVerificationService;
+import swp391.quizpracticing.service.RegisterService;
 
 /**
  *
@@ -45,6 +53,15 @@ public class SaleController {
     @Autowired
     private IRegistrationstatusService statusService;
     
+    @Autowired
+    private IUserService userService;
+    
+    @Autowired
+    private RegisterService registerService;
+    
+    @Autowired
+    private IVerificationService verifycationService;
+    
     @GetMapping("/registrations-list")
     public String getRegistrations(HttpSession session, 
             @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
@@ -64,14 +81,25 @@ public class SaleController {
             model.addAttribute("msg", "Not found");
             return "/admin/error";
         }
+        List<SubjectDTO> subjectList=subjectService.findAll();
+        List<RegistrationstatusDTO> statusListForm=statusService.findAll();
+        List<PricepackageDTO> pricePackageList
+                =pricePackageService.getBySubjectId(1);
         List<String> statusList=userSubjectService
                 .getRegistrationStatusList(registrations);
         List<Timestamp> validFromList=userSubjectService
                 .getValidFromList(registrations);
         List<Timestamp> validToList=userSubjectService
                 .getValidToList(registrations);
+        model.addAttribute("pricePackageList", pricePackageList);
+        model.addAttribute("subjectList", subjectList);
+        model.addAttribute("statusListForm", statusListForm);
         model.addAttribute("userSession", 
                 session.getAttribute("user"));
+        model.addAttribute("listPriceIni",
+                pricePackageList.get(0).getListPrice());
+        model.addAttribute("salePriceIni",
+                pricePackageList.get(0).getSalePrice());
         model.addAttribute("statusList", statusList);
         model.addAttribute("validFromList", validFromList);
         model.addAttribute("validToList", validToList);
@@ -84,10 +112,9 @@ public class SaleController {
     @GetMapping("/registration-detail")
     public String getRegistrationDetail(HttpSession session, 
             @RequestParam(name="registrationId") Integer id, 
-            @RequestParam(name="subjectId", required = false) Integer subjectId, 
             Model model){
         UserSubjectDTO registration=userSubjectService.getRegistration(id);
-        User u=(User) session.getAttribute("user");
+        UserDTO u=(UserDTO) session.getAttribute("user");
         if(u.getId().equals(registration.getUserCreated().getId())){
             model.addAttribute("isYours", true);
         }
@@ -95,23 +122,132 @@ public class SaleController {
             model.addAttribute("isYours", false);
         }
         List<SubjectDTO> subjectList=subjectService.findAll();
-        List<PricepackageDTO> pricePackageList=
-                pricePackageService.getBySubjectId(id);
+        List<PricepackageDTO> pricePackageList=pricePackageService
+                .getBySubjectId(registration.getSubject().getId());
         List<RegistrationstatusDTO> statusList=statusService.findAll();
         model.addAttribute("userSession", 
                 session.getAttribute("user"));
         model.addAttribute("registration", registration);
-        model.addAttribute("pricePackageList", 
-                pricePackageList);
+        model.addAttribute("pricePackageList", pricePackageList);
         model.addAttribute("subjectList", subjectList);
         model.addAttribute("statusList", statusList);
         return "/sale/registration-detail";
     }
     
     @PostMapping("/registration-detail/change")
-    public String updateRegistration(@RequestParam("registrationId") Integer id
-            ){
+    public String updateRegistration(HttpSession session,
+            @RequestParam(name="registrationId") Integer id,
+            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "fullName", required = false) String fullName,
+            @RequestParam(name = "gender", required = false) Boolean gender,
+            @RequestParam(name = "mobile", required = false) String mobile,
+            @RequestParam(name = "subject", required = false) Integer subjectId,
+            @RequestParam(name = "pricePackage", required = false) 
+                    Integer pricePackageId,
+            @RequestParam(name = "status", required = false) Integer statusId,
+            @RequestParam(name = "notes", required = false) String note,
+            @RequestParam(name = "isYours") Boolean isYours,
+            Model model){
+        UserDTO currentUser=(UserDTO) session.getAttribute("user");
+        UserSubjectDTO registration=userSubjectService.getRegistration(id);
+        if(isYours){
+            UserDTO user=registration.getUser();
+            user.setEmail(email);
+            user.setFullName(fullName);
+            user.setGender(gender);
+            user.setMobile(mobile);
+            if(!userService.findUserByEmail(email)){
+                String randomPass=RandomString.make(12);
+                String randomCode = RandomString.make(64);
+                verifycationService.sendVerification(fullName, email, 
+                        randomCode, randomPass);
+                user.setPassword(randomPass);
+                user.setEnable(false);
+                registerService.register(user);
+            }
+            registration.setUser(user);
+
+            SubjectDTO subject=subjectService.getById(subjectId);
+            registration.setSubject(subject);
+            PricepackageDTO pricePackage=pricePackageService.getById(pricePackageId);
+            registration.setPricePackage(pricePackage);
+        }
+        RegistrationstatusDTO status=statusService.getById(statusId);
+        registration.setRegistrationStatus(status);
+        registration.setNotes(note);
+        registration.setUserUpdate(currentUser);
+        userSubjectService.saveRegistration(registration);
+        return "redirect:/sale/registration-detail?registrationId="+id+"&"
+                + "completed=true";
+    }
+    
+    @PostMapping("/add-registration")
+    public String addRegistration(HttpSession session,
+            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "fullName", required = false) String fullName,
+            @RequestParam(name = "gender", required = false) Boolean gender,
+            @RequestParam(name = "mobile", required = false) String mobile,
+            @RequestParam(name = "subject", required = false) Integer subjectId,
+            @RequestParam(name = "pricePackage", required = false) 
+                    Integer pricePackageId,
+            @RequestParam(name = "status", required = false) Integer statusId,
+            @RequestParam(name = "notes", required = false) String note,
+            @RequestParam(name = "validFrom", required = false) 
+                    String validFrom,
+            Model model){
+        UserDTO currentUser=(UserDTO) session.getAttribute("user");
+        UserSubjectDTO registration=new UserSubjectDTO();
+        UserDTO user=new UserDTO();
+        user.setEmail(email);
+        user.setFullName(fullName);
+        user.setGender(gender);
+        user.setMobile(mobile);
+        if(!userService.findUserByEmail(email)){
+            String randomPass=RandomString.make(12);
+            String randomCode = RandomString.make(64);
+            verifycationService.sendVerification(fullName, email, 
+                    randomCode, randomPass);
+            user.setPassword(randomPass);
+            user.setEnable(false);
+            registerService.register(user);
+        }
+        registration.setUser(user);
         
-        return "redirect:/sale/registration-detail?registrationId="+id;
+        SubjectDTO subject=subjectService.getById(subjectId);
+        registration.setSubject(subject);
+        PricepackageDTO pricePackage=pricePackageService.getById(pricePackageId);
+        
+        registration.setPricePackage(pricePackage);
+        registration.setUserCreated(currentUser);
+        registration.setUserUpdate(currentUser);
+        
+        Timestamp time=Timestamp.valueOf(LocalDateTime.now());
+        registration.setRegistrationTime(time);
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(validFrom, formatter);
+        registration.setValidFrom(Timestamp.valueOf(dateTime));
+        
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(time);
+        calendar.add(Calendar.MONTH, pricePackage.getAccessDuration());
+        registration.setValidTo(new Timestamp(calendar.getTimeInMillis()));
+        
+        userSubjectService.addRegistration(registration);
+        return "redirect:/sale/registrations-list?completed=true";
+    }
+    
+    @GetMapping("/get-pricepackages")
+    @ResponseBody
+    public List<PricepackageDTO> getPricePackages(
+            @RequestParam("subjectId") Integer subjectId){
+        return pricePackageService.getBySubjectId(subjectId);
+    }
+    
+    @GetMapping("/get-pricepackage")
+    @ResponseBody
+    public PricepackageDTO getPricePackage(
+            @RequestParam("pricePackageId") Integer pricePackageId){
+        return pricePackageService.getById(pricePackageId);
     }
 }

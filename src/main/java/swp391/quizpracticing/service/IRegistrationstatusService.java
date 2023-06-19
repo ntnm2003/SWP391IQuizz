@@ -13,4 +13,6 @@ import swp391.quizpracticing.dto.RegistrationstatusDTO;
  */
 public interface IRegistrationstatusService {
     public List<RegistrationstatusDTO> findAll();
+    
+    public RegistrationstatusDTO getById(Integer id);
 }

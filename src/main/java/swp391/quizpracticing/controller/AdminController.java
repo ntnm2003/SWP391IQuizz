@@ -183,25 +183,5 @@ public class AdminController {
         settingsService.addSetting(type, order, value, description);
         return "redirect:/admin/settings";
     }
-    @GetMapping("/verify")
-    public String verify(@RequestParam("code") String code, Model model){
-        UserDTO u=userService.findUserByToken(code);
-        if(u!=null){
-            userService.updateUserStatusAndToken(u.getId(), Boolean.TRUE);
-            return "/common/verify_success";
-        }
-        model.addAttribute("msg", "Get lost?");
-        return "/admin/error";
-    }
-    @GetMapping("/discard")
-    public String discard(@RequestParam("code") String code, Model model){
-        UserDTO u=userService.findUserByToken(code);
-        if(u!=null){
-            userService.remove(u);
-            return "/admin/discardaccount";
-        }
-        model.addAttribute("msg", "Get lost?");
-        return "/admin/error";
-    }
 }
 

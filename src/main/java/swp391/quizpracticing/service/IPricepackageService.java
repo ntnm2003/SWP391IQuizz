@@ -14,6 +14,7 @@ import swp391.quizpracticing.dto.PricepackageDTO;
  * @author Mosena
  */
 public interface IPricepackageService {
+    public List<PricepackageDTO> getAll();
     PricepackageDTO getById(Integer id);
     List<PricepackageDTO> getBySubjectId(Integer id);
 }

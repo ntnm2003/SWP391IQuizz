@@ -38,8 +38,10 @@ public interface ISubjectService {
     public Page<SubjectDTO> filterAndSearchAndSortSubject(int pageNo,
                                                           int pageSize, int category, String subjectName,
                                                           String sortBy, String order);
-
-   List<SubjectDTO> findAll();
+    
+    public SubjectDTO getById(Integer id);
+    
+    List<SubjectDTO> findAll();
     
     List<Subject> findByFeaturing(Boolean isFeatured);
 

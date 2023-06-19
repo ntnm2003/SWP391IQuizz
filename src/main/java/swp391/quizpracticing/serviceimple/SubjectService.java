@@ -25,6 +25,7 @@ public class SubjectService implements ISubjectService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
     private ISubjectRepository subjectRepository;
 
     @Autowired
@@ -108,5 +109,9 @@ public class SubjectService implements ISubjectService {
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
-
+    
+    @Override
+    public SubjectDTO getById(Integer id){
+        return convertEntityToDTO(subjectRepository.getReferenceById(id));
+    }
 }
