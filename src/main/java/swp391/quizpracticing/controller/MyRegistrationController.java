@@ -3,7 +3,6 @@ package swp391.quizpracticing.controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +17,8 @@ import swp391.quizpracticing.service.IUserSubjectService;
 
 import java.sql.Date;
 import java.util.*;
+import swp391.quizpracticing.dto.PricepackageDTO;
+import swp391.quizpracticing.dto.SubjectDTO;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,15 +39,15 @@ public class MyRegistrationController {
         List<Integer> price = new ArrayList<>();
 
         for (UserSubject uc : userCourseService.listAll()) {
-            if (uc.getId().getUser().getId().intValue() == id) {
+            if (uc.getUser().getId().intValue() == id) {
                 for (Subject sub : subjects) {
-                    if (sub.getId().intValue() == uc.getId().getSubject().getId().intValue()) {
+                    if (sub.getId().intValue() == uc.getSubject().getId().intValue()) {
 
                         Date date = new Date(uc.getRegistrationTime().getTime());
                         dateRegis.add(date);
                         status.add(uc.getRegistrationStatus().getName());
-                        registationId.add(uc.getId().getUser().getId() + "" + uc.getId().getSubject().getId());
-                        price.add(uc.getId().getPricePackage().getId());
+                        registationId.add(uc.getUser().getId() + "" + uc.getSubject().getId());
+                        price.add(uc.getPricePackage().getId());
 
                     }
                 }
@@ -81,17 +82,18 @@ public class MyRegistrationController {
         }
         return regis;
     }
-    @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
-    @GetMapping("/users/myregistration")
-    public String showRegistration( Model model, @RequestParam(value = "id",required = false) String id) {
-        try {
-            Integer uid = Integer.parseInt(id);
-            Object sessionInfo = UserSession.getAttribute("user");
-            UserDTO u = (UserDTO) sessionInfo;
 
+    @GetMapping("/user/myregistration")
+    public String showRegistration( Model model) {
+        try {
+
+            Object sessionInfo = UserSession.getAttribute("user");
+            User u = (User) sessionInfo;
+            Integer uid = u.getId();
             List<MyRegistration> regis = reg(uid);
             List<Subject> subjects = userCourseService.courseById(uid);
             List<Category> cat = categoryService.listAll();
+            model.addAttribute("userSession", sessionInfo);
             model.addAttribute("sub", subjects);
             model.addAttribute("cat", cat);
             model.addAttribute("regis", regis);
@@ -102,7 +104,7 @@ public class MyRegistrationController {
         }
     }
 
-    @GetMapping("/users/myregistration/{cid}")
+    @GetMapping("/user/myregistration/{cid}")
     public String regisCourse(@PathVariable("cid") Integer cid, @RequestParam(value = "uid",required = false) String id, Model model) {
         try {
             Integer uid = Integer.parseInt(id);
@@ -123,8 +125,8 @@ public class MyRegistrationController {
             }
             model.addAttribute("userSession", UserSession.getAttribute("user"));
             model.addAttribute("re", re);
-            Subject su = subService.getById(cid);
-            List<Pricepackage> price = packageService.getBySubjectId(cid);
+            SubjectDTO su = subService.getById(cid);
+            List<PricepackageDTO> price = packageService.getBySubjectId(cid);
             model.addAttribute("sub", su);
             model.addAttribute("pack", price);
             return "customer/my_registration";
