@@ -4,10 +4,19 @@
  */
 package swp391.quizpracticing.service;
 
+import java.util.List;
+
+import swp391.quizpracticing.dto.DimensionDTO;
+import swp391.quizpracticing.model.Dimension;
+
+
 /**
  *
  * @author Mosena
  */
 public interface IDimensionService {
-    
+    List<DimensionDTO> getAllDimension();
+
+    Dimension getDimensionById(Integer id);
+
 }

@@ -5,6 +5,8 @@
 package swp391.quizpracticing.service;
 
 import org.springframework.data.domain.Page;
+
+
 import swp391.quizpracticing.dto.SubjectDTO;
 import swp391.quizpracticing.model.Subject;
 
@@ -47,5 +49,9 @@ public interface ISubjectService {
     public void save(Subject subject);
 
     public Subject getById(int id);
+
+    List<SubjectDTO> getAllSubject();
+
+    Subject getSubjectById(Integer id);
 
 }
