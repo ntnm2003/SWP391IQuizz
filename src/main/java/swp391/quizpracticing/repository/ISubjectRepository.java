@@ -29,6 +29,12 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
 
     public Subject findById(int id);
 
+    @Override
+    Subject getById(Integer integer);
+
+    @Override
+    List<Subject> findAllById(Iterable<Integer> integers);
+
     @Query(value="Select * from `subject` s "
             + "join category c "
             + "on s.idCategory=c.id "
@@ -53,3 +59,4 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
     //List<Subject> findByCourseNameContaining(String s);
 
 }
+
