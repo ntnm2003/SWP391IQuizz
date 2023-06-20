@@ -157,8 +157,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean findUserByEmail(String email) {
-        return userRepository.findByEmail(email)!=null;
+    public UserDTO findUserByEmail(String email) {
+        User user=userRepository.findByEmail(email);
+        if(user==null){
+            return null;
+        }
+        return convertEntityToDTO(user);
     }
 
 }

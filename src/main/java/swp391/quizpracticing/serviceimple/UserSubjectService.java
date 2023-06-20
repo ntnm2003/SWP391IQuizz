@@ -5,6 +5,7 @@
 package swp391.quizpracticing.serviceimple;
 
 import jakarta.persistence.criteria.Predicate;
+import jakarta.transaction.Transactional;
 import java.sql.Timestamp;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import swp391.quizpracticing.dto.UserSubjectDTO;
  * @author Mosena
  */
 @Service
+@Transactional
 public class UserSubjectService implements IUserSubjectService {
     @Autowired
     private ModelMapper modelMapper;
@@ -147,7 +149,7 @@ public class UserSubjectService implements IUserSubjectService {
     public UserSubjectDTO saveRegistration(UserSubjectDTO registrationDTO) {
         UserSubject registration=convertDTOToEntity(registrationDTO);
         return convertEntityToDTO(userSubjectRepository
-                .saveAndFlush(registration));
+                .save(registration));
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.util.List;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import swp391.quizpracticing.dto.PricepackageDTO;
 import swp391.quizpracticing.dto.RegistrationstatusDTO;
+import swp391.quizpracticing.dto.RoleDTO;
 import swp391.quizpracticing.dto.SubjectDTO;
 import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.dto.UserSubjectDTO;
 import swp391.quizpracticing.service.IPricepackageService;
 import swp391.quizpracticing.service.IRegistrationstatusService;
+import swp391.quizpracticing.service.IRoleService;
 import swp391.quizpracticing.service.ISubjectService;
 import swp391.quizpracticing.service.IUserService;
 import swp391.quizpracticing.service.IUserSubjectService;
@@ -57,10 +60,16 @@ public class SaleController {
     private IUserService userService;
     
     @Autowired
+    private IVerificationService verifycationService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
     private RegisterService registerService;
     
     @Autowired
-    private IVerificationService verifycationService;
+    private IRoleService roleService;
     
     @GetMapping("/registrations-list")
     public String getRegistrations(HttpSession session, 
@@ -156,14 +165,15 @@ public class SaleController {
             user.setFullName(fullName);
             user.setGender(gender);
             user.setMobile(mobile);
-            if(!userService.findUserByEmail(email)){
+            if(userService.findUserByEmail(email)!=null){
                 String randomPass=RandomString.make(12);
                 String randomCode = RandomString.make(64);
+                user.setPassword(passwordEncoder.encode(randomPass));
+                user.setEnable(false);
+                user.setToken(randomCode);
+                registerService.register(user);
                 verifycationService.sendVerification(fullName, email, 
                         randomCode, randomPass);
-                user.setPassword(randomPass);
-                user.setEnable(false);
-                registerService.register(user);
             }
             registration.setUser(user);
 
@@ -190,33 +200,43 @@ public class SaleController {
             @RequestParam(name = "subject", required = false) Integer subjectId,
             @RequestParam(name = "pricePackage", required = false) 
                     Integer pricePackageId,
-            @RequestParam(name = "status", required = false) Integer statusId,
+            @RequestParam(name = "status", defaultValue = "1") Integer statusId,
             @RequestParam(name = "notes", required = false) String note,
             @RequestParam(name = "validFrom", required = false) 
                     String validFrom,
             Model model){
         UserDTO currentUser=(UserDTO) session.getAttribute("user");
         UserSubjectDTO registration=new UserSubjectDTO();
-        UserDTO user=new UserDTO();
-        user.setEmail(email);
-        user.setFullName(fullName);
-        user.setGender(gender);
-        user.setMobile(mobile);
-        if(!userService.findUserByEmail(email)){
+        UserDTO u=userService.findUserByEmail(email);
+        if(u==null){
+            UserDTO user=new UserDTO();
+            user.setEmail(email);
+            user.setFullName(fullName);
+            user.setGender(gender);
+            user.setMobile(mobile);
             String randomPass=RandomString.make(12);
             String randomCode = RandomString.make(64);
+            
+            user.setPassword(passwordEncoder.encode(randomPass));
+            user.setEnable(false);
+            user.setToken(randomCode);
+            RoleDTO role=roleService.findRole(5);
+            user.setRole(role);
             verifycationService.sendVerification(fullName, email, 
                     randomCode, randomPass);
-            user.setPassword(randomPass);
-            user.setEnable(false);
             registerService.register(user);
+            user=userService.findUserByEmail(email);
+            registration.setUser(user);
         }
-        registration.setUser(user);
-        
+        else{
+            registration.setUser(u);
+        }
         SubjectDTO subject=subjectService.getById(subjectId);
         registration.setSubject(subject);
         PricepackageDTO pricePackage=pricePackageService.getById(pricePackageId);
         
+        RegistrationstatusDTO status=statusService.getById(statusId);
+        registration.setRegistrationStatus(status);
         registration.setPricePackage(pricePackage);
         registration.setUserCreated(currentUser);
         registration.setUserUpdate(currentUser);
