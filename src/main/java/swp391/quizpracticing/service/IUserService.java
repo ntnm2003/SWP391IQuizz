@@ -35,5 +35,5 @@ public interface IUserService extends UserDetailsService {
     public UserDTO findUserByToken(String token);
     public void updateUserStatusAndToken(Integer userId, Boolean status);
     public void remove(UserDTO u);
-    public boolean findUserByEmail(String email);
+    public UserDTO findUserByEmail(String email);
 }

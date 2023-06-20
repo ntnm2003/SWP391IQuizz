@@ -1,4 +1,4 @@
-    package swp391.quizpracticing.model;
+package swp391.quizpracticing.model;
 
 
 import jakarta.persistence.*;
