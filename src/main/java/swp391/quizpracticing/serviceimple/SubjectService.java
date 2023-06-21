@@ -120,6 +120,11 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
+    public List<Subject> findByExpertId(Integer id) {
+        return iSubjectRepository.findByExpertId(id);
+    }
+
+    @Override
     public List<Subject> findSubjectsWithSorting(String field) {
         return iSubjectRepository.findAll(Sort.by(Sort.Direction.ASC, field));
     }
