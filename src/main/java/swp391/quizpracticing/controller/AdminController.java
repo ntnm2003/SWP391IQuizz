@@ -5,19 +5,11 @@
  */
 package swp391.quizpracticing.controller;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,15 +17,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import swp391.quizpracticing.Utils.Utility;
 import swp391.quizpracticing.dto.RoleDTO;
 import swp391.quizpracticing.dto.SettingsDTO;
 import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.service.IRoleService;
 import swp391.quizpracticing.service.ISettingsService;
 import swp391.quizpracticing.service.IUserService;
+import swp391.quizpracticing.service.IVerificationService;
 import swp391.quizpracticing.service.RegisterService;
-import swp391.quizpracticing.serviceimple.UserService;
 
 /**
  *
@@ -41,7 +32,6 @@ import swp391.quizpracticing.serviceimple.UserService;
  */
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasAuthority('admin')")
 public class AdminController {
     
     @Autowired
@@ -57,7 +47,7 @@ public class AdminController {
     private RegisterService registerService;
     
     @Autowired
-    private JavaMailSenderImpl mailSender;
+    private IVerificationService verifycationService;
     
     @GetMapping("/user-list")
     public String searchUser(HttpSession session,
@@ -86,7 +76,6 @@ public class AdminController {
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages",totalPages);
         model.addAttribute("users", users);
-        model.addAttribute("userSession", session.getAttribute("user"));
         return "/admin/userlist";
     }
     
@@ -114,7 +103,6 @@ public class AdminController {
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("totalPages",totalPages);
         model.addAttribute("settings", settings);
-        model.addAttribute("userSession", session.getAttribute("user"));
         return "/admin/settings";
     }
     
@@ -150,7 +138,7 @@ public class AdminController {
     public String addUser(HttpSession session,@RequestParam("fullName") String fullName,
             @RequestParam("role") Integer roleId,
             @RequestParam("email") String email,
-            HttpServletRequest request, Model model){
+            Model model){
         if(userService.findUserByEmail(email)){
             model.addAttribute("msg", 
                     "Email has already existed");
@@ -168,8 +156,8 @@ public class AdminController {
         u.setPassword(randomPass);
         u.setEnable(false);
         registerService.register(u);
-        sendVerification(fullName, email, 
-                randomCode,randomPass, request);
+        verifycationService.sendVerification(fullName, email, 
+                randomCode,randomPass);
         return "redirect:/admin/user-list";
     }
     @PostMapping("/setting-detail/change")
@@ -214,43 +202,6 @@ public class AdminController {
         }
         model.addAttribute("msg", "Get lost?");
         return "/admin/error";
-    }
-    
-    public void sendVerification(String name, String email, String token
-            ,String password,HttpServletRequest request){
-        String siteURL=Utility.getSiteURL(request);
-        String toAddress = email;
-        String fromAddress = "gmail@sss";
-        String senderName = "IQuizz";
-        String subject = "IQuiz account created";
-        String content = "Dear [[name]],<br>"
-                +"Your email has been used to register IQuizz<br>"
-                +"Password is [[password]]<br>"
-                + "Please click the link below to verify your registration:<br>"
-                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3><br>"
-                + "If you did not do this, please click here:<br>"
-                + "<h3><a href=\"[[URL_discard]]\" target=\"_self\">DISCARD</a></h3><br>"
-                + "Thank you,<br>"
-                + "IQuizz.";
-
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-
-        try {
-            helper.setFrom(fromAddress, senderName);
-            helper.setTo(toAddress);
-            helper.setSubject(subject);
-            content = content.replace("[[name]]", name);
-            content = content.replace("[[password]]", password);
-            String verifyURL = siteURL + "/user-created/verify?code=" + token;
-            String discardURL = siteURL + "/user-created/discard?code="+token;
-            content = content.replace("[[URL]]", verifyURL);
-            content=content.replace("[[URL_discard]]", discardURL);
-            helper.setText(content, true);
-        } catch (MessagingException | UnsupportedEncodingException ex) {
-            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        mailSender.send(message);
     }
 }
 

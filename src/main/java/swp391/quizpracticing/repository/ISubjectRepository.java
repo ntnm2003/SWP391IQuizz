@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Subject;
 
@@ -24,8 +25,13 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
 
     public List<Subject> findAllByFeatured(Boolean isFeatured);
 
+    public Page<Subject> findByStatus(Boolean status, Pageable pageable);
+
     @Override
     public List<Subject> findAll();
+
+    @Query(value = "select * from iquiz.subject", nativeQuery = true)
+    public Page<Subject> findAllSubjectsPaginated(Pageable pageable);
 
     public Subject findById(int id);
 
@@ -34,6 +40,15 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
 
     @Override
     List<Subject> findAllById(Iterable<Integer> integers);
+
+    @Query(value = "select * from iquiz.subject where owner_id = :owner_id", nativeQuery = true)
+    public Page<Subject> findByOwnerId(@Param("owner_id") Integer id, Pageable pageable);
+
+    @Query(value = "select * from iquiz.subject where owner_id = :owner_id and brief_info like %:searchTerm%", nativeQuery = true)
+    public Page<Subject> findByOwnerIdAndName(@Param("owner_id") Integer id, @Param("searchTerm") String searchTerm, Pageable pageable);
+
+    @Query(value = "select * from iquiz.subject where owner_id = :owner_id and status = :status", nativeQuery = true)
+    public Page<Subject> findByOwnerIdAndStatus(@Param("owner_id") Integer id, @Param("status") Integer status, Pageable pageable);
 
     @Query(value="Select * from `subject` s "
             + "join category c "
@@ -50,13 +65,13 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
             + "join category c "
             + "on s.idCategory=c.id "
             + "where s.course_name like %?1% && c.id = ?2", nativeQuery = true)
-    public Page<Subject>searchSubjectNameAndCategory(Pageable pageable,
-                                                     String subjectName, int categoryId);
+    public Page<Subject> searchSubjectNameAndCategory(Pageable pageable,
+                                                      String subjectName, int categoryId);
 
-    //Subject findByIdCourse(int id);
-    //Subject findByIdCourse(Integer id);
+    public Page<Subject> findByBriefInfoContainingIgnoreCase(String searchTerm,
+                                                             Pageable pageable);
 
-    //List<Subject> findByCourseNameContaining(String s);
+    boolean existsSubjectByBriefInfo(String briefInfo);
+
 
 }
-
