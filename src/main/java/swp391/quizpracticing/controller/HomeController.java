@@ -44,12 +44,6 @@ public class HomeController {
 	@GetMapping("/home")
 	public String getToHomePage(Model model, @Autowired HttpSession session) {
 
-		User loggedinUser = (User)session.getAttribute("user");
-		System.out.println(loggedinUser);
-		if(loggedinUser != null) {
-			System.out.println(loggedinUser.getRole().getName());
-		}
-
 		//Get sliders
 		List<SliderDTO> sliders = sliderService.getAllSlidersForHomepage();
 
