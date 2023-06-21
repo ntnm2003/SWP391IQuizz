@@ -41,6 +41,55 @@ div.functionalities {
     font-size: 1.4rem;
 }
 
+div.radio-label {
+    height: 32px;
+    width: 178px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 2px solid #1368ce;
+    text-align: center;
+    /* padding-top: 3.5px; */
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+ul.category-id-ul {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 6px;
+    position: absolute;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    /* border: 2px solid #1368ce; */
+    /* visibility: hidden; */
+    display: none;
+    z-index: 1001;
+}
+
+/* .shown {
+    visibility: visible;
+} */
+
+.radio-label.open ~ .category-id-ul {
+    display: block;
+}
+
+.selected_categories_ul {
+    color: #ffffff;
+    background-color: #1368ce;
+    width: fit-content;
+    padding: 3px;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.selected_categories_inline {
+    display: inline;
+}
+
 .practice-list-table {
     margin-top: 1rem;
     background-color: #ffffff;

@@ -90,6 +90,11 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
+    public Page<Subject> getAllSubjectsPaginated(int pageNum, int itemPerPage) {
+        return iSubjectRepository.findAllSubjectsPaginated(PageRequest.of(pageNum, itemPerPage));
+    }
+
+    @Override
     public List<Subject> searchByCourseName(String s) {
         return null;
     }
