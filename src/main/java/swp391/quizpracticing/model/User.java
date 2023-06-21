@@ -52,7 +52,7 @@ public class User implements UserDetails {
 
     @Column(name = "mobile")
     protected String mobile;
-    
+
     @Column(name="address")
     protected String address;
 
@@ -81,15 +81,17 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     protected List<Quizreview> quizReviews;
 
-    @OneToMany(mappedBy = "id.user")
+    @OneToMany(mappedBy = "user")
     protected List<UserSubject> userSubjects;
+
+    @OneToMany(mappedBy = "userUpdate")
+    protected List<UserSubject> updatedUserSubject;
 
     public User token(String token) {
         setToken(token);
         return this;
     }
-    
-    
+
     public User lastupdatedate(Timestamp lastUpdateDate) {
         setLastUpdateDate(lastUpdateDate);
         return this;}
@@ -132,3 +134,4 @@ public class User implements UserDetails {
 
 
 }
+
