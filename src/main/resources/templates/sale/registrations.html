@@ -146,43 +146,43 @@
             </div>
         </div>
         <div id="popupForm" class="modal">
-            <div class="model-content">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Registration</h5>
                 </div>
-                <div class="model-body">
+                <div class="modal-body">
                     <form method="post" action="/sale/add-registration">
                         <div class="row gx-3 mb-3">
                             <div class="col-md-3">
                                 <label class="small mb-1" for="inputEmail">User's email</label>
-                                <input class="form-control" name="email" id="inputEmail" type="email">    
+                                <input class="form-control" name="email" id="inputEmail" type="email" required>    
                             </div>
                             <div class="col-md-3">
                                 <label class="small mb-1" for="inputFullName">User's full name</label>
-                                <input class="form-control" name="fullName" id="inputFullName" type="text">    
+                                <input class="form-control" name="fullName" id="inputFullName" type="text" required>    
                             </div>
                             <div class="col-md-3">
                                 <label class="small mb-1" for="inputGender">User's gender</label>
-                                <select class="form-control" name="gender" id="inputGender">
+                                <select class="form-control" name="gender" id="inputGender" required>
                                     <option value="true">Male</option>
                                     <option value="false">Female</option>
                                 </select> 
                             </div>
                             <div class="col-md-3">
                                 <label class="small mb-1" for="inputMobile">User's mobile</label>
-                                <input class="form-control" name="mobile" id="inputMobile" type="text">    
+                                <input class="form-control" name="mobile" id="inputMobile" type="text" required>    
                             </div>
                         </div>
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputSubject">Subject</label>
-                                <select class="form-control" name="subject" id="inputSubject" onchange="getPricePackage()">
+                                <select class="form-control" name="subject" id="inputSubject" onchange="getPricePackage()" required>
                                     <option th:each="subject : ${subjectList}" th:value="${subject.id}" th:text="${subject.title}"></option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputPricePackage">Price package</label>
-                                <select class="form-control" name="pricePackage" id="inputPricePackage" onchange="changePrice()">
+                                <select class="form-control" name="pricePackage" id="inputPricePackage" onchange="changePrice()" required>
                                     <option th:each="pricePackage:${pricePackageList}" th:value="${pricePackage.id}" th:text="${pricePackage.name}"></option>
                                 </select>
                             </div>
@@ -190,11 +190,11 @@
                         <div class="row gx-3 mb-3">
                             <div class="col-md-4">
                                 <label class="small mb-1" for="inputValidFrom">Valid from</label>
-                                <input class="form-control" name="validFrom" id="inputValidFrom" type="datetime-local">
+                                <input class="form-control" name="validFrom" id="inputValidFrom" type="datetime-local" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="small mb-1" for="inputStatus">Status</label>
-                                <select class="form-control" name="status" id="inputStatus">
+                                <select class="form-control" name="status" id="inputStatus" required>
                                     <option th:each="status : ${statusListForm}" th:value="${status.id}" th:text="${status.name}"></option>
                                 </select>                                
                             </div>
@@ -225,7 +225,6 @@
                     </form>
                 </div>
             </div>
-        </div>
         </div>
     </main>
     <div th:insert="components/footer"></div>
