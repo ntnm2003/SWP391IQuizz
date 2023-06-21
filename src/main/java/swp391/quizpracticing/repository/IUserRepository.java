@@ -5,6 +5,8 @@
 package swp391.quizpracticing.repository;
 
 import jakarta.transaction.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +39,8 @@ public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecifi
 
     @Override
     public User getById(Integer id);
+
+    public User findById(int id);
 
     @Query(value = "Select * from User where token = ?1",nativeQuery = true)
     public User getByToken(String token);
@@ -81,5 +85,8 @@ public interface IUserRepository extends JpaRepository<User,Integer>, JpaSpecifi
     public Page<User>searchByPhoneNumber(Pageable pageable, String phone);
     @Override
     public void delete(User u);
+
+    @Query(value = "select * from iquiz.user where role_id = 2", nativeQuery = true)
+    public List<User> findAllExpert();
 
 }

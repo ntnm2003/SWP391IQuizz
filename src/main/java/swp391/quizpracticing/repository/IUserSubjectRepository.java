@@ -4,6 +4,7 @@
  */
 package swp391.quizpracticing.repository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +16,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import swp391.quizpracticing.model.Pricepackage;
+import swp391.quizpracticing.model.Registrationstatus;
+import swp391.quizpracticing.model.Subject;
+import swp391.quizpracticing.model.User;
 
 /**
  *
@@ -37,4 +43,7 @@ public interface IUserSubjectRepository
 
     @Override
     public UserSubject getReferenceById(Integer id);
+    
+    @Override
+    public UserSubject saveAndFlush(UserSubject us);
 }

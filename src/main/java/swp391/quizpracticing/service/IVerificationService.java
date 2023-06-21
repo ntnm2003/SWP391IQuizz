@@ -4,13 +4,11 @@
  */
 package swp391.quizpracticing.service;
 
-import java.util.List;
-import swp391.quizpracticing.dto.RegistrationstatusDTO;
-
 /**
  *
  * @author Mosena
  */
-public interface IRegistrationstatusService {
-    public List<RegistrationstatusDTO> findAll();
+public interface IVerificationService {
+    public void sendVerification(String name, String email, String token
+            ,String passwordt);
 }

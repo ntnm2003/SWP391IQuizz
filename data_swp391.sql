@@ -8,12 +8,11 @@ INSERT INTO `iquiz`.`role`
 `name`,
 `status`)
 VALUES
-('admin',1),
-('expert',1),
-('sale',1),
-('marketing',1),
-('sale',1),
-('customer',1);
+('ROLE_ADMIN',1),
+('ROLE_EXPERT',1),
+('ROLE_SALE',1),
+('ROLE_MARKETING',1),
+('ROLE_CUSTOMER',1);
  INSERT INTO `iquiz`.`slider`
 (
 `title`,
@@ -31,6 +30,11 @@ INSERT INTO `iquiz`.`lessontype`
 VALUES
 ('quiz', 1),
 ('lession', 1);
+INSERT INTO `iquiz`.`lessontype`
+(`name`,
+`status`)
+VALUES
+('Subject Topic', 1);
 
 INSERT INTO `iquiz`.`dimension`
 (
@@ -56,20 +60,20 @@ INSERT INTO `iquiz`.`user`
 `role_id`,
 `enable`,`avatar`, `last_update_date`, `token` )
 VALUES
-('Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', '$2a$10$YEtoD9PfO4Gw6FOxOrQTjefgMtWLQA496a0Jv6Cf.Z0RsGhTACH8', 1,1, 'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', '$2a$10$Y4FuCb/0u/nBk3aoF8vlLuVRMQ9h2d0oJSeQQZUtKCMr.sTSsQ5xm', 1,1, 'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Nguyen Van A', 'duongmai.hoamkt76@gmail.com', 1, '012345678', '$2a$10$vvipoMflT5Wdj0JyoX4J/eeuYiGr8yRTXuGjmDTi5mr6CwDfa7Iwu', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Nguyen Thi B', 'dungnpn28@gmail.com', 1, '0987654321', '$2a$10$w4LDTQp5Ipa1BXIPBwKBU.GdSX2THJzQZI4tCsDxWQ1gt06CaJHl.', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Mr. Expert1', 'quannahe176660@gmail.com', 0, '068686868', '$2a$10$awkejTMdluxHD7cAMbLgZecxu3aIRz.ZaG/WQ/qST4sstd4Kpomj6', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Mr. Expert2', 'maintnhe176347@gmail.com', 0, '0973600757', '$2a$10$t5umNOy/O0Yc01ayXiRdb.012.9F0XO0E3nAjVcbTZTOT4XMTykm2', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Mr. Expert3', 'expert3@gmail.com', 0, '0978779519', '$2a$10$Uzk3RS/EzofVGptWv.J56e86sZyyknsX8V9fCyKfAuswCzFG6/pzy', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Mr. GiCungGioi', 'quannahe176660@gmail.com', 0, '068686868', '$2a$10$awkejTMdluxHD7cAMbLgZecxu3aIRz.ZaG/WQ/qST4sstd4Kpomj6', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Mr. ThaoTungTamLy', 'maintnhe176347@gmail.com', 0, '0973600757', '$2a$10$t5umNOy/O0Yc01ayXiRdb.012.9F0XO0E3nAjVcbTZTOT4XMTykm2', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Mr. FixBugAllNight', 'expert3@gmail.com', 0, '0978779519', '$2a$10$Uzk3RS/EzofVGptWv.J56e86sZyyknsX8V9fCyKfAuswCzFG6/pzy', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Lung Thi Linh', 'lunglinh2003@gmail.com', 0, '0982712755', '$2a$10$lgsnmItDSSUGHSqmgSNrxu43.l2VX4btPVDzC8mipIhMamdpL/uKi', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Mr.Expert4', 'ntnm222003@gmail.com', 0, '0978779519', '$2a$10$IfeQU2m6ZnVlmPtBPkvSQe/LO60yGx/Ns87feVP2BhxfPLRMWAIdC', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Khanh Ly', 'ntnm2003@gmail.com', 1, '0978279519', '$2a$10$fClf8Ai6tSdGBps4Qg/T/O0Vf3ZmD7T0o6Ublsr8Qh1t2FtNb6A0m', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Phuong Anh', 'jsclub.bannd@gmail.com', 1, '0978379519', '$2a$10$U0QdIeEgZW1uiaKJTudIAOkLk8zHsGlpEzjepkKsvGs.PuBUhFsmq', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Hoang Ha', 'iamntnm@gmail.com', 1, '0978775519', '$2a$10$X8h5vBAFQlYM87eo9KGn/u6eKM78Hj9osWmw5ebuZKDo/GUDhcELG', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Mai Linh', 'laitrang143@gmail.com', 1, '0868459509', '$2a$10$m5VhkfqM1KRv7KY.NMDnte3Fz8WnYnLFiqpayJjAvsfKnSgIg1jHK', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Anh Hong', 'lopchungminh@gmail.com', 1, '0978775519', '$2a$10$0GNydfb8QuvQsPLbIo2HeO/BXILworYeL0ox5QcUD5WcJmEASZ8qK', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Tran Thi Anh', 'maiaiai@gmail.com', 1, '0978775519', '$2a$10$AeYGCoDfuRQbAA2/Fh400e/jEng7glVlTJRudIBzG4Hrx7MKDCMLi', 6,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02','');
+('Mr. ConNhaNguoiTa', 'ntnm222003@gmail.com', 0, '0978779519', '$2a$10$IfeQU2m6ZnVlmPtBPkvSQe/LO60yGx/Ns87feVP2BhxfPLRMWAIdC', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Khanh Ly', 'ntnm2003@gmail.com', 1, '0978279519', '$2a$10$fClf8Ai6tSdGBps4Qg/T/O0Vf3ZmD7T0o6Ublsr8Qh1t2FtNb6A0m', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Phuong Anh', 'jsclub.bannd@gmail.com', 1, '0978379519', '$2a$10$U0QdIeEgZW1uiaKJTudIAOkLk8zHsGlpEzjepkKsvGs.PuBUhFsmq', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Hoang Ha', 'iamntnm@gmail.com', 1, '0978775519', '$2a$10$X8h5vBAFQlYM87eo9KGn/u6eKM78Hj9osWmw5ebuZKDo/GUDhcELG', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Mai Linh', 'laitrang143@gmail.com', 1, '0868459509', '$2a$10$m5VhkfqM1KRv7KY.NMDnte3Fz8WnYnLFiqpayJjAvsfKnSgIg1jHK', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Anh Hong', 'lopchungminh@gmail.com', 1, '0978775519', '$2a$10$0GNydfb8QuvQsPLbIo2HeO/BXILworYeL0ox5QcUD5WcJmEASZ8qK', 4,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Tran Thi Anh', 'maiaiai@gmail.com', 1, '0978775519', '$2a$10$AeYGCoDfuRQbAA2/Fh400e/jEng7glVlTJRudIBzG4Hrx7MKDCMLi', 4,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02','');
 
 INSERT INTO `iquiz`.`subject`
 (
@@ -803,7 +807,7 @@ VALUES
 ('Food', false);
 
 INSERT INTO `iquiz`.`blog`
-(`brief_info`, `content`, `last_updated`, `thumbnail`, `title`, `user_id`)
+(`brief_info`, `content`, `featuring`, `last_updated`, `status`, `thumbnail`, `title`, `user_id`)
 VALUES
 ('Brief info about technology', 'Content about technology', 1, '2023-06-05', 'uploaded', 'post4_thumbnail.png', 'Technology Blog', 14),
 ('Brief info about travel', 'Content about travel', 1, '2023-06-05', 'uploaded', 'post5_thumbnail.png', 'Travel Blog', 13),
@@ -834,8 +838,7 @@ VALUES
 (2,true,'User Roles','expert',2),
 (3,true,'User Roles','sale',3),
 (4,true,'User Roles','marketing',4),
-(5,true,'User Roles','sale',5),
-(6,true,'User Roles','customer',6);
+(5,true,'User Roles','customer',5);
 
 INSERT INTO `iquiz`.`settings`
 (

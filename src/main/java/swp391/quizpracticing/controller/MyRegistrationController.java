@@ -18,15 +18,18 @@ import swp391.quizpracticing.service.IUserSubjectService;
 import java.sql.Date;
 import java.util.*;
 import swp391.quizpracticing.dto.PricepackageDTO;
-import swp391.quizpracticing.dto.SubjectDTO;
 
 @Controller
 @RequiredArgsConstructor
 public class MyRegistrationController {
-    private final IUserSubjectService userCourseService;
-    private final ISubjectService subService;
-    private final IPricepackageService packageService;
-    private final ICategoryService categoryService;
+    @Autowired
+    private IUserSubjectService userCourseService;
+    @Autowired
+    private ISubjectService subService;
+    @Autowired
+    private IPricepackageService packageService;
+    @Autowired
+    private ICategoryService categoryService;
     @Autowired
     private HttpSession UserSession;
 

@@ -38,13 +38,13 @@ public class RegisterController {
 
     @Autowired
     private RegisterService service;
-
+    
     @Autowired
     private RoleService roleService;
 
     @Autowired
     private JavaMailSenderImpl mailSender;
-
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -58,7 +58,7 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UserDTO user, HttpServletRequest request, Model model) {
+    public String register(@ModelAttribute UserDTO user, Model model) {
         List<User> getAllAccount = service.getAllAccount();
         String password=user.getPassword();
         boolean isExist = false;
@@ -71,20 +71,20 @@ public class RegisterController {
             model.addAttribute("message", "Email has been used to create account!");
             return "common/register";
         } else {
-            String randomCode = RandomString.make(64);
-            user.setToken(randomCode);
-            user.setEnable(false);
-            user.setPassword(passwordEncoder.encode(password));
-            RoleDTO role=roleService.findRole(6);
-            user.setRole(role);
-            service.register(user);
-            try {
+        String randomCode = RandomString.make(64);
+        user.setToken(randomCode);
+        user.setEnable(false);
+        user.setPassword(passwordEncoder.encode(password));
+        RoleDTO role=roleService.findRole(6);
+        user.setRole(role);
+        service.register(user);
+        try {
 
-                sendVerificationEmail(user, Utility.getSiteURL(request));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-            return "common/register_successfully";
+            sendVerificationEmail(user, Utility.getSiteURL());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "common/register_successfully";
         }
     }
 
@@ -111,7 +111,7 @@ public class RegisterController {
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-
+        
         helper.setFrom(fromAddress, senderName);
         helper.setTo(toAddress);
         helper.setSubject(subject);
