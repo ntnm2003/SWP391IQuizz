@@ -60,42 +60,39 @@
                 <th style="width: 12%">Action</th>
                 </thead>
                 <tbody>
-                <div th:each="pricepackage : ${pricepackage}">
-                    <tr class="text-center">
-                        <td th:text="${pricepackage.id}"></td>
-                        <td th:text="${pricepackage.name}"></td>
-                        <td th:text="${pricepackage.accessDuration}"></td>
-                        <td th:text="${pricepackage.listPrice}"></td>
-                        <td th:text="${pricepackage.salePrice}"></td>
-                        <div class="col-md-12">
-                            <c:if th:if="${pricepackage.status == true}">
-                                <td th:text="Active"></td>
-                            </c:if>
-                            <c:if th:if="${pricepackage.status != true}">
-                                <td th:text="Inactive"></td>
-                            </c:if>
-                        </div>
-                        <td style="width: 125px">
-                            <a class="btn btn-danger" th:href="@{'pricepackage?id='+${pricepackage.id}}" role="button" style='font-size:10px'>
-                                <i style='font-size:10px' class='fas'>&#xf044;</i>
-                            </a>
-                            <c:if th:if="${pricepackage.status == true}">
-                                <a class="btn btn-dark" th:href="@{'pricepackage/change-status?status=0&id='+${pricepackage.id}}" role="button" style='font-size:10px'>
-                                    <i style='font-size:10px' class='fas far fa-eye-slash'>&#xf070;</i>
+                    <div th:each="pricepackage : ${pricepackage}">
+                        <tr class="text-center">
+                            <td th:text="${pricepackage.id}"></td>
+                            <td th:text="${pricepackage.name}"></td>
+                            <td th:text="${pricepackage.accessDuration}"></td>
+                            <td th:text="${pricepackage.listPrice}"></td>
+                            <td th:text="${pricepackage.salePrice}"></td>
+                            <div class="col-md-12">
+                                <c:if th:if="${pricepackage.status == true}">
+                                    <td th:text="Active"></td>
+                                </c:if>
+                                <c:if th:if="${pricepackage.status != true}">
+                                    <td th:text="Inactive"></td>
+                                </c:if>
+                            </div>
+                            <td style="width: 125px">
+                                <a class="btn btn-danger" th:href="@{'pricepackage?id='+${pricepackage.id}}" role="button" style='font-size:10px'>
+                                    <i style='font-size:10px' class='fas'>&#xf044;</i>
                                 </a>
-                            </c:if>
-                            <c:if th:if="${pricepackage.status != true}">
-                                <a class="btn btn-dark" th:href="@{'pricepackage/change-status?status=1&id='+${pricepackage.id}}" role="button" style='font-size:10px'>
-                                    <i style='font-size:10px' class='fas'>&#xf06e;</i>
-                                </a>
-                            </c:if>
-                        </td>
-                    </tr>
-
-                </div>
-
+                                <c:if th:if="${pricepackage.status == true}">
+                                    <a class="btn btn-dark" th:href="@{'pricepackage/change-status?status=0&id='+${pricepackage.id}}" role="button" style='font-size:10px'>
+                                        <i style='font-size:10px' class='fas far fa-eye-slash'>&#xf070;</i>
+                                    </a>
+                                </c:if>
+                                <c:if th:if="${pricepackage.status != true}">
+                                    <a class="btn btn-dark" th:href="@{'pricepackage/change-status?status=1&id='+${pricepackage.id}}" role="button" style='font-size:10px'>
+                                        <i style='font-size:10px' class='fas'>&#xf06e;</i>
+                                    </a>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </div>
                 </tbody>
-
             </table>
         </div>
     </div>

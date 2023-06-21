@@ -1,5 +1,5 @@
 -- drop database iquiz;
-create database iquiz;
+-- create database iquiz;
 
 use iquiz;
 
