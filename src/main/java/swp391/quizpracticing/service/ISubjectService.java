@@ -46,9 +46,7 @@ public interface ISubjectService {
    List<Subject> findByExpertId(Integer id);
     
     public SubjectDTO getDTOById(Integer id);
-    
-    List<SubjectDTO> findAll();
-        
+            
     List<Subject> findByFeaturing(Boolean isFeatured);
 
     public List<Subject> listAll();
