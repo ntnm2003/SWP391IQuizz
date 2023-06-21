@@ -23,10 +23,14 @@ import swp391.quizpracticing.dto.SubjectDTO;
 @Controller
 @RequiredArgsConstructor
 public class MyRegistrationController {
-    private final IUserSubjectService userCourseService;
-    private final ISubjectService subService;
-    private final IPricepackageService packageService;
-    private final ICategoryService categoryService;
+    @Autowired
+    private IUserSubjectService userCourseService;
+    @Autowired
+    private ISubjectService subService;
+    @Autowired
+    private IPricepackageService packageService;
+    @Autowired
+    private ICategoryService categoryService;
     @Autowired
     private HttpSession UserSession;
 
@@ -125,7 +129,7 @@ public class MyRegistrationController {
             }
             model.addAttribute("userSession", UserSession.getAttribute("user"));
             model.addAttribute("re", re);
-            SubjectDTO su = subService.getById(cid);
+            SubjectDTO su = subService.getDTOById(cid);
             List<PricepackageDTO> price = packageService.getBySubjectId(cid);
             model.addAttribute("sub", su);
             model.addAttribute("pack", price);

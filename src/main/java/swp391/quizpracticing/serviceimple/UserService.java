@@ -165,4 +165,14 @@ public class UserService implements IUserService {
         return convertEntityToDTO(user);
     }
 
+    @Override
+    public List<User> getAllExpert() {
+        return userRepository.findAllExpert();
+    }
+
+    @Override
+    public User getByUserId(int id) {
+        return userRepository.findById(id);
+    }
+
 }

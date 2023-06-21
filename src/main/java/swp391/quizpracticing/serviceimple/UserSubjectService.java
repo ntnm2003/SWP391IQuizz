@@ -88,8 +88,8 @@ public class UserSubjectService implements IUserSubjectService {
 
     //Nam's code using DTO instead of entity
     @Override
-    public Page<UserSubjectDTO> listAll(int pageNo, int pageSize, String sortBy, 
-            String order, String searchCriteria, 
+    public Page<UserSubjectDTO> listAll(int pageNo, int pageSize, String sortBy,
+            String order, String searchCriteria,
             Timestamp validFrom, Timestamp validTo,String status) {
         Pageable page;
         if(order.equals("asc")){
@@ -107,29 +107,29 @@ public class UserSubjectService implements IUserSubjectService {
                 String searchPattern="%"+searchCriteria+"%";
                 if(searchCriteria.contains("@")){
                     predicates.add(criteriaBuilder.like(
-                        root.get("user").get("email"), 
+                        root.get("user").get("email"),
                         searchPattern));
                 }
                 else{
                     predicates.add(criteriaBuilder.like(
-                        root.get("subject").get("title"), 
+                        root.get("subject").get("title"),
                         searchPattern));
                 }
             }
             if(validFrom!=null){
                 predicates.add(criteriaBuilder.equal(
-                        root.get("validFrom"), 
+                        root.get("validFrom"),
                         validFrom));
             }
             if(validTo!=null){
                 predicates.add(criteriaBuilder.equal(
-                        root.get("validTo"), 
+                        root.get("validTo"),
                         validTo));
             }
             if(status!=null){
                 predicates.add(criteriaBuilder.equal(
                         root.get("registrationStatus")
-                                        .get("name"), 
+                                        .get("name"),
                         status));
             }
             return criteriaBuilder.and(predicates
@@ -144,7 +144,7 @@ public class UserSubjectService implements IUserSubjectService {
         return new PageImpl<>(list,page,
                 pageList.getTotalElements());
     }
-    
+
     @Override
     public UserSubjectDTO saveRegistration(UserSubjectDTO registrationDTO) {
         UserSubject registration=convertDTOToEntity(registrationDTO);
@@ -158,7 +158,7 @@ public class UserSubjectService implements IUserSubjectService {
         return convertEntityToDTO(userSubjectRepository
                 .save(registration));
     }
-    
+
     @Override
     public List<String> getRegistrationStatusList(Page<UserSubjectDTO> page) {
         List<String> list=new ArrayList<>();
@@ -194,13 +194,13 @@ public class UserSubjectService implements IUserSubjectService {
         }
         return list;
     }
-    
+
     @Override
     public UserSubjectDTO getRegistration(Integer id){
         return convertEntityToDTO(userSubjectRepository
                 .getReferenceById(id));
     }
-    
+
     private UserSubjectDTO convertEntityToDTO(UserSubject entity){
         return modelMapper.map(entity, UserSubjectDTO.class);
     }
