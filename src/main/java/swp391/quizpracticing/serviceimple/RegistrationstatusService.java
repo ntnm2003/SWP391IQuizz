@@ -44,4 +44,9 @@ public class RegistrationstatusService implements IRegistrationstatusService {
         return convertEntityToDTO(registrationStatusRepository
                 .getReferenceById(id));
     }
+
+    @Override
+    public List<Registrationstatus> findAllEntity() {
+        return registrationStatusRepository.findAll();
+    }
 }

@@ -179,7 +179,7 @@ public class SaleController {
                 }
                 registration.setUser(user);
 
-                SubjectDTO subject=subjectService.getById(subjectId);
+                SubjectDTO subject=subjectService.getDTOById(subjectId);
                 registration.setSubject(subject);
                 PricepackageDTO pricePackage=pricePackageService.getById(pricePackageId);
                 registration.setPricePackage(pricePackage);
@@ -239,7 +239,7 @@ public class SaleController {
             else{
                 registration.setUser(u);
             }
-            SubjectDTO subject=subjectService.getById(subjectId);
+            SubjectDTO subject=subjectService.getDTOById(subjectId);
             registration.setSubject(subject);
             PricepackageDTO pricePackage=pricePackageService.getById(pricePackageId);
 

@@ -7,12 +7,18 @@ package swp391.quizpracticing.serviceimple;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import swp391.quizpracticing.dto.SubjectDTO;
 import swp391.quizpracticing.model.Subject;
 import swp391.quizpracticing.repository.ISubjectRepository;
 import swp391.quizpracticing.service.ISubjectService;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,13 +83,17 @@ public class SubjectService implements ISubjectService {
 
     @Override
     public List<Subject> findByFeaturing(Boolean isFeatured) {
-        List<Subject> featuringSubjects= iSubjectRepository.findAllByFeatured(isFeatured);
-        return featuringSubjects;
+        return iSubjectRepository.findAllByFeatured(isFeatured);
     }
 
     @Override
     public List<Subject> listAll() {
-        return null;
+        return iSubjectRepository.findAll();
+    }
+
+    @Override
+    public Page<Subject> getAllSubjectsPaginated(int pageNum, int itemPerPage) {
+        return iSubjectRepository.findAllSubjectsPaginated(PageRequest.of(pageNum, itemPerPage));
     }
 
     @Override
@@ -109,9 +119,60 @@ public class SubjectService implements ISubjectService {
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
-    
+
     @Override
-    public SubjectDTO getById(Integer id){
-        return convertEntityToDTO(subjectRepository.getReferenceById(id));
+    public List<Subject> findSubjectsWithSorting(String field) {
+        return iSubjectRepository.findAll(Sort.by(Sort.Direction.ASC, field));
+    }
+
+    @Override
+    public Page<Subject> findSubjectsWithPagination(int pageNum, int itemPerPage) {
+        return iSubjectRepository.findAll(PageRequest.of(pageNum, itemPerPage));
+    }
+
+    @Override
+    public Page<Subject> findSubjectsWithPaginationByExpertId(Integer id, int pageNum, int itemPerPage) {
+        Pageable pageRequest = PageRequest.of(pageNum, itemPerPage);
+        return iSubjectRepository.findByOwnerId(id, pageRequest);
+    }
+
+    @Override
+    public Page<Subject> findSubjectsWithPaginationByExpertIdAndByName(Integer id, String searchTerm, int pageNum, int itemPerPage) {
+        return iSubjectRepository.findByOwnerIdAndName(id, searchTerm, PageRequest.of(pageNum, itemPerPage));
+    }
+
+    @Override
+    public Page<Subject> findSubjectsWithPaginationByExpertIdAndByStatus(Integer id, Integer status, int pageNum, int itemPerPage) {
+        return iSubjectRepository.findByOwnerIdAndStatus(id, status, PageRequest.of(pageNum,itemPerPage));
+    }
+
+    @Override
+    public Page<Subject> findSubjectsWithPaginationAndSorting(int pageNum, int itemPerPage, String field) {
+        return iSubjectRepository.findAll(PageRequest.of(pageNum, itemPerPage).withSort(Sort.by(Sort.Direction.ASC, field)));
+    }
+
+    @Override
+    public Page<Subject> searchForSubjectsByName(int pageNum, int itemPerPage, String searchTerm) {
+        return iSubjectRepository.findByBriefInfoContainingIgnoreCase(searchTerm, PageRequest.of(pageNum, itemPerPage));
+    }
+
+    @Override
+    public Page<Subject> findSubjectsByStatus(Boolean status, int pageNum, int itemPerPage) {
+        return iSubjectRepository.findByStatus(status, PageRequest.of(pageNum, itemPerPage));
+    }
+
+    @Override
+    public Boolean checkIfSubjectExistByBriefInfo(String briefInfo) {
+        return iSubjectRepository.existsSubjectByBriefInfo(briefInfo);
+    }
+
+    @Override
+    public String uploadImage(MultipartFile file) throws IOException {
+        return null;
+    }
+
+    @Override
+    public SubjectDTO getDTOById(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
