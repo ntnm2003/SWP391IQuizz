@@ -79,6 +79,19 @@ public class CourseContentController {
         }
 
         User loggedinUser = (User)session.getAttribute("user");
+        if(loggedinUser != null) {
+            System.out.println(loggedinUser.getRole().getName());
+            String userRoleForUrl = switch (loggedinUser.getRole().getName()) {
+                case "ROLE_ADMIN" -> "admin";
+                case "ROLE_EXPERT" -> "expert";
+                case "ROLE_SALE" -> "sale";
+                case "ROLE_MARKETING" -> "marketing";
+                case "ROLE_CUSTOMER" -> "user";
+                default -> "";
+            };
+            System.out.println("userRoleForUrl: " + userRoleForUrl);
+            model.addAttribute("userRoleForUrl", userRoleForUrl);
+        }
 
         String searchTerm = searchTermNoTrim.trim();
 

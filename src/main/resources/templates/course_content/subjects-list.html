@@ -23,7 +23,7 @@
     <section id="body">
 
         <h1 style="margin-bottom: 5px; font-size: 22px;"><a
-                th:href="@{/{role}/subjects-list(role = ${userSession.role.name})}">SUBJECTS LIST</a></h1>
+                th:href="@{/{role}/subjects-list(role = ${userRoleForUrl})}">SUBJECTS LIST</a></h1>
 
         <div class="functionalities" style="display: flex; align-items: flex-start; justify-content: space-between;">
             <div class="filter-by-subject" style="display: flex;">
@@ -87,7 +87,7 @@
             </div>
 
             <div class="search-box">
-                <form th:action="@{/{role}/subjects-list(role = ${userSession.role.name})}" method="get">
+                <form th:action="@{/{role}/subjects-list(role = ${userRoleForUrl})}" method="get">
                     <input type="text" name="subject-name" th:value="${subjectName}"
                         placeholder="Search By Subject Name"
                         style="border-radius: 5px; padding: 5px; border: 2px solid #1368ce; width: 187px;">
@@ -157,7 +157,7 @@
 
                 <!-- no searching, no filtering pagination -->
                 <th:block th:if="${subjectName.isEmpty() && (selectedCategoriesId == null || #lists.contains(selectedCategoriesId, -1)) && selectedStatus.equals('-1')}">
-                    <form th:action="@{/{role}/subjects-list(role = ${userSession.role.name})}" method="get"
+                    <form th:action="@{/{role}/subjects-list(role = ${userRoleForUrl})}" method="get"
                         class="form">
                         Items per page:
                         <select name="itemPerPage" class="form-items">
