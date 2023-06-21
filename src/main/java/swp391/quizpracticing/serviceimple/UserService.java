@@ -160,4 +160,14 @@ public class UserService implements IUserService {
         return userRepository.findByEmail(email)!=null;
     }
 
+    @Override
+    public List<User> getAllExpert() {
+        return userRepository.findAllExpert();
+    }
+
+    @Override
+    public User getByUserId(int id) {
+        return userRepository.findById(id);
+    }
+
 }
