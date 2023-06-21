@@ -42,6 +42,8 @@ public interface ISubjectService {
                                                           String sortBy, String order);
 
    List<SubjectDTO> findAll();
+
+   List<Subject> findByExpertId(Integer id);
     
     List<Subject> findByFeaturing(Boolean isFeatured);
 
