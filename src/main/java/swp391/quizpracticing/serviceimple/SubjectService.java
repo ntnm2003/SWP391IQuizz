@@ -31,8 +31,6 @@ public class SubjectService implements ISubjectService {
     @Autowired
     private ModelMapper modelMapper;
 
-    private ISubjectRepository subjectRepository;
-
     @Autowired
     private ISubjectRepository iSubjectRepository;
 
@@ -104,7 +102,6 @@ public class SubjectService implements ISubjectService {
     public void save(Subject subject) {
 
     }
-
 
     @Override
     public Subject getById(int id) {

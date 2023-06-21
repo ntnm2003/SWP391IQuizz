@@ -19,16 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import swp391.quizpracticing.model.Category;
-import swp391.quizpracticing.model.Subcategory;
-import swp391.quizpracticing.model.Subject;
-import swp391.quizpracticing.model.User;
+import swp391.quizpracticing.dto.DimensionDTO;
+import swp391.quizpracticing.model.*;
 import swp391.quizpracticing.repository.ISubjectRepository;
-import swp391.quizpracticing.repository.IUserRepository;
-import swp391.quizpracticing.service.ICategoryService;
-import swp391.quizpracticing.service.ISubcategoryService;
-import swp391.quizpracticing.service.ISubjectService;
-import swp391.quizpracticing.service.IUserService;
+import swp391.quizpracticing.service.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -60,6 +54,12 @@ public class CourseContentController {
 
     @Autowired
     private ISubjectRepository iSubjectRepository;
+
+    @Autowired
+    private IDimensionService iDimensionService;
+
+    @Autowired
+    private IPricepackageService iPricepackageService;
 
     private final String FOLDER_PATH = "C:/Users/DELL/Documents/2_CodingZone/2_InSchool_(FPTUni)/5_SWP391/SWP391GitProject/summer2023-swp391.se1714-g5/src/main/resources/static/database_images";
 
@@ -589,6 +589,34 @@ public class CourseContentController {
             return "redirect:../admin/new-subject";
         }
 
+    }
+
+    @GetMapping("/subject-detail")
+    public String showSubjectDetails(@RequestParam(name = "id", required = true) Integer id, Model model) {
+        Subject subject = iSubjectService.getSubjectById(id);
+        model.addAttribute("subject", subject);
+        return "course_content/subjectdetails";
+    }
+
+    @GetMapping("/subject-details-edit")
+    public String editSubjectDetails(@RequestParam(name = "id", required = true) Integer id, Model model) {
+        Subject subject = iSubjectService.getSubjectById(id);
+        model.addAttribute("subject", subject);
+        return "course_content/subjectdetailsedit";
+    }
+
+    @GetMapping("/subject-dimension")
+    public String getToDimensionListPage(Model model) {
+        List<DimensionDTO> dimension = (List<DimensionDTO>) iDimensionService.getAllDimension();
+        model.addAttribute("dimension", dimension);
+        return "course_content/dimension";
+    }
+
+    @GetMapping("/subject-pricepackage")
+    public String showPricepackage(@RequestParam(name = "sid", required = true) Integer sid, Model model) {
+        Pricepackage pricepackage = iPricepackageService.getPricepackageBySubId(sid);
+        model.addAttribute("pricepackage", pricepackage);
+        return "course_content/pricepackage";
     }
 
 }
