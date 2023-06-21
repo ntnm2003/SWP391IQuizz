@@ -7,12 +7,13 @@ package swp391.quizpracticing.service;
 import swp391.quizpracticing.model.Pricepackage;
 
 import java.util.List;
+import swp391.quizpracticing.dto.PricepackageDTO;
 
 /**
  *
  * @author Mosena
  */
 public interface IPricepackageService {
-    Pricepackage getById(Integer id);
-    List<Pricepackage> getBySubjectId(Integer id);
+    PricepackageDTO getById(Integer id);
+    List<PricepackageDTO> getBySubjectId(Integer id);
 }
