@@ -268,9 +268,15 @@
 
         <!-- Popup -->
         <div class="popup" style="display: flex; flex-direction: column;">
-            <h2>🎉🎊 Congratulations for Successfully Add a New Subject 😍💚 </h2>
-<!--            <p th:text="'Subject ID: ' + ${newSubject.id}"></p>-->
-<!--            <p th:text="'Subject Name: ' + ${newSubject.briefInfo}"></p>-->
+            <h2>
+                <span>🎉🎊 Congratulations for Successfully 🎉🎊</span>
+                <span style="text-align: center; width: 100%; display: block;">💚 Add a New Subject 💚 </span>
+            </h2>
+            <th:block th:if="${newSubject != null}">
+                <p th:text="'Subject ID: ' + ${newSubject.id}"></p>
+                <p th:text="'Subject Name: ' + ${newSubject.briefInfo}"></p>
+                <p th:text="'Expert Owner: ' + ${newSubject.getOwner().getFullName()}"></p>
+            </th:block>
             <b class="close">x</b>
         </div>
 
