@@ -46,6 +46,9 @@ public class HomeController {
 
 		User loggedinUser = (User)session.getAttribute("user");
 		System.out.println(loggedinUser);
+		if(loggedinUser != null) {
+			System.out.println(loggedinUser.getRole().getName());
+		}
 
 		//Get sliders
 		List<SliderDTO> sliders = sliderService.getAllSlidersForHomepage();
