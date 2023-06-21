@@ -88,7 +88,7 @@ public class SaleController {
         int totalPages=registrations.getTotalPages();
         if(totalPages==0 || pageNo<1 || pageNo>totalPages){
             model.addAttribute("msg", "Not found");
-            return "/admin/error";
+            return "/sale/announce";
         }
         List<SubjectDTO> subjectList=subjectService.findAll();
         List<RegistrationstatusDTO> statusListForm=statusService.findAll();
@@ -157,104 +157,117 @@ public class SaleController {
             @RequestParam(name = "notes", required = false) String note,
             @RequestParam(name = "isYours") Boolean isYours,
             Model model){
-        UserDTO currentUser=(UserDTO) session.getAttribute("user");
-        UserSubjectDTO registration=userSubjectService.getRegistration(id);
-        if(isYours){
-            UserDTO user=registration.getUser();
-            user.setEmail(email);
-            user.setFullName(fullName);
-            user.setGender(gender);
-            user.setMobile(mobile);
-            if(userService.findUserByEmail(email)!=null){
-                String randomPass=RandomString.make(12);
-                String randomCode = RandomString.make(64);
-                user.setPassword(passwordEncoder.encode(randomPass));
-                user.setEnable(false);
-                user.setToken(randomCode);
-                registerService.register(user);
-                verifycationService.sendVerification(fullName, email, 
-                        randomCode, randomPass);
-            }
-            registration.setUser(user);
+        Boolean msg;
+        try{
+            UserDTO currentUser=(UserDTO) session.getAttribute("user");
+            UserSubjectDTO registration=userSubjectService.getRegistration(id);
+            if(isYours){
+                UserDTO user=registration.getUser();
+                user.setEmail(email);
+                user.setFullName(fullName);
+                user.setGender(gender);
+                user.setMobile(mobile);
+                if(userService.findUserByEmail(email)!=null){
+                    String randomPass=RandomString.make(12);
+                    String randomCode = RandomString.make(64);
+                    user.setPassword(passwordEncoder.encode(randomPass));
+                    user.setEnable(false);
+                    user.setToken(randomCode);
+                    registerService.register(user);
+                    verifycationService.sendVerification(fullName, email, 
+                            randomCode, randomPass);
+                }
+                registration.setUser(user);
 
-            SubjectDTO subject=subjectService.getById(subjectId);
-            registration.setSubject(subject);
-            PricepackageDTO pricePackage=pricePackageService.getById(pricePackageId);
-            registration.setPricePackage(pricePackage);
+                SubjectDTO subject=subjectService.getById(subjectId);
+                registration.setSubject(subject);
+                PricepackageDTO pricePackage=pricePackageService.getById(pricePackageId);
+                registration.setPricePackage(pricePackage);
+            }
+            RegistrationstatusDTO status=statusService.getById(statusId);
+            registration.setRegistrationStatus(status);
+            registration.setNotes(note);
+            registration.setUserUpdate(currentUser);
+            userSubjectService.saveRegistration(registration);
+            msg=true;
+            return "redirect:/sale/announce?announcement="+msg;
         }
-        RegistrationstatusDTO status=statusService.getById(statusId);
-        registration.setRegistrationStatus(status);
-        registration.setNotes(note);
-        registration.setUserUpdate(currentUser);
-        userSubjectService.saveRegistration(registration);
-        return "redirect:/sale/registration-detail?registrationId="+id+"&"
-                + "completed=true";
+        catch(Exception ex){
+            msg=false;
+            return "redirect:/sale/announce?announcement="+msg;
+        }
     }
     
     @PostMapping("/add-registration")
     public String addRegistration(HttpSession session,
-            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "email") String email,
             @RequestParam(name = "fullName", required = false) String fullName,
             @RequestParam(name = "gender", required = false) Boolean gender,
             @RequestParam(name = "mobile", required = false) String mobile,
-            @RequestParam(name = "subject", required = false) Integer subjectId,
-            @RequestParam(name = "pricePackage", required = false) 
-                    Integer pricePackageId,
+            @RequestParam(name = "subject") Integer subjectId,
+            @RequestParam(name = "pricePackage") Integer pricePackageId,
             @RequestParam(name = "status", defaultValue = "1") Integer statusId,
             @RequestParam(name = "notes", required = false) String note,
             @RequestParam(name = "validFrom", required = false) 
                     String validFrom,
             Model model){
-        UserDTO currentUser=(UserDTO) session.getAttribute("user");
-        UserSubjectDTO registration=new UserSubjectDTO();
-        UserDTO u=userService.findUserByEmail(email);
-        if(u==null){
-            UserDTO user=new UserDTO();
-            user.setEmail(email);
-            user.setFullName(fullName);
-            user.setGender(gender);
-            user.setMobile(mobile);
-            String randomPass=RandomString.make(12);
-            String randomCode = RandomString.make(64);
-            
-            user.setPassword(passwordEncoder.encode(randomPass));
-            user.setEnable(false);
-            user.setToken(randomCode);
-            RoleDTO role=roleService.findRole(5);
-            user.setRole(role);
-            verifycationService.sendVerification(fullName, email, 
-                    randomCode, randomPass);
-            registerService.register(user);
-            user=userService.findUserByEmail(email);
-            registration.setUser(user);
+        Boolean msg;
+        try{
+            UserDTO currentUser=(UserDTO) session.getAttribute("user");
+            UserSubjectDTO registration=new UserSubjectDTO();
+            UserDTO u=userService.findUserByEmail(email);
+            if(u==null){
+                UserDTO user=new UserDTO();
+                user.setEmail(email);
+                user.setFullName(fullName);
+                user.setGender(gender);
+                user.setMobile(mobile);
+                String randomPass=RandomString.make(12);
+                String randomCode = RandomString.make(64);
+
+                user.setPassword(passwordEncoder.encode(randomPass));
+                user.setEnable(false);
+                user.setToken(randomCode);
+                RoleDTO role=roleService.findRole(5);
+                user.setRole(role);
+                verifycationService.sendVerification(fullName, email, 
+                        randomCode, randomPass);
+                registerService.register(user);
+                user=userService.findUserByEmail(email);
+                registration.setUser(user);
+            }
+            else{
+                registration.setUser(u);
+            }
+            SubjectDTO subject=subjectService.getById(subjectId);
+            registration.setSubject(subject);
+            PricepackageDTO pricePackage=pricePackageService.getById(pricePackageId);
+
+            RegistrationstatusDTO status=statusService.getById(statusId);
+            registration.setRegistrationStatus(status);
+            registration.setPricePackage(pricePackage);
+            registration.setUserCreated(currentUser);
+            registration.setUserUpdate(currentUser);
+
+            Timestamp time=Timestamp.valueOf(LocalDateTime.now());
+            registration.setRegistrationTime(time);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(validFrom, formatter);
+            registration.setValidFrom(Timestamp.valueOf(dateTime));
+
+            Calendar calendar=Calendar.getInstance();
+            calendar.setTime(time);
+            calendar.add(Calendar.MONTH, pricePackage.getAccessDuration());
+            registration.setValidTo(new Timestamp(calendar.getTimeInMillis()));
+            userSubjectService.addRegistration(registration);
+            msg=true;
+            return "redirect:/sale/announce?announcement="+msg;
         }
-        else{
-            registration.setUser(u);
+        catch(Exception ex){
+            msg=false;
+            return "redirect:/sale/announce?announcement="+msg;
         }
-        SubjectDTO subject=subjectService.getById(subjectId);
-        registration.setSubject(subject);
-        PricepackageDTO pricePackage=pricePackageService.getById(pricePackageId);
-        
-        RegistrationstatusDTO status=statusService.getById(statusId);
-        registration.setRegistrationStatus(status);
-        registration.setPricePackage(pricePackage);
-        registration.setUserCreated(currentUser);
-        registration.setUserUpdate(currentUser);
-        
-        Timestamp time=Timestamp.valueOf(LocalDateTime.now());
-        registration.setRegistrationTime(time);
-        
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(validFrom, formatter);
-        registration.setValidFrom(Timestamp.valueOf(dateTime));
-        
-        Calendar calendar=Calendar.getInstance();
-        calendar.setTime(time);
-        calendar.add(Calendar.MONTH, pricePackage.getAccessDuration());
-        registration.setValidTo(new Timestamp(calendar.getTimeInMillis()));
-        
-        userSubjectService.addRegistration(registration);
-        return "redirect:/sale/registrations-list?completed=true";
     }
     
     @GetMapping("/get-pricepackages")
@@ -269,5 +282,20 @@ public class SaleController {
     public PricepackageDTO getPricePackage(
             @RequestParam("pricePackageId") Integer pricePackageId){
         return pricePackageService.getById(pricePackageId);
+    }
+    
+    @GetMapping("/announce")
+    public String announce(@RequestParam("announcement") Boolean condition,
+            Model model){
+        String msg;
+        if(condition){
+            msg="Successfully";
+            model.addAttribute("msg", msg);
+        }
+        else{
+            msg="Error found";
+            model.addAttribute("msg", msg);
+        }
+        return "/sale/announce";
     }
 }
