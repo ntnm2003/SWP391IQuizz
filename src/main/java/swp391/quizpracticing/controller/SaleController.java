@@ -155,6 +155,7 @@ public class SaleController {
                     Integer pricePackageId,
             @RequestParam(name = "status", required = false) Integer statusId,
             @RequestParam(name = "notes", required = false) String note,
+            @RequestParam(name = "validFrom", required = false) String validFrom,
             @RequestParam(name = "isYours") Boolean isYours,
             Model model){
         Boolean msg;
@@ -178,11 +179,17 @@ public class SaleController {
                             randomCode, randomPass);
                 }
                 registration.setUser(user);
-
                 SubjectDTO subject=subjectService.getDTOById(subjectId);
                 registration.setSubject(subject);
                 PricepackageDTO pricePackage=pricePackageService.getById(pricePackageId);
                 registration.setPricePackage(pricePackage);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                LocalDateTime dateTime = LocalDateTime.parse(validFrom, formatter);
+                registration.setValidFrom(Timestamp.valueOf(dateTime));
+                Calendar calendar=Calendar.getInstance();
+                calendar.setTime(registration.getValidFrom());
+                calendar.add(Calendar.MONTH, pricePackage.getAccessDuration());
+                registration.setValidTo(new Timestamp(calendar.getTimeInMillis()));
             }
             RegistrationstatusDTO status=statusService.getById(statusId);
             registration.setRegistrationStatus(status);
@@ -257,7 +264,7 @@ public class SaleController {
             registration.setValidFrom(Timestamp.valueOf(dateTime));
 
             Calendar calendar=Calendar.getInstance();
-            calendar.setTime(time);
+            calendar.setTime(registration.getValidFrom());
             calendar.add(Calendar.MONTH, pricePackage.getAccessDuration());
             registration.setValidTo(new Timestamp(calendar.getTimeInMillis()));
             userSubjectService.addRegistration(registration);
