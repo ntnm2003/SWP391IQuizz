@@ -44,6 +44,8 @@ public interface ISubjectService {
 
     public List<Subject> listAll();
 
+    public Page<Subject> getAllSubjectsPaginated(int pageNum, int itemPerPage);
+
     public List<Subject> searchByCourseName(String s);
 
     public void save(Subject subject);

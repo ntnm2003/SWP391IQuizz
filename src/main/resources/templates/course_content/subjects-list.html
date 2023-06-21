@@ -25,28 +25,62 @@
         <h1 style="margin-bottom: 5px; font-size: 22px;"><a
                 th:href="@{/{role}/subjects-list(role = ${userSession.role.name})}">SUBJECTS LIST</a></h1>
 
-        <div class="functionalities" style="display: flex; align-items: center; justify-content: space-between;">
+        <div class="functionalities" style="display: flex; align-items: flex-start; justify-content: space-between;">
             <div class="filter-by-subject" style="display: flex;">
-                <form th:action="@{?}" method="get" id="filter1">
-                    <select id="category" name="category-id" style="padding: 5px; border: 2px solid #1368ce;">
-                        <option value="-1" selected>All Categories</option>
-                        <option th:each="category : ${categories}" th:value="${category.getId()}"
-                            th:text="${category.name}" th:selected="${category.getId() == categoryId}">
-                        </option>
-                    </select>
-                    <select id="status" name="status" style="padding: 5px; border: 2px solid #1368ce; margin: 0 3px;">
-                        <option value="-1" selected>All Status</option>
-                        <option th:each="status_each : ${allStatus}"
-                            th:selected="${selectedStatus.equals(status_each.toString())}" th:value="${status_each}"
-                            th:text="${status_each ? 'Active' : 'Inactive'}">
-                        </option>
-                    </select>
+                <form th:action="@{?}" method="get" id="filter1" style="display: flex;">
+                    <div>
+                        <div class="radio-label">
+                            <span>Select Categories</span>
+                            <span style="height: 100%;"><ion-icon style="margin-top: 8px;" name="chevron-down-outline"></ion-icon></span>
+                        </div>
+                        <ul class="category-id-ul">
+                            <li style="list-style-type: none">
+                                <input class="checkbox" id="all" type="checkbox" th:name="categoriesId"
+                                       th:value="-1"
+                                       th:checked="${(selectedCategoriesId != null) && (#lists.contains(selectedCategoriesId, -1)) ? 'true' : 'false'}">
+                                <label for="all">All Categories</label>
+                            </li>
 
-                    <input type="hidden" name="pageNum" th:value="${pageNum}">
+                            <li th:each="category : ${categories}" style="list-style-type: none">
+                                <input class="checkbox"
+                                       type="checkbox"
+                                       th:id="${category.id}"
+                                       th:name="categoriesId"
+                                       th:value="${category.id}"
+                                       th:checked="${(selectedCategoriesId != null) && (#lists.contains(selectedCategoriesId, category.id)) ? 'true' : 'false'}">
+                                <label th:text="${category.name}" th:for="${category.id}"></label>
+                            </li>
+                        </ul>
+                        <!-- display selected categories -->
+                        <th:block th:if="${selectedCategoriesId == null || (selectedCategoriesId != null && selectedCategoriesId.size() > 0 && #lists.contains(selectedCategoriesId, -1))}">
+                            <div class="selected_categories_ul">All Categories</div>
+                        </th:block>
+
+                        <th:block th:if="${selectedCategoriesId != null && selectedCategoriesId.size() > 0}">
+                            <div th:unless="${#lists.contains(selectedCategoriesId, -1)}" style="display: flex;
+                            flex-direction: column;">
+                                <div class="selected_categories_ul selected_categories_inline" th:each="selected : ${selectedCategories}" th:text="${selected.name}" style="margin-top: 5px"></div>
+                            </div>
+                        </th:block>
+                    </div>
+
+                    <div>
+                        <select id="status" name="status" style="padding: 5px; border: 2px solid #1368ce; margin: 0 3px;">
+                            <option value="-1" selected>All Status</option>
+                            <option th:each="status_each : ${allStatus}"
+                                    th:selected="${selectedStatus.equals(status_each.toString())}" th:value="${status_each}"
+                                    th:text="${status_each ? 'Active' : 'Inactive'}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Filter"
+                               style="background-color: #1368ce; padding: 6px; border-radius: 5px; color: #ffffff; font-weight: 500">
+                    </div>
+
+                    <input type="hidden" name="pageNum" value="0">
                     <input type="hidden" name="itemPerPage" th:value="${itemPerPage}">
-
-                    <input type="submit" value="Filter"
-                        style="background-color: #1368ce; padding: 6px; border-radius: 5px; color: #ffffff; font-weight: 500">
 
                 </form>
 
@@ -58,7 +92,8 @@
                         placeholder="Search By Subject Name"
                         style="border-radius: 5px; padding: 5px; border: 2px solid #1368ce; width: 187px;">
 
-                    <input type="hidden" name="pageNum" th:value="${pageNum}">
+                    <input type="hidden" name="pageNum" value="0">
+
                     <input type="hidden" name="itemPerPage" th:value="${itemPerPage}">
 
                     <input type="submit" value="Search"
@@ -120,8 +155,8 @@
             <nav aria-label="Page navigation example"
                 style="margin-top: 20px; display: flex; justify-content: flex-end;">
 
-                <!-- Perform searching, filtering pagination -->
-                <th:block th:unless="${subjectName.isEmpty() && categoryId == -1 && selectedStatus.equals('-1')}">
+                <!-- no searching, no filtering pagination -->
+                <th:block th:if="${subjectName.isEmpty() && (selectedCategoriesId == null || #lists.contains(selectedCategoriesId, -1)) && selectedStatus.equals('-1')}">
                     <form th:action="@{/{role}/subjects-list(role = ${userSession.role.name})}" method="get"
                         class="form">
                         Items per page:
@@ -133,58 +168,94 @@
                         </select>
 
                         <input type="hidden" name="pageNum" th:value="${pageNum}">
-                        <input type="hidden" name="subject-name" th:value="${subjectName}">
-                        <input type="hidden" name="category-id" th:value="${categoryId}">
-                        <input type="hidden" name="status" th:value="${selectedStatus}">
                     </form>
 
                     <ul class="pagination pagination-links">
-                        <li class="page-item"><a class="page-link"
-                                th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}&subject-name={subjectName}&category-id={category-id}&status={status}(pageNum = ${pageNum - 1}, itemPerPage = ${selectedItemPerPage}, subjectName = ${subjectName}, category-id = ${categoryId}, status = ${selectedStatus})}"
-                                th:classappend="${pageNum == 0 ? 'disabled' : ''}">&laquo;</a></li>
-                        <th:block th:each="i : ${#numbers.sequence(0, subjects.getTotalPages() - 1)}">
+                        <li class="page-item">
+                            <a class="page-link"
+                                th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}(pageNum = ${pageNum - 1}, itemPerPage = ${selectedItemPerPage})}"
+                                th:classappend="${pageNum == 0 ? 'disabled' : ''}">&laquo;
+                            </a>
+                        </li>
+
+                        <th:block th:each="pageNumber : ${#numbers.sequence(0, subjects.getTotalPages() - 1)}">
                             <li class="page-item">
-                                <a class="page-link"
-                                    th:href="@{?pageNum={i}&itemPerPage={itemPerPage}&subject-name={subjectName}&category-id={category-id}&status={status}(i = ${i}, itemPerPage = ${selectedItemPerPage}, subjectName = ${subjectName}, category-id = ${categoryId}, status = ${selectedStatus})}"
-                                    th:classappend="${subjects.number == i ? 'active' : ''}" th:text="${i + 1}"></a>
+
+                                <a class="page-link" th:if="${subjects.getTotalPages() <= 5} or ${pageNumber == 0} or ${pageNumber == subjects.getTotalPages() - 1} or (${pageNumber >= (pageNum - 1) and pageNumber <= (pageNum + 1)})"
+                                    th:href="@{?pageNum={pageNumber}&itemPerPage={itemPerPage}(pageNumber = ${pageNumber}, itemPerPage = ${selectedItemPerPage})}" th:text="${pageNumber + 1}" th:classappend="${subjects.number == pageNumber ? 'active' : ''}">
+                                </a>
+
+                            </li>
+
+                            <li class="page-item" style="height: 28.45px;">
+                                <span class="page-link" style="height: 28.45px;"
+                                    th:if="${subjects.getTotalPages() > 5 and pageNum == 3 and pageNumber == 1}">...</span>
+                                <span class="page-link" style="height: 28.45px;"
+                                    th:if="${subjects.getTotalPages() > 5 and pageNum == 4 and pageNumber == 2}">...</span>
+                                <span class="page-link" style="height: 28.45px;"
+                                    th:if="${subjects.getTotalPages() > 5 and pageNumber == (pageNum - 2) and pageNum > 4}">...</span>
+                                <span class="page-link" style="height: 28.45px;"
+                                    th:if="${subjects.getTotalPages() > 5 and pageNumber == (pageNum + 2) and pageNum < (subjects.getTotalPages() - 3)}">...</span>
                             </li>
                         </th:block>
-                        <li class="page-item"><a class="page-link"
-                                th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}&subject-name={subjectName}&category-id={category-id}&status={status}(pageNum = ${pageNum + 1}, itemPerPage = ${selectedItemPerPage}, subjectName = ${subjectName}, category-id = ${categoryId}, status = ${selectedStatus})}"
-                                th:classappend="${pageNum == (subjects.totalPages - 1) ? 'disabled' : ''}">&raquo;</a>
+
+                        <li class="page-item">
+                            <a class="page-link"
+                                th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}(pageNum = ${pageNum + 1}, itemPerPage = ${selectedItemPerPage})}"
+                                th:classappend="${pageNum == (subjects.totalPages - 1) ? 'disabled' : ''}">&raquo;
+                            </a>
                         </li>
                     </ul>
                 </th:block>
 
-                <!-- no searching, no filtering pagination -->
-                <th:block th:if="${subjectName.isEmpty() && categoryId == -1 && selectedStatus.equals('-1')}">
-                    <form th:action="@{/{role}/subjects-list(role = ${userSession.role.name})}" method="get"
-                        class="form">
+                <!-- Perform searching, filtering pagination -->
+                <th:block th:if="${!subjectName.isEmpty() || (selectedCategoriesId != null && !(#lists.contains(selectedCategoriesId, -1)))  || !selectedStatus.equals('-1')}">
+                    <form th:action="@{?}" method="get"
+                          class="form">
                         Items per page:
                         <select name="itemPerPage" class="form-items">
-                            <option value="5" th:selected="${selectedItemPerPage == 5}">5</option>
+<!--                            <option value="5" th:selected="${selectedItemPerPage == 5}">5</option>-->
                             <option value="10" th:selected="${selectedItemPerPage == 10}">10</option>
-                            <option value="15" th:selected="${selectedItemPerPage == 15}">15</option>
-                            <option value="20" th:selected="${selectedItemPerPage == 20}">20</option>
+<!--                            <option value="15" th:selected="${selectedItemPerPage == 15}">15</option>-->
+<!--                            <option value="20" th:selected="${selectedItemPerPage == 20}">20</option>-->
                         </select>
 
                         <input type="hidden" name="pageNum" th:value="${pageNum}">
+<!--                        <input type="hidden" name="subject-name" th:value="${subjectName}">-->
+<!--                        <input type="hidden" name="categoriesId" th:value="${string_to_int_array}">-->
+<!--                        <input type="hidden" name="status" th:value="${selectedStatus}">-->
                     </form>
 
                     <ul class="pagination pagination-links">
                         <li class="page-item"><a class="page-link"
-                                th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}(pageNum = ${pageNum - 1}, itemPerPage = ${selectedItemPerPage})}"
-                                th:classappend="${pageNum == 0 ? 'disabled' : ''}">&laquo;</a></li>
-                        <th:block th:each="i : ${#numbers.sequence(0, subjects.getTotalPages() - 1)}">
+                                                 th:href="@{?categoriesId={categoriesId}&pageNum={pageNum}&itemPerPage={itemPerPage}&subject-name={subjectName}&status={status}(pageNum = ${pageNum - 1}, itemPerPage = ${selectedItemPerPage}, subjectName = ${subjectName}, categoriesId = ${used_for_pagination_links}, status = ${selectedStatus})}"
+                                                 th:classappend="${pageNum == 0 ? 'disabled' : ''}">&laquo;</a></li>
+
+                        <th:block th:each="pageNumber : ${#numbers.sequence(0, subjects.getTotalPages() - 1)}">
+
                             <li class="page-item">
-                                <a class="page-link"
-                                    th:href="@{?pageNum={i}&itemPerPage={itemPerPage}(i = ${i}, itemPerPage = ${selectedItemPerPage})}"
-                                    th:classappend="${subjects.number == i ? 'active' : ''}" th:text="${i + 1}"></a>
+                                <a class="page-link" th:if="${subjects.getTotalPages() <= 5} or ${pageNumber == 0} or ${pageNumber == subjects.getTotalPages() - 1} or (${pageNumber >= (pageNum - 1) and pageNumber <= (pageNum + 1)})"
+                                   th:href="@{?categoriesId={abc}&pageNum={pageNumber}&itemPerPage={itemPerPage}&subject-name={subjectName}&status={status}(pageNumber = ${pageNumber}, itemPerPage = ${selectedItemPerPage}, subjectName = ${subjectName}, status = ${selectedStatus}, abc = ${used_for_pagination_links})}" th:text="${pageNumber + 1}" th:classappend="${subjects.number == pageNumber ? 'active' : ''}">
+                                </a>
+                            </li>
+
+
+
+                            <li class="page-item" style="height: 28.45px;">
+                                <span class="page-link" style="height: 28.45px;"
+                                      th:if="${subjects.getTotalPages() > 5 and pageNum == 3 and pageNumber == 1}">...</span>
+                                <span class="page-link" style="height: 28.45px;"
+                                      th:if="${subjects.getTotalPages() > 5 and pageNum == 4 and pageNumber == 2}">...</span>
+                                <span class="page-link" style="height: 28.45px;"
+                                      th:if="${subjects.getTotalPages() > 5 and pageNumber == (pageNum - 2) and pageNum > 4}">...</span>
+                                <span class="page-link" style="height: 28.45px;"
+                                      th:if="${subjects.getTotalPages() > 5 and pageNumber == (pageNum + 2) and pageNum < (subjects.getTotalPages() - 3)}">...</span>
                             </li>
                         </th:block>
+
                         <li class="page-item"><a class="page-link"
-                                th:href="@{?pageNum={pageNum}&itemPerPage={itemPerPage}(pageNum = ${pageNum + 1}, itemPerPage = ${selectedItemPerPage})}"
-                                th:classappend="${pageNum == (subjects.totalPages - 1) ? 'disabled' : ''}">&raquo;</a>
+                                                 th:href="@{?categoriesId={categoriesId}&pageNum={pageNum}&itemPerPage={itemPerPage}&subject-name={subjectName}&status={status}(pageNum = ${pageNum + 1}, itemPerPage = ${selectedItemPerPage}, subjectName = ${subjectName}, categoriesId = ${used_for_pagination_links}, status = ${selectedStatus})}"
+                                                 th:classappend="${pageNum == (subjects.totalPages - 1) ? 'disabled' : ''}">&raquo;</a>
                         </li>
                     </ul>
                 </th:block>
@@ -196,8 +267,10 @@
         <div id="myDiv" th:text="${check}" style="display: none;"></div>
 
         <!-- Popup -->
-        <div class="popup">
+        <div class="popup" style="display: flex; flex-direction: column;">
             <h2>🎉🎊 Congratulations for Successfully Add a New Subject 😍💚 </h2>
+<!--            <p th:text="'Subject ID: ' + ${newSubject.id}"></p>-->
+<!--            <p th:text="'Subject Name: ' + ${newSubject.briefInfo}"></p>-->
             <b class="close">x</b>
         </div>
 
@@ -237,13 +310,19 @@
             console.log(myValue);
             if (myValue !== null && myValue === "true") {
                 popup.classList.add("active");
-                close1.addEventListener("click", function() {
+                close1.addEventListener("click", function () {
                     popup.classList.remove("active");
                 });
             }
         }
 
         window.addEventListener("load", testOnLoad());
+
+        const radioLabel = document.querySelector(".radio-label");
+        const categoriesId = document.querySelector(".category-id-ul");
+        radioLabel.addEventListener("click", function() {
+            radioLabel.classList.toggle("open");
+        });
 
     </script>
 

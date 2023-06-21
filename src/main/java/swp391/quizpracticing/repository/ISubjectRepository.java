@@ -30,6 +30,9 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
     @Override
     public List<Subject> findAll();
 
+    @Query(value = "select * from iquiz.subject", nativeQuery = true)
+    public Page<Subject> findAllSubjectsPaginated(Pageable pageable);
+
     public Subject findById(int id);
 
     @Query(value = "select * from iquiz.subject where owner_id = :owner_id", nativeQuery = true)
