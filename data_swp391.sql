@@ -8,11 +8,11 @@ INSERT INTO `iquiz`.`role`
 `name`,
 `status`)
 VALUES
-('admin',1),
-('expert',1),
-('sale',1),
-('marketing',1),
-('customer',1);
+('ROLE_ADMIN',1),
+('ROLE_EXPERT',1),
+('ROLE_SALE',1),
+('ROLE_MARKETING',1),
+('ROLE_CUSTOMER',1);
  INSERT INTO `iquiz`.`slider`
 (
 `title`,
@@ -30,6 +30,11 @@ INSERT INTO `iquiz`.`lessontype`
 VALUES
 ('quiz', 1),
 ('lession', 1);
+INSERT INTO `iquiz`.`lessontype`
+(`name`,
+`status`)
+VALUES
+('Subject Topic', 1);
 
 INSERT INTO `iquiz`.`dimension`
 (
@@ -55,7 +60,7 @@ INSERT INTO `iquiz`.`user`
 `role_id`,
 `enable`,`avatar`, `last_update_date`, `token` )
 VALUES
-('Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', '$2a$10$U0QdIeEgZW1uiaKJTudIAOkLk8zHsGlpEzjepkKsvGs.PuBUhFsmq', 1,1, 'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Nguyen Anh Quan', 'forwork.quanna@gmail.com', 1, '0379039267', '$2a$10$Y4FuCb/0u/nBk3aoF8vlLuVRMQ9h2d0oJSeQQZUtKCMr.sTSsQ5xm', 1,1, 'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Nguyen Van A', 'duongmai.hoamkt76@gmail.com', 1, '012345678', '$2a$10$vvipoMflT5Wdj0JyoX4J/eeuYiGr8yRTXuGjmDTi5mr6CwDfa7Iwu', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Nguyen Thi B', 'dungnpn28@gmail.com', 1, '0987654321', '$2a$10$w4LDTQp5Ipa1BXIPBwKBU.GdSX2THJzQZI4tCsDxWQ1gt06CaJHl.', 1,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Mr. GiCungGioi', 'quannahe176660@gmail.com', 0, '068686868', '$2a$10$awkejTMdluxHD7cAMbLgZecxu3aIRz.ZaG/WQ/qST4sstd4Kpomj6', 2,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
@@ -67,8 +72,8 @@ VALUES
 ('Phuong Anh', 'jsclub.bannd@gmail.com', 1, '0978379519', '$2a$10$U0QdIeEgZW1uiaKJTudIAOkLk8zHsGlpEzjepkKsvGs.PuBUhFsmq', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Hoang Ha', 'iamntnm@gmail.com', 1, '0978775519', '$2a$10$X8h5vBAFQlYM87eo9KGn/u6eKM78Hj9osWmw5ebuZKDo/GUDhcELG', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
 ('Mai Linh', 'laitrang143@gmail.com', 1, '0868459509', '$2a$10$m5VhkfqM1KRv7KY.NMDnte3Fz8WnYnLFiqpayJjAvsfKnSgIg1jHK', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Anh Hong', 'lopchungminh@gmail.com', 1, '0978775519', '$2a$10$0GNydfb8QuvQsPLbIo2HeO/BXILworYeL0ox5QcUD5WcJmEASZ8qK', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
-('Tran Thi Anh', 'maiaiai@gmail.com', 1, '0978775519', '$2a$10$AeYGCoDfuRQbAA2/Fh400e/jEng7glVlTJRudIBzG4Hrx7MKDCMLi', 5,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02','');
+('Anh Hong', 'lopchungminh@gmail.com', 1, '0978775519', '$2a$10$0GNydfb8QuvQsPLbIo2HeO/BXILworYeL0ox5QcUD5WcJmEASZ8qK', 4,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02',''),
+('Tran Thi Anh', 'maiaiai@gmail.com', 1, '0978775519', '$2a$10$AeYGCoDfuRQbAA2/Fh400e/jEng7glVlTJRudIBzG4Hrx7MKDCMLi', 4,1,'https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg','2023-05-02','');
 
 INSERT INTO `iquiz`.`subject`
 (
@@ -100,22 +105,22 @@ VALUES
   ('An introduction to Algebra', 'This subject covers the basics of algebraic equations and their solutions.', 'https://example.com/thumbnails/algebra.jpg', 'Algebra', '2023-04-02',  1, 5, 8),
   ('Introduction to Geometry', 'This subject covers the basics of geometric shapes, angles, and measurements.', 'https://example.com/thumbnails/geometry.jpg', 'Geometry', '2023-03-20',  1, 5, 6),
   ('Trigonometry for Beginners', 'This subject covers the basics of trigonometric functions and their applications in real life.', 'https://example.com/thumbnails/trigonometry.jpg', 'Trigonometry','2023-03-02',  1, 4, 6),
-  ('World War II History', 'A comprehensive study of World War II, including key events, causes, and consequences.', 'https://example.com/thumbnails/ww2.jpg', 'World War II', '2023-05-02',  0, 4, 5),
+  ('World War II History', 'A comprehensive study of World War II, including key events, causes, and consequences.', 'https://example.com/thumbnails/ww2.jpg', 'World War II', '2023-05-02',  1, 4, 5),
   ('American Revolution', 'A comprehensive study of the American revolution, including key events, causes, and consequences.', 'https://example.com/thumbnails/amrev.jpg', 'American Revolution', '2023-01-02',  1, 3, 5),
   ('Ancient Civilizations: Egypt and Mesopotamia', 'A study of the ancient civilizations of Egypt and Mesopotamia, including their culture, religion, and achievements.', 'https://example.com/thumbnails/ancient_civ.jpg', 'Ancient Civilizations', '2023-05-02',  1, 3, 5),
   ('Goal Setting for Success', 'Learn how to set achievable goals and develop a plan to achieve them.', 'https://example.com/thumbnails/goal_setting.jpg', 'Goal Setting',  '2022-12-02',  1, 4, 5),
   ('Planning Techniques for Better Time Management', 'Learn effective planning techniques to manage your time more efficiently.', 'https://example.com/thumbnails/planning.jpg', 'Planning',  '2022-12-02',  1, 4, 5),
-  ('Prioritization Strategies', 'Learn how to prioritize tasks and make informed decisions about how to allocate your time and resources.', 'https://example.com/thumbnails/prioritization.jpg', 'Prioritization', '2023-03-02',  0, 4, 6),
+  ('Prioritization Strategies', 'Learn how to prioritize tasks and make informed decisions about how to allocate your time and resources.', 'https://example.com/thumbnails/prioritization.jpg', 'Prioritization', '2023-03-02',  1, 4, 6),
   ('Improving Productivity', 'Learn techniques and strategies to improve your productivity and get more done in less time.', 'https://example.com/thumbnails/productivity.jpg', 'Productivity','2023-03-20',  1, 4, 8),
   ('Human Anatomy Basics', 'Learn the basic anatomy of the human body, including its organs, systems, and functions.', 'https://example.com/thumbnails/human_anatomy.jpg', 'Human Anatomy','2023-04-20',  1, 3, 8),
   ('Introduction to Genetics', 'Learn the basics of genetics, including DNA structure, inheritance patterns, and mutations.', 'https://example.com/thumbnails/genetics.jpg', 'Genetics','2023-02-20',  1, 6, 8),
   ('Ecology and Environmental Science', 'Study the relationship between living organisms and their environment, and learn about topics such as climate change, conservation, and sustainability.', 'https://example.com/thumbnails/ecology.jpg', 'Ecology','2023-04-10',  1, 2, 7),
-  ('Artificial Intelligence Fundamentals', 'Learn the basics of artificial intelligence, including machine learning, neural networks, and natural language processing.', 'https://example.com/thumbnails/ai.jpg', 'Artificial Intelligence', '2023-05-03',  0, 5, 7),
+  ('Artificial Intelligence Fundamentals', 'Learn the basics of artificial intelligence, including machine learning, neural networks, and natural language processing.', 'https://example.com/thumbnails/ai.jpg', 'Artificial Intelligence', '2023-05-03',  1, 5, 7),
   ('Introduction to Database Management', 'Learn the basics of database design, management, and querying using SQL.', 'https://example.com/thumbnails/dbms.jpg', 'Database Management', '2023-02-28',  1, 5, 8),
   ('Web Development Fundamentals', 'Learn the basics of web development, including HTML, CSS, and JavaScript.', 'https://example.com/thumbnails/webdev.jpg', 'Web Development','2023-04-02',  1, 3, 7),
   ('Advanced Algebra', 'A more advanced study of algebraic equations, including higher-degree polynomials and complex numbers.', 'https://example.com/thumbnails/adv_algebra.jpg', 'Advanced Algebra', '2023-01-22',  1, 6, 7),
-  ('Geometry in Three Dimensions', 'An introduction to three-dimensional geometry, including vectors, planes, and surfaces.', 'https://example.com/thumbnails/3d_geometry.jpg', 'Three-Dimensional Geometry', '2023-04-02',  0, 4, 8),
-  ('Trigonometry in Real Life Applications', 'Learn how trigonometric functions are used in practical applications such as navigation, engineering, and physics.', 'https://example.com/thumbnails/trig_applications.jpg', 'Trigonometry Applications', '2023-02-22',  0, 6, 6);
+  ('Geometry in Three Dimensions', 'An introduction to three-dimensional geometry, including vectors, planes, and surfaces.', 'https://example.com/thumbnails/3d_geometry.jpg', 'Three-Dimensional Geometry', '2023-04-02',  1, 4, 8),
+  ('Trigonometry in Real Life Applications', 'Learn how trigonometric functions are used in practical applications such as navigation, engineering, and physics.', 'https://example.com/thumbnails/trig_applications.jpg', 'Trigonometry Applications', '2023-02-22',  1, 6, 6);
 
 update iquiz.subject
 set featured = 1 where id=1;
@@ -286,8 +291,8 @@ INSERT INTO `iquiz`.`category`
 VALUES
 ('Mathematics', 'This category covers topics related to numbers, operations, and mathematical reasoning.',1),
 ('History', 'This category covers topics related to past events, people, and societies.',1),
-('Self Development', 'This category covers topics related to managing time effectively, including goal setting, planning, prioritization, and productivity.',1),
-('Biology and Human', 'This category covers topics related to living organisms and their processes.',1),
+('Time Management', 'This category covers topics related to managing time effectively, including goal setting, planning, prioritization, and productivity.',1),
+('Biology', 'This category covers topics related to living organisms and their processes.',1),
 ('Computer Science', 'This category covers topics related to computing technology and its applications.',1);
 
 INSERT INTO `iquiz`.`subcategory`
@@ -833,7 +838,6 @@ VALUES
 (2,true,'User Roles','expert',2),
 (3,true,'User Roles','sale',3),
 (4,true,'User Roles','marketing',4),
--- (5,true,'User Roles','sale',5),
 (5,true,'User Roles','customer',5);
 
 INSERT INTO `iquiz`.`settings`

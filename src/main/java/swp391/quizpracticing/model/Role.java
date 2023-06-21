@@ -1,14 +1,8 @@
 package swp391.quizpracticing.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,9 +34,15 @@ public class Role implements GrantedAuthority {
     @OneToOne(mappedBy = "role")
     private Settings setting;
 
+    @Column(name = "url_pattern")
+    private String urlPattern;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="pid")
+    private Role pRole;
+
     @Override
     public String getAuthority() {
         return name;
     }
-    
 }

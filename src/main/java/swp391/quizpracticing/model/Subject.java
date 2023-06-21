@@ -54,23 +54,23 @@ public class Subject {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dimension_id", referencedColumnName = "id")
     private Dimension dimension;
 
-    @OneToMany(mappedBy = "subjects")
+    @OneToMany(mappedBy = "subject")
     private List<Pricepackage> pricepackages;
-    
-    @OneToMany(mappedBy = "id.subject")
+
+    @OneToMany(mappedBy = "subject")
     private List<UserSubject> userSubjects;
-    
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "subject_subcategory",
             joinColumns = @JoinColumn(name = "subject_id"),
             inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
     private List<Subcategory> subCategories;
-    
+
     @OneToMany(mappedBy = "subject")
     private List<Lesson> lessons;
 

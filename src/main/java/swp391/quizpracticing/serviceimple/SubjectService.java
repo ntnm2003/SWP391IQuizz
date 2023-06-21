@@ -20,6 +20,7 @@ import swp391.quizpracticing.service.ISubjectService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -108,6 +109,14 @@ public class SubjectService implements ISubjectService {
     @Override
     public Subject getById(int id) {
         return iSubjectRepository.findById(id);
+    }
+
+    @Override
+    public List<SubjectDTO> findAll() {
+        return iSubjectRepository.findAll()
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
