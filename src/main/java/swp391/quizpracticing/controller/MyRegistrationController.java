@@ -125,7 +125,7 @@ public class MyRegistrationController {
             }
             model.addAttribute("userSession", UserSession.getAttribute("user"));
             model.addAttribute("re", re);
-            SubjectDTO su = subService.getById(cid);
+            Subject su = subService.getById(cid);
             List<PricepackageDTO> price = packageService.getBySubjectId(cid);
             model.addAttribute("sub", su);
             model.addAttribute("pack", price);
