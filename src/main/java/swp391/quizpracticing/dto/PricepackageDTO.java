@@ -18,6 +18,6 @@ public class PricepackageDTO {
     private Float listPrice;
     private Float salePrice;
     private String description;
-    private List<SubjectDTO> subjects;
+    private List<SubjectDTO> subject;
     private List<UserSubjectDTO> userSubjects;
 }

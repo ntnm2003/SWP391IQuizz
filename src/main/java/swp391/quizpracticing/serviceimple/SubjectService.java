@@ -31,8 +31,6 @@ public class SubjectService implements ISubjectService {
     @Autowired
     private ModelMapper modelMapper;
 
-    private ISubjectRepository subjectRepository;
-
     @Autowired
     private ISubjectRepository iSubjectRepository;
 
@@ -108,7 +106,6 @@ public class SubjectService implements ISubjectService {
 
     }
 
-
     @Override
     public Subject getById(int id) {
         return iSubjectRepository.findById(id);
@@ -176,6 +173,21 @@ public class SubjectService implements ISubjectService {
     @Override
     public String uploadImage(MultipartFile file) throws IOException {
         return null;
+    }
+
+    @Override
+    public List<SubjectDTO> getAllSubject() {
+        List<Subject> subject = iSubjectRepository.findAll();
+        return subject
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Subject getSubjectById(Integer id) {
+        return iSubjectRepository.findById(id).get();
+
     }
 
 

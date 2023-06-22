@@ -30,8 +30,8 @@ public class HomeController {
 	@Autowired
 	private IUserRepository iUserRepository;
         
-        @Autowired
-        private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public HomeController() {
 	}
