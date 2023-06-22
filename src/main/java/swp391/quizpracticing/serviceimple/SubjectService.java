@@ -18,7 +18,6 @@ import swp391.quizpracticing.repository.ISubjectRepository;
 import swp391.quizpracticing.service.ISubjectService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,7 +89,10 @@ public class SubjectService implements ISubjectService {
     public List<Subject> listAll() {
         return iSubjectRepository.findAll();
     }
-
+    @Override
+    public Subject findByLesson(Integer id) {
+        return iSubjectRepository.findByLessons_Id(id);
+    }
     @Override
     public Page<Subject> getAllSubjectsPaginated(int pageNum, int itemPerPage) {
         return iSubjectRepository.findAllSubjectsPaginated(PageRequest.of(pageNum, itemPerPage));
@@ -105,7 +107,6 @@ public class SubjectService implements ISubjectService {
     public void save(Subject subject) {
 
     }
-
 
     @Override
     public Subject getById(int id) {
@@ -177,7 +178,24 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
-    public SubjectDTO getDTOById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<SubjectDTO> getAllSubject() {
+        List<Subject> subject = iSubjectRepository.findAll();
+        return subject
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
     }
+
+    @Override
+    public Subject getSubjectById(Integer id) {
+        return iSubjectRepository.findById(id).get();
+
+    }
+
+    @Override
+    public SubjectDTO getDTOById(Integer id) {
+        return convertEntityToDTO(iSubjectRepository.getReferenceById(id));
+    }
+
+
 }

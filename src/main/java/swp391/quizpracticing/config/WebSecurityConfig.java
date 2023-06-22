@@ -1,29 +1,24 @@
 package swp391.quizpracticing.config;
 
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.stereotype.Component;
 import swp391.quizpracticing.model.Role;
 import swp391.quizpracticing.repository.IRoleRepository;
 import swp391.quizpracticing.service.IUserService;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,6 +85,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/marketing/**").hasRole("MARKETING")
                 .requestMatchers("/sale/**").hasRole("SALE")
                 .requestMatchers("/expert/**").hasRole("EXPERT")
+                .requestMatchers("/testingcontent/**").hasAnyRole("ADMIN","EXPERT")
                 .and()
                 .authorizeHttpRequests()
                 .anyRequest().permitAll()

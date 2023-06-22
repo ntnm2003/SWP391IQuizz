@@ -16,7 +16,7 @@ import java.util.List;
  * @author Mosena
  */
 public interface ISubjectService {
-    
+
     public Page<SubjectDTO> findPaginatedAllSubjects(int pageNo, int pageSize);
 
     public Page<SubjectDTO> filterSubjectByCategory(int pageNo,
@@ -41,7 +41,7 @@ public interface ISubjectService {
                                                           int pageSize, int category, String subjectName,
                                                           String sortBy, String order);
 
-   List<SubjectDTO> findAll();
+    List<SubjectDTO> findAll();
 
    List<Subject> findByExpertId(Integer id);
     
@@ -53,11 +53,17 @@ public interface ISubjectService {
 
     public Page<Subject> getAllSubjectsPaginated(int pageNum, int itemPerPage);
 
+    public Subject findByLesson(Integer id);
+
     public List<Subject> searchByCourseName(String s);
 
     public void save(Subject subject);
 
     public Subject getById(int id);
+
+    List<SubjectDTO> getAllSubject();
+
+    Subject getSubjectById(Integer id);
 
     public List<Subject> findSubjectsWithSorting(String field);
 
