@@ -4,8 +4,11 @@
  */
 package swp391.quizpracticing.serviceimple;
 
+import jakarta.persistence.criteria.Predicate;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.LessonDTO;
 import swp391.quizpracticing.model.Lesson;
@@ -24,6 +27,7 @@ public class LessonService implements ILessonService {
     @Autowired
     private ModelMapper modelMapper;
 
+
     @Autowired
     private ILessonRepository iLessonRepository;
     
@@ -38,6 +42,11 @@ public class LessonService implements ILessonService {
         return result;
     }
 
+    @Override
+    public Lesson findId(int id) {
+        Lesson lesson = iLessonRepository.findById(id);
+        return lesson;
+    }
     @Override
     public List<LessonDTO> findAllSimulationExamsBySubjectId(Integer id) {
         List<Lesson> lessonsBySubjectId = iLessonRepository.findAllBySubjectId(id, 1);
@@ -59,4 +68,65 @@ public class LessonService implements ILessonService {
         }
         return result;
     }
+     @Override
+    public  List<LessonDTO> listAll(){
+        List<Lesson> lessons=iLessonRepository.findAll();
+        List<LessonDTO> lessonDTOS=new ArrayList<>();
+        for (Lesson lesson: lessons){
+            LessonDTO lessonDTO=convertEntityToDTO(lesson);
+            lessonDTOS.add(lessonDTO);
+        }
+        return lessonDTOS;
+     }
+
+    @Override
+    public  List<LessonDTO> listAllQuiz(Integer id){
+        List<Lesson> lessons=iLessonRepository.findAllByLessonType(id);
+        List<LessonDTO> lessonDTOS=new ArrayList<>();
+        for (Lesson lesson: lessons){
+            LessonDTO lessonDTO=convertEntityToDTO(lesson);
+            lessonDTOS.add(lessonDTO);
+        }
+        return lessonDTOS;
+    }
+
+    @Override
+    public Page<Lesson> getLessons(int pageNo, int pageSize, String searchValue, Integer subjectId, Integer quizTypeId, String sortBy, String order) {
+        Pageable page;
+        if(order.equals("asc")){
+            page = PageRequest.of(pageNo - 1, pageSize,
+                    Sort.by(sortBy).ascending());
+        }
+        else{
+            page = PageRequest.of(pageNo - 1, pageSize,
+                    Sort.by(sortBy).descending());
+        }
+        Specification<Lesson> specification=(root, query, criteriaBuilder) -> {
+            List<Predicate> predicates=new ArrayList<>();
+            if(subjectId!=null){
+                predicates.add(criteriaBuilder.equal(root.get("subject")
+                        .get("id"), subjectId));
+            }
+            if(quizTypeId!=null){
+                predicates.add(criteriaBuilder.equal(root.get("testtype")
+                        .get("id"), quizTypeId));
+            }
+
+            if(searchValue!=null){
+                String searchPattern = "%" + searchValue + "%";
+                String searchBy="name";
+                predicates.add(criteriaBuilder.like(root
+                        .get(searchBy), searchPattern));
+            }
+            return criteriaBuilder.and(predicates.toArray(Predicate[]::new));
+        };
+        Page<Lesson> pageList=iLessonRepository.findAll(specification,page);
+        return pageList;
+    }
+    @Override
+    public void save(Lesson lesson){
+        iLessonRepository.save(lesson);
+    }
+
+
 }

@@ -87,7 +87,10 @@ public class SubjectService implements ISubjectService {
     public List<Subject> listAll() {
         return iSubjectRepository.findAll();
     }
-
+    @Override
+    public Subject findByLesson(Integer id) {
+        return iSubjectRepository.findByLessons_Id(id);
+    }
     @Override
     public Page<Subject> getAllSubjectsPaginated(int pageNum, int itemPerPage) {
         return iSubjectRepository.findAllSubjectsPaginated(PageRequest.of(pageNum, itemPerPage));
@@ -114,6 +117,11 @@ public class SubjectService implements ISubjectService {
                 .stream()
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Subject> findByExpertId(Integer id) {
+        return iSubjectRepository.findByExpertId(id);
     }
 
     @Override
