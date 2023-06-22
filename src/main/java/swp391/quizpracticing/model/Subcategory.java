@@ -12,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,8 +47,7 @@ public class Subcategory {
     
     @ManyToMany(mappedBy="subCategories")
     private List<Question> questions;
-
-    public Subcategory(Integer id) {
+     public Subcategory(Integer id) {
         this.id = id;
     }
 
@@ -65,4 +63,5 @@ public class Subcategory {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

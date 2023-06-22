@@ -3,7 +3,6 @@ package swp391.quizpracticing.controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,14 +17,19 @@ import swp391.quizpracticing.service.IUserSubjectService;
 
 import java.sql.Date;
 import java.util.*;
+import swp391.quizpracticing.dto.PricepackageDTO;
 
 @Controller
 @RequiredArgsConstructor
 public class MyRegistrationController {
-    private final IUserSubjectService userCourseService;
-    private final ISubjectService subService;
-    private final IPricepackageService packageService;
-    private final ICategoryService categoryService;
+    @Autowired
+    private IUserSubjectService userCourseService;
+    @Autowired
+    private ISubjectService subService;
+    @Autowired
+    private IPricepackageService packageService;
+    @Autowired
+    private ICategoryService categoryService;
     @Autowired
     private HttpSession UserSession;
 
@@ -125,7 +129,7 @@ public class MyRegistrationController {
             model.addAttribute("userSession", UserSession.getAttribute("user"));
             model.addAttribute("re", re);
             Subject su = subService.getById(cid);
-            List<Pricepackage> price = packageService.getBySubjectId(cid);
+            List<PricepackageDTO> price = packageService.getBySubjectId(cid);
             model.addAttribute("sub", su);
             model.addAttribute("pack", price);
             return "customer/my_registration";

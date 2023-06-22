@@ -23,6 +23,7 @@
     <section id="body">
         <h1>SIMULATION-EXAMS LIST</h1>
         <div class="functionalities" style="display: flex; align-items: center; justify-content: space-between;">
+
             <div class="filter-by-subject">
                 <th:block th:if="${selectedSubject == null}">
                     <form th:action="@{/filter}" method="get">
@@ -62,7 +63,7 @@
             </div>
         </div>
         <table class="table table-hover table-bordered simulation-exam-table" style="margin-top: 15px">
-            <thead>
+            <thead style="background-color: #1368ce; color: white;">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Subject</th>
