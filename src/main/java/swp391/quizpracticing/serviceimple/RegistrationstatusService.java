@@ -38,4 +38,15 @@ public class RegistrationstatusService implements IRegistrationstatusService {
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public RegistrationstatusDTO getById(Integer id) {
+        return convertEntityToDTO(registrationStatusRepository
+                .getReferenceById(id));
+    }
+
+    @Override
+    public List<Registrationstatus> findAllEntity() {
+        return registrationStatusRepository.findAll();
+    }
 }

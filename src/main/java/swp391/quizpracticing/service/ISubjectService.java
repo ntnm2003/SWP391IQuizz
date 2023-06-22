@@ -43,8 +43,10 @@ public interface ISubjectService {
 
     List<SubjectDTO> findAll();
 
-    List<Subject> findByExpertId(Integer id);
-
+   List<Subject> findByExpertId(Integer id);
+    
+    public SubjectDTO getDTOById(Integer id);
+            
     List<Subject> findByFeaturing(Boolean isFeatured);
 
     public List<Subject> listAll();

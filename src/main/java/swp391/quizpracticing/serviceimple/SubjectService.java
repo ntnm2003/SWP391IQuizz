@@ -18,7 +18,6 @@ import swp391.quizpracticing.repository.ISubjectRepository;
 import swp391.quizpracticing.service.ISubjectService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +29,9 @@ import java.util.stream.Collectors;
 public class SubjectService implements ISubjectService {
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private ISubjectRepository subjectRepository;
 
     @Autowired
     private ISubjectRepository iSubjectRepository;
@@ -188,6 +190,11 @@ public class SubjectService implements ISubjectService {
     public Subject getSubjectById(Integer id) {
         return iSubjectRepository.findById(id).get();
 
+    }
+
+    @Override
+    public SubjectDTO getDTOById(Integer id) {
+        return convertEntityToDTO(iSubjectRepository.getReferenceById(id));
     }
 
 
