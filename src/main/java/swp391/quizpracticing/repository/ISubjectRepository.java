@@ -25,6 +25,7 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
 
     public List<Subject> findAllByFeatured(Boolean isFeatured);
 
+    public Subject findByLessons_Id(Integer id);
     public Page<Subject> findByStatus(Boolean status, Pageable pageable);
 
     @Override
@@ -72,6 +73,10 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
                                                              Pageable pageable);
 
     boolean existsSubjectByBriefInfo(String briefInfo);
+
+    @Query(value = "select * from iquiz.subject where owner_id = :owner_id", nativeQuery = true)
+    List<Subject> findByExpertId(@Param("owner_id") Integer id);
+
 
 
 }

@@ -22,6 +22,8 @@ public interface ISubcategoryRepository
     @Override
     public Subcategory save(Subcategory sc);
 
+    public List<Subcategory> findBySubjects_Id(Integer subjectId);
+
     @Query(value = "select * from iquiz.subcategory where ", nativeQuery = true)
     public Subcategory findBySubjects(Subject subject);
 

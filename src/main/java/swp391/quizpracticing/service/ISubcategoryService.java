@@ -20,5 +20,7 @@ public interface ISubcategoryService {
     public List<Subcategory> getAll();
 
     public Subcategory getById(int id);
-    
+    public List<Subcategory> findbySubId(Integer id);
+    public List<Subcategory> listAll();
+
 }
