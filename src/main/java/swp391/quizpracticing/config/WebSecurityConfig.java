@@ -79,7 +79,6 @@ public class WebSecurityConfig {
 //                    return new AuthorizationDecision(authentication.get().getAuthorities().stream().anyMatch(grantedAuthority
 //                            -> roles.contains(grantedAuthority.getAuthority())));
 //                })
-
                 .requestMatchers(RESOURCE_PATTERN).permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasRole("CUSTOMER")

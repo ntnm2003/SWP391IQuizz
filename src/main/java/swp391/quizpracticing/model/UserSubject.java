@@ -49,6 +49,10 @@ public class UserSubject {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="last_updated_by", referencedColumnName = "id")
     private User userUpdate;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="created_by", referencedColumnName = "id")
+    private User userCreated;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "registration_status_id", referencedColumnName = "id")

@@ -26,6 +26,7 @@ public class CategoryService implements ICategoryService {
     private ModelMapper modelMapper;
     @Autowired
     private ICategoryRepository categoryRepository;
+
     private CategoryDTO convertEntityToDTO(Category entity){
         return modelMapper.map(entity,CategoryDTO.class);
     }
@@ -33,6 +34,11 @@ public class CategoryService implements ICategoryService {
     @Override
     public List<Category> listAll() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public Category getById(int id) {
+        return categoryRepository.findById(id);
     }
 
 }

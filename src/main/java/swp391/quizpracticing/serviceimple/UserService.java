@@ -7,7 +7,6 @@ package swp391.quizpracticing.serviceimple;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -160,6 +158,16 @@ public class UserService implements IUserService {
     @Override
     public boolean findUserByEmail(String email) {
         return userRepository.findByEmail(email)!=null;
+    }
+
+    @Override
+    public List<User> getAllExpert() {
+        return userRepository.findAllExpert();
+    }
+
+    @Override
+    public User getByUserId(int id) {
+        return userRepository.findById(id);
     }
 
 }
