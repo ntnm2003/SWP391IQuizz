@@ -108,7 +108,7 @@ public class SimulationExamController {
             List<LessonDTO> filteredLessons = iLessonService.findAllSimulationExamsBySubjectId(subjectId);
 
             //Get the selected subject
-            Subject selectedSubject = iSubjectService.getById(subjectId);
+            SubjectDTO selectedSubject = iSubjectService.getDTOById(subjectId);
             System.out.println("Selected Subject: " + selectedSubject.getBriefInfo());
 
             model.addAttribute("accessedLessons", filteredLessons);
