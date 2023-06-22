@@ -18,6 +18,7 @@ import swp391.quizpracticing.service.IUserSubjectService;
 import java.sql.Date;
 import java.util.*;
 import swp391.quizpracticing.dto.PricepackageDTO;
+import swp391.quizpracticing.dto.SubjectDTO;
 
 @Controller
 @RequiredArgsConstructor
@@ -128,7 +129,7 @@ public class MyRegistrationController {
             }
             model.addAttribute("userSession", UserSession.getAttribute("user"));
             model.addAttribute("re", re);
-            Subject su = subService.getById(cid);
+            SubjectDTO su = subService.getDTOById(cid);
             List<PricepackageDTO> price = packageService.getBySubjectId(cid);
             model.addAttribute("sub", su);
             model.addAttribute("pack", price);
