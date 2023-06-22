@@ -65,7 +65,7 @@ public class CourseContentController {
     @Autowired
     private IPricepackageService iPricepackageService;
 
-    private final String FOLDER_PATH = "C:/Users/DELL/Documents/2_CodingZone/2_InSchool_(FPTUni)/5_SWP391/SWP391GitProject/summer2023-swp391.se1714-g5/src/main/resources/static/database_images";
+    private final String FOLDER_PATH = "D:\\Java Web\\quizpracticingsystem\\src\\main\\resources\\static\\database_images";
 
     @GetMapping("admin/subjects-list")
     public String AdminGetToSubjectsList(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
@@ -743,7 +743,7 @@ public class CourseContentController {
             model.addAttribute("check", check);
         }
 
-        User loggedinUser = (User)session.getAttribute("user");
+        UserDTO loggedinUser = (UserDTO)session.getAttribute("user");
         if(loggedinUser != null) {
             System.out.println(loggedinUser.getRole().getName());
             String userRoleForUrl = switch (loggedinUser.getRole().getName()) {
