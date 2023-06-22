@@ -4,10 +4,11 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.dto.PricepackageDTO;
 import swp391.quizpracticing.model.Pricepackage;
 
 import java.util.List;
-import swp391.quizpracticing.dto.PricepackageDTO;
+
 
 /**
  *
@@ -15,6 +16,15 @@ import swp391.quizpracticing.dto.PricepackageDTO;
  */
 public interface IPricepackageService {
     public List<PricepackageDTO> getAll();
+
     PricepackageDTO getById(Integer id);
+
     List<PricepackageDTO> getBySubjectId(Integer id);
+
+    public List<Pricepackage> listAll();
+
+    public void save(Pricepackage pricepackage);
+
+    Pricepackage getPricepackageBySubId(Integer sid);
 }
+

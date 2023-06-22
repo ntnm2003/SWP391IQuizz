@@ -4,8 +4,11 @@
  */
 package swp391.quizpracticing.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import swp391.quizpracticing.model.Dimension;
 
 /**
@@ -16,4 +19,13 @@ import swp391.quizpracticing.model.Dimension;
 public interface IDimensionRepository extends JpaRepository<Dimension,Integer> {
     @Override
     public Dimension save(Dimension d);
+
+    @Override
+    List<Dimension> findAll();
+
+    @Override
+    Dimension getById(Integer integer);
+
+    @Override
+    List<Dimension> findAllById(Iterable<Integer> integers);
 }
