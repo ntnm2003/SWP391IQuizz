@@ -730,29 +730,108 @@ public class CourseContentController {
 
     }
 
-    @GetMapping("/subject-detail")
-    public String showSubjectDetails(@RequestParam(name = "id", required = true) Integer id, Model model) {
+    @GetMapping("admin/subject-detail")
+    public String AdminGetToSubjectDetails(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
+                                           @RequestParam(name = "id", required = true) Integer id,
+                                         @RequestParam(name = "categoriesId", required = false) Integer[] selectedCategoriesId,
+                                         @RequestParam(name = "status", defaultValue = "-1") String status,
+                                         @RequestParam(name = "check", defaultValue = "false") Boolean check,
+                                         Model model, HttpSession session) {
+
+        System.out.println("check: " + check);
+        if(check != null) {
+            model.addAttribute("check", check);
+        }
+
+        User loggedinUser = (User)session.getAttribute("user");
+        if(loggedinUser != null) {
+            System.out.println(loggedinUser.getRole().getName());
+            String userRoleForUrl = switch (loggedinUser.getRole().getName()) {
+                case "ROLE_ADMIN" -> "admin";
+                case "ROLE_EXPERT" -> "expert";
+                case "ROLE_SALE" -> "sale";
+                case "ROLE_MARKETING" -> "marketing";
+                case "ROLE_CUSTOMER" -> "user";
+                default -> "";
+            };
+            System.out.println("userRoleForUrl: " + userRoleForUrl);
+            model.addAttribute("userRoleForUrl", userRoleForUrl);
+        }
+
         Subject subject = iSubjectService.getSubjectById(id);
         model.addAttribute("subject", subject);
+        model.addAttribute("userSession", session.getAttribute("user"));
         return "course_content/subjectdetails";
+
     }
 
-    @GetMapping("/subject-details-edit")
-    public String editSubjectDetails(@RequestParam(name = "id", required = true) Integer id, Model model) {
+    @GetMapping("expert/subject-detail")
+    public String ExpertGetToSubjectDetails(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
+                                            @RequestParam(name = "id", required = true) Integer id,
+                                            @RequestParam(name = "categoriesId", required = false) Integer[] selectedCategoriesId,
+                                            @RequestParam(name = "status", defaultValue = "-1") String status,
+                                            @RequestParam(name = "check", defaultValue = "false") Boolean check,
+                                            Model model, HttpSession session) {
+
+        User loggedinUser = (User)session.getAttribute("user");
+        if(loggedinUser != null) {
+            System.out.println(loggedinUser.getRole().getName());
+            String userRoleForUrl = switch (loggedinUser.getRole().getName()) {
+                case "ROLE_ADMIN" -> "admin";
+                case "ROLE_EXPERT" -> "expert";
+                case "ROLE_SALE" -> "sale";
+                case "ROLE_MARKETING" -> "marketing";
+                case "ROLE_CUSTOMER" -> "user";
+                default -> "";
+            };
+            System.out.println("userRoleForUrl: " + userRoleForUrl);
+            model.addAttribute("userRoleForUrl", userRoleForUrl);
+        }
+
+        Subject subject = iSubjectService.getSubjectById(id);
+        model.addAttribute("subject", subject);
+        model.addAttribute("userSession", session.getAttribute("user"));
+        return "course_content/subjectdetails";
+
+    }
+
+    @GetMapping("/admin/subject-details-edit")
+    public String AdminEditSubjectDetails(@RequestParam(name = "id", required = true) Integer id, Model model) {
         Subject subject = iSubjectService.getSubjectById(id);
         model.addAttribute("subject", subject);
         return "course_content/subjectdetailsedit";
     }
 
-    @GetMapping("/subject-dimension")
-    public String getToDimensionListPage(Model model) {
+    @GetMapping("/admin/subject-dimension")
+    public String AdminGetToDimensionListPage(Model model) {
         List<DimensionDTO> dimension = (List<DimensionDTO>) iDimensionService.getAllDimension();
         model.addAttribute("dimension", dimension);
         return "course_content/dimension";
     }
 
-    @GetMapping("/subject-pricepackage")
-    public String showPricepackage(@RequestParam(name = "sid", required = true) Integer sid, Model model) {
+    @GetMapping("/admin/subject-pricepackage")
+    public String AdminGetToPricepackage(@RequestParam(name = "sid", required = true) Integer sid, Model model) {
+        Pricepackage pricepackage = iPricepackageService.getPricepackageBySubId(sid);
+        model.addAttribute("pricepackage", pricepackage);
+        return "course_content/pricepackage";
+    }
+
+    @GetMapping("/expert/subject-details-edit")
+    public String ExpertEditSubjectDetails(@RequestParam(name = "id", required = true) Integer id, Model model) {
+        Subject subject = iSubjectService.getSubjectById(id);
+        model.addAttribute("subject", subject);
+        return "course_content/subjectdetailsedit";
+    }
+
+    @GetMapping("/expert/subject-dimension")
+    public String ExpertGetToDimensionListPage(Model model) {
+        List<DimensionDTO> dimension = (List<DimensionDTO>) iDimensionService.getAllDimension();
+        model.addAttribute("dimension", dimension);
+        return "course_content/dimension";
+    }
+
+    @GetMapping("/expert/subject-pricepackage")
+    public String ExpertGetToPricepackage(@RequestParam(name = "sid", required = true) Integer sid, Model model) {
         Pricepackage pricepackage = iPricepackageService.getPricepackageBySubId(sid);
         model.addAttribute("pricepackage", pricepackage);
         return "course_content/pricepackage";

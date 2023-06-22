@@ -142,7 +142,7 @@
                     <th:block th:unless="${subject.status == true}">
                         <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}">Inactive</a></td>
                     </th:block>
-                    <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}" class="view-detail">View
+                    <td><a th:href="@{/admin/subject-detail?id={id}(id=${subject.getId()})}" class="view-detail">View
                             Detail</a></td>
                 </tr>
             </tbody>
