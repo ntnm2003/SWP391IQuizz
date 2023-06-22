@@ -10,5 +10,5 @@ package swp391.quizpracticing.service;
  */
 public interface IVerificationService {
     public void sendVerification(String name, String email, String token
-            ,String passwordt);
+            ,String password);
 }

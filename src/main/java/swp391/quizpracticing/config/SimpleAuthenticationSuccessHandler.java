@@ -14,7 +14,7 @@ import java.io.IOException;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
-import swp391.quizpracticing.model.User;
+import swp391.quizpracticing.dto.UserDTO;
 
 @Configuration
 public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -29,7 +29,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, 
             HttpServletResponse response, Authentication authentication) 
             throws IOException, ServletException {
-        User user=(User)authentication.getPrincipal();
+        UserDTO user=(UserDTO)authentication.getPrincipal();
         session=request.getSession();
         session.setAttribute("user", user);
         SavedRequest savedRequest = requestCache.getRequest(request, response);
