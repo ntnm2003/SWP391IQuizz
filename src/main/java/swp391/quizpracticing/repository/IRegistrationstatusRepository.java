@@ -4,6 +4,7 @@
  */
 package swp391.quizpracticing.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Registrationstatus;
@@ -15,5 +16,6 @@ import swp391.quizpracticing.model.Registrationstatus;
 @Repository
 public interface IRegistrationstatusRepository 
         extends JpaRepository<Registrationstatus,Integer> {
-    
+    @Override
+    public List<Registrationstatus> findAll();
 }

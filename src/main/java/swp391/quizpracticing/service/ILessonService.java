@@ -4,7 +4,9 @@
  */
 package swp391.quizpracticing.service;
 
+import org.springframework.data.domain.Page;
 import swp391.quizpracticing.dto.LessonDTO;
+import swp391.quizpracticing.model.Lesson;
 
 import java.util.List;
 
@@ -13,8 +15,14 @@ import java.util.List;
  * @author Mosena
  */
 public interface ILessonService {
-
+    public List<LessonDTO> listAll();
+    public List<LessonDTO> listAllQuiz(Integer id);
+    public Page<Lesson> getLessons(int pageNo, int pageSize,
+                                   String searchValue, Integer subjectId, Integer quizTypeId,
+                                   String sortBy, String order);
     public LessonDTO findById(int id);
+    public Lesson findId(int id);
+    public void save(Lesson lesson);
 
     public List<LessonDTO> findAllSimulationExamsBySubjectId(Integer id);
 

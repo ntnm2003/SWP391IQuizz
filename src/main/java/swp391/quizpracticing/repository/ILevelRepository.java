@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Level;
 
+import java.util.List;
+
 /**
  *
  * @author Mosena
@@ -16,4 +18,6 @@ import swp391.quizpracticing.model.Level;
 public interface ILevelRepository extends JpaRepository<Level,Integer> {
     @Override
     public Level save(Level l);
+    @Override
+    public List<Level> findAll();
 }

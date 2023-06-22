@@ -41,7 +41,7 @@ public class Pricepackage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
-    private Subject subjects;
+    private Subject subject;
 
     @OneToMany(mappedBy = "pricePackage")
     private List<UserSubject> userSubjects;
