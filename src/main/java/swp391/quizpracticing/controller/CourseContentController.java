@@ -35,6 +35,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import swp391.quizpracticing.dto.UserDTO;
 
 /**
  *
@@ -81,7 +82,7 @@ public class CourseContentController {
             model.addAttribute("check", check);
         }
 
-        User loggedinUser = (User)session.getAttribute("user");
+        UserDTO loggedinUser = (UserDTO)session.getAttribute("user");
         if(loggedinUser != null) {
             System.out.println(loggedinUser.getRole().getName());
             String userRoleForUrl = switch (loggedinUser.getRole().getName()) {
@@ -310,7 +311,7 @@ public class CourseContentController {
                                           @RequestParam(name = "check", defaultValue = "false") Boolean check,
                                           Model model, HttpSession session) {
 
-        User loggedinUser = (User)session.getAttribute("user");
+        UserDTO loggedinUser = (UserDTO)session.getAttribute("user");
         if(loggedinUser != null) {
             System.out.println(loggedinUser.getRole().getName());
             String userRoleForUrl = switch (loggedinUser.getRole().getName()) {
@@ -576,7 +577,7 @@ public class CourseContentController {
                                       @ModelAttribute(name = "ms2") String ms2,
                                       Model model, HttpSession session) {
 
-        User loggedinUser = (User)session.getAttribute("user");
+        UserDTO loggedinUser = (UserDTO)session.getAttribute("user");
 
         List<Category> allCategories = iCategoryService.listAll();
         List<User> allExperts = iUserService.getAllExpert();
