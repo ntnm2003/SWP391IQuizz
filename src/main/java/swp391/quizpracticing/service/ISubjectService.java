@@ -42,6 +42,8 @@ public interface ISubjectService {
 
     public List<Subject> listAll();
 
+    public Subject findByLesson(Integer id);
+
     public List<Subject> searchByCourseName(String s);
 
     public void save(Subject subject);

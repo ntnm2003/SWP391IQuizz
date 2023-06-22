@@ -24,6 +24,7 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
 
     public List<Subject> findAllByFeatured(Boolean isFeatured);
 
+    public Subject findByLessons_Id(Integer id);
     @Override
     public List<Subject> findAll();
 
