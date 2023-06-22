@@ -53,6 +53,15 @@
                             <span class="navbar-item-text">Practices List</span>
                         </a>
                     </li>
+                    <th:block th:if="${userSession.role.id == 1 || userSession.role.id == 2}">
+                        <li>
+                            <a class="practice-list" th:href="@{/testingcontent/quizzeslist}">
+                                <span class="navbar-item-icon"><ion-icon name="bookmarks"></ion-icon></span>
+                                <span class="navbar-item-text">Quizzes List</span>
+                            </a>
+                        </li>
+                    </th:block>
+
                 </ul>
             </div>
 
