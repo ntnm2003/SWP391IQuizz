@@ -138,7 +138,6 @@ public class UserService implements IUserService {
         return convertEntityToDTO(userRepository.getById(id));
     }
 
-
     @Override
     public UserDTO findUserByToken(String token) {
         User u=userRepository.getByToken(token);
