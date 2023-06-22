@@ -4,9 +4,10 @@
  */
 package swp391.quizpracticing.service;
 
+import swp391.quizpracticing.model.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import swp391.quizpracticing.model.Question;
+
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ import java.util.List;
  */
 public interface IQuestionService {
     public Question getQuestionsById(Integer id);
-
+    public List<Question> getBySubCategory(Integer id);
+    public List<Question> getRandomBySubCategories(Integer id, Integer number);
+    public void save(Question q);
     public Page<Question> findPaginated(Pageable pageable,List<Question> listQuestion);
 }

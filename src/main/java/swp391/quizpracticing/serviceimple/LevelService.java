@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.LevelDTO;
 import swp391.quizpracticing.model.Level;
+import swp391.quizpracticing.repository.ILevelRepository;
 import swp391.quizpracticing.service.ILevelService;
+
+import java.util.List;
 
 /**
  *
@@ -19,8 +22,14 @@ import swp391.quizpracticing.service.ILevelService;
 public class LevelService implements ILevelService {
     @Autowired
     private ModelMapper modelMapper;
-    
+    @Autowired
+    ILevelRepository iLevelRepository;
     private LevelDTO convertEntityToDTO(Level entity){
         return modelMapper.map(entity,LevelDTO.class);
+    }
+
+    @Override
+    public List<Level> listAll() {
+        return iLevelRepository.findAll();
     }
 }
