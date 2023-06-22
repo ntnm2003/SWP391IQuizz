@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import swp391.quizpracticing.dto.UserDTO;
 
 @Controller
 @RequiredArgsConstructor
@@ -73,7 +74,7 @@ public class QuizzesController {
         Lesson lesson=new Lesson();
 
         Object sessionInfo = userSession.getAttribute("user");
-        User u = (User) sessionInfo;
+        UserDTO u = (UserDTO) sessionInfo;
         Integer uid = u.getId();
 
         List<Subject> subjects= iSubjectService.listAll();
@@ -109,7 +110,7 @@ public class QuizzesController {
             numberOfQues.add( iQuestionService.getBySubCategory(subcategoryDTO.id).size());
         }
         Object sessionInfo = userSession.getAttribute("user");
-        User u = (User) sessionInfo;
+        UserDTO u = (UserDTO) sessionInfo;
         Integer uid = u.getId();
         model.addAttribute("user", uid);
         model.addAttribute("lesson", lesson);
