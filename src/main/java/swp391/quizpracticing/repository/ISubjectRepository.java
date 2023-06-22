@@ -36,6 +36,12 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
 
     public Subject findById(int id);
 
+    @Override
+    Subject getById(Integer integer);
+
+    @Override
+    List<Subject> findAllById(Iterable<Integer> integers);
+
     @Query(value = "select * from iquiz.subject where owner_id = :owner_id", nativeQuery = true)
     public Page<Subject> findByOwnerId(@Param("owner_id") Integer id, Pageable pageable);
 
@@ -61,7 +67,7 @@ public interface ISubjectRepository extends JpaRepository<Subject,Integer> {
             + "on s.idCategory=c.id "
             + "where s.course_name like %?1% && c.id = ?2", nativeQuery = true)
     public Page<Subject> searchSubjectNameAndCategory(Pageable pageable,
-                                                     String subjectName, int categoryId);
+                                                      String subjectName, int categoryId);
 
     public Page<Subject> findByBriefInfoContainingIgnoreCase(String searchTerm,
                                                              Pageable pageable);

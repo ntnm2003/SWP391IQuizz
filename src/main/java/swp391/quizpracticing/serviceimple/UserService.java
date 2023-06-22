@@ -120,7 +120,8 @@ public class UserService implements IUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
+        UserDTO user = convertEntityToDTO(userRepository
+                .findByEmail(username));
         if (user == null) {
             throw new UsernameNotFoundException("Email does not exist in system. Please re-enter another email!");
         }
@@ -137,7 +138,6 @@ public class UserService implements IUserService {
     public UserDTO findUser(Integer id) {
         return convertEntityToDTO(userRepository.getById(id));
     }
-
 
     @Override
     public UserDTO findUserByToken(String token) {
@@ -156,8 +156,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean findUserByEmail(String email) {
-        return userRepository.findByEmail(email)!=null;
+    public UserDTO findUserByEmail(String email) {
+        User user=userRepository.findByEmail(email);
+        if(user==null){
+            return null;
+        }
+        return convertEntityToDTO(user);
     }
 
     @Override

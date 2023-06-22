@@ -75,7 +75,7 @@ public class RegisterController {
         user.setToken(randomCode);
         user.setEnable(false);
         user.setPassword(passwordEncoder.encode(password));
-        RoleDTO role=roleService.findRole(6);
+        RoleDTO role=roleService.findRole(5);
         user.setRole(role);
         service.register(user);
         try {

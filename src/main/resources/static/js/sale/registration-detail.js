@@ -18,6 +18,7 @@ function change(isYours){
         document.getElementById("inputMobile").disabled=false;
         document.getElementById("inputSubject").disabled=false;
         document.getElementById("inputPricePackage").disabled=false;
+        document.getElementById("inputValidFrom").disabled=false;
     }
 }
 function cancel(){
@@ -32,7 +33,25 @@ function cancel(){
     document.getElementById("inputMobile").disabled=true;
     document.getElementById("inputSubject").disabled=true;
     document.getElementById("inputPricePackage").disabled=true;
+    document.getElementById("inputValidFrom").disabled=true;
 }
 function backToParents(){
     window.location.href="/sale/registrations-list";
+}
+function getPricePackage() {
+    var subjectId = $("#inputSubject").val();
+    $.get("/sale/get-pricepackages?subjectId=" + subjectId, function(data) {
+        $("#inputPricePackage").empty();
+        data.forEach(function(item) {
+            var option = "<option value=" + item.id + ">" + item.name + "</option>";
+            $("#inputPricePackage").append(option);
+        });
+    });
+}
+function changePrice(){
+    var packageId=$("#inputPricePackage").val();
+    $.get("/sale/get-pricepackage?pricePackageId="+packageId,function(data){
+        $("#listPrice").text(data.listPrice);
+        $("#salePrice").text(data.salePrice);
+    });
 }

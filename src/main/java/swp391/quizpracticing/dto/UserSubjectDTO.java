@@ -24,3 +24,4 @@ public class UserSubjectDTO {
     private String notes;
     private UserDTO userCreated;
 }
+

@@ -4,20 +4,37 @@
  */
 package swp391.quizpracticing.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Pricepackage;
 
 import java.util.List;
-import org.springframework.data.jpa.repository.Query;
 
 /**
  *
  * @author Mosena
  */
 @Repository
-public interface IPricepackageRepository 
-        extends JpaRepository<Pricepackage,Integer> {    
+public interface IPricepackageRepository extends JpaRepository<Pricepackage,Integer> {
     @Query("select p from Pricepackage p where p.subject.id= :id")
     public List<Pricepackage> getPricepackageBySubjects(Integer id);
+
+    @Override
+    public Page<Pricepackage> findAll(Pageable pageable);
+
+    @Override
+    public List<Pricepackage> findAll();
+
+    public Pricepackage findById(int subjectId);
+
+    @Override
+    Pricepackage getById(Integer integer);
+
+    @Override
+    List<Pricepackage> findAllById(Iterable<Integer> integers);
+
 }
+
