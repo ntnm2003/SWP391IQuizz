@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.SubcategoryDTO;
 import swp391.quizpracticing.model.Subcategory;
 import swp391.quizpracticing.repository.ISubcategoryRepository;
+
 import swp391.quizpracticing.service.ISubcategoryService;
 
 import java.util.List;
@@ -22,11 +23,28 @@ import java.util.List;
 public class SubcategoryService implements ISubcategoryService {
     @Autowired
     private ModelMapper modelMapper;
+
     @Autowired
     private ISubcategoryRepository iSubcategoryRepository;
+
     private SubcategoryDTO convertEntityToDTO(Subcategory entity){
         return modelMapper.map(entity,SubcategoryDTO.class);
     }
+
+    @Override
+    public List<Subcategory> getAll() {
+        return iSubcategoryRepository.findAll();
+    }
+
+    @Override
+    public Subcategory getById(int id) {
+        return iSubcategoryRepository.findById(id);
+    }
+
+//    @Override
+//    public List<Subcategory> getAllBySubjects(List<Subject> subjectList) {
+//        return iSubcategoryRepository.findAllBySubjects(subjectList);
+//    }
 
     @Override
     public List<Subcategory> findbySubId(Integer id) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import swp391.quizpracticing.model.Pricepackage;
 
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Repository
 public interface IPricepackageRepository 
-        extends JpaRepository<Pricepackage,Integer> {
-    List<Pricepackage> getPricepackageBySubjects(Integer id);
-    
+        extends JpaRepository<Pricepackage,Integer> {    
+    @Query("select p from Pricepackage p where p.subject.id= :id")
+    public List<Pricepackage> getPricepackageBySubjects(Integer id);
 }

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import swp391.quizpracticing.dto.PricepackageDTO;
 import swp391.quizpracticing.model.Pricepackage;
 import swp391.quizpracticing.repository.IPricepackageRepository;
-import swp391.quizpracticing.service.IPricepackageService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import swp391.quizpracticing.service.IPricepackageService;
 
@@ -32,12 +32,16 @@ public class PricepackageService implements IPricepackageService {
     }
 
     @Override
-    public Pricepackage getById(Integer id) {
-        return pricepackageRepository.findById(id).orElse(null);
+    public PricepackageDTO getById(Integer id) {
+        return convertEntityToDTO(
+                pricepackageRepository.findById(id).orElse(null));
     }
 
     @Override
-    public List<Pricepackage> getBySubjectId(Integer id) {
-        return pricepackageRepository.getPricepackageBySubjects(id);
+    public List<PricepackageDTO> getBySubjectId(Integer id) {
+        return pricepackageRepository.getPricepackageBySubjects(id)
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
     }
 }
