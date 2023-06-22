@@ -13,7 +13,7 @@
     <div class="col-2">
         <form action="/question/questionList">
             <select class="form-select" name="lessonID" onchange="this.form.submit()">
-                <option value="-1" selected>All lesson groups</option>
+                <option value="-1" selected>All lesson Group</option>
                 <option th:each="item:${lessonList}" th:value="${item.id}" th:text="${item.name}"
                         th:selected="${item.id == lessonID}"></option>
             </select>
