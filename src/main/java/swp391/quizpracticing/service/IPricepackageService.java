@@ -27,3 +27,4 @@ public interface IPricepackageService {
 
     Pricepackage getPricepackageBySubId(Integer sid);
 }
+

@@ -35,13 +35,13 @@
             <table class="table">
                 <thead  class="text-center">
                 <th>
-                    <a th:href="@{'subject-details?id='+${subject.id}}">Overview</a>
+                    <a th:href="@{'subject-detail?id='+${subject.id}}">Overview</a>
+                </th>
+                <th>
+                    <a th:href="@{'subject-pricepackage?sid='+${subject.id}}">Price Package</a>
                 </th>
                 <th>
                     <a href="/subject-dimension">Dimension</a>
-                </th>
-                <th>
-                    <a href="/subject/pricepackage?sid=">Price Package</a>
                 </th>
             </table>
         </div>

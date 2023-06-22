@@ -35,7 +35,7 @@
             <table class="table">
                 <thead  class="text-center">
                 <th>
-                    <a href="/subject/subject-details">Overview</a>
+                    <a href="/subject-detail?id=">Overview</a>
                 </th>
                 <th>
                     <a href="/subject-dimension">Dimension</a>
@@ -61,7 +61,7 @@
             <tbody>
                 <div th:each="pricepackage : ${pricepackage}">
                     <tr class="text-center">
-                        <td th:text="${pricepackage.subject.id()}"></td>
+                        <td th:text="${pricepackage.subject.id}"></td>
                         <td th:text="${pricepackage.name}"></td>
                         <td th:text="${pricepackage.accessDuration}"></td>
                         <td th:text="${pricepackage.listPrice}"></td>
