@@ -13,8 +13,14 @@ import swp391.quizpracticing.repository.IQuestionRepository;
 import swp391.quizpracticing.service.IQuestionService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -57,9 +63,44 @@ public class QuestionService implements IQuestionService {
         return questions;
     }
 
+
     @Override
     public void save(Question q) {
         iQuestionRepository.save(q);
     }
 
+    @Override
+    public List<Question> getQuestionByLessonAndSub(Integer lessonId, Integer subCategoryId) {
+        List<Question> q = new ArrayList<>();
+        List<Question> questionLessonList=iQuestionRepository.findByLessons_Id(lessonId);
+        List<Question> questionSubList=iQuestionRepository.findBySubCategories_Id(subCategoryId);
+        for (Question qles: questionLessonList){
+            for (Question question: questionSubList){
+                if (Objects.equals(question.getId(), qles.getId()))
+                    q.add(question);
+            }
+        }
+        return q;
+    }
+
+    public Page<Question> findPaginated(Pageable pageable,List<Question> listQuestion) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Question> list;
+
+        if (listQuestion.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, listQuestion.size());
+            list = listQuestion.subList(startItem, toIndex);
+        }
+
+        Page<Question> bookPage
+                = new PageImpl<Question>(list, PageRequest.of(currentPage, pageSize), listQuestion.size());
+
+        return bookPage;
+    }
+
+    
 }

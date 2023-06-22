@@ -10,7 +10,7 @@ import java.util.List;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +48,9 @@ public class AdminController {
     
     @Autowired
     private IVerificationService verifycationService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     @GetMapping("/user-list")
     public String searchUser(HttpSession session,
@@ -139,7 +142,7 @@ public class AdminController {
             @RequestParam("role") Integer roleId,
             @RequestParam("email") String email,
             Model model){
-        if(userService.findUserByEmail(email)){
+        if(userService.findUserByEmail(email)!=null){
             model.addAttribute("msg", 
                     "Email has already existed");
             return "/admin/error";
@@ -153,8 +156,9 @@ public class AdminController {
         u.setRole(r);
         u.setFullName(fullName);
         u.setEmail(email);
-        u.setPassword(randomPass);
+        u.setPassword(passwordEncoder.encode(randomPass));
         u.setEnable(false);
+        u.setToken(randomCode);
         registerService.register(u);
         verifycationService.sendVerification(fullName, email, 
                 randomCode,randomPass);
@@ -182,26 +186,6 @@ public class AdminController {
         model.addAttribute("userSession", session.getAttribute("user"));
         settingsService.addSetting(type, order, value, description);
         return "redirect:/admin/settings";
-    }
-    @GetMapping("/verify")
-    public String verify(@RequestParam("code") String code, Model model){
-        UserDTO u=userService.findUserByToken(code);
-        if(u!=null){
-            userService.updateUserStatusAndToken(u.getId(), Boolean.TRUE);
-            return "/common/verify_success";
-        }
-        model.addAttribute("msg", "Get lost?");
-        return "/admin/error";
-    }
-    @GetMapping("/discard")
-    public String discard(@RequestParam("code") String code, Model model){
-        UserDTO u=userService.findUserByToken(code);
-        if(u!=null){
-            userService.remove(u);
-            return "/admin/discardaccount";
-        }
-        model.addAttribute("msg", "Get lost?");
-        return "/admin/error";
     }
 }
 
