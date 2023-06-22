@@ -18,7 +18,6 @@ import swp391.quizpracticing.repository.ISubjectRepository;
 import swp391.quizpracticing.service.ISubjectService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +30,7 @@ public class SubjectService implements ISubjectService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
     private ISubjectRepository subjectRepository;
 
     @Autowired
@@ -108,7 +108,6 @@ public class SubjectService implements ISubjectService {
 
     }
 
-
     @Override
     public Subject getById(int id) {
         return iSubjectRepository.findById(id);
@@ -176,6 +175,26 @@ public class SubjectService implements ISubjectService {
     @Override
     public String uploadImage(MultipartFile file) throws IOException {
         return null;
+    }
+
+    @Override
+    public List<SubjectDTO> getAllSubject() {
+        List<Subject> subject = iSubjectRepository.findAll();
+        return subject
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Subject getSubjectById(Integer id) {
+        return iSubjectRepository.findById(id).get();
+
+    }
+
+    @Override
+    public SubjectDTO getDTOById(Integer id) {
+        return convertEntityToDTO(iSubjectRepository.getReferenceById(id));
     }
 
 

@@ -41,10 +41,12 @@ public interface ISubjectService {
                                                           int pageSize, int category, String subjectName,
                                                           String sortBy, String order);
 
-   List<SubjectDTO> findAll();
+    List<SubjectDTO> findAll();
 
    List<Subject> findByExpertId(Integer id);
-
+    
+    public SubjectDTO getDTOById(Integer id);
+            
     List<Subject> findByFeaturing(Boolean isFeatured);
 
     public List<Subject> listAll();
@@ -58,6 +60,10 @@ public interface ISubjectService {
     public void save(Subject subject);
 
     public Subject getById(int id);
+
+    List<SubjectDTO> getAllSubject();
+
+    Subject getSubjectById(Integer id);
 
     public List<Subject> findSubjectsWithSorting(String field);
 

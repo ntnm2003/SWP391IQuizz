@@ -61,3 +61,5 @@
 /src/main/resources/static/database_images/post2_thumbnail[[:space:]](1).png filter=lfs diff=lfs merge=lfs -text
 /src/main/resources/static/database_images/post3_thumbnail[[:space:]](1).png filter=lfs diff=lfs merge=lfs -text
 /src/main/resources/static/database_images/post4_thumbnail[[:space:]](1).png filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/js/admin/all.min.js filter=lfs diff=lfs merge=lfs -text
+/src/main/resources/static/js/admin/ckeditor.js filter=lfs diff=lfs merge=lfs -text
