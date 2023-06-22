@@ -14,4 +14,7 @@ import java.util.List;
  */
 public interface IQuestionService {
     public Question getQuestionsById(Integer id);
+    public List<Question> getBySubCategory(Integer id);
+    public List<Question> getRandomBySubCategories(Integer id, Integer number);
+    public void save(Question q);
 }
