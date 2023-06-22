@@ -30,8 +30,11 @@ public class HomeController {
 	@Autowired
 	private IUserRepository iUserRepository;
         
-        @Autowired
-        private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	public HomeController() {
+	}
 
 	@GetMapping("/")
 	public String redirectToHome() {
@@ -43,19 +46,15 @@ public class HomeController {
 
 		//Get sliders
 		List<SliderDTO> sliders = sliderService.getAllSlidersForHomepage();
-		System.out.println("sliders size: " + sliders.size());
 
 		//Get featured posts
 		List<BlogDTO> blogs = blogService.getFeaturedBlog(true);
-		System.out.println("blogs size: " + blogs.size());
 
 		//Get latest posts
 		List<BlogDTO> latestBlogs = blogService.getFeaturedLatestBlog(true, 2);
-		System.out.println("latest blogs size: " + latestBlogs.size());
 
 		//Get all Featured Subjects
 		List<Subject> featuredSubjects = subjectService.findByFeaturing(true);
-		System.out.println("featured subjects size: " + featuredSubjects.size());
 
 		//Add to model
 		model.addAttribute("sliders", sliders);
@@ -69,9 +68,7 @@ public class HomeController {
 
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
-
 		session.invalidate();
 		return "redirect:/home";
-
 	}
 }

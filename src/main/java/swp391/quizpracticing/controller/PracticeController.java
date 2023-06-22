@@ -31,8 +31,8 @@ public class PracticeController {
     private IDimensionRepository iDimensionRepository;
     @GetMapping("/detail")
     public String showFormPractice(HttpServletRequest request, Model model){
-        HttpSession session = request.getSession(false);
-        User user = (User) session.getAttribute("user");
+//        HttpSession session = request.getSession(false);
+ //       User user = (User) session.getAttribute("user");
         List<Subject> list = iSubjectRepository.findAll();
         List<Subcategory> listSub = iSubcategoryRepository.findAll();
         List<Dimension> listDimension = iDimensionRepository.findAll();

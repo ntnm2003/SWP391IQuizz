@@ -1,6 +1,7 @@
 package swp391.quizpracticing.model;
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,7 +13,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.sql.Timestamp;
 import java.util.List;
@@ -51,27 +51,27 @@ public class Subject {
     @Column(name = "created_time")
     private Timestamp createdTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "dimension_id", referencedColumnName = "id")
     private Dimension dimension;
 
-    @OneToMany(mappedBy = "subjects")
+    @OneToMany(mappedBy = "subject", cascade=CascadeType.MERGE)
     private List<Pricepackage> pricepackages;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", cascade=CascadeType.MERGE)
     private List<UserSubject> userSubjects;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinTable(name = "subject_subcategory",
             joinColumns = @JoinColumn(name = "subject_id"),
             inverseJoinColumns = @JoinColumn(name = "subcategory_id"))
     private List<Subcategory> subCategories;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", cascade=CascadeType.MERGE)
     private List<Lesson> lessons;
 
     @Column(name = "featured")
@@ -79,4 +79,6 @@ public class Subject {
 
     @Column(name = "tagline")
     private String tagLine;
+
 }
+

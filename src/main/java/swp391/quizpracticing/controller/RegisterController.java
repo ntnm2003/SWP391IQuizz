@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import swp391.quizpracticing.model.Role;
 import swp391.quizpracticing.model.User;
 import swp391.quizpracticing.service.RegisterService;
 
@@ -59,7 +58,7 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute UserDTO user, HttpServletRequest request, Model model) {
+    public String register(@ModelAttribute UserDTO user, Model model) {
         List<User> getAllAccount = service.getAllAccount();
         String password=user.getPassword();
         boolean isExist = false;
@@ -76,12 +75,12 @@ public class RegisterController {
         user.setToken(randomCode);
         user.setEnable(false);
         user.setPassword(passwordEncoder.encode(password));
-        RoleDTO role=roleService.findRole(6);
+        RoleDTO role=roleService.findRole(5);
         user.setRole(role);
         service.register(user);
         try {
 
-            sendVerificationEmail(user, Utility.getSiteURL(request));
+            sendVerificationEmail(user, Utility.getSiteURL());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

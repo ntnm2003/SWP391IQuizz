@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import swp391.quizpracticing.dto.LessonDTO;
 import swp391.quizpracticing.dto.QuizreviewDTO;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
+@RequestMapping("/user")
 public class PracticeListController {
 
     @Autowired
@@ -40,7 +42,7 @@ public class PracticeListController {
 
     @GetMapping("/practice-list")
     public String getToPracticeList(Model model, HttpSession session) {
-        //Logged in User (using Session)
+        //Loggedin User (using Session)
         User loggedinUser = (User)session.getAttribute("user");
 
         //Get all the Taken Quizzes of the respective user

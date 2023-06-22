@@ -12,11 +12,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserSubjectDTO {
-    private UserDTO userId;
-    private SubjectDTO subjectId;
-    private PricepackageDTO pricePackageId;
+    private Integer id;
+    private UserDTO user;
+    private SubjectDTO subject;
+    private PricepackageDTO pricePackage;
     private Timestamp registrationTime;
-    private RegistrationstatusDTO registrationStatusId;
+    private RegistrationstatusDTO registrationStatus;
     private Timestamp validFrom;
+    private Timestamp validTo;
+    private UserDTO userUpdate;
     private String notes;
+    private UserDTO userCreated;
 }
+

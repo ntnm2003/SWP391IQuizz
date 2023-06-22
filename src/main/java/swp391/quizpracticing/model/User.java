@@ -65,27 +65,30 @@ public class User implements UserDetails {
     @Column(name = "enable")
     protected Boolean enable;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", cascade=CascadeType.MERGE)
     protected List<Blog> blogs;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.MERGE)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     protected Role role;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade=CascadeType.MERGE)
     protected List<Subject> subject;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "creator", cascade=CascadeType.MERGE)
     protected List<Lesson> lessons;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade=CascadeType.MERGE)
     protected List<Quizreview> quizReviews;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     protected List<UserSubject> userSubjects;
 
     @OneToMany(mappedBy = "userUpdate")
     protected List<UserSubject> updatedUserSubject;
+    
+    @OneToMany(mappedBy = "userCreated")
+    protected List<UserSubject> createdUserSubject;
 
     public User token(String token) {
         setToken(token);
@@ -134,3 +137,4 @@ public class User implements UserDetails {
 
 
 }
+

@@ -13,8 +13,7 @@ import swp391.quizpracticing.repository.IPricepackageRepository;
 import swp391.quizpracticing.service.IPricepackageService;
 
 import java.util.List;
-
-import swp391.quizpracticing.service.IPricepackageService;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -24,20 +23,51 @@ import swp391.quizpracticing.service.IPricepackageService;
 public class PricepackageService implements IPricepackageService {
     @Autowired
     private ModelMapper modelMapper;
+
     @Autowired
     private IPricepackageRepository pricepackageRepository;
-    
+
     private PricepackageDTO convertEntityToDTO(Pricepackage entity){
         return modelMapper.map(entity,PricepackageDTO.class);
     }
 
     @Override
-    public Pricepackage getById(Integer id) {
-        return pricepackageRepository.findById(id).orElse(null);
+    public PricepackageDTO getById(Integer id) {
+        return convertEntityToDTO(
+                pricepackageRepository.findById(id).orElse(null));
     }
 
     @Override
-    public List<Pricepackage> getBySubjectId(Integer id) {
-        return pricepackageRepository.getPricepackageBySubjects(id);
+    public List<PricepackageDTO> getBySubjectId(Integer id) {
+        return pricepackageRepository.getPricepackageBySubjects(id)
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PricepackageDTO> getAll() {
+        return pricepackageRepository.findAll()
+                .stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pricepackage> listAll() {
+        return null;
+    }
+
+
+    @Override
+    public void save(Pricepackage pricepackage) {
+
+    }
+
+    @Override
+    public Pricepackage getPricepackageBySubId(Integer sid) {
+        return pricepackageRepository.findById(sid).get();
     }
 }
+
+

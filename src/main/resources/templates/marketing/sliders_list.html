@@ -26,92 +26,92 @@
 <!-- ========== MAIN CONTENT ============ -->
 <section class="main">
     <div class="container-fluid">
-    <div class="slider_list p-4">
-        <h1 class="text-center">Sliders List</h1>
-    </div>
-    <div class="container-fluid rounded row" style="margin-top: 1% !important; margin-bottom: 1% !important">
-        <div class="col-md-1 text-center">
-            <a href="#"><button type="button" class="btn btn-danger ">Add</button></a>
+        <div class="slider_list p-4">
+            <h1 class="text-center">Sliders List</h1>
         </div>
-        <div class="col-md-5 text-center">
-            <select th:action="@{/filter}" class="dropdown-font-new float-right" aria-label="Default select example" onchange="location = this.value;"> Status
-                <option value="sliders-list?" ${status == null ? "Selected" : ""}>
-                Status
-                </option>
-                <option value="sliders-list?&status=1" ${status == 1 ? "Selected" : ""}>
-                Show
-                </option>
-                <option value="sliders-list?&status=0" ${status == 0 ? "Selected" : ""}>
-                Hide
-                </option>
-            </select>
+        <div class="container-fluid rounded row" style="margin-top: 1% !important; margin-bottom: 1% !important">
+            <div class="col-md-1 text-center">
+                <a href="#"><button type="button" class="btn btn-danger ">Add</button></a>
+            </div>
+            <div class="col-md-5 text-center">
+                <select th:action="@{/filter}" class="dropdown-font-new float-right" aria-label="Default select example" onchange="location = this.value;"> Status
+                    <option value="sliders-list?" ${status == null ? "Selected" : ""}>
+                    Status
+                    </option>
+                    <option value="sliders-list?&status=1" ${status == 1 ? "Selected" : ""}>
+                    Show
+                    </option>
+                    <option value="sliders-list?&status=0" ${status == 0 ? "Selected" : ""}>
+                    Hide
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-6 text-center">
+                <form action="sliders-list" th:action="@{/slider/search}" method="get">
+                    <input type="text" name="searchTerm" th:value="${searchTerm}" placeholder="Find slider" class="filter-search__control" >
+                    <button type="submit" class="btn btn-outline-danger" href="#" role="button">
+                        <i style='font-size:15px' class='fas'>&#xf002;</i>
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="col-md-6 text-center">
-            <form action="sliders-list" th:action="@{/slider/search}" method="get">
-                <input type="text" name="searchTerm" th:value="${searchTerm}" placeholder="Find slider" class="filter-search__control" >
-                <button type="submit" class="btn btn-outline-danger" href="#" role="button">
-                    <i style='font-size:15px' class='fas'>&#xf002;</i>
-                </button>
-            </form>
-        </div>
-    </div>
-    <div class="container rounded bg-white mt-5 mb-5" >
-        <table class="table"  style="margin-top: 4%">
-            <thead  class="text-center">
-            <th>ID</th>
-            <th>Title</th>
-            <th>Image</th>
-            <th>Backlink</th>
-            <th>Status</th>
-            <th style="width: 12%">Option</th>
-            </thead>
-            <tbody>
-            <div th:each="slider : ${slider}">
-                <tr>
-                    <td th:text="${slider.id}"></td>
-                    <td th:text="${slider.title}"></td>
-                    <td> <img th:src="@{/database_images/{imageName}(imageName=${slider.image})}" width="200px"></td>
-                    <td th:text="${slider.backLink}"></td>
-                    <c:if th:if="${slider.status == true}">
-                        <td><img class = "circle" th:src="@{../..//image/active.png}"></td>
-                    </c:if>
-                    <c:if th:if="${slider.status != true}">
-                        <td><img class = "circle" th:src="@{../..//image/inactive.png}"></td>
-                    </c:if>
-                    <td style="width: 125px">
-                        <a class="btn btn-danger" th:href="@{'slider-detail?id='+${slider.id}}" role="button" style='font-size:10px'>
-                            <i style='font-size:10px' class='fas'>&#xf044;</i>
-                        </a>
+        <div class="container rounded bg-white mt-5 mb-5" >
+            <table class="table"  style="margin-top: 4%">
+                <thead  class="text-center">
+                <th>ID</th>
+                <th>Title</th>
+                <th>Image</th>
+                <th>Backlink</th>
+                <th>Status</th>
+                <th style="width: 12%">Option</th>
+                </thead>
+                <tbody>
+                <div th:each="slider : ${slider}">
+                    <tr>
+                        <td th:text="${slider.id}"></td>
+                        <td th:text="${slider.title}"></td>
+                        <td> <img th:src="@{/database_images/{imageName}(imageName=${slider.image})}" width="200px"></td>
+                        <td th:text="${slider.backLink}"></td>
                         <c:if th:if="${slider.status == true}">
-                            <a class="btn btn-dark" th:href="@{'change-status?status=0&id='+${slider.id}}" role="button" style='font-size:10px'>
-                                <i style='font-size:10px' class='fas far fa-eye-slash'>&#xf070;</i>
-                            </a>
+                            <td><img class = "circle" th:src="@{/image/active.png}"></td>
                         </c:if>
                         <c:if th:if="${slider.status != true}">
-                            <a class="btn btn-dark" th:href="@{'change-status?status=0&id='+${slider.id}}" role="button" style='font-size:10px'>
-                                <i style='font-size:10px' class='fas'>&#xf06e;</i>
-                            </a>
+                            <td><img class = "circle" th:src="@{/image/inactive.png}"></td>
                         </c:if>
-                    </td>
-                </tr>
+                        <td style="width: 125px">
+                            <a class="btn btn-danger" th:href="@{'slider-detail?id='+${slider.id}}" role="button" style='font-size:10px'>
+                                <i style='font-size:10px' class='fas'>&#xf044;</i>
+                            </a>
+                            <c:if th:if="${slider.status == true}">
+                                <a class="btn btn-dark" th:href="@{'change-status?status=0&id='+${slider.id}}" role="button" style='font-size:10px'>
+                                    <i style='font-size:10px' class='fas far fa-eye-slash'>&#xf070;</i>
+                                </a>
+                            </c:if>
+                            <c:if th:if="${slider.status != true}">
+                                <a class="btn btn-dark" th:href="@{'change-status?status=0&id='+${slider.id}}" role="button" style='font-size:10px'>
+                                    <i style='font-size:10px' class='fas'>&#xf06e;</i>
+                                </a>
+                            </c:if>
+                        </td>
+                    </tr>
 
-            </div>
+                </div>
 
-            </tbody>
+                </tbody>
 
-        </table>
-    </div>
+            </table>
+        </div>
 
 
-    <div class="pagination">
-        <nav aria-label="...">
-            <ul class="pagination pagination-lg">
-                <li class="page-item"><a class="page-link" th:href="@{'/slider/sliders-list'}">1</a></li>
-                <li class="page-item"><a class="page-link" th:href="@{'/slider/sliders-list?page=2'}">2</a></li>
-                <li class="page-item"><a class="page-link" th:href="@{'/slider/sliders-list?page=3'}">3</a></li>
-            </ul>
-        </nav>
-    </div>
+        <div class="pagination">
+            <nav aria-label="...">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item"><a class="page-link" th:href="@{'/slider/sliders-list'}">1</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'/slider/sliders-list?page=2'}">2</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{'/slider/sliders-list?page=3'}">3</a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </section>
 
