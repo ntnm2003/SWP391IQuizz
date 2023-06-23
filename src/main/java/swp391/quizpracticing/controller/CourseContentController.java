@@ -65,13 +65,13 @@ public class CourseContentController {
     @Autowired
     private IPricepackageService iPricepackageService;
 
-    private final String FOLDER_PATH = "D:\\Java Web\\quizpracticingsystem\\src\\main\\resources\\static\\database_images";
+    private final String FOLDER_PATH = "C:\\Users\\DELL\\Documents\\2_CodingZone\\2_InSchool_(FPTUni)\\5_SWP391\\SWP391GitProject\\summer2023-swp391.se1714-g5\\src\\main\\resources\\static\\database_images";
 
     @GetMapping("admin/subjects-list")
-    public String AdminGetToSubjectsList(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
-                                         @RequestParam(name = "itemPerPage", defaultValue = "10") Integer itemPerPage,
+    public String AdminGetToSubjectsList(@RequestParam(name = "pageNum", defaultValue = "0") String pageNumString,
+                                         @RequestParam(name = "itemPerPage", defaultValue = "10") String itemPerPageString,
                                          @RequestParam(name = "subject-name", defaultValue = "") String searchTermNoTrim,
-                                         @RequestParam(name = "categoriesId", required = false) Integer[] selectedCategoriesId,
+                                         @RequestParam(name = "categoriesId", required = false) String[] selectedCategoriesIdString,
                                          @RequestParam(name = "status", defaultValue = "-1") String status,
                                          @RequestParam(name = "check", defaultValue = "false") Boolean check,
 //                                         @ModelAttribute(name = "newSubject") Subject newSubject,
@@ -81,6 +81,41 @@ public class CourseContentController {
         if(check != null) {
             model.addAttribute("check", check);
         }
+
+        //Check if the pageNum and itemPerPage is number
+        try {
+            int pageNum = Integer.parseInt(pageNumString);
+            int itemPerPage = Integer.parseInt(itemPerPageString);
+        } catch (NumberFormatException e) {
+            model.addAttribute("backUrl", "admin/subjects-list");
+            return "components/not-found-page.html";
+        }
+
+        //Check if selected_categories_id is number
+        ArrayList<Integer> selectedCategoriesIdList = new ArrayList<>();
+        if(selectedCategoriesIdString != null && selectedCategoriesIdString.length != 0) {
+            try {
+                for(String i : selectedCategoriesIdString) {
+                    Integer categoryId = Integer.parseInt(i);
+                    selectedCategoriesIdList.add(categoryId);
+                }
+            } catch (NumberFormatException e) {
+                model.addAttribute("backUrl", "admin/subjects-list");
+                return "components/not-found-page.html";
+            }
+        }
+
+        Integer[] selectedCategoriesId = new Integer[selectedCategoriesIdList.size()];
+        selectedCategoriesId = selectedCategoriesIdList.toArray(selectedCategoriesId);
+
+        //Check if status is in the range of values or not
+        if(!(status.equals("-1") || status.equals("true") || status.equals("false"))) {
+            model.addAttribute("backUrl", "admin/subjects-list");
+            return "components/not-found-page.html";
+        }
+
+        Integer pageNum = Integer.parseInt(pageNumString);
+        Integer itemPerPage = Integer.parseInt(itemPerPageString);
 
         UserDTO loggedinUser = (UserDTO)session.getAttribute("user");
         if(loggedinUser != null) {
@@ -291,10 +326,6 @@ public class CourseContentController {
             model.addAttribute("selectedCategoriesId", Arrays.asList(selectedCategoriesId));
         }
 
-//        if(newSubject != null) {
-//            System.out.println(newSubject);
-//            model.addAttribute("newSubject", newSubject);
-//        }
 
         model.addAttribute("allStatus", allStatus);
         model.addAttribute("selectedStatus", status);
@@ -303,10 +334,10 @@ public class CourseContentController {
     }
 
     @GetMapping("expert/subjects-list")
-    public String ExpertGetToSubjectsList(@RequestParam(name = "pageNum", defaultValue = "0") Integer pageNum,
-                                          @RequestParam(name = "itemPerPage", defaultValue = "10") Integer itemPerPage,
+    public String ExpertGetToSubjectsList(@RequestParam(name = "pageNum", defaultValue = "0") String pageNumString,
+                                          @RequestParam(name = "itemPerPage", defaultValue = "10") String itemPerPageString,
                                           @RequestParam(name = "subject-name", defaultValue = "") String searchTerm,
-                                          @RequestParam(name = "categoriesId", required = false) Integer[] selectedCategoriesId,
+                                          @RequestParam(name = "categoriesId", required = false) String[] selectedCategoriesIdString,
                                           @RequestParam(name = "status", defaultValue = "-1") String status,
                                           @RequestParam(name = "check", defaultValue = "false") Boolean check,
                                           Model model, HttpSession session) {
@@ -325,6 +356,41 @@ public class CourseContentController {
             System.out.println("userRoleForUrl: " + userRoleForUrl);
             model.addAttribute("userRoleForUrl", userRoleForUrl);
         }
+
+        //Check if the pageNum and itemPerPage is number
+        try {
+            int pageNum = Integer.parseInt(pageNumString);
+            int itemPerPage = Integer.parseInt(itemPerPageString);
+        } catch (NumberFormatException e) {
+            model.addAttribute("backUrl", "expert/subjects-list");
+            return "components/not-found-page.html";
+        }
+
+        //Check if selected_categories_id is number
+        ArrayList<Integer> selectedCategoriesIdList = new ArrayList<>();
+        if(selectedCategoriesIdString != null && selectedCategoriesIdString.length != 0) {
+            try {
+                for(String i : selectedCategoriesIdString) {
+                    Integer categoryId = Integer.parseInt(i);
+                    selectedCategoriesIdList.add(categoryId);
+                }
+            } catch (NumberFormatException e) {
+                model.addAttribute("backUrl", "expert/subjects-list");
+                return "components/not-found-page.html";
+            }
+        }
+
+        Integer[] selectedCategoriesId = new Integer[selectedCategoriesIdList.size()];
+        selectedCategoriesId = selectedCategoriesIdList.toArray(selectedCategoriesId);
+
+        //Check if status is in the range of values or not
+        if(!(status.equals("-1") || status.equals("true") || status.equals("false"))) {
+            model.addAttribute("backUrl", "expert/subjects-list");
+            return "components/not-found-page.html";
+        }
+
+        Integer pageNum = Integer.parseInt(pageNumString);
+        Integer itemPerPage = Integer.parseInt(itemPerPageString);
 
         //Find subjects by expert_id
         Page<Subject> subjectsWithPaginationByExpertId = iSubjectService.findSubjectsWithPaginationByExpertId(loggedinUser.getId(), pageNum, itemPerPage);
@@ -351,6 +417,8 @@ public class CourseContentController {
             Category c = iCategoryService.getById(id);
             allCategories.add(c);
         }
+
+
 
         if(searchTerm.isEmpty() && (selectedCategoriesId == null || selectedCategoriesId.length == 0) && status.equals("-1")) {  // display all subjects (no search, no filter)
 
@@ -676,16 +744,22 @@ public class CourseContentController {
         if(check) {  //save new subject
 
             String fileName;
+            String originalFileName;
+            String fileExtension;
 
             if(multipartFile != null) {
                 //Take the file name user has uploaded
-                fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-                System.out.println("fileName: " + fileName);
-                //Store the fileName into the database with the respective subject
+                originalFileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+                System.out.println("originalFileName: " + originalFileName);
+                fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+                fileName = System.currentTimeMillis() + fileExtension;
+                System.out.println("fileName after changing: " + fileName);
 
+
+                //Get the Absolute Path of the file Name (include file name)
+                Path fileNameAndPath = Paths.get(FOLDER_PATH, fileName);
+                System.out.println("fileNameAndPath: " + fileNameAndPath);
                 //Store the actual file to the file directory
-                Path fileNameAndPath = Paths.get(FOLDER_PATH, multipartFile.getOriginalFilename());
-                String uploadDir = FOLDER_PATH;
                 Files.write(fileNameAndPath, multipartFile.getBytes());
             } else {
                 fileName="null";
