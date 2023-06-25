@@ -68,15 +68,18 @@ public class PublicController {
     public String getSubjects(HttpSession session,
             Model model,
             @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(name = "searchBy", required = false) String searchBy,
             @RequestParam(name = "search", required = false) String search,
-            @RequestParam(name = "sortBy", defaultValue = "lastUpdatedTime") String sortBy, 
-            @RequestParam(name = "order", defaultValue = "asc") String order){
+            @RequestParam(name = "order", defaultValue = "asc") String order,
+            @RequestParam(name = "subCategory", required = false) 
+                    List<Integer> subCategories){
         int pageSize = 6;
-        List<String> categories=new ArrayList<>();
-        Page<SubjectDTO> page=subjectService.findAll(pageNo, pageSize, "", 
-                "", "createdTime", "asc", categories);
+        Page<SubjectDTO> page=subjectService.findAll(pageNo, pageSize, search, 
+                order, subCategories);
         Integer totalPages=page.getTotalPages();
+        if(totalPages==0 || pageNo<1 || pageNo>totalPages){
+            model.addAttribute("msg", "Not found");
+            return "/admin/error";
+        }
         List<SubjectDTO> subjectList=page
                 .stream()
                 .collect(Collectors.toList());

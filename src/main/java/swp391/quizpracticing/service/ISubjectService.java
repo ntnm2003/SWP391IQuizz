@@ -16,9 +16,8 @@ import java.util.List;
  * @author Mosena
  */
 public interface ISubjectService {
-    public Page<SubjectDTO> findAll(int pageNo, int pageSize, String searchBy,
-            String search, String sortBy, String order, 
-            List<String> categories);
+    public Page<SubjectDTO> findAll(int pageNo, int pageSize,String search, 
+            String order, List<Integer> categories);
     List<SubjectDTO> findAll();
     List<Subject> findByExpertId(Integer id);
     

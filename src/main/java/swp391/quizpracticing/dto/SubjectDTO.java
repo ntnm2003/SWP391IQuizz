@@ -18,7 +18,7 @@ public class SubjectDTO {
     private String thumbnail;
     private Boolean status;
     private Date createdTime;
-    private Date updatedTime;
+    private Date lastUpdatedTime;
     private UserDTO owner;
     private DimensionDTO dimension;
     private Boolean featured;
