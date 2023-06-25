@@ -161,31 +161,30 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
-    public Page<SubjectDTO> findAll(int pageNo, int pageSize, String searchBy, 
-            String search, String sortBy, String order, 
-            List<String> categories) {
+    public Page<SubjectDTO> findAll(int pageNo, int pageSize, String search, 
+            String order, List<Integer> categories) {
         Pageable page;
         if("asc".equals(order)){
             page=PageRequest.of(pageNo-1, pageSize, 
-                    Sort.by(sortBy).ascending());
+                    Sort.by("lastUpdatedTime").ascending());
         }
         else{
             page=PageRequest.of(pageNo-1, pageSize, 
-                    Sort.by(sortBy).descending());
+                    Sort.by("lastUpdatedTime").descending());
         }
         Specification<Subject> specification= (root,query,criteriaBuilder)
                 ->{
             List<Predicate> predicates=new ArrayList<>();
-            if(searchBy.equals("subjectTitle")){
+            if(search!=null){
                 String searchPattern="%"+search+"%";
                 predicates.add(criteriaBuilder
                         .like(root.get("title"),searchPattern));
             }
-            if (searchBy.equals("categories")) {
-                for (String category : categories) {
+            if (categories!=null) {
+                for (Integer category : categories) {
                     predicates.add(criteriaBuilder.isMember(category, 
-                            root.get("categories")
-                                    .<List<String>>get("title")));
+                            root.get("subCategories")
+                                    .<List<Integer>>get("id")));
                 }
             }
             return criteriaBuilder.and(predicates

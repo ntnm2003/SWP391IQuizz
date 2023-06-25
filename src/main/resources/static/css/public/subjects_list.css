@@ -5,3 +5,10 @@ main{
 a{
     text-decoration: none;
 }
+#sidebar{
+    background-color: white;
+}
+.category-button {
+    display: block;
+    margin-bottom: 5px;
+}
