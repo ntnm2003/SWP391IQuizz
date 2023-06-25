@@ -113,17 +113,6 @@
 
         </div>
 
-<!--        <th:block th:if="${newSubject != null && check != null && (check)}">-->
-<!--            <div class="new-subject-notify">-->
-<!--                <h2 style="color: red;">New Added Subject</h2>-->
-<!--                <p th:text="${newSubject.id}"></p>-->
-<!--                <p th:text="${newSubject.briefInfo}"></p>-->
-<!--                <p th:text="${newSubject.getOwner().getFullName()}"></p>-->
-<!--                <p></p>-->
-<!--                <a class="btn btn-primary" th:href="@{/subject-detail?id={id}(id=${newSubject.getId()})}">View Detail</a>-->
-<!--            </div>-->
-<!--        </th:block>-->
-
         <table class="table table-hover table-bordered practice-list-table" style="margin-top: 15px">
             <thead style="background-color: #1368ce; color: white;">
                 <tr>
@@ -136,27 +125,50 @@
                     <th scope="col">View Detail</th>
                 </tr>
             </thead>
-            <tbody th:each="subject : ${subjects}">
-                <tr>
-                    <td><a th:text="${subject.getId()}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
-                    <td><a th:text="${subject.briefInfo}"
-                            th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
-                    <td><a th:text="${subject.subCategories.get(0).category.name}"
-                            th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
-                    <td><a th:text="${subject.getLessons().getSize()}"
-                            th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
-                    <td><a th:text="${subject.owner.fullName}"
-                            th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a>
-                    </td>
-                    <th:block th:if="${subject.status == true}">
-                        <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}">Active</a></td>
-                    </th:block>
-                    <th:block th:unless="${subject.status == true}">
-                        <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}">Inactive</a></td>
-                    </th:block>
-                    <td><a th:href="@{/admin/subject-detail?id={id}(id=${subject.getId()})}" class="view-detail">View
+            <tbody>
+                <th:block th:if="${check != null && check == true && newSubject != null}">
+                    <tr style="color: red; font-weight: 450; background-color: #C8F0C5">
+                        <td><a th:text="${newSubject.getId()}" th:href="@{/subject-detail?id={id}(id=${newSubject.getId()})}"></a></td>
+                        <td><a th:text="${newSubject.briefInfo}"
+                               th:href="@{/subject-detail?id={id}(id=${newSubject.getId()})}"></a></td>
+                        <td><a th:text="${newSubject.subCategories.get(0).category.name}"
+                               th:href="@{/subject-detail?id={id}(id=${newSubject.getId()})}"></a></td>
+                        <td><a th:href="@{/subject-detail?id={id}(id=${newSubject.getId()})}">0</a></td>
+                        <td><a th:text="${newSubject.owner.fullName}"
+                               th:href="@{/subject-detail?id={id}(id=${newSubject.getId()})}"></a>
+                        </td>
+                        <th:block th:if="${newSubject.status == true}">
+                            <td><a th:href="@{/subject-detail?id={id}(id=${newSubject.getId()})}">Active</a></td>
+                        </th:block>
+                        <th:block th:unless="${newSubject.status == true}">
+                            <td><a th:href="@{/subject-detail?id={id}(id=${newSubject.getId()})}">Inactive</a></td>
+                        </th:block>
+                        <td><a th:href="@{/admin/subject-detail?id={id}(id=${newSubject.getId()})}" class="view-detail">View
                             Detail</a></td>
-                </tr>
+                    </tr>
+                </th:block>
+                <th:block th:each="subject : ${subjects}">
+                    <tr>
+                        <td><a th:text="${subject.getId()}" th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                        <td><a th:text="${subject.briefInfo}"
+                               th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                        <td><a th:text="${subject.subCategories.get(0).category.name}"
+                               th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                        <td><a th:text="${subject.getLessons().getSize()}"
+                               th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a></td>
+                        <td><a th:text="${subject.owner.fullName}"
+                               th:href="@{/subject-detail?id={id}(id=${subject.getId()})}"></a>
+                        </td>
+                        <th:block th:if="${subject.status == true}">
+                            <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}">Active</a></td>
+                        </th:block>
+                        <th:block th:unless="${subject.status == true}">
+                            <td><a th:href="@{/subject-detail?id={id}(id=${subject.getId()})}">Inactive</a></td>
+                        </th:block>
+                        <td><a th:href="@{/admin/subject-detail?id={id}(id=${subject.getId()})}" class="view-detail">View
+                            Detail</a></td>
+                    </tr>
+                </th:block>
             </tbody>
         </table>
         <th:block th:if="${!subjects.hasContent()}">
@@ -278,13 +290,6 @@
                 <span>🎉🎊 Congratulations for Successfully 🎉🎊</span>
                 <span style="text-align: center; width: 100%; display: block;">💚 Add a New Subject 💚 </span>
             </h2>
-            <th:block th:if="${newSubject != null}">
-                <p th:text="'Subject ID: ' + ${newSubject.id}" style="color: black;"></p>
-                <p th:text="'Subject Name: ' + ${newSubject.briefInfo}" style="color: black;"></p>
-                <p th:text="'Expert Owner: ' + ${newSubject.getOwner().getFullName()}" style="color: black;"></p>
-                <p th:text="'Subject Category: ' + ${newSubject.subCategories.get(0).category.name}" style="color: black;"></p>
-                <a class="btn btn-primary" th:href="@{/subject-detail?id={id}(id=${newSubject.getId()})}" style="font-size: 13px; margin-top: 5px; position: absolute; top: 185px;">View Detail</a>
-            </th:block>
             <b class="close">x</b>
         </div>
 
