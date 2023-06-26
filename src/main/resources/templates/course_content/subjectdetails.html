@@ -18,13 +18,7 @@
 
 <body style="font-size:14px;">
 <!-- ================ HEADER ================ -->
-<th:block th:if="${userSession == null}">
-    <div th:insert="components/header"></div>
-</th:block>
-
-<th:block th:if="${userSession != null}">
-    <div th:insert="components/header_logged_in"></div>
-</th:block>
+<div th:insert="/components/header_logged_in"></div>
 <!-- ========== MAIN CONTENT ============ -->
 <section id="body">
     <div class="container-fluid">
@@ -35,13 +29,13 @@
             <table class="table">
                 <thead  class="text-center">
                 <th>
-                    <a th:href="@{'subject-detail?id='+${subject.id}}">Overview</a>
+                    <a th:href="@{'/admin/subject-detail?id='+${subject.id}}">Overview</a>
                 </th>
                 <th>
-                    <a th:href="@{'subject-pricepackage?sid='+${subject.id}}">Price Package</a>
+                    <a th:href="@{'/admin/subject-pricepackage?sid='+${subject.id}}">Price Package</a>
                 </th>
                 <th>
-                    <a href="/subject-dimension">Dimension</a>
+                    <a href="/admin/subject-dimension">Dimension</a>
                 </th>
             </table>
         </div>
@@ -74,7 +68,7 @@
 
                     <div class="mt-5 p-4 text-center">
                         <a href="/admin/subjects-list"><button class="btn btn-outline-dark" type="button">Back</button></a>
-                        <a th:href="@{'/subject-details-edit?id=' + ${subject.id}}"><button class="btn btn-outline-danger" type="button">Edit</button></a>
+                        <a th:href="@{'/admin/subject-details-edit?id=' + ${subject.id}}"><button class="btn btn-outline-danger" type="button">Edit</button></a>
                     </div>
                 </div>
             </form>
