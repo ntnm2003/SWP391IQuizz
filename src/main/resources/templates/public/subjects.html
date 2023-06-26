@@ -43,10 +43,8 @@
                                 </select>
                             </div>
                             <span th:each="category:${categories}">
-                                <div class="category-button" th:value="${category.id}" th:text="${category.name}" style="font-weight: bold;"></div>
-                                <div>
-                                    <input class="subcategory" type="checkbox" th:each="subcategory:${category.subCategories}" th:id="'subcategory_'+${subcategory.id}" th:value="${subcategory.id}" th:text="${subcategory.name}" onchange="navigateToInteract()" style="display: block; margin-bottom: 5px;">
-                                </div>
+                                <button class="category-button" th:value="${category.id}" th:text="${category.name}" th:attr="onclick=|getSubCategory('${category.id}')|"></button>
+                                <div th:id="'subcategoryContainer-' + ${category.id}"></div>
                             </span>
                         </div>
                     </div>
@@ -54,7 +52,7 @@
                         <div class="card mb-3" th:each="subject:${subjects}">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img th:src="@{'/database_images/'+${subject.thumbnail}}" onerror="this.src='/database_images/image-not-found-scaled.png';" class="img-fluid rounded-start" style="width: 248px; height: 139px;" th:alt="Image">
+                                    <img th:src="@{'/database_images/'+${subject.thumbnail}}" onerror="this.src='/database_images/image-not-found-scaled.png';" class="img-fluid rounded-start" th:alt="Image">
                                 </div>
                                 <div class="col-md-8">
                                 <div class="card-body">
