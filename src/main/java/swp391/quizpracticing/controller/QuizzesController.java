@@ -39,6 +39,7 @@ public class QuizzesController {
     @Autowired
     private IQuestionService iQuestionService;
     private final ILessonPropertiesRepository lessonPropertiesRepository;
+    private final IDimensionService iDimensionService;
     @GetMapping("/testingcontent/quizzeslist")
     public String quizList(HttpSession session,
                              Model model,
@@ -188,6 +189,19 @@ public class QuizzesController {
                 lessonPropertiesRepository.save(lessonProperties);
             }
         }
+        if (sortValue.equals("DOMAIN")){
+            List<String> topic = Arrays.stream(request.getParameterValues("domainSelect")).toList();
+            List<String> noQuestion=Arrays.stream(request.getParameterValues("noDomainQuestion")).toList();
+            for (int i=0; i<topic.size(); i++){
+                LessonProperties lessonProperties=new LessonProperties();
+                lessonProperties.setSortType(LessonProperties.SortType.DOMAIN);
+                lessonProperties.setLesson(lesson);
+                lessonProperties.setDimension(iDimensionService.getDimensionById(Integer.parseInt(topic.get(i))));
+                lessonProperties.setNoQuestion(Integer.parseInt(noQuestion.get(i)));
+                lessonPropertiesRepository.save(lessonProperties);
+            }
+        }
+
 
         return "redirect:/testingcontent/quizzeslist";
     }

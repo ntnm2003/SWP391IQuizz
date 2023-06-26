@@ -138,7 +138,7 @@ public class LessonService implements ILessonService {
                         .get("id"), subjectId));
             }
             if(quizTypeId!=null){
-                predicates.add(criteriaBuilder.equal(root.get("testtype")
+                predicates.add(criteriaBuilder.equal(root.get("testType")
                         .get("id"), quizTypeId));
             }
 
@@ -150,8 +150,7 @@ public class LessonService implements ILessonService {
             }
             return criteriaBuilder.and(predicates.toArray(Predicate[]::new));
         };
-        Page<Lesson> pageList=iLessonRepository.findAll(specification,page);
-        return pageList;
+        return iLessonRepository.findAll(specification,page);
     }
     @Override
     public void save(Lesson lesson){

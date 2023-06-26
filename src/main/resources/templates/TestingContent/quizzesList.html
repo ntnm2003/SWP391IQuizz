@@ -65,7 +65,6 @@
                 <th>Name</th>
                 <th>Subject</th>
                 <th>Level</th>
-                <th># question</th>
                 <th>Duration</th>
                 <th>Pass rate</th>
                 <th>Quiz types</th>
@@ -79,7 +78,6 @@
                 <td th:text="${les.name}"></td>
                 <td th:text="${les.subject.briefInfo}"></td>
                 <td th:text="${les.level.name}"></td>
-                <td th:text="${numberQuestion[num.index]}"></td>
                 <td th:text="${les.duration}"></td>
                 <td th:text="${les.passRate}"></td>
                 <td th:text="${les.testType.name}"></td>
@@ -129,7 +127,6 @@
                         <option value="name">Sort by quiz name</option>
                         <option value="subject">Sort by subject</option>
                         <option value="level">Sort by level</option>
-                        <option value="questionNumber">Sort by questionNumber</option>
                         <option value="duration">Sort by duration</option>
                         <option value="testtype">Sort by Quiz type</option>
                     </select>
