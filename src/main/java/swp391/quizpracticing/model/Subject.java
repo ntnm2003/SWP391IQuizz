@@ -58,9 +58,12 @@ public class Subject {
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinColumn(name = "dimension_id", referencedColumnName = "id")
-    private Dimension dimension;
+    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinTable(name = "subject_dimension",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "dimension_id")
+    )
+    private List<Dimension> dimension;
 
     @OneToMany(mappedBy = "subject", cascade=CascadeType.MERGE)
     private List<Pricepackage> pricepackages;

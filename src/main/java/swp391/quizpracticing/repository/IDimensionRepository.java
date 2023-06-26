@@ -28,4 +28,6 @@ public interface IDimensionRepository extends JpaRepository<Dimension,Integer> {
 
     @Override
     List<Dimension> findAllById(Iterable<Integer> integers);
+
+    List<Dimension> findBySubjects_Id(Integer subjectId);
 }
