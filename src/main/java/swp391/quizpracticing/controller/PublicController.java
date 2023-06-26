@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import swp391.quizpracticing.dto.CategoryDTO;
+import swp391.quizpracticing.dto.PricepackageDTO;
 import swp391.quizpracticing.dto.SubcategoryDTO;
 import swp391.quizpracticing.dto.SubjectDTO;
 import swp391.quizpracticing.dto.UserDTO;
 import swp391.quizpracticing.service.ICategoryService;
+import swp391.quizpracticing.service.IPricepackageService;
 import swp391.quizpracticing.service.ISubcategoryService;
 import swp391.quizpracticing.service.ISubjectService;
 import swp391.quizpracticing.service.IUserService;
@@ -38,6 +40,9 @@ public class PublicController {
     
     @Autowired
     private ICategoryService categoryService;
+    
+    @Autowired
+    private IPricepackageService pricePackageService;
     
     @Autowired
     private ISubcategoryService subCategoryService;
@@ -83,6 +88,16 @@ public class PublicController {
         List<SubjectDTO> subjectList=page
                 .stream()
                 .collect(Collectors.toList());
+        for(SubjectDTO subject:subjectList){
+            List<PricepackageDTO> pricePackages=pricePackageService
+                    .getBySubjectId(subject.getId());
+            Float listPrice=pricePackages.get(0).getListPrice();
+            Float salePrice=pricePackages.get(0).getSalePrice();
+            model.addAttribute("subjectListPrice_"+subject.getId(), 
+                    listPrice);
+            model.addAttribute("subjectSalePrice_"+subject.getId(), 
+                    salePrice);
+        }
         List<CategoryDTO> categoryList=categoryService.findAll();
         model.addAttribute("userSession", 
                 session.getAttribute("user"));
