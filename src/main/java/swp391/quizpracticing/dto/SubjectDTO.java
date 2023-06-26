@@ -1,7 +1,6 @@
 package swp391.quizpracticing.dto;
 
-import java.sql.Timestamp;
-import java.util.List;
+import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +17,10 @@ public class SubjectDTO {
     private String description;
     private String thumbnail;
     private Boolean status;
-    private Timestamp createdTime;
+    private Date createdTime;
+    private Date lastUpdatedTime;
     private UserDTO owner;
     private DimensionDTO dimension;
-    private List<PricepackageDTO> pricePackage;
-    private List<UserSubjectDTO>userSubjects;
-    private List<SubcategoryDTO>subCategories;
-    private List<LessonDTO>lessons;
     private Boolean featured;
     private String tagLine;
 
