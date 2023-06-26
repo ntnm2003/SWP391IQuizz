@@ -5,7 +5,7 @@
 package swp391.quizpracticing.controller;
 
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,8 +76,12 @@ public class PublicController {
             @RequestParam(name = "search", required = false) String search,
             @RequestParam(name = "order", defaultValue = "asc") String order,
             @RequestParam(name = "subCategory", required = false) 
-                    List<Integer> subCategories){
+                    Integer[] subCategoriesArray){
         int pageSize = 6;
+        List<Integer> subCategories=null;
+        if(subCategoriesArray!=null){
+            subCategories=Arrays.asList(subCategoriesArray);
+        }
         Page<SubjectDTO> page=subjectService.findAll(pageNo, pageSize, search, 
                 order, subCategories);
         Integer totalPages=page.getTotalPages();
@@ -106,12 +110,5 @@ public class PublicController {
         model.addAttribute("pageNo", pageNo);
         model.addAttribute("totalPages", totalPages);
         return "/public/subjects";
-    }
-    
-    @GetMapping("/subCategories")
-    @ResponseBody
-    public List<SubcategoryDTO> getSubcategories(
-            @RequestParam("categoryId") Integer categoryId){
-        return subCategoryService.findByCategoryId(categoryId);
     }
 }
