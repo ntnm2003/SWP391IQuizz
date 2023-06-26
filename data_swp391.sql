@@ -1,5 +1,5 @@
--- drop database iquiz;
--- create database iquiz;
+# drop database iquiz;
+# create database iquiz;
 
 use iquiz;
 
@@ -83,43 +83,43 @@ INSERT INTO `iquiz`.`subject`
   `title`, `created_time`, `status`,
   `owner_id`)
 VALUES
-  ('Introduction to Calculus', 'Learn the basics of calculus, including limits, derivatives, and integrals.', 'https://example.com/thumbnails/calculus.jpg', 'Calculus', '2023-03-02', 1, 1, 4),
-  ('Statistics for Data Analysis', 'Learn the basics of statistical analysis, including probability distributions and hypothesis testing.', 'https://example.com/thumbnails/stats.jpg', 'Statistics', '2023-04-02',  1, 1, 4),
-  ('Finance Fundamentals', 'An introduction to financial concepts such as accounting, budgeting, and investment strategies.', 'https://example.com/thumbnails/finance.jpg', 'Finance', '2023-03-31',  1, 2, 4),
-  ('Marketing Principles', 'Learn the basics of marketing, including market research, branding, and promotional strategies.', 'https://example.com/thumbnails/marketing.jpg', 'Marketing', '2023-04-04',  1, 2, 4),
-  ('Art History', 'A comprehensive study of art throughout history, including major movements, styles, and artists.', 'https://example.com/thumbnails/art_history.jpg', 'Art History', '2023-02-02',  1, 2, 4),
-  ('Creative Writing', 'Learn how to write fiction, poetry, and creative nonfiction. Explore different writing styles and techniques.', 'https://example.com/thumbnails/creative_writing.jpg', 'Creative Writing', '2023-02-06',  1, 3, 4),
-  ('Public Speaking Skills', 'Develop effective public speaking skills and techniques, including audience analysis, delivery, and persuasion.', 'https://example.com/thumbnails/public_speaking.jpg', 'Public Speaking', '2022-12-02',  1, 4, 5),
-  ('Critical Thinking', 'Learn how to analyze and evaluate arguments, make sound decisions, and develop logical reasoning skills.', 'https://example.com/thumbnails/critical_thinking.jpg', 'Critical Thinking', '2022-12-25',  1, 3, 4),
-  ('Psychology Basics', 'An introduction to the fundamental concepts of psychology, such as perception, learning, memory, and motivation.', 'https://example.com/thumbnails/psychology.jpg', 'Psychology', '2023-05-02',  1, 3, 5),
-  ('Sociology Fundamentals', 'Learn about the social structures and dynamics of human societies, including topics such as culture, inequality, and social change.', 'https://example.com/thumbnails/sociology.jpg', 'Sociology', '2023-01-02',  1, 3, 5),
-  ('Political Science Basics', 'An introduction to the study of politics and government, including different political systems, ideologies, and international relations.', 'https://example.com/thumbnails/political_science.jpg', 'Political Science', '2023-03-21',  1, 4, 5),
-  ('Philosophy for Beginners', 'Explore the major philosophical questions and ideas, such as ethics, metaphysics, and epistemology.', 'https://example.com/thumbnails/philosophy.jpg', 'Philosophy', '2023-05-02',  1, 4, 5),
-  ('World Religions', 'A comparative study of the major world religions, including their beliefs, practices, and historical development.', 'https://example.com/thumbnails/religion.jpg', 'World Religions', '2023-01-20',  1, 4, 5),
-  ('Artificial Intelligence Applications', 'Learn about the practical applications of artificial intelligence in fields such as healthcare, finance, and robotics.', 'https://example.com/thumbnails/ai_applications.jpg', 'AI Applications', '2023-03-02',  1, 4, 6),
-  ('Database Design and Management', 'A deeper dive into database design and management, covering advanced SQL queries, normalization, and performance tuning.', 'https://example.com/thumbnails/dbms_advanced.jpg', 'Advanced Database Management', '2022-09-02',  1, 5, 6),
-  ('Web Development with Frameworks', 'Learn how to build web applications using popular frameworks such as React, Angular, and Vue.', 'https://example.com/thumbnails/frameworks.jpg', 'Web Development with Frameworks','2023-03-20',  1, 5, 6),
-  ('Mobile App Development', 'Learn how to develop mobile apps for iOS and Android platforms using native languages or cross-platform tools.', 'https://example.com/thumbnails/mobile_dev.jpg', 'Mobile App Development', '2023-02-20',  1, 5, 6),
-  ('Cybersecurity Basics', 'An introduction to cybersecurity principles, including risk assessment, threat modeling, and defense strategies.', 'https://example.com/thumbnails/cybersecurity.jpg', 'Cybersecurity', '2023-04-02',  1, 6, 7),
-  ('An introduction to Algebra', 'This subject covers the basics of algebraic equations and their solutions.', 'https://example.com/thumbnails/algebra.jpg', 'Algebra', '2023-04-02',  1, 5, 8),
-  ('Introduction to Geometry', 'This subject covers the basics of geometric shapes, angles, and measurements.', 'https://example.com/thumbnails/geometry.jpg', 'Geometry', '2023-03-20',  1, 5, 6),
-  ('Trigonometry for Beginners', 'This subject covers the basics of trigonometric functions and their applications in real life.', 'https://example.com/thumbnails/trigonometry.jpg', 'Trigonometry','2023-03-02',  1, 4, 6),
-  ('World War II History', 'A comprehensive study of World War II, including key events, causes, and consequences.', 'https://example.com/thumbnails/ww2.jpg', 'World War II', '2023-05-02',  1, 4, 5),
-  ('American Revolution', 'A comprehensive study of the American revolution, including key events, causes, and consequences.', 'https://example.com/thumbnails/amrev.jpg', 'American Revolution', '2023-01-02',  1, 3, 5),
-  ('Ancient Civilizations: Egypt and Mesopotamia', 'A study of the ancient civilizations of Egypt and Mesopotamia, including their culture, religion, and achievements.', 'https://example.com/thumbnails/ancient_civ.jpg', 'Ancient Civilizations', '2023-05-02',  1, 3, 5),
-  ('Goal Setting for Success', 'Learn how to set achievable goals and develop a plan to achieve them.', 'https://example.com/thumbnails/goal_setting.jpg', 'Goal Setting',  '2022-12-02',  1, 4, 5),
-  ('Planning Techniques for Better Time Management', 'Learn effective planning techniques to manage your time more efficiently.', 'https://example.com/thumbnails/planning.jpg', 'Planning',  '2022-12-02',  1, 4, 5),
-  ('Prioritization Strategies', 'Learn how to prioritize tasks and make informed decisions about how to allocate your time and resources.', 'https://example.com/thumbnails/prioritization.jpg', 'Prioritization', '2023-03-02',  1, 4, 6),
-  ('Improving Productivity', 'Learn techniques and strategies to improve your productivity and get more done in less time.', 'https://example.com/thumbnails/productivity.jpg', 'Productivity','2023-03-20',  1, 4, 8),
-  ('Human Anatomy Basics', 'Learn the basic anatomy of the human body, including its organs, systems, and functions.', 'https://example.com/thumbnails/human_anatomy.jpg', 'Human Anatomy','2023-04-20',  1, 3, 8),
-  ('Introduction to Genetics', 'Learn the basics of genetics, including DNA structure, inheritance patterns, and mutations.', 'https://example.com/thumbnails/genetics.jpg', 'Genetics','2023-02-20',  1, 6, 8),
-  ('Ecology and Environmental Science', 'Study the relationship between living organisms and their environment, and learn about topics such as climate change, conservation, and sustainability.', 'https://example.com/thumbnails/ecology.jpg', 'Ecology','2023-04-10',  1, 2, 7),
-  ('Artificial Intelligence Fundamentals', 'Learn the basics of artificial intelligence, including machine learning, neural networks, and natural language processing.', 'https://example.com/thumbnails/ai.jpg', 'Artificial Intelligence', '2023-05-03',  1, 5, 7),
-  ('Introduction to Database Management', 'Learn the basics of database design, management, and querying using SQL.', 'https://example.com/thumbnails/dbms.jpg', 'Database Management', '2023-02-28',  1, 5, 8),
-  ('Web Development Fundamentals', 'Learn the basics of web development, including HTML, CSS, and JavaScript.', 'https://example.com/thumbnails/webdev.jpg', 'Web Development','2023-04-02',  1, 3, 7),
-  ('Advanced Algebra', 'A more advanced study of algebraic equations, including higher-degree polynomials and complex numbers.', 'https://example.com/thumbnails/adv_algebra.jpg', 'Advanced Algebra', '2023-01-22',  1, 6, 7),
-  ('Geometry in Three Dimensions', 'An introduction to three-dimensional geometry, including vectors, planes, and surfaces.', 'https://example.com/thumbnails/3d_geometry.jpg', 'Three-Dimensional Geometry', '2023-04-02',  1, 4, 8),
-  ('Trigonometry in Real Life Applications', 'Learn how trigonometric functions are used in practical applications such as navigation, engineering, and physics.', 'https://example.com/thumbnails/trig_applications.jpg', 'Trigonometry Applications', '2023-02-22',  1, 6, 6);
+  ('Introduction to Calculus', 'Learn the basics of calculus, including limits, derivatives, and integrals.', 'https://example.com/thumbnails/calculus.jpg', 'Calculus', '2023-03-02', 1, 4),
+  ('Statistics for Data Analysis', 'Learn the basics of statistical analysis, including probability distributions and hypothesis testing.', 'https://example.com/thumbnails/stats.jpg', 'Statistics', '2023-04-02',  1, 4),
+  ('Finance Fundamentals', 'An introduction to financial concepts such as accounting, budgeting, and investment strategies.', 'https://example.com/thumbnails/finance.jpg', 'Finance', '2023-03-31',  1, 4),
+  ('Marketing Principles', 'Learn the basics of marketing, including market research, branding, and promotional strategies.', 'https://example.com/thumbnails/marketing.jpg', 'Marketing', '2023-04-04',  1, 4),
+  ('Art History', 'A comprehensive study of art throughout history, including major movements, styles, and artists.', 'https://example.com/thumbnails/art_history.jpg', 'Art History', '2023-02-02', 1, 4),
+  ('Creative Writing', 'Learn how to write fiction, poetry, and creative nonfiction. Explore different writing styles and techniques.', 'https://example.com/thumbnails/creative_writing.jpg', 'Creative Writing', '2023-02-06', 1, 4),
+  ('Public Speaking Skills', 'Develop effective public speaking skills and techniques, including audience analysis, delivery, and persuasion.', 'https://example.com/thumbnails/public_speaking.jpg', 'Public Speaking', '2022-12-02',  1, 5),
+  ('Critical Thinking', 'Learn how to analyze and evaluate arguments, make sound decisions, and develop logical reasoning skills.', 'https://example.com/thumbnails/critical_thinking.jpg', 'Critical Thinking', '2022-12-25',  1, 4),
+  ('Psychology Basics', 'An introduction to the fundamental concepts of psychology, such as perception, learning, memory, and motivation.', 'https://example.com/thumbnails/psychology.jpg', 'Psychology', '2023-05-02',  1, 5),
+  ('Sociology Fundamentals', 'Learn about the social structures and dynamics of human societies, including topics such as culture, inequality, and social change.', 'https://example.com/thumbnails/sociology.jpg', 'Sociology', '2023-01-02',  1, 5),
+  ('Political Science Basics', 'An introduction to the study of politics and government, including different political systems, ideologies, and international relations.', 'https://example.com/thumbnails/political_science.jpg', 'Political Science', '2023-03-21',  1, 5),
+  ('Philosophy for Beginners', 'Explore the major philosophical questions and ideas, such as ethics, metaphysics, and epistemology.', 'https://example.com/thumbnails/philosophy.jpg', 'Philosophy', '2023-05-02',  1, 5),
+  ('World Religions', 'A comparative study of the major world religions, including their beliefs, practices, and historical development.', 'https://example.com/thumbnails/religion.jpg', 'World Religions', '2023-01-20',  1, 5),
+  ('Artificial Intelligence Applications', 'Learn about the practical applications of artificial intelligence in fields such as healthcare, finance, and robotics.', 'https://example.com/thumbnails/ai_applications.jpg', 'AI Applications', '2023-03-02',  1, 6),
+  ('Database Design and Management', 'A deeper dive into database design and management, covering advanced SQL queries, normalization, and performance tuning.', 'https://example.com/thumbnails/dbms_advanced.jpg', 'Advanced Database Management', '2022-09-02',  1, 6),
+  ('Web Development with Frameworks', 'Learn how to build web applications using popular frameworks such as React, Angular, and Vue.', 'https://example.com/thumbnails/frameworks.jpg', 'Web Development with Frameworks','2023-03-20',  1, 6),
+  ('Mobile App Development', 'Learn how to develop mobile apps for iOS and Android platforms using native languages or cross-platform tools.', 'https://example.com/thumbnails/mobile_dev.jpg', 'Mobile App Development', '2023-02-20',  1, 6),
+  ('Cybersecurity Basics', 'An introduction to cybersecurity principles, including risk assessment, threat modeling, and defense strategies.', 'https://example.com/thumbnails/cybersecurity.jpg', 'Cybersecurity', '2023-04-02',  1, 7),
+  ('An introduction to Algebra', 'This subject covers the basics of algebraic equations and their solutions.', 'https://example.com/thumbnails/algebra.jpg', 'Algebra', '2023-04-02',  1, 8),
+  ('Introduction to Geometry', 'This subject covers the basics of geometric shapes, angles, and measurements.', 'https://example.com/thumbnails/geometry.jpg', 'Geometry', '2023-03-20',  1, 6),
+  ('Trigonometry for Beginners', 'This subject covers the basics of trigonometric functions and their applications in real life.', 'https://example.com/thumbnails/trigonometry.jpg', 'Trigonometry','2023-03-02',  1, 6),
+  ('World War II History', 'A comprehensive study of World War II, including key events, causes, and consequences.', 'https://example.com/thumbnails/ww2.jpg', 'World War II', '2023-05-02',  1, 5),
+  ('American Revolution', 'A comprehensive study of the American revolution, including key events, causes, and consequences.', 'https://example.com/thumbnails/amrev.jpg', 'American Revolution', '2023-01-02',  1, 5),
+  ('Ancient Civilizations: Egypt and Mesopotamia', 'A study of the ancient civilizations of Egypt and Mesopotamia, including their culture, religion, and achievements.', 'https://example.com/thumbnails/ancient_civ.jpg', 'Ancient Civilizations', '2023-05-02',  1, 5),
+  ('Goal Setting for Success', 'Learn how to set achievable goals and develop a plan to achieve them.', 'https://example.com/thumbnails/goal_setting.jpg', 'Goal Setting',  '2022-12-02',  1, 5),
+  ('Planning Techniques for Better Time Management', 'Learn effective planning techniques to manage your time more efficiently.', 'https://example.com/thumbnails/planning.jpg', 'Planning',  '2022-12-02',  1, 5),
+  ('Prioritization Strategies', 'Learn how to prioritize tasks and make informed decisions about how to allocate your time and resources.', 'https://example.com/thumbnails/prioritization.jpg', 'Prioritization', '2023-03-02',  1, 6),
+  ('Improving Productivity', 'Learn techniques and strategies to improve your productivity and get more done in less time.', 'https://example.com/thumbnails/productivity.jpg', 'Productivity','2023-03-20',  1, 8),
+  ('Human Anatomy Basics', 'Learn the basic anatomy of the human body, including its organs, systems, and functions.', 'https://example.com/thumbnails/human_anatomy.jpg', 'Human Anatomy','2023-04-20',  1, 8),
+  ('Introduction to Genetics', 'Learn the basics of genetics, including DNA structure, inheritance patterns, and mutations.', 'https://example.com/thumbnails/genetics.jpg', 'Genetics','2023-02-20',  1, 8),
+  ('Ecology and Environmental Science', 'Study the relationship between living organisms and their environment, and learn about topics such as climate change, conservation, and sustainability.', 'https://example.com/thumbnails/ecology.jpg', 'Ecology','2023-04-10',  1, 7),
+  ('Artificial Intelligence Fundamentals', 'Learn the basics of artificial intelligence, including machine learning, neural networks, and natural language processing.', 'https://example.com/thumbnails/ai.jpg', 'Artificial Intelligence', '2023-05-03',  1, 7),
+  ('Introduction to Database Management', 'Learn the basics of database design, management, and querying using SQL.', 'https://example.com/thumbnails/dbms.jpg', 'Database Management', '2023-02-28',  1, 8),
+  ('Web Development Fundamentals', 'Learn the basics of web development, including HTML, CSS, and JavaScript.', 'https://example.com/thumbnails/webdev.jpg', 'Web Development','2023-04-02',  1, 7),
+  ('Advanced Algebra', 'A more advanced study of algebraic equations, including higher-degree polynomials and complex numbers.', 'https://example.com/thumbnails/adv_algebra.jpg', 'Advanced Algebra', '2023-01-22',  1, 7),
+  ('Geometry in Three Dimensions', 'An introduction to three-dimensional geometry, including vectors, planes, and surfaces.', 'https://example.com/thumbnails/3d_geometry.jpg', 'Three-Dimensional Geometry', '2023-04-02',  1, 8),
+  ('Trigonometry in Real Life Applications', 'Learn how trigonometric functions are used in practical applications such as navigation, engineering, and physics.', 'https://example.com/thumbnails/trig_applications.jpg', 'Trigonometry Applications', '2023-02-22',  1, 6);
 
 update iquiz.subject
 set featured = 1 where id=1;
@@ -154,6 +154,10 @@ where id = 15;
 update iquiz.subject
 set brief_info = 'Mastering Communication Skills'
 where id = 17;
+
+update iquiz.subject
+set status = 0
+where id = 37;
 
 INSERT INTO `iquiz`.`pricepackage`
 (
