@@ -19,19 +19,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.quizpracticing.dto.*;
 import swp391.quizpracticing.model.*;
-import swp391.quizpracticing.repository.IBlogRepository;
 import swp391.quizpracticing.repository.ISubjectRepository;
 import swp391.quizpracticing.service.*;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -814,6 +812,10 @@ public class CourseContentController {
             newSubject.setOwner(iUserService.getByUserId(ownerId));
             newSubject.setSubCategories(subcategories);
             newSubject.setThumbnail(fileName);
+            Date createdTime=Date.valueOf(LocalDate.now());
+            newSubject.setCreatedTime(createdTime);
+            Date lastUpdatedTime=Date.valueOf(LocalDate.now());;
+            newSubject.setLastUpdatedTime(lastUpdatedTime);
 
             newSubject = iSubjectRepository.save(newSubject);
 
