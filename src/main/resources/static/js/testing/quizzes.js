@@ -1,6 +1,6 @@
 function setPageFilters() {
     const urlParams = new URLSearchParams(window.location.search);
-    const type = urlParams.get("testtype");
+    const type = urlParams.get("type");
     const subject = urlParams.get("subject");
     const sortBy = urlParams.get("sortBy");
     const order = urlParams.get("order");
@@ -38,7 +38,7 @@ function navigateToInteract() {
         filters.push("searchValue=" + searchValue);
     }
     if (type) {
-        filters.push("type=" + type);
+        filters.push("testtype=" + type);
     }
 
     if (subject) {
@@ -71,7 +71,7 @@ function moveOn(pageNo){
         filters.push("searchValue=" + searchValue);
     }
     if (type) {
-        filters.push("type=" + type);
+        filters.push("testtype=" + type);
     }
 
     if (subject) {
@@ -103,7 +103,7 @@ function moveBack(pageNo){
         filters.push("searchValue=" + searchValue);
     }
     if (type) {
-        filters.push("type=" + type);
+        filters.push("testtype=" + type);
     }
 
     if (subject) {
